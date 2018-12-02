@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: schedule-spring-boot-app
+  profiles:
+    active: dev
+  main:
+    banner-mode: "off"
+
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://mysql-container:3306/schedule_boot?useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: vitgon
+    password: 1111
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create

@@ -1,0 +1,1 @@
+INSERT INTO locales (id, name, code) VALUES (1, 'russian', 'ru_RU')

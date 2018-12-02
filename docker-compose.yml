@@ -1,0 +1,27 @@
+version: "2"
+services:
+  mysql-container:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./docker/database/Dockerfile
+    image: vitgon/schedule-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=123123
+      - MYSQL_DATABASE=schedule_boot
+      - MYSQL_USER=vitgon
+      - MYSQL_PASSWORD=1111
+    volumes:
+      - //c/Users/User/database:/var/lib/mysql
+    ports:
+      - 3306:3306
+  spring-boot-app:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./docker/spring-app/Dockerfile
+    image: vitgon/schedule-web
+    depends_on:
+      - mysql-container
+    ports:
+      - 8082:8080
