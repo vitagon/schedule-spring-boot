@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../static/css/bootstrap.css"
+	th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" href="../static/css/main.css"
+	th:href="@{/css/main.css}" />
+<title>DVFU SCHEDULE</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand dvfu-logo-wrap" href="#"><img
+			class="dvfu-logo" src="" alt="" th:src="@{/img/dvfu_logo.png}" /></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown"><a href="" th:href="@{/schools}"
+					th:text="Школы"></a></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<div class="container" style="padding-top: 2em">
+		<div class="info">
+			<img alt=""
+				src="http://vladivostok.travel/upload/resize_cache/iblock/5af/800_450_2/5af2cd1cfc1918546d093a19d3f13bab.jpg">
+			<p>На данном сайте размещены графики учебного процесса
+				направлений ДВФУ.</p>
+
+			<p>Для просмотра расписания необходимо выбрать школу в шапке
+				сайта, а затем выбрать необходимое направление подготовки.</p>
+		</div>
+	</div>
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../static/js/popper.js" th:src="@{/js/popper.js}"></script>
+	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

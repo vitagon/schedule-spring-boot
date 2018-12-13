@@ -1,0 +1,14 @@
+.dvfu-logo-wrap {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.dvfu-logo {
+	width: 29px;
+	height: auto;
+}
+.info img {
+	width: 100%;
+	height: 300px;
+	border-radius: .25em;
+	object-fit: cover;
+}

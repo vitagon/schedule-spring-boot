@@ -15,5 +15,5 @@ public abstract class BaseModel<T> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private T id;
+	protected T id;
 }

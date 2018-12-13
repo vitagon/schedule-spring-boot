@@ -36,6 +36,15 @@ public class School extends BaseModel<Integer> {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "school")
 	private List<SchoolTranslation> schoolTranslations = new ArrayList<>();
+	
+	public School(String url) {
+		this.url = url;
+	}
+	
+	public School(Integer id, String url) {
+		this.id = id;
+		this.url = url;
+	}
 
 	public School(String url, List<Major> majors) {
 		this.url = url;
