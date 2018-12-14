@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="layouts/_header"></div>
+</head>
+<body>
+	<div th:replace="layouts/_menu"></div>
+	
+	<div class="container" style="padding-top: 2em">
+		<div class="row">
+			<div class="accordion" id="accordionExample">
+				<div class="card" th:each="school: ${schools}">
+					<div class="card-header"
+						th:id="${'school_' + school.value.id + '_header'}">
+						<h5 class="mb-0">
+							<button class="btn btn-link" type="button" data-toggle="collapse"
+								th:data-target="${'#school_' + school.value.id + '_collapse'}"
+								aria-expanded="true"
+								th:aria-controls="${'school_' + school.value.id + '_collapse'}"
+								th:text="${school.value.title}">Collapsible Group Item #1
+							</button>
+						</h5>
+					</div>
+
+					<div th:id="${'school_' + school.value.id + '_collapse'}"
+						class="collapse"
+						th:aria-labelledby="${'school_' + school.value.id + '_header'}"
+						data-parent="#accordionExample">
+						<div class="card-body">
+							<ul>
+								<li th:each="major: ${school.value.majors}" th:text="${major}"></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../static/js/popper.js" th:src="@{/js/popper.js}"></script>
+	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

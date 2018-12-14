@@ -45,4 +45,20 @@ public class LocaleServiceImpl implements LocaleService {
 	public Locale findByCode(String code) {
 		return localeDao.findByCode(code);
 	}
+	
+	@Override
+	public Locale get(String lang) {
+		Locale locale = null;
+		switch (lang) {
+			case "ru": {
+				locale = findByCode("ru_RU");
+				break;
+			}
+			default: {
+				locale = findByCode("en_US");
+				break;
+			}
+		}
+		return locale;
+	}
 }

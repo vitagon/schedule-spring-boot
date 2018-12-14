@@ -1,5 +1,5 @@
-INSERT INTO locales (id, name, code) VALUES (1, 'russian', 'ru_RU')
-INSERT INTO locales (id, name, code) VALUES (2, 'english', 'en_US')
+INSERT INTO locales (id, code) VALUES (1, 'ru')
+INSERT INTO locales (id, code) VALUES (2, 'en')
 
 INSERT INTO school (id, url) VALUES (1, 'school_of_economics_and_management')
 INSERT INTO school_translations (school_id, locale_id, title) VALUES (1, 1, 'школа экономики и менеджмента')

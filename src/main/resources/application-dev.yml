@@ -13,6 +13,14 @@ spring:
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
   thymeleaf: 
     cache: false
+    encoding: UTF-8
+  messages:
+    encoding: UTF-8
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
@@ -20,4 +28,6 @@ logging:
     org:
       hibernate:
         SQL: debug
+app:
+  title: 'DVFU SCHEDULE'
     

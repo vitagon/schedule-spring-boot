@@ -5,16 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.model.translation.SchoolTranslation;
 
 public class TestStream {
 	public static void main(String[] args) {
-		Locale locale = new Locale("english", "en_US");
-		Locale locale1 = new Locale("russian", "ru_RU");
+		Locale locale = new Locale("en");
+		Locale locale1 = new Locale("ru");
 		SchoolTranslation st1 = new SchoolTranslation(null, locale, "azaza1");
 		SchoolTranslation st2 = new SchoolTranslation(null, locale1, "azaza23553");
-		School school = new School("azal_lalka_url");
 		
 		List<SchoolTranslation> schoolTransl = new ArrayList<>();
 		schoolTransl.add(st1);

@@ -23,7 +23,7 @@ public class LocaleController {
 	@GetMapping("/create")
 	public void createEvent() {
 		
-		Locale locale = new Locale("english", "en_US");
+		Locale locale = new Locale("en");
 		logger.info("Creating locale ... {}", locale);
 		localeService.save(locale);
 	}
