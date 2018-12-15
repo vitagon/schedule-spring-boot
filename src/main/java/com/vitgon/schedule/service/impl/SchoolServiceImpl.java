@@ -60,9 +60,9 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public Map<Integer, Map<String, Object>> findAllByLocale(Locale locale) {
+	public Map<School, Map<String, Object>> findAllByLocale(Locale locale) {
 		List<School> schools = schoolDao.findAllByLocale(locale);
-		Map<Integer, Map<String, Object>> schoolsMap = new HashMap<>();
+		Map<School, Map<String, Object>> schoolsMap = new HashMap<>();
 		
 		for (School school : schools) {
 			Map<String, Object> schoolMap = new HashMap<>();
@@ -76,19 +76,23 @@ public class SchoolServiceImpl implements SchoolService {
 			
 			List<Major> majors = school.getMajors();
 			if (majors != null) {
-				List<String> majorsList = new ArrayList<>();
+				List<Map<String,Object>> majorsList = new ArrayList<>();
 				for (Major major : majors) {
-					majorsList.add(major.getMajorTranslations().stream()
+					Map<String, Object> majorMap = new HashMap<>();
+					majorMap.put("title", major.getMajorTranslations().stream()
 							.filter(x -> locale == x.getLocale())
 							.map(MajorTranslation::getTitle)
 							.findFirst().get()
 					);
+					majorMap.put("url", major.getUrl());
+					
+					majorsList.add(majorMap);
 				}
 				schoolMap.put("majors", majorsList);
 			}
 			
 			
-			schoolsMap.put(school.getId(), schoolMap);
+			schoolsMap.put(school, schoolMap);
 		}
 		return schoolsMap;
 	}

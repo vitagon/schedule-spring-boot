@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,8 +34,8 @@ public class Group extends BaseModel<Integer> {
 	private int courseNum;
 	
 	@JsonIgnore
-	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name="major_id")
 	private Major major;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)

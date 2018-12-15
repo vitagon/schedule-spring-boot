@@ -7,4 +7,5 @@ import com.vitgon.schedule.model.Major;
 
 @Repository
 public interface MajorDao extends JpaRepository<Major, Integer>{
+	Major findByUrl(String url);
 }

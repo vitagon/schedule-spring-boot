@@ -35,6 +35,6 @@ public class AppConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		UrlLocaleInterceptor localeInterceptor = new UrlLocaleInterceptor();
 
-		registry.addInterceptor(localeInterceptor).addPathPatterns("/en/*", "/ru/*");
+		registry.addInterceptor(localeInterceptor).addPathPatterns("/en/**", "/ru/**");
 	}
 }

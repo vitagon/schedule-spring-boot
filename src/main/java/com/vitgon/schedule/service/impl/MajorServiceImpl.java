@@ -17,16 +17,14 @@ import com.vitgon.schedule.service.MajorService;
 public class MajorServiceImpl implements MajorService {
 
 	@Autowired
-	private final MajorDao majorDao;
+	private MajorDao majorDao;
 	
 	@Autowired
-	private final MajorTranslationDao majorTranslDao;
+	private MajorTranslationDao majorTranslDao;
 	
-	public MajorServiceImpl(MajorDao majorDao, MajorTranslationDao majorTranslDao) {
-		this.majorDao = majorDao;
-		this.majorTranslDao = majorTranslDao;
+	public MajorServiceImpl() {
 	}
-	
+
 	@Override
 	public Major save(Major obj) {
 		return majorDao.save(obj);
@@ -51,5 +49,10 @@ public class MajorServiceImpl implements MajorService {
 	public Major findByTitle(String title) {
 		MajorTranslation majorTransl = majorTranslDao.findByTitle(title);
 		return majorTransl.getMajor();
+	}
+	
+	@Override
+	public Major findByUrl(String url) {
+		return majorDao.findByUrl(url);
 	}
 }

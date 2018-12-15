@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.vitgon.schedule.controller.BaseController;
 import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SchoolService;
 
@@ -27,7 +28,8 @@ public class SchoolsPageController extends BaseController {
 	public String showSchoolsPage(HttpServletRequest request, Model model) {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		Locale locale = localeService.findByCode(loc.getLanguage());
-		Map<Integer, Map<String,Object>> schools = schoolService.findAllByLocale(locale);
+		
+		Map<School, Map<String,Object>> schools = schoolService.findAllByLocale(locale);
 		model.addAttribute("schools", schools);
 		return "schools";
 	}

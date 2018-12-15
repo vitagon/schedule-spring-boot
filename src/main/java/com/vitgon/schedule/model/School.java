@@ -13,6 +13,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.vitgon.schedule.model.translation.SchoolTranslation;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.ToString;
 @ToString(exclude = {"majors"})
 @Entity
 @Table(name = "school")
+@EqualsAndHashCode(callSuper=false, of = {"url", "majors"})
 public class School extends BaseModel<Integer> {
 	
 	@Column(name = "url")

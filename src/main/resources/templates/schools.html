@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<div th:replace="layouts/_header"></div>
+	<div th:replace="layouts/_head"></div>
 </head>
 <body>
 	<div th:replace="layouts/_menu"></div>
@@ -28,7 +28,12 @@
 						data-parent="#accordionExample">
 						<div class="card-body">
 							<ul>
-								<li th:each="major: ${school.value.majors}" th:text="${major}"></li>
+								<li th:each="major: ${school.value.majors}">
+									<a href=""
+										th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/schools/__${school.key.url}__/major/__${major.get('url')}__}"
+										th:text="${major.get('title')}">
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -37,8 +42,6 @@
 		</div>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="../static/js/popper.js" th:src="@{/js/popper.js}"></script>
-	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+	<div th:replace="layouts/_footer"></div>
 </body>
 </html>

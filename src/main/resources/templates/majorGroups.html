@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="layouts/_head"></div>
+</head>
+<body>
+	<div th:replace="layouts/_menu :: menu"></div>
+	
+	<div class="container" style="padding-top: 2em">
+		<div class="courseGroups" th:each="courseMap:  ${coursesMap}">
+			<h3 th:text="${courseMap.key} +' '+ #{courseTitle}"></h3>
+			<ul class="nav">
+				<li class="nav-item" >
+					<a href="#" th:text="${courseMap.value.title}"></a>
+				</li>
+			</ul>
+			<br>
+		</div>
+	</div>
+	
+	<div th:replace="layouts/_footer"></div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SchoolService;
 
@@ -22,7 +23,7 @@ public class SchoolController {
 	private LocaleService localeService;
 	
 	@GetMapping("/schools")
-	public Map<Integer, Map<String, Object>> getSchools() {
+	public Map<School, Map<String, Object>> getSchools() {
 		Locale locale = localeService.findByCode("en");
 		return schoolService.findAllByLocale(locale);
 	}
