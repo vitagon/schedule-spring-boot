@@ -30,7 +30,7 @@
 							<ul>
 								<li th:each="major: ${school.value.majors}">
 									<a href=""
-										th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/schools/__${school.key.url}__/major/__${major.get('url')}__}"
+										th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/school/__${school.key.url}__/major/__${major.get('url')}__}"
 										th:text="${major.get('title')}">
 									</a>
 								</li>

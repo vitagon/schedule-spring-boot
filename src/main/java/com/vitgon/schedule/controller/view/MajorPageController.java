@@ -30,7 +30,7 @@ public class MajorPageController extends BaseController {
 	@Autowired
 	private LocaleService localeService;
 	
-	@RequestMapping("/schools/{school}/major/{major}")
+	@RequestMapping("/school/{school}/major/{major}")
 	public String showMajorGroups(@PathVariable("major") String majorUrl, HttpServletRequest request, Model model) {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		Locale locale = localeService.findByCode(loc.getLanguage());

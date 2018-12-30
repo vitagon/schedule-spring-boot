@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layouts/_head"></th:block>
+</head>
+<body>
+	<div th:replace="layouts/_menu :: menu"></div>
+	
+	<div class="container">
+		<div class="row justify-content-center">
+			<table border="2">
+				<tbody>
+					<th:block th:each="day: ${days}" th:with="dayMap=${subjects[__${day}__]}">
+							<tr>
+								<td th:rowspan="${bells.size()*2}" th:text="#{__${day}__}"></td>
+								<td rowspan="2">
+									<div th:text="${bells[0]}"></div>
+									<div align="center">1</div>
+								</td>
+								<td th:if="${dayMap != null && dayMap[0] != null && dayMap[0].up != null}">
+									[[${dayMap[0].up}]]
+								</td>
+								<td th:unless="${dayMap != null && dayMap[0] != null && dayMap[0].up != null}">
+									[[#{noLesson}]]
+								</td>
+							</tr>
+							<tr>
+								<td th:if="${dayMap != null && dayMap[0] != null && dayMap[0].down != null}">
+									[[${dayMap[0].down}]]
+								</td>
+								<td th:unless="${dayMap != null && dayMap[0] != null && dayMap[0].down != null}">
+									[[#{noLesson}]]
+								</td>
+							</tr>
+							
+							
+							<th:block th:each="i: ${#numbers.sequence(1, __${bells.size()-1}__)}">
+									<th:block th:if="${dayMap != null}" th:with="subjectsPair=${dayMap[__${i+1}__]}">
+										<tr>
+											<td rowspan="2">
+												<div th:text="${bells[__${i}__]}"></div>
+												<div th:text="${i+1}" align="center"></div>
+											</td>
+											<td th:if="${subjectsPair != null && subjectsPair.up != null}" th:text="${subjectsPair.up}">Up subject</td>
+											<td th:if="${subjectsPair == null || subjectsPair.up == null}" th:text="#{noLesson}">Up subject</td>
+										</tr>
+										<tr>
+											<td th:if="${subjectsPair != null && subjectsPair.down != null}" th:text="${subjectsPair.down}">Down subject</td>
+											<td th:if="${subjectsPair == null || subjectsPair.down == null}" th:text="#{noLesson}">Down subject</td>
+										</tr>
+									</th:block>
+									
+									<th:block th:unless="${dayMap != null}">
+										<tr>
+											<td rowspan="2">
+												<div th:text="${bells[__${i}__]}"></div>
+												<div th:text="${i+1}" align="center"></div>
+											</td>
+											<td th:text="#{noLesson}">Вверх</td>
+										</tr>
+										<tr>
+											<td th:text="#{noLesson}">Низ</td>
+										</tr>
+									</th:block>
+							</th:block>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+
+	<div th:replace="layouts/_footer"></div>
+	</body>
+</html>

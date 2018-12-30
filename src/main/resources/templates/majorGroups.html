@@ -11,7 +11,7 @@
 			<h3 th:text="${courseMap.key} +' '+ #{courseTitle}"></h3>
 			<ul class="nav">
 				<li class="nav-item" >
-					<a href="#" th:text="${courseMap.value.title}"></a>
+					<a href="№" th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/__${courseMap.value.id}__/schedule}" th:text="${courseMap.value.title}"></a>
 				</li>
 			</ul>
 			<br>

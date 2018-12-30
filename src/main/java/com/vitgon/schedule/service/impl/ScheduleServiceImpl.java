@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.ScheduleDao;
+import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.service.ScheduleService;
 
@@ -39,5 +40,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public List<Schedule> findAll() {
 		return scheduleDao.findAll();
+	}
+
+	@Override
+	public List<Schedule> findByGroup(Group group) {
+		return scheduleDao.findByGroup(group);
 	}
 }

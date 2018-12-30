@@ -15,4 +15,6 @@ public interface SchoolDao extends JpaRepository<School, Integer> {
 	
 	@Query("SELECT s from School s INNER JOIN s.schoolTranslations st WHERE st.locale = :locale")
 	List<School> findAllByLocale(@Param("locale") Locale locale);
+	
+	School findByUrl(String url);
 }
