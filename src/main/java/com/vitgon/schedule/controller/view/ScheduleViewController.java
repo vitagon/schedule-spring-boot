@@ -34,8 +34,8 @@ public class ScheduleViewController extends BaseController {
 	@Autowired
 	private GroupService groupService;
 
-	@GetMapping("/{groupId}/schedule")
-	public String getSchedule(Model model, HttpServletRequest request, @PathVariable("groupId") int groupId) {
+	@GetMapping("/{groupId}/schedule/single-table")
+	public String showScheduleInSingleTable(Model model, HttpServletRequest request, @PathVariable("groupId") int groupId) {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		Locale locale = localeService.findByCode(loc.getLanguage());
 		
@@ -52,9 +52,45 @@ public class ScheduleViewController extends BaseController {
 				"15.10-16.40",
 				"16.50-18.20"
 		);
+		
+		String scheduleListLink = new StringBuilder()
+				.append("/")
+				.append(loc.getLanguage())
+				.append("/")
+				.append(groupId)
+				.append("/schedule/list")
+				.toString();
+		
 		model.addAttribute("days", days);
 		model.addAttribute("bells", bells);
 		model.addAttribute("subjects",subjects);
+		model.addAttribute("scheduleListLink", scheduleListLink);
 		return "scheduleSingleTable";
+	}
+	
+	@GetMapping("/{groupId}/schedule/list")
+	public String getScheduleList(Model model, HttpServletRequest request, @PathVariable("groupId") int groupId) {
+		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
+		Locale locale = localeService.findByCode(loc.getLanguage());
+		
+		Group group = groupService.findById(groupId);
+		List<Schedule> schedulesList = scheduleService.findByGroup(group);
+		Map<String, Map<Integer, SubjectsPair>> subjects = ScheduleUtil.getScheduleMap(schedulesList, locale);
+		
+		List<String> days = Arrays.asList("monday","tuesday","wednesday","thursday","friday","saturday","sunday");
+		List<String> bells = Arrays.asList(
+				"8.30-10.00",
+				"10.10-11.40",
+				"11.50-13.20",
+				"13.30-15.00",
+				"15.10-16.40",
+				"16.50-18.20"
+		);
+		
+		
+		model.addAttribute("days", days);
+		model.addAttribute("bells", bells);
+		model.addAttribute("subjects",subjects);
+		return "scheduleList";
 	}
 }

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="layouts/_head"></th:block>
+</head>
+<body>
+	<th:block th:replace="layouts/_menu :: menu"></th:block>
+
+	<div class="container">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="up-week-tab" data-toggle="tab" href="#up-week" role="tab" aria-controls="up-week" aria-selected="true">[[#{up}]]</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="down-week-tab" data-toggle="tab" href="#down-week" role="tab" aria-controls="down-week" aria-selected="false">[[#{down}]]</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="up-week" role="tabpanel" aria-labelledby="up-week-tab">
+					<table class="table table-sm table-striped" th:each="day : ${days}" style="margin-top: 2em;">
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{__${day}__}"></th>
+							</tr>
+							<tr>
+								<th scope="col">#[[#{number}]]</th>
+								<th scope="col">[[#{time}]]</th>
+								<th scope="col">[[#{title}]]</th>
+								<th scope="col">[[#{type}]]</th>
+								<th scope="col">[[#{teacher}]]</th>
+								<th scope="col">[[#{classroom}]]</th>
+								<th scope="col" colspan="2">[[#{controls}]]</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="bell, iStat : ${bells}">
+								<td scope="col" th:text="${iStat.index + 1}">Lesson number</td>
+								<td scope="col" th:text="${bell}">Time</td>
+								
+								<!-- Subject title -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="${subjects[__${day}__][__${iStat.index+1}__].up['subjectTitle']}">
+									Subject
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="#{noLesson}">
+									No lesson
+								</td>
+								
+								<!-- Lesson type -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:with="lessonType=${subjects[__${day}__][__${iStat.index+1}__].up['lessonType']}"
+									th:text="#{__${lessonType}__}">
+									Lesson type
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="#{notStated}">
+									Not stated
+								</td>
+								
+								<!-- Teacher -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="${subjects[__${day}__][__${iStat.index+1}__].up['teacher']}">
+									Teacher
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="#{notStated}">
+									Not stated
+								</td>
+								
+								<!-- Classroom -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="${subjects[__${day}__][__${iStat.index+1}__].up['classroom']}">
+									Classroom
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].up != null}"
+									th:text="#{notStated}">
+									Not stated
+								</td>
+								
+								<td scope="col" colspan="2">
+									<button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+									<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="8">
+									<button type="button" class="btn btn-warning">[[#{add}]]</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="tab-pane fade" id="down-week" role="tabpanel" aria-labelledby="down-week-tab">
+					<table class="table table-sm table-striped" th:each="day : ${days}" style="margin-top: 2em;">
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{__${day}__}"></th>
+							</tr>
+							<tr>
+								<th scope="col">#[[#{number}]]</th>
+								<th scope="col">[[#{time}]]</th>
+								<th scope="col">[[#{title}]]</th>
+								<th scope="col">[[#{type}]]</th>
+								<th scope="col">[[#{teacher}]]</th>
+								<th scope="col">[[#{classroom}]]</th>
+								<th scope="col" colspan="2">[[#{controls}]]</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="bell, iStat : ${bells}">
+								<td scope="col" th:text="${iStat.index + 1}"></td>
+								<td scope="col" th:text="${bell}">Time</td>
+								
+								<!-- Subject title -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="${subjects[__${day}__][__${iStat.index+1}__].down['subjectTitle']}">
+									Subject title
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="#{noLesson}">
+									Subject title
+								</td>
+								
+								<!-- Lesson type -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:with="lessonType=${subjects[__${day}__][__${iStat.index+1}__].down['lessonType']}"
+									th:text="#{__${lessonType}__}">
+									Lesson type
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="#{notStated}">
+									Not stated
+								</td>
+								
+								<!-- Teacher -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="${subjects[__${day}__][__${iStat.index+1}__].down['teacher']}">
+									Teacher
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="#{notStated}">
+									Not stated
+								</td>
+								
+								<!-- Classroom -->
+								<td scope="col"
+									th:if="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="${subjects[__${day}__][__${iStat.index+1}__].down['classroom']}">
+									Classroom
+								</td>
+								<td scope="col"
+									th:unless="${subjects[__${day}__] != null && 
+										subjects[__${day}__][__${iStat.index+1}__] != null &&
+										subjects[__${day}__][__${iStat.index+1}__].down != null}"
+									th:text="#{notStated}">
+									Not stated
+								</td>
+								
+								<td scope="col" colspan="2">
+									<button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+									<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="8">
+									<button type="button" class="btn btn-warning">[[#{add}]]</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+
+	<th:block th:replace="layouts/_footer"></th:block>
+</body>
+</html>

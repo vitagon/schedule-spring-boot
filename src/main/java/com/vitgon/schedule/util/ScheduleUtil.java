@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
@@ -39,6 +40,10 @@ public class ScheduleUtil {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public static Map<Integer, String> getDaysMap() {
 		Days[] days = Days.values();
 		Map<Integer, String> daysMap = new HashMap<>();
@@ -50,6 +55,12 @@ public class ScheduleUtil {
 		return daysMap;
 	}
 	
+	/**
+	 * 
+	 * @param schedules
+	 * @param locale
+	 * @return
+	 */
 	public static Map<String, Map<Integer, SubjectsPair>> getScheduleMap(List<Schedule> schedules, Locale locale) {
 		Map<String, Map<Integer, SubjectsPair>> rootMap = new HashMap<>();
 		Map<Integer, String> daysMap = DAYS_MAP;
@@ -57,26 +68,27 @@ public class ScheduleUtil {
 		for (Schedule schedule : schedules) {
 			String dayTitle = daysMap.get(schedule.getDayNum());
 			int subjectNum = schedule.getSubjectNum();
-			String subjectTitle = SubjectUtil.getSubjectTitle(schedule.getSubject(), locale);
-			int week = schedule.getWeek();
 			
 			if (rootMap.containsKey(dayTitle)) {
 				Map<Integer, SubjectsPair> subjectsPairMap = rootMap.get(dayTitle);
 				
-				if (subjectsPairMap.containsKey(subjectNum)) {
-					SubjectsPair subjectsPair = subjectsPairMap.get(subjectNum);
-					setSubjectsPair(subjectsPair, week, subjectTitle);
+				Optional<SubjectsPair> subjectsPairOptional = Optional.of(subjectsPairMap)
+					.map(x -> x.get(subjectNum));
+				
+				if (subjectsPairOptional.isPresent()) {
+					SubjectsPair subjectsPair = subjectsPairOptional.get();
+					setSubjectsPair(subjectsPair, schedule, locale);
 				} else {
 					SubjectsPair subjectsPair = new SubjectsPair();
 					subjectsPairMap.put(subjectNum, subjectsPair);
-					setSubjectsPair(subjectsPair, week, subjectTitle);
+					setSubjectsPair(subjectsPair, schedule, locale);
 				}
 			} else {
 				Map<Integer, SubjectsPair> subjectsPairMap = new HashMap<>();
 				
 				SubjectsPair subjectsPair = new SubjectsPair();
 				subjectsPairMap.put(subjectNum, subjectsPair);
-				setSubjectsPair(subjectsPair, week, subjectTitle);
+				setSubjectsPair(subjectsPair, schedule, locale);
 				
 				rootMap.put(dayTitle, subjectsPairMap);
 			}
@@ -85,16 +97,43 @@ public class ScheduleUtil {
 		return sortByDay(rootMap);
 	}
 	
-	public static void setSubjectsPair(SubjectsPair subjectsPair, int week, String subjectTitle) {
+	/**
+	 * 
+	 * @param subjectsPair
+	 * @param schedule
+	 * @param locale
+	 */
+	public static void setSubjectsPair(SubjectsPair subjectsPair, Schedule schedule, Locale locale) {
+		int subjId = schedule.getSubject().getId();
+		int week = schedule.getWeek();
+		String subjectTitle = SubjectUtil.getSubjectTitle(schedule.getSubject(), locale);
+		String teacher = TeacherUtil.makeUpTeacherName(schedule.getTeacher(), locale);
+		String lessonType = LessonUtil.getLessonType(schedule.getLessonType());
+		String classroom = schedule.getClassroom();
+		
+		// TODO: create map Map<String, String> {id,title,teacher,classroom}
+		
+		Map<String, String> subjectMap = new HashMap<>();
+		subjectMap.put("subjId", String.valueOf(subjId));
+		subjectMap.put("subjectTitle", subjectTitle);
+		subjectMap.put("teacher", teacher);
+		subjectMap.put("lessonType", lessonType);
+		subjectMap.put("classroom", classroom);
+		
 		if (week == UP_WEEK) {
-			subjectsPair.setUp(subjectTitle);
+			subjectsPair.setUp(subjectMap);
 		}
 		
 		if (week == DOWN_WEEK){
-			subjectsPair.setDown(subjectTitle);
+			subjectsPair.setDown(subjectMap);
 		}
 	}
 	
+	/**
+	 * 
+	 * @param scheduleMap
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	public static Map<String, Map<Integer, SubjectsPair>> sortByDay(Map<String, Map<Integer, SubjectsPair>> scheduleMap) {
 		List<Entry<String, Map<Integer, SubjectsPair>>> scheduleEntries =
@@ -130,6 +169,11 @@ public class ScheduleUtil {
 		return sortedMap;
 	}
 	
+	/**
+	 * 
+	 * @param dayTitle
+	 * @return
+	 */
 	public static int getOrderNum(String dayTitle) {
 		Map<Integer, String> daysMap = DAYS_MAP;
 		return daysMap.entrySet().stream()
