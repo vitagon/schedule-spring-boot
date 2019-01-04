@@ -1,23 +1,23 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<div th:replace="layouts/_head"></div>
+	<th:block th:replace="layouts/_head"></th:block>
 </head>
 <body>
-	<div th:replace="layouts/_menu :: menu"></div>
+	<th:block th:replace="layouts/_menu"></th:block>
 	
 	<div class="container" style="padding-top: 2em">
 		<div class="courseGroups" th:each="courseMap:  ${coursesMap}">
 			<h3 th:text="${courseMap.key} +' '+ #{courseTitle}"></h3>
 			<ul class="nav">
 				<li class="nav-item" >
-					<a href="№" th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/__${courseMap.value.id}__/schedule/single-table}" th:text="${courseMap.value.title}"></a>
+					<a href="№" th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/__${courseMap.value.id}__/schedule}" th:text="${courseMap.value.title}"></a>
 				</li>
 			</ul>
 			<br>
 		</div>
 	</div>
 	
-	<div th:replace="layouts/_footer"></div>
+	<th:block th:replace="layouts/_footer"></th:block>
 </body>
 </html>

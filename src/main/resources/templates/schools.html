@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<div th:replace="layouts/_head"></div>
+	<th:block th:replace="layouts/_head"></th:block>
 </head>
 <body>
 	<div th:replace="layouts/_menu"></div>
@@ -42,6 +42,6 @@
 		</div>
 	</div>
 
-	<div th:replace="layouts/_footer"></div>
+	<th:block th:replace="layouts/_footer"></th:block>
 </body>
 </html>
