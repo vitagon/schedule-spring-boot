@@ -1,3 +1,6 @@
+INSERT INTO roles VALUES (1,'MANAGER')
+INSERT INTO roles VALUES (2,'ADMIN')
+
 INSERT INTO locales (id, code) VALUES (1, 'ru')
 INSERT INTO locales (id, code) VALUES (2, 'en')
 

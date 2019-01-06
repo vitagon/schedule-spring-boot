@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
  <th:block th:replace="layouts/_head"></th:block>
 </head>
@@ -15,6 +15,17 @@
 			<p th:text="#{mainInfo2}"></p>
 		</div>
 	</div>
+	
+	Your name: <span sec:authentication="name"></span>
+	
+	<span sec:authorize="isAuthenticated()">| Logged user: <span sec:authentication="name"></span> |
+        Roles: <span sec:authentication="principal.authorities"></span> |
+        <a th:href="@{/logout}">Sign Out</a>
+    </span>
+    
+    <span sec:authorize="hasAuthority('MANAGER')">
+    	You are manager!
+    </span>
 
 
 	<th:block th:replace="layouts/_footer"></th:block>

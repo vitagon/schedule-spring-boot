@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<th:block th:replace="layouts/_head"></th:block>
+	
+	<!-- Put it later in separate file -->
+	<style>
+		#v-pills-edit-schedule-tab {
+			color: crimson;
+		}
+		#v-pills-edit-schedule-tab.active {
+			color: #fff;
+			/*color: chartreuse!important;*/
+		}
+	</style>
 </head>
 <body>
 	<th:block th:replace="layouts/_menu"></th:block>
 
 	<div class="container">
 			<div class="row">
-				<div class="col-sm-2 col-md-3">
+				<div class="col-sm-2 col-md-3" style="margin-bottom: 1em">
 					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 				      <a class="nav-link active" id="v-pills-table-list-tab" data-toggle="pill" href="#v-pills-table-list" role="tab" aria-controls="v-pills-table-list" aria-selected="true">Table list</a>
 				      <a class="nav-link" id="v-pills-single-table-tab" data-toggle="pill" href="#v-pills-single-table" role="tab" aria-controls="v-pills-single-table" aria-selected="false">Single table</a>
-				      <a class="nav-link" id="v-pills-edit-schedule-tab" data-toggle="pill" href="#v-pills-edit-schedule" role="tab" aria-controls="v-pills-edit-schedule" aria-selected="false">Edit schedule</a>
+				      
+				      <a sec:authorize="hasAuthority('MANAGER')" class="nav-link" id="v-pills-edit-schedule-tab" data-toggle="pill" href="#v-pills-edit-schedule" role="tab" aria-controls="v-pills-edit-schedule" aria-selected="false">Edit schedule</a>
 				    </div>
 				</div>
 			

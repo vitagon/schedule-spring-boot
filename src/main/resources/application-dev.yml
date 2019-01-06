@@ -11,6 +11,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
+  queries:
+    users-query: 'select email, password, active from users where email=?'
+    roles-query: 'select u.email, r.role from users u inner join user_role ur on (u.id=ur.user_id) inner join roles r on (ur.role_id=r.id) where u.email=?'
   thymeleaf: 
     cache: false
     encoding: UTF-8
@@ -30,4 +33,3 @@ logging:
         SQL: debug
 app:
   title: 'DVFU SCHEDULE'
-    
