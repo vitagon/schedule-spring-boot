@@ -9,14 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.vitgon.schedule.controller.BaseController;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SchoolService;
 
 @Controller
-public class SchoolsPageController extends BaseController {
+public class SchoolsPageController {
 	
 	@Autowired
 	private SchoolService schoolService;

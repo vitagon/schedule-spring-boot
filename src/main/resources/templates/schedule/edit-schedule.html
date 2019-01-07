@@ -51,7 +51,7 @@
 								subjects[__${day}__][__${iStat.index+1}__] != null &&
 								subjects[__${day}__][__${iStat.index+1}__].up != null}"
 							th:with="lessonType=${subjects[__${day}__][__${iStat.index+1}__].up['lessonType']}"
-							th:text="#{__${lessonType}__}">
+							th:text="${lessonType != null} ? #{__${lessonType}__} : #{notStated}">
 							Lesson type
 						</td>
 						<td scope="col"
@@ -67,7 +67,8 @@
 							th:if="${subjects[__${day}__] != null && 
 								subjects[__${day}__][__${iStat.index+1}__] != null &&
 								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="${subjects[__${day}__][__${iStat.index+1}__].up['teacher']}">
+							th:with="teacher=${subjects[__${day}__][__${iStat.index+1}__].up['teacher']}"
+							th:text="${teacher != null} ? ${teacher} : #{notStated}">
 							Teacher
 						</td>
 						<td scope="col"
@@ -83,7 +84,8 @@
 							th:if="${subjects[__${day}__] != null && 
 								subjects[__${day}__][__${iStat.index+1}__] != null &&
 								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="${subjects[__${day}__][__${iStat.index+1}__].up['classroom']}">
+							th:with="classroom=${subjects[__${day}__][__${iStat.index+1}__].up['classroom']}"
+							th:text="${classroom != null} ? ${classroom} : #{notStated}">
 							Classroom
 						</td>
 						<td scope="col"
@@ -153,7 +155,7 @@
 								subjects[__${day}__][__${iStat.index+1}__] != null &&
 								subjects[__${day}__][__${iStat.index+1}__].down != null}"
 							th:with="lessonType=${subjects[__${day}__][__${iStat.index+1}__].down['lessonType']}"
-							th:text="#{__${lessonType}__}">
+							th:text="${lessonType != null} ? #{__${lessonType}__} : #{notStated}">
 							Lesson type
 						</td>
 						<td scope="col"
@@ -169,7 +171,8 @@
 							th:if="${subjects[__${day}__] != null && 
 								subjects[__${day}__][__${iStat.index+1}__] != null &&
 								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="${subjects[__${day}__][__${iStat.index+1}__].down['teacher']}">
+							th:with="teacher=${subjects[__${day}__][__${iStat.index+1}__].down['teacher']}"
+							th:text="${teacher != null} ? ${teacher} : #{notStated}">
 							Teacher
 						</td>
 						<td scope="col"
@@ -185,7 +188,8 @@
 							th:if="${subjects[__${day}__] != null && 
 								subjects[__${day}__][__${iStat.index+1}__] != null &&
 								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="${subjects[__${day}__][__${iStat.index+1}__].down['classroom']}">
+							th:with="classroom=${subjects[__${day}__][__${iStat.index+1}__].down['classroom']}"
+							th:text="${classroom != null} ? ${classroom} : #{notStated}">
 							Classroom
 						</td>
 						<td scope="col"

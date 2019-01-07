@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,27 +27,27 @@ import lombok.EqualsAndHashCode;
 public class User extends BaseModel<Integer> {
 	
 	@Column(name = "email")
-	@Email(message = "*Please provide a valid Email")
-	@NotEmpty(message = "*Please provide an email")
+	@Email
+	@NotEmpty
 	private String email;
 	
 	@Column(name = "password")
-	@Length(min = 5, message = "*Your password must have at least 5 characters")
-	@NotEmpty(message = "*Please provide your password")
+	@Length(min = 5)
+	@NotEmpty
 	private String password;
 	
 	@Column(name = "first_name")
-	@NotEmpty(message = "*Please provide your first name")
+	@NotEmpty
 	private String firstName;
 	
 	@Column(name = "last_name")
-	@NotEmpty(message = "*Please provide your last name")
+	@NotEmpty
 	private String lastName;
 	
 	@Column(name = "active")
 	private int active;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 }

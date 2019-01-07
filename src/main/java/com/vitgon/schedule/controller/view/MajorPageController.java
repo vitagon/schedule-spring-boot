@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.vitgon.schedule.controller.BaseController;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Major;
@@ -22,7 +21,7 @@ import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.MajorService;
 
 @Controller
-public class MajorPageController extends BaseController {
+public class MajorPageController {
 	
 	@Autowired
 	private MajorService majorService;

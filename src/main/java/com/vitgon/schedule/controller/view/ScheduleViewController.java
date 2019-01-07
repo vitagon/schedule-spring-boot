@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.vitgon.schedule.controller.BaseController;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
@@ -23,7 +22,7 @@ import com.vitgon.schedule.util.ScheduleUtil;
 import com.vitgon.schedule.util.model.SubjectsPair;
 
 @Controller
-public class ScheduleViewController extends BaseController {
+public class ScheduleViewController {
 	
 	@Autowired
 	private LocaleService localeService;

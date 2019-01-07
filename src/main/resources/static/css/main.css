@@ -12,3 +12,17 @@
 	border-radius: .25em;
 	object-fit: cover;
 }
+.lang-link {
+	padding: .3rem .6rem;
+	border: 2px solid transparent;
+}
+.lang-link:hover {
+	border-bottom: 2px solid dodgerblue;
+}
+.user-dropdown--authenticated {
+	margin-left: 1em;
+}
+.user-dropdown--authenticated:hover {
+	cursor: pointer;
+	text-decoration: none;
+}

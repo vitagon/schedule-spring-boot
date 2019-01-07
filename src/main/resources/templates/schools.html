@@ -4,10 +4,10 @@
 	<th:block th:replace="layouts/_head"></th:block>
 </head>
 <body>
-	<div th:replace="layouts/_menu"></div>
+	<div th:replace="layouts/_menu :: menu"></div>
 	
 	<div class="container" style="padding-top: 2em">
-		<div class="row">
+		<div class="row justify-content-center">
 			<div class="accordion" id="accordionExample">
 				<div class="card" th:each="school: ${schools}">
 					<div class="card-header"
@@ -30,8 +30,8 @@
 							<ul>
 								<li th:each="major: ${school.value.majors}">
 									<a href=""
-										th:href="@{/__${#session.getAttribute('URL_LOCALE_ATTRIBUTE_NAME')}__/school/__${school.key.url}__/major/__${major.get('url')}__}"
-										th:text="${major.get('title')}">
+										th:href="@{/school/__${school.key.url}__/major/__${major['url']}__}"
+										th:text="${major['title']}">
 									</a>
 								</li>
 							</ul>

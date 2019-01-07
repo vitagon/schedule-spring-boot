@@ -16,7 +16,7 @@ public class TeacherUtil {
 	 */
 	public static String makeUpTeacherName(Teacher teacher, Locale locale) {
 		if (teacher == null) {
-			return "Not stated";
+			return null;
 		}
 		
 		List<TeacherTranslation> teacherTransl = teacher.getTeacherTranslations();
