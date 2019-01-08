@@ -41,4 +41,9 @@ public class TeacherTranslationServiceImpl implements TeacherTranslationService 
 	public List<TeacherTranslation> findAll() {
 		return teacherTranslDao.findAll();
 	}
+
+	@Override
+	public List<TeacherTranslation> searchTeachers(String keyword) {
+		return teacherTranslDao.searchTeachers(keyword);
+	}
 }

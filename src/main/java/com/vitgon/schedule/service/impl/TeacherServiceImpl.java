@@ -3,6 +3,7 @@ package com.vitgon.schedule.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,5 +40,10 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public List<Teacher> findAll() {
 		return teacherDao.findAll();
+	}
+	
+	@Override
+	public List<Teacher> findAll(Specification spec) {
+		return teacherDao.findAll(spec);
 	}
 }
