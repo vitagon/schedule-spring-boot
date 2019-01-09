@@ -1,0 +1,7 @@
+#v-pills-edit-schedule-tab {
+	color: crimson;
+}
+#v-pills-edit-schedule-tab.active {
+	color: #fff;
+	/*color: chartreuse!important;*/
+}

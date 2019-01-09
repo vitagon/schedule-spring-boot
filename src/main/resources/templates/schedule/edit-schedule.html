@@ -1,237 +1,32 @@
-<ul class="nav nav-tabs" role="tablist">
-	<li class="nav-item">
-		<a class="nav-link active" id="up-week-edit-tab" data-toggle="tab" href="#up-week-edit" role="tab" aria-controls="up-week-edit" aria-selected="true">[[#{up}]]</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="down-week-edit-tab" data-toggle="tab" href="#down-week-edit" role="tab" aria-controls="down-week-edit" aria-selected="false">[[#{down}]]</a>
-	</li>
-</ul>
-<div class="tab-content">
-	<div class="tab-pane fade show active" id="up-week-edit" role="tabpanel" aria-labelledby="up-week-edit-tab">
-		<div class="table-responsive" th:each="day : ${days}">
-			<table class="table table-condensed table-sm table-striped"  style="margin-top: 2em" th:data-day="${day}" data-week="down">
-				<thead>
-					<tr>
-						<th scope="col" colspan="7" th:text="#{__${day}__}"></th>
-					</tr>
-					<tr>
-						<th scope="col" style="width: 5%">#</th>
-						<th scope="col" style="width: 15%">[[#{time}]]</th>
-						<th scope="col" style="width: 20%">[[#{title}]]</th>
-						<th scope="col" style="width: 15%">[[#{type}]]</th>
-						<th scope="col" style="width: 20%">[[#{teacher}]]</th>
-						<th scope="col" style="width: 10%">[[#{classroom}]]</th>
-						<th scope="col" style="min-width: 100px" colspan="2">[[#{controls}]]</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="bell, iStat : ${bells}">
-						<td scope="col" class="lessonNum" th:text="${iStat.index + 1}" style="width: 10%">Lesson number</td>
-						<td scope="col" th:text="${bell}">Time</td>
-						
-						<!-- Subject title -->
-						<td scope="col"
-							class="subjectTitle"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="${subjects[__${day}__][__${iStat.index+1}__].up['subjectTitle']}">
-							Subject
-						</td>
-						<td scope="col"
-							class="subjectTitle"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="#{noLesson}">
-							No lesson
-						</td>
-						
-						<!-- Lesson type -->
-						<td scope="col"
-							class="lessonType"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:with="lessonType=${subjects[__${day}__][__${iStat.index+1}__].up['lessonType']}"
-							th:text="${lessonType != null} ? #{__${lessonType}__} : #{notStated}"
-							th:data-lesson-type="${lessonType}">
-							Lesson type
-						</td>
-						<td scope="col"
-							class="lessonType"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="#{notStated}"
-							th:data-lesson-type="0">
-							Not stated
-						</td>
-						
-						<!-- Teacher -->
-						<td scope="col"
-							class="teacher"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:with="teacher=${subjects[__${day}__][__${iStat.index+1}__].up['teacher']}"
-							th:text="${teacher != null} ? ${teacher} : #{notStated}">
-							Teacher
-						</td>
-						<td scope="col"
-							class="teacher"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="#{notStated}">
-							Not stated
-						</td>
-						
-						<!-- Classroom -->
-						<td scope="col"
-							class="classroom"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:with="classroom=${subjects[__${day}__][__${iStat.index+1}__].up['classroom']}"
-							th:text="${classroom != null} ? ${classroom} : #{notStated}">
-							Classroom
-						</td>
-						<td scope="col"
-							class="classroom"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].up != null}"
-							th:text="#{notStated}">
-							Not stated
-						</td>
-						
-						<td scope="col" colspan="2">
-							<button type="button" class="btn btn-primary edit-schedule-btn"><i class="fas fa-edit"></i></button>
-							<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="8">
-							<button type="button" class="btn btn-warning">[[#{add}]]</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+<!doctype html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<div th:fragment="target">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="up-week-edit-tab" data-toggle="tab" href="#up-week-edit" role="tab" aria-controls="up-week-edit" aria-selected="true">[[#{up}]]</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="down-week-edit-tab" data-toggle="tab" href="#down-week-edit" role="tab" aria-controls="down-week-edit" aria-selected="false">[[#{down}]]</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			
+			<div class="tab-pane fade show active" id="up-week-edit" role="tabpanel" aria-labelledby="up-week-edit-tab">
+				<th:block th:insert="schedule/table-day-schedule :: target" th:with="week=${'up'},showControls=${true}"></th:block>
+			</div>
+			
+			<div class="tab-pane fade" id="down-week-edit" role="tabpanel" aria-labelledby="down-week-edit-tab">
+				<th:block th:insert="schedule/table-day-schedule :: target" th:with="week=${'down'},showControls=${true}"></th:block>
+			</div>
 		</div>
 	</div>
-	
-	<div class="tab-pane fade" id="down-week-edit" role="tabpanel" aria-labelledby="down-week-edit-tab">
-		<div class="table-responsive" th:each="day : ${days}">
-			<table class="table table-condensed table-sm table-striped" style="margin-top: 2em" th:data-day="${day}" data-week="down">
-				<thead>
-					<tr>
-						<th scope="col" colspan="7" th:text="#{__${day}__}"></th>
-					</tr>
-					<tr>
-						<th scope="col" style="width: 5%">#</th>
-						<th scope="col" style="width: 15%">[[#{time}]]</th>
-						<th scope="col" style="width: 20%">[[#{title}]]</th>
-						<th scope="col" style="width: 15%">[[#{type}]]</th>
-						<th scope="col" style="width: 20%">[[#{teacher}]]</th>
-						<th scope="col" style="width: 10%">[[#{classroom}]]</th>
-						<th scope="col" style="min-width: 100px" colspan="2">[[#{controls}]]</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="bell, iStat : ${bells}">
-						<td scope="col" th:text="${iStat.index + 1}"></td>
-						<td scope="col" th:text="${bell}">Time</td>
-						
-						<!-- Subject title -->
-						<td scope="col"
-							class="subjectTitle"
-							th:if="${subjects[__${day}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="${subjects[__${day}__][__${iStat.index+1}__].down['subjectTitle']}">
-							Subject title
-						</td>
-						<td scope="col"
-							class="subjectTitle"
-							th:unless="${subjects[__${day}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="#{noLesson}">
-							Subject title
-						</td>
-						
-						<!-- Lesson type -->
-						<td scope="col"
-							class="lessonType"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:with="lessonType=${subjects[__${day}__][__${iStat.index+1}__].down['lessonType']}"
-							th:text="${lessonType != null} ? #{__${lessonType}__} : #{notStated}"
-							th:data-lesson-type="${lessonType}">
-							Lesson type
-						</td>
-						<td scope="col"
-							class="lessonType"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="#{notStated}"
-							th:data-lesson-type="0">
-							Not stated
-						</td>
-						
-						<!-- Teacher -->
-						<td scope="col"
-							class="teacher"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:with="teacher=${subjects[__${day}__][__${iStat.index+1}__].down['teacher']}"
-							th:text="${teacher != null} ? ${teacher} : #{notStated}">
-							Teacher
-						</td>
-						<td scope="col"
-							class="teacher"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="#{notStated}">
-							Not stated
-						</td>
-						
-						<!-- Classroom -->
-						<td scope="col"
-							class="classroom"
-							th:if="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:with="classroom=${subjects[__${day}__][__${iStat.index+1}__].down['classroom']}"
-							th:text="${classroom != null} ? ${classroom} : #{notStated}">
-							Classroom
-						</td>
-						<td scope="col"
-							class="classroom"
-							th:unless="${subjects[__${day}__] != null && 
-								subjects[__${day}__][__${iStat.index+1}__] != null &&
-								subjects[__${day}__][__${iStat.index+1}__].down != null}"
-							th:text="#{notStated}">
-							Not stated
-						</td>
-						
-						<td scope="col" colspan="2">
-							<button type="button" class="btn btn-primary edit-schedule-btn"><i class="fas fa-edit"></i></button>
-							<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="8">
-							<button type="button" class="btn btn-warning">[[#{add}]]</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
+</body>
+</html>

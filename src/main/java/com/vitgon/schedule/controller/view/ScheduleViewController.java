@@ -1,6 +1,7 @@
 package com.vitgon.schedule.controller.view;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.model.Teacher;
 import com.vitgon.schedule.service.GroupService;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.ScheduleService;
+import com.vitgon.schedule.service.TeacherService;
 import com.vitgon.schedule.util.ScheduleUtil;
-import com.vitgon.schedule.util.model.SubjectsPair;
+import com.vitgon.schedule.util.TeacherUtil;
 
 @Controller
 public class ScheduleViewController {
@@ -31,6 +34,9 @@ public class ScheduleViewController {
 	private ScheduleService scheduleService;
 	
 	@Autowired
+	private TeacherService teacherService;
+	
+	@Autowired
 	private GroupService groupService;
 
 	@GetMapping("/{groupId}/schedule")
@@ -40,7 +46,7 @@ public class ScheduleViewController {
 		
 		Group group = groupService.findById(groupId);
 		List<Schedule> schedulesList = scheduleService.findByGroup(group);
-		Map<String, Map<Integer, SubjectsPair>> subjects = ScheduleUtil.getScheduleMap(schedulesList, locale);
+		Map<String, Map<Integer, Map>> subjects = ScheduleUtil.getScheduleMap(schedulesList, locale);
 		
 		List<String> days = Arrays.asList("monday","tuesday","wednesday","thursday","friday","saturday");
 		List<String> bells = Arrays.asList(
@@ -52,7 +58,14 @@ public class ScheduleViewController {
 				"16.50-18.20"
 		);
 		
+		// for modal
+		List<Teacher> teachers = teacherService.findAll();
+		Map<Integer, String> teachersNames = new HashMap<>();
+		for (Teacher teacher : teachers) {
+			teachersNames.put(teacher.getId(), TeacherUtil.makeUpTeacherName(teacher, locale));
+		}
 		
+		model.addAttribute("teachersNames", teachersNames);
 		model.addAttribute("days", days);
 		model.addAttribute("bells", bells);
 		model.addAttribute("subjects",subjects);

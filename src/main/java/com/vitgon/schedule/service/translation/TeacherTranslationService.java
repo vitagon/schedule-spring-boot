@@ -9,5 +9,4 @@ import com.vitgon.schedule.model.translation.pk.TeacherTranslationId;
 import com.vitgon.schedule.service.base.Service;
 
 public interface TeacherTranslationService extends Service<TeacherTranslation, TeacherTranslationId> {
-	List<TeacherTranslation> searchTeachers(String keyword);
 }

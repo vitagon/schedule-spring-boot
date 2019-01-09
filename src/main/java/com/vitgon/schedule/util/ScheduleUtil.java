@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
-import com.vitgon.schedule.util.model.SubjectsPair;
 
 public class ScheduleUtil {
 	
@@ -56,13 +55,65 @@ public class ScheduleUtil {
 	}
 	
 	/**
+	 * Schedule map, example for Monday:
+	 * [
+	 *     'monday' => [
+	 *     		// subjectsPairMap(int => subjectsPair) 
+	 *     		1 => [
+	 *     			// subjectsPair
+	 *     			'up' => [
+	 *		   			'subjId'       => String,
+	 *		   			'subjectTitle' => String,
+	 *		  			'lessonType'   => String,
+	 *		  			'classroom'	   => String,
+	 *		  			'teacher' => [
+	 *		  				'id'   => String,
+	 *		  				'name' => String
+     *			  		]
+     *			  	],
+	 *		  		'down' => [
+	 *		  			'subjId'       => String,
+	 *		  			'subjectTitle' => String,
+	 *		  			'lessonType'   => String,
+	 *		  			'classroom'	   => String,
+	 *		  			'teacher' => [
+	 *		  				'id'   => String,
+     *			  				'name' => String
+	 *		  			]
+     *			  	]
+	 *     		],
+	 *     		2 => [
+	 *     			...
+	 *     		],
+	 *     		3 => [
+	 *     			...
+	 *     		],
+	 *    		4 => [
+	 *              ...
+	 *     		],
+	 *     		5 => [
+	 *     			...
+	 *     		],
+	 *     		6 => [
+	 *     			...
+	 *     		],
+	 *     		7 => [
+	 *     			...
+	 *     		]
+	 *     ],
+	 *     'tuesday' => [
+	 *     		...
+	 *     ]
+	 * ]
+	 * 
 	 * 
 	 * @param schedules
 	 * @param locale
 	 * @return
 	 */
-	public static Map<String, Map<Integer, SubjectsPair>> getScheduleMap(List<Schedule> schedules, Locale locale) {
-		Map<String, Map<Integer, SubjectsPair>> rootMap = new HashMap<>();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Map<String, Map<Integer, Map>> getScheduleMap(List<Schedule> schedules, Locale locale) {
+		Map<String, Map<Integer, Map>> rootMap = new HashMap<>();
 		Map<Integer, String> daysMap = DAYS_MAP;
 	
 		for (Schedule schedule : schedules) {
@@ -70,23 +121,23 @@ public class ScheduleUtil {
 			int subjectNum = schedule.getSubjectNum();
 			
 			if (rootMap.containsKey(dayTitle)) {
-				Map<Integer, SubjectsPair> subjectsPairMap = rootMap.get(dayTitle);
+				Map<Integer, Map> subjectsPairMap = rootMap.get(dayTitle);
 				
-				Optional<SubjectsPair> subjectsPairOptional = Optional.of(subjectsPairMap)
+				Optional<Map> subjectsPairOptional = Optional.of(subjectsPairMap)
 					.map(x -> x.get(subjectNum));
 				
 				if (subjectsPairOptional.isPresent()) {
-					SubjectsPair subjectsPair = subjectsPairOptional.get();
+					Map subjectsPair = subjectsPairOptional.get();
 					setSubjectsPair(subjectsPair, schedule, locale);
 				} else {
-					SubjectsPair subjectsPair = new SubjectsPair();
+					Map subjectsPair = new HashMap<>();
 					subjectsPairMap.put(subjectNum, subjectsPair);
 					setSubjectsPair(subjectsPair, schedule, locale);
 				}
 			} else {
-				Map<Integer, SubjectsPair> subjectsPairMap = new HashMap<>();
+				Map<Integer, Map> subjectsPairMap = new HashMap<>();
 				
-				SubjectsPair subjectsPair = new SubjectsPair();
+				Map subjectsPair = new HashMap<>();
 				subjectsPairMap.put(subjectNum, subjectsPair);
 				setSubjectsPair(subjectsPair, schedule, locale);
 				
@@ -98,34 +149,63 @@ public class ScheduleUtil {
 	}
 	
 	/**
+	 * SubjectsPair map:
+	 * 	[
+	 * 		'up' => [
+	 * 			'subjId'       => String,
+	 * 			'subjectTitle' => String,
+	 * 			'lessonType'   => String,
+	 * 			'classroom'	   => String,
+	 * 			'teacher' => [
+	 * 				'id'   => String,
+	 * 				'name' => String
+	 * 			]
+	 * 		],
+	 * 		'down' => [
+	 * 			'subjId'       => String,
+	 * 			'subjectTitle' => String,
+	 * 			'lessonType'   => String,
+	 * 			'classroom'	   => String,
+	 * 			'teacher' => [
+	 * 				'id'   => String,
+	 * 				'name' => String
+	 * 			]
+	 * 		]
+	 * ]
 	 * 
 	 * @param subjectsPair
 	 * @param schedule
 	 * @param locale
 	 */
-	public static void setSubjectsPair(SubjectsPair subjectsPair, Schedule schedule, Locale locale) {
+	public static void setSubjectsPair(Map<String, Map> subjectsPair, Schedule schedule, Locale locale) {
 		int subjId = schedule.getSubject().getId();
 		int week = schedule.getWeek();
 		String subjectTitle = SubjectUtil.getSubjectTitle(schedule.getSubject(), locale);
-		String teacher = TeacherUtil.makeUpTeacherName(schedule.getTeacher(), locale);
+		String teacherName = TeacherUtil.makeUpTeacherName(schedule.getTeacher(), locale);
 		String lessonType = LessonUtil.getLessonType(schedule.getLessonType());
 		String classroom = schedule.getClassroom();
 		
-		// TODO: create map Map<String, String> {id,title,teacher,classroom}
-		
-		Map<String, String> subjectMap = new HashMap<>();
+		Map<String, Object> subjectMap = new HashMap<>();
 		subjectMap.put("subjId", String.valueOf(subjId));
 		subjectMap.put("subjectTitle", subjectTitle);
-		subjectMap.put("teacher", teacher);
 		subjectMap.put("lessonType", lessonType);
 		subjectMap.put("classroom", classroom);
 		
+		if (teacherName != null) {
+			Map<String, String> teacherMap = new HashMap<>();
+			teacherMap.put("id", schedule.getTeacher().getId().toString());
+			teacherMap.put("name", teacherName);
+			
+			subjectMap.put("teacher", teacherMap);
+		}
+		
+		
 		if (week == UP_WEEK) {
-			subjectsPair.setUp(subjectMap);
+			subjectsPair.put("up", subjectMap);
 		}
 		
 		if (week == DOWN_WEEK){
-			subjectsPair.setDown(subjectMap);
+			subjectsPair.put("down", subjectMap);
 		}
 	}
 	
@@ -135,16 +215,16 @@ public class ScheduleUtil {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Map<String, Map<Integer, SubjectsPair>> sortByDay(Map<String, Map<Integer, SubjectsPair>> scheduleMap) {
-		List<Entry<String, Map<Integer, SubjectsPair>>> scheduleEntries =
-				new ArrayList<Entry<String, Map<Integer, SubjectsPair>>>(scheduleMap.entrySet());
+	public static Map<String, Map<Integer, Map>> sortByDay(Map<String, Map<Integer, Map>> scheduleMap) {
+		List<Entry<String, Map<Integer, Map>>> scheduleEntries =
+				new ArrayList<Entry<String, Map<Integer, Map>>>(scheduleMap.entrySet());
 		
-		Collections.sort(scheduleEntries, new Comparator<Entry<String, Map<Integer, SubjectsPair>>>() {
+		Collections.sort(scheduleEntries, new Comparator<Entry<String, Map<Integer, Map>>>() {
 
 			@Override
 			public int compare(
-					Entry<String, Map<Integer, SubjectsPair>> o1,
-					Entry<String, Map<Integer, SubjectsPair>> o2) {
+					Entry<String, Map<Integer, Map>> o1,
+					Entry<String, Map<Integer, Map>> o2) {
 				int dayNum1 = getOrderNum(o1.getKey());
 				int dayNum2 = getOrderNum(o2.getKey());
 				
@@ -161,8 +241,8 @@ public class ScheduleUtil {
 			
 		});
 		
-		Map<String, Map<Integer, SubjectsPair>> sortedMap = new LinkedHashMap<String, Map<Integer, SubjectsPair>>();
-        for (Map.Entry<String, Map<Integer, SubjectsPair>> entry : scheduleEntries) {
+		Map<String, Map<Integer, Map>> sortedMap = new LinkedHashMap<String, Map<Integer, Map>>();
+        for (Map.Entry<String, Map<Integer, Map>> entry : scheduleEntries) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 		

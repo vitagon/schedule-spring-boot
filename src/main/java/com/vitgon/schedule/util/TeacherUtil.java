@@ -24,12 +24,21 @@ public class TeacherUtil {
 		return teacherTransl.stream()
 			.filter(x -> x.getLocale() == locale)
 			.map(x -> {
+				String lastname = x.getLastname();
+				lastname = lastname.substring(0,1).toUpperCase() + lastname.substring(1);
+				
+				String firstname = x.getFirstname();
+				firstname = firstname.substring(0,1).toUpperCase() + firstname.substring(1);
+				
+				String middlename = x.getMiddlename();
+				middlename = middlename.substring(0,1).toUpperCase() + middlename.substring(1);
+				
 				return new StringBuilder()
-						.append(x.getLastname())
+						.append(lastname)
 						.append(" ")
-						.append(x.getFirstname())
+						.append(firstname)
 						.append(" ")
-						.append(x.getMiddlename())
+						.append(middlename)
 						.toString();
 			})
 			.findFirst()

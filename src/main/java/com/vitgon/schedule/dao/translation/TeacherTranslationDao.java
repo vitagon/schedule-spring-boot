@@ -12,8 +12,4 @@ import com.vitgon.schedule.model.translation.pk.TeacherTranslationId;
 
 @Repository
 public interface TeacherTranslationDao extends JpaRepository<TeacherTranslation, TeacherTranslationId> {
-	
-	@Query(value = "SELECT * FROM teacher_translations WHERE firstname LIKE %:keyword% OR lastname LIKE %:keyword% OR middlename LIKE %:keyword%",
-			nativeQuery = true)
-	public List<TeacherTranslation> searchTeachers(@Param("keyword") String keyword);
 }

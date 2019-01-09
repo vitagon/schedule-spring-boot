@@ -1,0 +1,40 @@
+spring:
+  profiles: h2
+  h2:
+    console:
+      enabled: true
+      path: /db
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:schedule-app
+    username: sa
+    password: 
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+  queries:
+    users-query: 'select email, password, active from users where email=?'
+    roles-query: 'select u.email, r.role from users u inner join user_role ur on (u.id=ur.user_id) inner join roles r on (ur.role_id=r.id) where u.email=?'
+  thymeleaf: 
+    cache: false
+    encoding: UTF-8
+  messages:
+    encoding: UTF-8
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+  level:
+    org:
+      hibernate:
+        SQL: debug
+app:
+  title: 'DVFU SCHEDULE'

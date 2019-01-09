@@ -2,7 +2,7 @@ spring:
   application:
     name: schedule-spring-boot-app
   profiles:
-    active: dev
+    active: h2
   main:
     banner-mode: "off"
 

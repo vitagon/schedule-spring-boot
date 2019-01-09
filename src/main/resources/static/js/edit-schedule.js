@@ -21,7 +21,7 @@ $('.edit-schedule-btn').on('click', function (e) {
 	let lessonNum = $(scheduleRow).find('.lessonNum').html();
 	let subjectTitle = $(scheduleRow).find('.subjectTitle').html();
 	let lessonType = $(scheduleRow).find('.lessonType').attr('data-lesson-type');
-	let teacher = $(scheduleRow).find('.teacher').html();
+	let teacherName = $(scheduleRow).find('.teacher').html();
 	let classroom = $(scheduleRow).find('.classroom').html();
 	
 	let obj = {
@@ -30,7 +30,7 @@ $('.edit-schedule-btn').on('click', function (e) {
 		lessonNum: lessonNum,
 		subjectTitle: subjectTitle,
 		lessonType: lessonType,
-		teacher: teacher,
+		teacher: teacherName,
 		classroom: classroom
 	}
 	
@@ -70,7 +70,7 @@ $('.edit-schedule-btn').on('click', function (e) {
 
 $('#teacher').on('keyup', debounce(function () {
 	let keyword = $('#teacher').val();
-	$.get('/api/teacher/search', {keyword: keyword}, function(data) {
+	$.get('/api/teachers/all', null, function(data) {
 		console.log(data);
 	});
 }, 3000))
