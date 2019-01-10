@@ -21,7 +21,7 @@ $('.edit-schedule-btn').on('click', function (e) {
 	let lessonNum = $(scheduleRow).find('.lessonNum').html();
 	let subjectTitle = $(scheduleRow).find('.subjectTitle').html();
 	let lessonType = $(scheduleRow).find('.lessonType').attr('data-lesson-type');
-	let teacherName = $(scheduleRow).find('.teacher').html();
+	let teacherId = $(scheduleRow).find('.teacher').attr('data-teacher-id');
 	let classroom = $(scheduleRow).find('.classroom').html();
 	
 	let obj = {
@@ -30,7 +30,7 @@ $('.edit-schedule-btn').on('click', function (e) {
 		lessonNum: lessonNum,
 		subjectTitle: subjectTitle,
 		lessonType: lessonType,
-		teacher: teacherName,
+		teacher: teacherId,
 		classroom: classroom
 	}
 	
@@ -40,12 +40,12 @@ $('.edit-schedule-btn').on('click', function (e) {
 	let lessonNumSelect = $('#lesson-num-select');
 	let subjectTitleInput = $('#subject-title');
 	let lessonTypeSelect = $('#lesson-type-select');
-	let teacherInput = $('#teacher');
+	let teacherSelect = $('#teacher-select');
 	let classroomInput = $('#classroom');
 	
 	lessonNumSelect.val(lessonNum);
 	subjectTitleInput.val(subjectTitle);
-	teacherInput.val(teacher);
+	teacherSelect.val(teacherId);
 	classroomInput.val(classroom);
 	
 	let lessonTypeNumeric;
@@ -66,7 +66,27 @@ $('.edit-schedule-btn').on('click', function (e) {
 	lessonTypeSelect.val(lessonTypeNumeric);
 	
 	$('.edit-schedule-modal').modal('show');
-}); 
+});
+
+$('.schedule-save-changes-btn').on('click', function (e) {
+	let obj = {
+		lessonNum: $('#lesson-num-select').val(),
+		subjectTitle: $('#subject-title').val(),
+		lessonType: $('#lesson-type-select').val(),
+		teacherId: $('#teacher-select').val(),
+		classroom: $('#classroom').val()
+	}
+	
+	$.ajax({
+		type: 'POST',
+		url: '/api/schedule/edit',
+		data: obj,
+		dataType: 'JSON',
+		success: function (response) {
+			console.log(response);
+		}
+	});
+});
 
 $('#teacher').on('keyup', debounce(function () {
 	let keyword = $('#teacher').val();
