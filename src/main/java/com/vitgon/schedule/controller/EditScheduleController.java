@@ -14,6 +14,16 @@ public class EditScheduleController {
 	@ResponseBody
 	@PostMapping("/api/schedule/edit")
 	public String editSchedulePage(@ModelAttribute EditScheduleRequest editScheduleReq) {
+		int scheduleId = editScheduleReq.getScheduleId();
+		String subjectTitle = editScheduleReq.getSubjectTitle();
+		String lessonType = editScheduleReq.getLessonType();
+		String teacherId = editScheduleReq.getTeacherId();
+		String classroom = editScheduleReq.getClassroom();
+		
+		if (scheduleId != 0) {
+			System.out.println("We should create schedule!");
+		}
+		
 		System.out.println(editScheduleReq);
 		return "we got it";
 	}

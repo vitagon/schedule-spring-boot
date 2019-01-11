@@ -17,6 +17,7 @@ $('.edit-schedule-btn').on('click', function (e) {
 	
 	let week = $(rootTable).attr('data-week');
 	let day = $(rootTable).attr('data-day');
+	let scheduleId = $(scheduleRow).attr('data-schedule-id');
 		
 	let lessonNum = $(scheduleRow).find('.lessonNum').html();
 	let subjectTitle = $(scheduleRow).find('.subjectTitle').html();
@@ -34,15 +35,15 @@ $('.edit-schedule-btn').on('click', function (e) {
 		classroom: classroom
 	}
 	
-	console.log(obj);
-	
 	// get elements from modal
+	let scheduleIdInput = $('#schedule-id');
 	let lessonNumSelect = $('#lesson-num-select');
 	let subjectTitleInput = $('#subject-title');
 	let lessonTypeSelect = $('#lesson-type-select');
 	let teacherSelect = $('#teacher-select');
 	let classroomInput = $('#classroom');
 	
+	scheduleIdInput.val(scheduleId);
 	lessonNumSelect.val(lessonNum);
 	subjectTitleInput.val(subjectTitle);
 	teacherSelect.val(teacherId);
@@ -70,12 +71,15 @@ $('.edit-schedule-btn').on('click', function (e) {
 
 $('.schedule-save-changes-btn').on('click', function (e) {
 	let obj = {
+		scheduleId: $('#schedule-id').val(),
 		lessonNum: $('#lesson-num-select').val(),
 		subjectTitle: $('#subject-title').val(),
 		lessonType: $('#lesson-type-select').val(),
 		teacherId: $('#teacher-select').val(),
 		classroom: $('#classroom').val()
 	}
+	
+	console.log(obj);
 	
 	$.ajax({
 		type: 'POST',

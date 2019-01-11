@@ -9,7 +9,10 @@
 </head>
 <body>
 	<div class="table-responsive" th:fragment="target" th:each="day : ${days}">
-		<table class="table table-condensed table-sm table-striped"  style="margin-top: 2em" th:data-day="${day}" data-week="down">
+		<table class="table table-condensed table-sm table-striped"
+			th:data-day="${day}"
+			data-week="down"
+			style="margin-top: 2em">
 			<thead>
 				<tr>
 					<th scope="col" colspan="7" th:text="#{__${day}__}"></th>
@@ -28,7 +31,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="bell, iStat : ${bells}">
+				<tr th:each="bell, iStat : ${bells}"
+					th:data-schedule-id="${(subjects[__${day}__] != null && 
+							subjects[__${day}__][__${iStat.index+1}__] != null &&
+							subjects[__${day}__][__${iStat.index+1}__][__${week}__] != null) ? 
+							subjects[__${day}__][__${iStat.index+1}__][__${week}__]['scheduleId'] : 0}">
 					<td scope="col" class="lessonNum" th:text="${iStat.index + 1}" style="width: 10%">Lesson number</td>
 					<td scope="col" th:text="${bell}">Time</td>
 					

@@ -62,6 +62,7 @@ public class ScheduleUtil {
 	 *     		1 => [
 	 *     			// subjectsPair
 	 *     			'up' => [
+	 *     				'scheduleId'   => String,
 	 *		   			'subjId'       => String,
 	 *		   			'subjectTitle' => String,
 	 *		  			'lessonType'   => String,
@@ -72,6 +73,7 @@ public class ScheduleUtil {
      *			  		]
      *			  	],
 	 *		  		'down' => [
+	 *					'scheduleId'   => String,
 	 *		  			'subjId'       => String,
 	 *		  			'subjectTitle' => String,
 	 *		  			'lessonType'   => String,
@@ -162,6 +164,7 @@ public class ScheduleUtil {
 	 * 			]
 	 * 		],
 	 * 		'down' => [
+	 * 			'scheduleId'   => String,
 	 * 			'subjId'       => String,
 	 * 			'subjectTitle' => String,
 	 * 			'lessonType'   => String,
@@ -186,6 +189,7 @@ public class ScheduleUtil {
 		String classroom = schedule.getClassroom();
 		
 		Map<String, Object> subjectMap = new HashMap<>();
+		subjectMap.put("scheduleId", String.valueOf(schedule.getId()));
 		subjectMap.put("subjId", String.valueOf(subjId));
 		subjectMap.put("subjectTitle", subjectTitle);
 		subjectMap.put("lessonType", lessonType);
