@@ -10,7 +10,7 @@
 <body>
 	<table th:fragment="target" class="table table-sm table-responsive single-table-schedule">
 		<tbody class="table-bordered">
-			<th:block th:each="day: ${days}" th:with="dayMap=${subjects[__${day}__]}">
+			<th:block th:each="day: ${days}" th:with="dayMap=${schedules[__${day}__]}">
 					<tr>
 						<td th:rowspan="${bells.size()*2}" th:text="#{__${day}__}"></td>
 						<td rowspan="2">

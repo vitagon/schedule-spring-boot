@@ -120,7 +120,7 @@ public class ScheduleUtil {
 	
 		for (Schedule schedule : schedules) {
 			String dayTitle = daysMap.get(schedule.getDayNum());
-			int subjectNum = schedule.getSubjectNum();
+			int subjectNum = schedule.getLessonNum();
 			
 			if (rootMap.containsKey(dayTitle)) {
 				Map<Integer, Map> subjectsPairMap = rootMap.get(dayTitle);

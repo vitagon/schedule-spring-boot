@@ -23,12 +23,14 @@
 				</div>
 				<div class="modal-body edit-schedule-modal-body">
 					<form>
-						<div class="form-group">
-							<input type="text" class="form-control" id="schedule-id" style="display: none">
-						</div>
+						<input type="text" class="form-control" id="modal-group-id" style="display: none">
+						<input type="text" class="form-control" id="modal-schedule-id" style="display: none">
+						<input type="text" class="form-control" id="modal-week" style="display: none">
+						<input type="text" class="form-control" id="modal-day-num" style="display: none">
+						
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">Lesson number:</label>
-							<select class="custom-select" id="lesson-num-select" disabled>
+							<select class="custom-select" id="modal-lesson-num" disabled>
 								<option selected>Choose...</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -41,11 +43,13 @@
 						</div>
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">Subject title:</label>
-							<input type="text" class="form-control" id="subject-title">
+							<select class="custom-select" id="modal-subject">
+								<option th:each="subject: ${subjects}" th:text="${subject.value}" th:value="${subject.key}"></option>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">Lesson type:</label>
-							<select class="custom-select" id="lesson-type-select">
+							<select class="custom-select" id="modal-lesson-type">
 								<option value="0" selected>Choose...</option>
 								<option value="1">Lection</option>
 								<option value="2">Practice</option>
@@ -53,20 +57,24 @@
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">Teacher:</label>
-							<select class="custom-select" id="teacher-select">
+							<select class="custom-select" id="modal-teacher">
 								<option value="0" selected>Choose...</option>
 								<option th:each="teacher: ${teachersNames}" th:text="${teacher.value}" th:value="${teacher.key}"></option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">Classroom:</label>
-							<input type="text" class="form-control" id="classroom">
+							<input type="text" class="form-control" id="modal-classroom">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary schedule-save-changes-btn">Save changes</button>
+					<button type="button"
+							class="btn btn-primary schedule-save-changes-btn"
+							onclick="saveScheduleChanges(event)">
+						Save changes
+					</button>
 				</div>
 			</div>
 		</div>

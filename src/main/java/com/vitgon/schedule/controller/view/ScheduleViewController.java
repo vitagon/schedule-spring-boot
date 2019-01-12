@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.Teacher;
 import com.vitgon.schedule.service.GroupService;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.ScheduleService;
+import com.vitgon.schedule.service.SubjectService;
 import com.vitgon.schedule.service.TeacherService;
 import com.vitgon.schedule.util.ScheduleUtil;
+import com.vitgon.schedule.util.SubjectUtil;
 import com.vitgon.schedule.util.TeacherUtil;
 
 @Controller
@@ -37,6 +40,9 @@ public class ScheduleViewController {
 	private TeacherService teacherService;
 	
 	@Autowired
+	private SubjectService subjectService;
+	
+	@Autowired
 	private GroupService groupService;
 
 	@GetMapping("/{groupId}/schedule")
@@ -46,7 +52,7 @@ public class ScheduleViewController {
 		
 		Group group = groupService.findById(groupId);
 		List<Schedule> schedulesList = scheduleService.findByGroup(group);
-		Map<String, Map<Integer, Map>> subjects = ScheduleUtil.getScheduleMap(schedulesList, locale);
+		Map<String, Map<Integer, Map>> schedules = ScheduleUtil.getScheduleMap(schedulesList, locale);
 		
 		List<String> days = Arrays.asList("monday","tuesday","wednesday","thursday","friday","saturday");
 		List<String> bells = Arrays.asList(
@@ -65,10 +71,18 @@ public class ScheduleViewController {
 			teachersNames.put(teacher.getId(), TeacherUtil.makeUpTeacherName(teacher, locale));
 		}
 		
+		List<Subject> subjects = subjectService.findAll();
+		Map<Integer, String> subjectTitles = new HashMap<>();
+		for (Subject subject : subjects) {
+			subjectTitles.put(subject.getId(), SubjectUtil.getSubjectTitle(subject, locale));
+		}
+		
 		model.addAttribute("teachersNames", teachersNames);
 		model.addAttribute("days", days);
 		model.addAttribute("bells", bells);
-		model.addAttribute("subjects",subjects);
+		model.addAttribute("schedules", schedules);
+		model.addAttribute("subjects", subjectTitles);
+		model.addAttribute("groupId", groupId);
 		return "schedule/schedule";
 	}
 }

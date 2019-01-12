@@ -1,7 +1,19 @@
 const PRACTICE = 'practice';
 const LECTURE  = 'lecture';
 
-const debounce = (func, delay) => { 
+const MODAL_GROUP_ID_INPUT     = '#modal-group-id';
+const MODAL_SCHEDULE_ID_INPUT  = '#modal-schedule-id';
+const MODAL_WEEK_TYPE_INPUT    = '#modal-week';
+const MODAL_DAY_NUM_INPUT      = '#modal-day-num';
+const MODAL_LESSON_NUM_SELECT  = '#modal-lesson-num';
+const MODAL_SUBJECT_SELECT     = '#modal-subject';
+const MODAL_LESSON_TYPE_SELECT = '#modal-lesson-type';
+const MODAL_TEACHER_SELECT     = '#modal-teacher';
+const MODAL_CLASSROOM_INPUT    = '#modal-classroom';
+
+
+
+const debounce = (func, delay) => {
     let debounceTimer 
     return function() { 
         const context = this;
@@ -11,43 +23,29 @@ const debounce = (func, delay) => {
     } 
 }
 
-$('.edit-schedule-btn').on('click', function (e) {
+function showEditScheduleModal(e) {
 	let scheduleRow = e.target.closest('tr');
 	let rootTable = scheduleRow.closest('table');
-	
-	let week = $(rootTable).attr('data-week');
-	let day = $(rootTable).attr('data-day');
 	let scheduleId = $(scheduleRow).attr('data-schedule-id');
-		
-	let lessonNum = $(scheduleRow).find('.lessonNum').html();
-	let subjectTitle = $(scheduleRow).find('.subjectTitle').html();
-	let lessonType = $(scheduleRow).find('.lessonType').attr('data-lesson-type');
-	let teacherId = $(scheduleRow).find('.teacher').attr('data-teacher-id');
-	let classroom = $(scheduleRow).find('.classroom').html();
 	
-	let obj = {
-		week: week,
-		day: day,
-		lessonNum: lessonNum,
-		subjectTitle: subjectTitle,
-		lessonType: lessonType,
-		teacher: teacherId,
-		classroom: classroom
-	}
+	let groupId = $(rootTable).attr('data-group-id');
+	let week = $(rootTable).attr('data-week');
+	let dayNum = $(rootTable).attr('data-day-num');
 	
-	// get elements from modal
-	let scheduleIdInput = $('#schedule-id');
-	let lessonNumSelect = $('#lesson-num-select');
-	let subjectTitleInput = $('#subject-title');
-	let lessonTypeSelect = $('#lesson-type-select');
-	let teacherSelect = $('#teacher-select');
-	let classroomInput = $('#classroom');
+	let lessonNum  = $(scheduleRow).find('.lesson-num').html();
+	let subjectId  = $(scheduleRow).find('.subject').attr('data-id');
+	let lessonType = $(scheduleRow).find('.lesson-type').attr('data-lesson-type');
+	let teacherId  = $(scheduleRow).find('.teacher').attr('data-id');
+	let classroom  = $(scheduleRow).find('.classroom').html();
 	
-	scheduleIdInput.val(scheduleId);
-	lessonNumSelect.val(lessonNum);
-	subjectTitleInput.val(subjectTitle);
-	teacherSelect.val(teacherId);
-	classroomInput.val(classroom);
+	$(MODAL_GROUP_ID_INPUT).val(groupId);
+	$(MODAL_WEEK_TYPE_INPUT).val(week);
+	$(MODAL_DAY_NUM_INPUT).val(dayNum);
+	$(MODAL_SCHEDULE_ID_INPUT).val(scheduleId);
+	$(MODAL_LESSON_NUM_SELECT).val(lessonNum);
+	$(MODAL_SUBJECT_SELECT).val(subjectId);
+	$(MODAL_TEACHER_SELECT).val(teacherId);
+	$(MODAL_CLASSROOM_INPUT).val(classroom);
 	
 	let lessonTypeNumeric;
 	switch (lessonType) {
@@ -64,22 +62,23 @@ $('.edit-schedule-btn').on('click', function (e) {
 			break;
 		}
 	}
-	lessonTypeSelect.val(lessonTypeNumeric);
+	$(MODAL_LESSON_TYPE_SELECT).val(lessonTypeNumeric);
 	
 	$('.edit-schedule-modal').modal('show');
-});
+}
 
-$('.schedule-save-changes-btn').on('click', function (e) {
+function saveScheduleChanges(e) {
 	let obj = {
-		scheduleId: $('#schedule-id').val(),
-		lessonNum: $('#lesson-num-select').val(),
-		subjectTitle: $('#subject-title').val(),
-		lessonType: $('#lesson-type-select').val(),
-		teacherId: $('#teacher-select').val(),
-		classroom: $('#classroom').val()
+		groupId: $(MODAL_GROUP_ID_INPUT).val(),
+		week: $(MODAL_WEEK_TYPE_INPUT).val(),
+		dayNum: $(MODAL_DAY_NUM_INPUT).val(),
+		scheduleId: $(MODAL_SCHEDULE_ID_INPUT).val(),
+		lessonNum: $(MODAL_LESSON_NUM_SELECT).val(),
+		subjectId: $(MODAL_SUBJECT_SELECT).val(),
+		lessonType: $(MODAL_LESSON_TYPE_SELECT).val(),
+		teacherId: $(MODAL_TEACHER_SELECT).val(),
+		classroom: $(MODAL_CLASSROOM_INPUT).val()
 	}
-	
-	console.log(obj);
 	
 	$.ajax({
 		type: 'POST',
@@ -90,11 +89,13 @@ $('.schedule-save-changes-btn').on('click', function (e) {
 			console.log(response);
 		}
 	});
-});
-
+}
+/** Example, how to make query no more than N time per ...
+ 
 $('#teacher').on('keyup', debounce(function () {
 	let keyword = $('#teacher').val();
 	$.get('/api/teachers/all', null, function(data) {
 		console.log(data);
 	});
 }, 3000))
+*/

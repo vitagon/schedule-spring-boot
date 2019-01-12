@@ -34,7 +34,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public Teacher findById(Integer id) {
-		return teacherDao.findById(id).get();
+		return teacherDao.findById(id).orElse(null);
 	}
 
 	@Override

@@ -31,8 +31,8 @@ public class Schedule extends BaseModel<Integer> {
 	@Column(name = "week_type")
 	private int week;
 	
-	@Column(name = "subject_num")
-	private int subjectNum;
+	@Column(name = "lesson_num")
+	private int lessonNum;
 	
 	@JsonIgnore
 	@ManyToOne
