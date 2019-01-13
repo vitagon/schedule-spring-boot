@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	public User save(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setActive(1);
-		Role userRole = roleDao.findByRole("MANAGER");
+		Role userRole = roleDao.findByRole("USER");
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		return userDao.save(user);
 	}

@@ -57,6 +57,6 @@ public class MajorPageController {
 		
 		coursesMap = new TreeMap<>(coursesMap);
 		model.addAttribute("coursesMap", coursesMap);
-		return "majorGroups";
+		return "major-groups";
 	}
 }

@@ -87,6 +87,7 @@ function saveScheduleChanges(e) {
 		dataType: 'JSON',
 		success: function (response) {
 			console.log(response);
+			location.reload();
 		}
 	});
 }

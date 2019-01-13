@@ -1,5 +1,14 @@
-INSERT INTO roles VALUES (1,'MANAGER')
-INSERT INTO roles VALUES (2,'ADMIN')
+INSERT INTO roles (id, role) VALUES (1,'USER')
+INSERT INTO roles (id, role) VALUES (2,'MANAGER')
+INSERT INTO roles (id, role) VALUES (3,'ADMIN')
+
+/* email: admin@gmail.com password: 123123 */
+INSERT INTO users (id, email, password, first_name, last_name, active) VALUES (1, 'admin@gmail.com', '$2a$10$D5R2BLeMpFJ0GSCVQejLVetF0273XekBLOoPlSWNargBuRe/rinYm', 'Vitaliy', 'Goncharov', 1)
+INSERT INTO user_role (user_id, role_id) VALUES (1, 3)
+
+/* email: user@gmail.com password: 123123 */
+INSERT INTO users (id, email, password, first_name, last_name, active) VALUES (2, 'user@gmail.com', '$2a$10$D5R2BLeMpFJ0GSCVQejLVetF0273XekBLOoPlSWNargBuRe/rinYm', 'David', 'Kerrenson', 1)
+INSERT INTO user_role (user_id, role_id) VALUES (2, 1)
 
 INSERT INTO locales (id, code) VALUES (1, 'ru')
 INSERT INTO locales (id, code) VALUES (2, 'en')

@@ -19,7 +19,16 @@ public class ScheduleUtil {
 	private static final int UP_WEEK = 1;
 	private static final int DOWN_WEEK = 2;
 	
-	private final static Map<Integer, String> DAYS_MAP = getDaysMap();
+	private final static Map<Integer, String> DAYS_MAP = new HashMap<>();
+	
+	static {
+		Days[] days = Days.values();
+		for (Days day : days) {
+			int dayNum = day.getDayNum();
+			String title = day.name();
+			DAYS_MAP.put(dayNum, title.toLowerCase());
+		}
+	}
 	
 	public static void main(String... args) {
 		System.out.println(DAYS_MAP);
@@ -37,21 +46,6 @@ public class ScheduleUtil {
 		public int getDayNum() {
 			return this.dayNum;
 		}
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public static Map<Integer, String> getDaysMap() {
-		Days[] days = Days.values();
-		Map<Integer, String> daysMap = new HashMap<>();
-		for (Days day : days) {
-			int dayNum = day.getDayNum();
-			String title = day.name();
-			daysMap.put(dayNum, title.toLowerCase());
-		}
-		return daysMap;
 	}
 	
 	/**

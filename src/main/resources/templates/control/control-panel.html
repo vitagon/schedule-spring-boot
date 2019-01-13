@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<th:block th:replace="layouts/_head"></th:block>
+</head>
+<body>
+	<th:block th:replace="layouts/_menu :: menu"></th:block>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="nav nav-pills" id="control-tab" role="tablist" aria-orientation="vertical">
+					<a href="#add-subject-tab-content"
+					   class="nav-link active"
+					   id="add-subject-tab"
+					   data-toggle="tab"
+					   role="tab"
+					   aria-controls="add-subject-tab-content" aria-selected="true">Добавить предмет</a>
+					<a href="#add-teacher-tab-content"
+					   class="nav-link"
+					   id="add-teacher-tab"
+					   data-toggle="pill"
+					   role="tab"
+					   aria-controls="add-teacher-tab-content" aria-selected="true">Добавить преподавателя</a>
+				</div>
+			</div>
+			
+			<div class="col-md-9">
+				<div class="tab-content">
+					<div class="tab-pane fade show active"
+						 id="add-subject-tab-content"
+						 role="tabpanel"
+						 aria-labelledby="add-subject-tab">
+						 
+						 <form action="#" method="POST">
+						 	<div class="form-group">
+						 		<label for="subject-name">Название</label>
+						 		<input type="text" class="form-control" id="subject-name"/>
+					 		</div>
+						 </form>
+					 </div>
+					 
+					 <div class="tab-pane fade"
+					 	  id="add-teacher-tab-content"
+					 	  role="tab"
+					 	  aria-labelledby="add-teacher-tab">
+					 	  
+					 	  <form action="#" method="POST">
+						 	<div class="form-group">
+						 		<label for="teacher-name">Имя</label>
+						 		<input type="text" class="form-control" id="teacher-name"/>
+					 		</div>
+						 </form>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<th:block th:replace="layouts/_footer"></th:block>
+</body>
+</html>
