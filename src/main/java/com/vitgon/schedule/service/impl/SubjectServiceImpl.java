@@ -50,6 +50,6 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Subject findByTitle(String title) {
 		SubjectTranslation subjectTransl = subjectTranslDao.findByTitle(title);
-		return subjectTransl.getSubject();
+		return subjectTransl.getSubjectTranslationId().getSubject();
 	}
 }

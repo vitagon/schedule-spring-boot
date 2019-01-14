@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<form th:fragment="add-subject-tab-content"
+		action="/control/subject/add" th:action="@{/control/subject/add}" method="POST">
+	 	<div class="form-group">
+	 		<label for="subject-name-en">[[#{englishTitle}]]</label>
+	 		<input type="text" class="form-control" id="subject-title-en" name="subjectTitleEn"/>
+			</div>
+			
+			<div class="form-group">
+				<label for="subject-name-ru">[[#{russianTitle}]]</label>
+				<input type="text" class="form-control" id="subject-title-ru" name="subjectTitleRu"/>
+			</div>
+			
+			<button type="submit" class="btn btn-success">[[#{add}]]</button>
+	 </form>
+</body>
+</html>

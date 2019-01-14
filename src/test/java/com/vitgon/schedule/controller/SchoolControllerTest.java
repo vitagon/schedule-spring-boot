@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.vitgon.schedule.controller.rest.SchoolController;
 import com.vitgon.schedule.dao.SchoolDao;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.School;

@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.view;
+package com.vitgon.schedule.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,7 @@ import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.MajorService;
 
 @Controller
-public class MajorPageController {
+public class MajorViewController {
 	
 	@Autowired
 	private MajorService majorService;

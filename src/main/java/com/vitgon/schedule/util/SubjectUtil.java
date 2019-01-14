@@ -8,7 +8,7 @@ public class SubjectUtil {
 	
 	public static String getSubjectTitle(Subject subject, Locale locale) {
 		String subjectTitle = subject.getSubjectTranslations().stream()
-				.filter(x -> locale == x.getLocale())
+				.filter(x -> locale == x.getSubjectTranslationId().getLocale())
 				.map(SubjectTranslation::getTitle)
 				.findFirst().get();
 		

@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.view;
+package com.vitgon.schedule.controller;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SchoolService;
 
 @Controller
-public class SchoolsPageController {
+public class SchoolsViewController {
 	
 	@Autowired
 	private SchoolService schoolService;

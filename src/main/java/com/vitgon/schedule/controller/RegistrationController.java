@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.view;
+package com.vitgon.schedule.controller;
 
 import java.util.Locale;
 
@@ -17,21 +17,14 @@ import com.vitgon.schedule.service.UserService;
 import com.vitgon.schedule.util.MessageUtil;
 
 @Controller
-public class LoginController {
-
+public class RegistrationController {
+	
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private HttpServletRequest request;
-	
-	@GetMapping("/login")
-	public ModelAndView login() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("auth/login");
-		return modelAndView;
-	}
-	
+
 	@GetMapping("/register")
 	public ModelAndView register() {
 		ModelAndView modelAndView = new ModelAndView();

@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller;
+package com.vitgon.schedule.controller.rest;
 
 import java.util.Map;
 

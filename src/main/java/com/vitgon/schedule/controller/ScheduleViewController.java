@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.view;
+package com.vitgon.schedule.controller;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
@@ -45,8 +45,9 @@ public class ScheduleViewController {
 	@Autowired
 	private GroupService groupService;
 
+	@SuppressWarnings("rawtypes")
 	@GetMapping("/{groupId}/schedule")
-	public String showScheduleInSingleTable(Model model, HttpServletRequest request, @PathVariable("groupId") int groupId) {
+	public ModelAndView showScheduleInSingleTable(HttpServletRequest request, @PathVariable("groupId") int groupId) {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		Locale locale = localeService.findByCode(loc.getLanguage());
 		
@@ -77,12 +78,14 @@ public class ScheduleViewController {
 			subjectTitles.put(subject.getId(), SubjectUtil.getSubjectTitle(subject, locale));
 		}
 		
-		model.addAttribute("teachersNames", teachersNames);
-		model.addAttribute("days", days);
-		model.addAttribute("bells", bells);
-		model.addAttribute("schedules", schedules);
-		model.addAttribute("subjects", subjectTitles);
-		model.addAttribute("groupId", groupId);
-		return "schedule/schedule";
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("schedule/schedule");
+		modelAndView.addObject("teachersNames", teachersNames);
+		modelAndView.addObject("days", days);
+		modelAndView.addObject("bells", bells);
+		modelAndView.addObject("schedules", schedules);
+		modelAndView.addObject("subjects", subjectTitles);
+		modelAndView.addObject("groupId", groupId);
+		return modelAndView;
 	}
 }

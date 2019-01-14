@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller;
+package com.vitgon.schedule.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
