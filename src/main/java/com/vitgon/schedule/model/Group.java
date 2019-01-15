@@ -27,7 +27,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(of = {"courseNum", "groupTranslations"})
 @Entity
-@Table(name = "groups")
+@Table(name = "_groups")
 public class Group extends BaseModel<Integer> {
 	
 	@Column(name = "course_num")

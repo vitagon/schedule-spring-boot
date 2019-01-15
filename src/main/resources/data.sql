@@ -33,7 +33,7 @@ INSERT INTO school (id, url) VALUES (3, 'law_school')
 INSERT INTO school_translations (school_id, locale_id, title) VALUES (3, 1, 'школа юридических наук')
 INSERT INTO school_translations (school_id, locale_id, title) VALUES (3, 2, 'law school')
 
-INSERT INTO groups (course_num, major_id) VALUES (4, 1)
+INSERT INTO _groups (course_num, major_id) VALUES (4, 1)
 INSERT INTO group_translations (group_id, locale_id, title) VALUES (1,1,'С1401пд')
 INSERT INTO group_translations (group_id, locale_id, title) VALUES (1,2,'S1401pd')
 
