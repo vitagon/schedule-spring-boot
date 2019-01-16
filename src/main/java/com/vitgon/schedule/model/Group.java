@@ -30,6 +30,9 @@ import lombok.ToString;
 @Table(name = "_groups")
 public class Group extends BaseModel<Integer> {
 	
+	@Column(name = "name")
+	private String name;
+	
 	@Column(name = "course_num")
 	private int courseNum;
 	

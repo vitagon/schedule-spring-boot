@@ -27,6 +27,15 @@ import lombok.ToString;
 @Table(name = "teacher")
 public class Teacher extends BaseModel<Integer> {
 	
+	@Column(name = "key_lastname")
+	private String keyLastname;
+	
+	@Column(name = "key_firstname")
+	private String keyFirstname;
+	
+	@Column(name = "key_middlename")
+	private String keyMiddlename;
+	
 	@Column(name = "mail")
 	private String mail;
 	

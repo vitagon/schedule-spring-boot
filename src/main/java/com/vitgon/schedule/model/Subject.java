@@ -3,6 +3,7 @@ package com.vitgon.schedule.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,6 +26,9 @@ import lombok.ToString;
 @Entity
 @Table(name = "subjects")
 public class Subject extends BaseModel<Integer> {
+	
+	@Column(name = "name")
+	private String name;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "subject")

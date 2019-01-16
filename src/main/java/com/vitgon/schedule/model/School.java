@@ -28,6 +28,9 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false, of = {"url", "majors"})
 public class School extends BaseModel<Integer> {
 	
+	@Column(name = "name")
+	private String name;
+	
 	@Column(name = "url")
 	private String url;
 	
