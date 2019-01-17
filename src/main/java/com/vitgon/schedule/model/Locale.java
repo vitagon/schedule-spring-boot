@@ -13,7 +13,7 @@ import com.vitgon.schedule.model.translation.GroupTranslation;
 import com.vitgon.schedule.model.translation.MajorTranslation;
 import com.vitgon.schedule.model.translation.SchoolTranslation;
 import com.vitgon.schedule.model.translation.SubjectTranslation;
-import com.vitgon.schedule.model.translation.TeacherTranslation;
+import com.vitgon.schedule.model.translation.UserTranslation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,7 +49,7 @@ public class Locale extends BaseModel<Integer> {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "locale")
-	private List<TeacherTranslation> teacherTranslations = new ArrayList<>();
+	private List<UserTranslation> teacherTranslations = new ArrayList<>();
 
 	public Locale(String code) {
 		this.code = code;

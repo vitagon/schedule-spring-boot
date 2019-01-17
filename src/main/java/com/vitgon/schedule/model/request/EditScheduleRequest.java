@@ -12,6 +12,6 @@ public class EditScheduleRequest {
 	
 	private int subjectId;
 	private int lessonType;
-	private int teacherId;
+	private int userId;
 	private String classroom;
 }

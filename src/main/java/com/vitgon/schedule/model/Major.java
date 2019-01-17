@@ -44,6 +44,9 @@ public class Major extends BaseModel<Integer> {
 	@JoinColumn(name = "school_id")
 	private School school;
 	
+	@Column(name = "degree")
+	private String degree;
+	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "major")
 	private List<Group> groups = new ArrayList<>();

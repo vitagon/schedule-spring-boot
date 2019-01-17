@@ -26,8 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		final CustomUserDetails userDetails = new CustomUserDetails(
 				user.getEmail(),
 				user.getPassword(),
-				user.getFirstName(),
-				user.getLastName(),
+				user.getKeyFirstname(),
+				user.getKeyLastname(),
 				user.getRoles()
 		);
 		return userDetails;

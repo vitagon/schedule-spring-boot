@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vitgon.schedule.model.auth.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,8 +41,8 @@ public class Schedule extends BaseModel<Integer> {
 	private Group group;
 	
 	@ManyToOne
-	@JoinColumn(name = "teacher_id")
-	private Teacher teacher;
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	@Column(name = "lesson_type")
 	private int lessonType;

@@ -178,7 +178,7 @@ public class ScheduleUtil {
 		int subjId = schedule.getSubject().getId();
 		int week = schedule.getWeek();
 		String subjectTitle = SubjectUtil.getSubjectTitle(schedule.getSubject(), locale);
-		String teacherName = TeacherUtil.makeUpTeacherName(schedule.getTeacher(), locale);
+		String teacherName = UserUtil.makeupUsername(schedule.getUser(), locale);
 		String lessonType = LessonUtil.getLessonType(schedule.getLessonType());
 		String classroom = schedule.getClassroom();
 		
@@ -191,7 +191,7 @@ public class ScheduleUtil {
 		
 		if (teacherName != null) {
 			Map<String, String> teacherMap = new HashMap<>();
-			teacherMap.put("id", schedule.getTeacher().getId().toString());
+			teacherMap.put("id", schedule.getUser().getId().toString());
 			teacherMap.put("name", teacherName);
 			
 			subjectMap.put("teacher", teacherMap);

@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.Teacher;
+import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.model.request.EditScheduleRequest;
 import com.vitgon.schedule.model.response.Response;
 import com.vitgon.schedule.service.GroupService;
 import com.vitgon.schedule.service.ScheduleService;
 import com.vitgon.schedule.service.SubjectService;
-import com.vitgon.schedule.service.TeacherService;
+import com.vitgon.schedule.service.UserService;
 
 @Controller
 public class EditScheduleController {
@@ -27,7 +27,7 @@ public class EditScheduleController {
 	private SubjectService subjectService;
 	
 	@Autowired
-	private TeacherService teacherService;
+	private UserService userService;
 	
 	@Autowired
 	private GroupService groupService;
@@ -47,13 +47,13 @@ public class EditScheduleController {
 		// attributes that we can change
 		int subjectId = editScheduleReq.getSubjectId();
 		int lessonType = editScheduleReq.getLessonType();
-		int teacherId = editScheduleReq.getTeacherId();
+		int userId = editScheduleReq.getUserId();
 		String classroom = editScheduleReq.getClassroom();
 		
 		
 		Schedule schedule = null;
 		Subject subject = subjectService.findById(subjectId);
-		Teacher teacher = teacherService.findById(teacherId);
+		User user = userService.findById(userId);
 		
 		String message;
 		
@@ -63,7 +63,7 @@ public class EditScheduleController {
 			schedule = scheduleService.findById(scheduleId);
 			schedule.setSubject(subject);
 			schedule.setLessonType(lessonType);
-			schedule.setTeacher(teacher);
+			schedule.setUser(user);
 			schedule.setClassroom(classroom);
 			scheduleService.update(schedule);
 			message = "schedule was updated";
@@ -77,7 +77,7 @@ public class EditScheduleController {
 			schedule.setSubject(subject);
 			schedule.setLessonNum(lessonNum);
 			schedule.setLessonType(lessonType);
-			schedule.setTeacher(teacher);
+			schedule.setUser(user);
 			schedule.setClassroom(classroom);
 			scheduleService.save(schedule);
 			

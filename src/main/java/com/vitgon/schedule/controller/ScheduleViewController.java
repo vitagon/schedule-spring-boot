@@ -17,15 +17,15 @@ import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.Teacher;
+import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.service.GroupService;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.ScheduleService;
 import com.vitgon.schedule.service.SubjectService;
-import com.vitgon.schedule.service.TeacherService;
+import com.vitgon.schedule.service.UserService;
 import com.vitgon.schedule.util.ScheduleUtil;
 import com.vitgon.schedule.util.SubjectUtil;
-import com.vitgon.schedule.util.TeacherUtil;
+import com.vitgon.schedule.util.UserUtil;
 
 @Controller
 public class ScheduleViewController {
@@ -37,7 +37,7 @@ public class ScheduleViewController {
 	private ScheduleService scheduleService;
 	
 	@Autowired
-	private TeacherService teacherService;
+	private UserService userService;
 	
 	@Autowired
 	private SubjectService subjectService;
@@ -66,10 +66,10 @@ public class ScheduleViewController {
 		);
 		
 		// for modal
-		List<Teacher> teachers = teacherService.findAll();
+		List<User> users = userService.findAll();
 		Map<Integer, String> teachersNames = new HashMap<>();
-		for (Teacher teacher : teachers) {
-			teachersNames.put(teacher.getId(), TeacherUtil.makeUpTeacherName(teacher, locale));
+		for (User teacher : users) {
+			teachersNames.put(teacher.getId(), UserUtil.makeupUsername(teacher, locale));
 		}
 		
 		List<Subject> subjects = subjectService.findAll();

@@ -7,9 +7,9 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.vitgon.schedule.model.Teacher;
+import com.vitgon.schedule.model.auth.User;
 
-public class TeacherSpecification implements Specification<Teacher> {
+public class UserSpecification implements Specification<User> {
 
 	/**
 	 * 
@@ -18,13 +18,13 @@ public class TeacherSpecification implements Specification<Teacher> {
 	
 	private String keyword;
 
-	public TeacherSpecification(String keyword) {
+	public UserSpecification(String keyword) {
 		super();
 		this.keyword = keyword;
 	}
 
 	@Override
-	public Predicate toPredicate(Root<Teacher> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		Predicate predicate = criteriaBuilder.disjunction();
 		
 		if (keyword != null) {

@@ -3,23 +3,23 @@ package com.vitgon.schedule.util;
 import java.util.List;
 
 import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Teacher;
-import com.vitgon.schedule.model.translation.TeacherTranslation;
+import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.translation.UserTranslation;
 
-public class TeacherUtil {
+public class UserUtil {
 	
 	/**
-	 * Make up teacher name | Combine firstname, lastname and middlename
+	 * Make up user name | Combine firstname, lastname and middlename
 	 * Will return ex.:"Jordan Daniel"
 	 * 
 	 * @return 
 	 */
-	public static String makeUpTeacherName(Teacher teacher, Locale locale) {
-		if (teacher == null) {
+	public static String makeupUsername(User user, Locale locale) {
+		if (user == null) {
 			return null;
 		}
 		
-		List<TeacherTranslation> teacherTransl = teacher.getTeacherTranslations();
+		List<UserTranslation> teacherTransl = user.getUserTranslations();
 		
 		return teacherTransl.stream()
 			.filter(x -> x.getLocale() == locale)
