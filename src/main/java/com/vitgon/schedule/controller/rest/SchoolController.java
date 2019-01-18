@@ -1,6 +1,6 @@
 package com.vitgon.schedule.controller.rest;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ public class SchoolController {
 	private LocaleService localeService;
 	
 	@GetMapping("/schools")
-	public Map<School, Map<String, Object>> getSchools() {
+	public List<School> getSchools() {
 		Locale locale = localeService.findByCode("en");
 		return schoolService.findAllByLocale(locale);
 	}

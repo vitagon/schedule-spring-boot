@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.request.AddSubjectRequest;
 import com.vitgon.schedule.model.translation.SubjectTranslation;
+import com.vitgon.schedule.pojo.request.AddSubjectRequest;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SubjectService;
 import com.vitgon.schedule.service.translation.SubjectTranslationService;

@@ -39,8 +39,8 @@ public class SchoolControllerTest {
 
 	@Test
 	public void testReturnValueIsListOfSchools() {
-		Map<School, Map<String,Object>> returnedValue = schoolController.getSchools();
-		assertEquals("test_school", returnedValue.get(0).get("url"));
+		List<School> returnedValue = schoolController.getSchools();
+		assertEquals("test_school", returnedValue.get(0).getUrl());
 	}
 	
 	@Test

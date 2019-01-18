@@ -10,11 +10,11 @@
 	<div th:replace="layouts/_menu :: menu"></div>
 	
 	<div class="container" style="padding-top: 2em">
-		<div class="courseGroups" th:each="courseMap:  ${coursesMap}">
-			<h3 th:text="${courseMap.key} +' '+ #{courseTitle}"></h3>
+		<div class="courseGroups" th:each="groupMap:  ${groupsMap}">
+			<h3 th:text="${groupMap.key.number} +' '+ #{courseTitle}"></h3>
 			<ul class="nav">
-				<li class="nav-item" >
-					<a href="№" th:href="@{/__${courseMap.value.id}__/schedule}" th:text="${courseMap.value.title}"></a>
+				<li class="nav-item" th:each="group: ${groupMap.value}">
+					<a href="№" th:href="@{/__${group.id}__/schedule}" th:text="${group.title}"></a>
 				</li>
 			</ul>
 			<br>

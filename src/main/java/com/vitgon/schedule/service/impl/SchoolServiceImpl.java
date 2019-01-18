@@ -1,9 +1,6 @@
 package com.vitgon.schedule.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.SchoolDao;
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
 import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Major;
 import com.vitgon.schedule.model.School;
-import com.vitgon.schedule.model.translation.MajorTranslation;
 import com.vitgon.schedule.model.translation.SchoolTranslation;
 import com.vitgon.schedule.service.SchoolService;
 
@@ -60,40 +55,7 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public Map<School, Map<String, Object>> findAllByLocale(Locale locale) {
-		List<School> schools = schoolDao.findAllByLocale(locale);
-		Map<School, Map<String, Object>> schoolsMap = new HashMap<>();
-		
-		for (School school : schools) {
-			Map<String, Object> schoolMap = new HashMap<>();
-			schoolMap.put("id", school.getId().toString());
-			schoolMap.put("url", school.getUrl()); 
-			schoolMap.put("title", school.getSchoolTranslations().stream()
-					.filter(x -> locale == x.getLocale())
-					.map(SchoolTranslation::getTitle)
-					.findFirst().get()
-			);
-			
-			List<Major> majors = school.getMajors();
-			if (majors != null) {
-				List<Map<String,Object>> majorsList = new ArrayList<>();
-				for (Major major : majors) {
-					Map<String, Object> majorMap = new HashMap<>();
-					majorMap.put("title", major.getMajorTranslations().stream()
-							.filter(x -> locale == x.getLocale())
-							.map(MajorTranslation::getTitle)
-							.findFirst().get()
-					);
-					majorMap.put("url", major.getUrl());
-					
-					majorsList.add(majorMap);
-				}
-				schoolMap.put("majors", majorsList);
-			}
-			
-			
-			schoolsMap.put(school, schoolMap);
-		}
-		return schoolsMap;
+	public List<School> findAllByLocale(Locale locale) {
+		return schoolDao.findAllByLocale(locale);
 	}
 }

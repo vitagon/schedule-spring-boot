@@ -48,7 +48,7 @@ public class User extends BaseModel<Integer> {
 	@NotEmpty
 	private String keyLastname;
 	
-	@Column(name = "key_lastname")
+	@Column(name = "key_middlename")
 	@NotEmpty
 	private String keyMiddlename;
 	

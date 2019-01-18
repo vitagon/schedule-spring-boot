@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model.request;
+package com.vitgon.schedule.pojo.request;
 
 import lombok.Data;
 

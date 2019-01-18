@@ -1,6 +1,6 @@
 package com.vitgon.schedule.controller;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.School;
+import com.vitgon.schedule.pojo.school.SchoolPojo;
+import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SchoolService;
+import com.vitgon.schedule.util.SchoolUtil;
 
 @Controller
 public class SchoolsViewController {
@@ -28,8 +31,15 @@ public class SchoolsViewController {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		Locale locale = localeService.findByCode(loc.getLanguage());
 		
-		Map<School, Map<String,Object>> schools = schoolService.findAllByLocale(locale);
-		model.addAttribute("schools", schools);
+		List<School> schools;
+		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
+			schools = schoolService.findAll();
+		} else {
+			schools = schoolService.findAllByLocale(locale);
+		}
+		
+		List<SchoolPojo> preparedSchools = SchoolUtil.prepareSchoolPojos(schools, locale);
+		model.addAttribute("schools", preparedSchools);
 		return "schools";
 	}
 }

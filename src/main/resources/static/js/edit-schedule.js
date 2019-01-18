@@ -38,6 +38,8 @@ function showEditScheduleModal(e) {
 	let teacherId  = $(scheduleRow).find('.teacher').attr('data-id');
 	let classroom  = $(scheduleRow).find('.classroom').html();
 	
+	console.log("TeacherId: " + teacherId);
+	
 	$(MODAL_GROUP_ID_INPUT).val(groupId);
 	$(MODAL_WEEK_TYPE_INPUT).val(week);
 	$(MODAL_DAY_NUM_INPUT).val(dayNum);
@@ -76,7 +78,7 @@ function saveScheduleChanges(e) {
 		lessonNum: $(MODAL_LESSON_NUM_SELECT).val(),
 		subjectId: $(MODAL_SUBJECT_SELECT).val(),
 		lessonType: $(MODAL_LESSON_TYPE_SELECT).val(),
-		teacherId: $(MODAL_TEACHER_SELECT).val(),
+		userId: $(MODAL_TEACHER_SELECT).val(),
 		classroom: $(MODAL_CLASSROOM_INPUT).val()
 	}
 	

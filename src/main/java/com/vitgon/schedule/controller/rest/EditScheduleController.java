@@ -10,8 +10,8 @@ import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
-import com.vitgon.schedule.model.request.EditScheduleRequest;
-import com.vitgon.schedule.model.response.Response;
+import com.vitgon.schedule.pojo.request.EditScheduleRequest;
+import com.vitgon.schedule.pojo.response.Response;
 import com.vitgon.schedule.service.GroupService;
 import com.vitgon.schedule.service.ScheduleService;
 import com.vitgon.schedule.service.SubjectService;
@@ -50,10 +50,13 @@ public class EditScheduleController {
 		int userId = editScheduleReq.getUserId();
 		String classroom = editScheduleReq.getClassroom();
 		
-		
 		Schedule schedule = null;
+		User user = null;
+		
 		Subject subject = subjectService.findById(subjectId);
-		User user = userService.findById(userId);
+		if (userId != 0) {
+			user = userService.findById(userId);
+		}
 		
 		String message;
 		
