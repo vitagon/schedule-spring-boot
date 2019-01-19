@@ -1,4 +1,4 @@
-package com.vitgon.schedule.pojo.school;
+package com.vitgon.schedule.dto.school;
 
 import lombok.Data;
 

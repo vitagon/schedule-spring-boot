@@ -1,4 +1,4 @@
-package com.vitgon.schedule.pojo.group;
+package com.vitgon.schedule.dto.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

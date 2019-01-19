@@ -1,46 +1,44 @@
 package com.vitgon.schedule.controller.control;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.translation.SubjectTranslation;
-import com.vitgon.schedule.pojo.request.AddSubjectRequest;
-import com.vitgon.schedule.service.LocaleService;
+import com.vitgon.schedule.dto.form.AddSubjectDTO;
 import com.vitgon.schedule.service.SubjectService;
-import com.vitgon.schedule.service.translation.SubjectTranslationService;
 
 @Controller
 public class AddSubjectController {
 	
 	@Autowired
-	private LocaleService localeService;
-	
-	@Autowired
 	private SubjectService subjectService;
-	
-	@Autowired
-	private SubjectTranslationService subjectTranslService;
 
 	@PostMapping("/control/subject/add")
-	public ModelAndView addSubject(@ModelAttribute AddSubjectRequest addSubjectRequestModel, ModelMap modelMap) {
-		Subject subject = subjectService.save(new Subject());
+	public RedirectView addSubject(
+			@Valid AddSubjectDTO addSubjectDTO,
+			BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
 		
-		Locale enLocale = localeService.findByCode("en");
-		Locale ruLocale = localeService.findByCode("ru");
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addSubjectDTO", bindingResult);
+			redirectAttributes.addFlashAttribute("addSubjectDTO", addSubjectDTO);
+			return new RedirectView("/control");
+		}
 		
-		subjectTranslService.save(new SubjectTranslation(
-				subject, enLocale, addSubjectRequestModel.getSubjectTitleEn()
-		));
-		subjectTranslService.save(new SubjectTranslation(
-				subject, ruLocale, addSubjectRequestModel.getSubjectTitleRu()
-		));
+		return new RedirectView("/control");
 		
-		return new ModelAndView("redirect:/control", modelMap);
+//		if (name != null && name.matches("[A-Za-z]")) {
+//			subjectService.save(new Subject(name));
+//			modelAndView.addObject(new AddSubjectDTO());
+//		} else {
+//			bindingResult.rejectValue("subjectName", "add.subject.length");
+//			bindingResult.rejectValue("subjectName", "add.subject.latin");
+//		}
 	}
 }

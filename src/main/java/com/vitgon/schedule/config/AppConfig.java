@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,6 +30,13 @@ public class AppConfig implements WebMvcConfigurer {
 		messageResource.setBasename("classpath:i18n/messages");
 		messageResource.setDefaultEncoding("UTF-8");
 		return messageResource;
+	}
+	
+	@Bean
+	public LocalValidatorFactoryBean validator(MessageSource messageSource) {
+		LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
+		validatorFactoryBean.setValidationMessageSource(messageSource);
+		return validatorFactoryBean;
 	}
 
 	@Override

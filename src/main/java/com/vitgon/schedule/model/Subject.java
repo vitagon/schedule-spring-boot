@@ -37,6 +37,10 @@ public class Subject extends BaseModel<Integer> {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "subjectTranslationId.subject")
 	private List<SubjectTranslation> subjectTranslations = new ArrayList<>();
+	
+	public Subject(String name) {
+		this.name = name;
+	}
 
 	public Subject(List<Schedule> schedules, List<SubjectTranslation> subjectTranslations) {
 		this.schedules = schedules;

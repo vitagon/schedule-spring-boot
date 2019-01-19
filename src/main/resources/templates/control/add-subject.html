@@ -9,15 +9,16 @@
 </head>
 <body>
 	<form th:fragment="add-subject-tab-content"
-		action="/control/subject/add" th:action="@{/control/subject/add}" method="POST">
-	 	<div class="form-group">
-	 		<label for="subject-name-en">[[#{englishTitle}]]</label>
-	 		<input type="text" class="form-control" id="subject-title-en" name="subjectTitleEn"/>
-			</div>
-			
-			<div class="form-group">
-				<label for="subject-name-ru">[[#{russianTitle}]]</label>
-				<input type="text" class="form-control" id="subject-title-ru" name="subjectTitleRu"/>
+		action="/control/subject/add" th:action="@{/control/subject/add}" th:object="${addSubjectDTO}" method="POST">
+		
+			<!-- Add subject using english lang for name as default -->
+	 		<div class="form-group">
+		 		<label for="subject-name">[[#{englishTitle}]]</label>
+		 		<input type="text" class="form-control" id="subject-name" th:field="*{subjectName}"/>
+		 		<div th:if="${#fields.hasErrors('subjectName')}"
+		 			 th:errors="*{subjectName}"
+		 			 class="validation-message"
+		 			 style="color: #FF1C19"></div>
 			</div>
 			
 			<button type="submit" class="btn btn-success">[[#{add}]]</button>

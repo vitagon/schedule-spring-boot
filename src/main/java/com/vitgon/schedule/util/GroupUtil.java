@@ -9,12 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
+import com.vitgon.schedule.dto.group.CourseNum;
+import com.vitgon.schedule.dto.group.GroupPojo;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.pojo.group.CourseNum;
-import com.vitgon.schedule.pojo.group.GroupPojo;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
 public class GroupUtil {

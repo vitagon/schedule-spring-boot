@@ -3,12 +3,12 @@ package com.vitgon.schedule.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vitgon.schedule.dto.school.MajorPojo;
+import com.vitgon.schedule.dto.school.SchoolPojo;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Major;
 import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.model.translation.SchoolTranslation;
-import com.vitgon.schedule.pojo.school.MajorPojo;
-import com.vitgon.schedule.pojo.school.SchoolPojo;
 
 public class SchoolUtil {
 	

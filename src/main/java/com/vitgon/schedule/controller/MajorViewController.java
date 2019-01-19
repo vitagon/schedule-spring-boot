@@ -11,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.vitgon.schedule.dto.group.CourseNum;
+import com.vitgon.schedule.dto.group.GroupPojo;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Major;
-import com.vitgon.schedule.pojo.group.CourseNum;
-import com.vitgon.schedule.pojo.group.GroupPojo;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.MajorService;
 import com.vitgon.schedule.util.GroupUtil;

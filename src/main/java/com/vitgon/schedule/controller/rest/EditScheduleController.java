@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.vitgon.schedule.dto.request.EditScheduleRequest;
+import com.vitgon.schedule.dto.response.Response;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
-import com.vitgon.schedule.pojo.request.EditScheduleRequest;
-import com.vitgon.schedule.pojo.response.Response;
 import com.vitgon.schedule.service.GroupService;
 import com.vitgon.schedule.service.ScheduleService;
 import com.vitgon.schedule.service.SubjectService;
