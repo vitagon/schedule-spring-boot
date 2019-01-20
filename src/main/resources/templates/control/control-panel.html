@@ -14,19 +14,22 @@
 			<div class="col-md-3">
 				<div class="nav flex-column nav-pills" id="control-tab" role="tablist" aria-orientation="vertical">
 					<a href="#main-tab-content"
-						   class="nav-link active"
-						   id="main-tab"
-						   data-toggle="tab"
-						   role="tab"
-						   aria-controls="main-tab-content" aria-selected="true">[[#{main}]]</a>
+					   class="nav-link"
+					   th:classappend="${#strings.equals(activeTab, 'main')} ? 'active' : ''"
+					   id="main-tab"
+					   data-toggle="tab"
+					   role="tab"
+					   aria-controls="main-tab-content" aria-selected="true">[[#{main}]]</a>
 					<a href="#add-subject-tab-content"
 					   class="nav-link"
+					   th:classappend="${#strings.equals(activeTab, 'addSubject')} ? 'active' : ''"
 					   id="add-subject-tab"
 					   data-toggle="tab"
 					   role="tab"
 					   aria-controls="add-subject-tab-content" aria-selected="true">[[#{addSubject}]]</a>
 					<a href="#add-teacher-tab-content"
 					   class="nav-link"
+					   th:classappend="${#strings.equals(activeTab, 'addTeacher')} ? 'active' : ''"
 					   id="add-teacher-tab"
 					   data-toggle="pill"
 					   role="tab"
@@ -36,7 +39,8 @@
 			
 			<div class="col-md-9">
 				<div class="tab-content">
-					<div class="tab-pane fade show active"
+					<div class="tab-pane fade"
+						 th:classappend="${#strings.equals(activeTab, 'main')} ? 'show active' : ''"
 						 id="main-tab-content"
 						 role="tabpanel"
 						 aria-labelledby="main-tab">
@@ -45,6 +49,7 @@
 					</div>
 					 
 					<div class="tab-pane fade"
+						 th:classappend="${#strings.equals(activeTab, 'addSubject')} ? 'show active' : ''"
 						 id="add-subject-tab-content"
 						 role="tabpanel"
 						 aria-labelledby="add-subject-tab">
@@ -53,9 +58,10 @@
 					</div>
 					 
 					<div class="tab-pane fade"
-						  id="add-teacher-tab-content"
-						  role="tab"
-						  aria-labelledby="add-teacher-tab">
+						 th:classappend="${#strings.equals(activeTab,'addTeacher')} ? 'show active' : ''"
+						 id="add-teacher-tab-content"
+						 role="tab"
+						 aria-labelledby="add-teacher-tab">
 						  
 						  <th:block th:replace="control/add-teacher :: add-teacher-tab-content"></th:block>
 					</div>

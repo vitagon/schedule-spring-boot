@@ -19,6 +19,10 @@ public class ControlPanelController {
 			modelAndView.addObject(new AddSubjectDTO());
 		}
 		
+		if (!modelMap.containsAttribute("activeTab")) {
+			modelAndView.addObject("activeTab", "main");
+		}
+		
 		modelAndView.setViewName("control/control-panel");
 		return modelAndView;
 	}
