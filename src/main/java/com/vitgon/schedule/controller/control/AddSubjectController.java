@@ -12,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.vitgon.schedule.dto.form.AddSubjectDTO;
+import com.vitgon.schedule.dto.AddSubjectDTO;
+import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.service.SubjectService;
 
 @Controller
@@ -27,21 +28,17 @@ public class AddSubjectController {
 			BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 		
+		redirectAttributes.addFlashAttribute("activeTab", "addSubject");
+		
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addSubjectDTO", bindingResult);
 			redirectAttributes.addFlashAttribute("addSubjectDTO", addSubjectDTO);
-			redirectAttributes.addFlashAttribute("activeTab", "addSubject");
 			return new RedirectView("/control");
 		}
 		
-		return new RedirectView("/control");
+		subjectService.save(new Subject(addSubjectDTO.getSubjectName().toLowerCase()));
+		redirectAttributes.addFlashAttribute("subjectAddedSuccess", true);
 		
-//		if (name != null && name.matches("[A-Za-z]")) {
-//			subjectService.save(new Subject(name));
-//			modelAndView.addObject(new AddSubjectDTO());
-//		} else {
-//			bindingResult.rejectValue("subjectName", "add.subject.length");
-//			bindingResult.rejectValue("subjectName", "add.subject.latin");
-//		}
+		return new RedirectView("/control");
 	}
 }

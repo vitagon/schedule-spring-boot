@@ -1,9 +1,9 @@
-package com.vitgon.schedule.dto.school;
+package com.vitgon.schedule.pojo;
 
 import lombok.Data;
 
 @Data
-public class MajorPojo {
+public class MajorPOJO {
 	private String url;
 	private String title;
 }

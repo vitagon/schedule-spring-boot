@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.vitgon.schedule.dto.request.EditScheduleRequest;
-import com.vitgon.schedule.dto.response.Response;
+import com.vitgon.schedule.dto.EditScheduleDTO;
+import com.vitgon.schedule.dto.ResponseDTO;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.Subject;
@@ -34,7 +34,7 @@ public class EditScheduleController {
 
 	@ResponseBody
 	@PostMapping("/api/schedule/edit")
-	public Response editSchedulePage(@ModelAttribute EditScheduleRequest editScheduleReq) {
+	public ResponseDTO editSchedulePage(@ModelAttribute EditScheduleDTO editScheduleReq) {
 		// util attribute for editing schedule
 		int scheduleId = editScheduleReq.getScheduleId();
 		
@@ -87,6 +87,6 @@ public class EditScheduleController {
 			message = "schedule was created";
 		}
 		
-		return new Response(true, message);
+		return new ResponseDTO(true, message);
 	}
 }

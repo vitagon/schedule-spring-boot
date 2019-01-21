@@ -45,7 +45,7 @@ INSERT INTO user_role (user_id, role_id) VALUES (6, 1), (6, 4)
 INSERT INTO user_translations (user_id, locale_id, lastname, firstname, middlename) VALUES (3, 1, 'ефремова','полина','витальевна')
 INSERT INTO user_translations (user_id, locale_id, lastname, firstname, middlename) VALUES (4, 1, 'воробьева','лариса','генадьевна')
 INSERT INTO user_translations (user_id, locale_id, lastname, firstname, middlename) VALUES (5, 1, 'мишунина','лидия','николаевна')
-INSERT INTO user_translations (user_id, locale_id, lastname, firstname, middlename) VALUES (6, 1, 'карпец','ольга','викторовна')
+/*INSERT INTO user_translations (user_id, locale_id, lastname, firstname, middlename) VALUES (6, 1, 'карпец','ольга','викторовна')*/
 
 INSERT INTO subjects (id, name) VALUES (1, 'enterprise cost management')
 INSERT INTO subjects (id, name) VALUES (2, 'pricing')

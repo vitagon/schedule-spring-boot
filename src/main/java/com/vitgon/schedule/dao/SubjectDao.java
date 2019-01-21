@@ -7,4 +7,5 @@ import com.vitgon.schedule.model.Subject;
 
 @Repository
 public interface SubjectDao extends JpaRepository<Subject, Integer> {
+	Subject findByName(String name);
 }

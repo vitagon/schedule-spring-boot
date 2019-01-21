@@ -48,7 +48,7 @@ public class Locale extends BaseModel<Integer> {
 	private List<GroupTranslation> groupTranslations = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "locale")
+	@OneToMany(mappedBy = "userTranslationId.locale")
 	private List<UserTranslation> teacherTranslations = new ArrayList<>();
 
 	public Locale(String code) {

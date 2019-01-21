@@ -3,12 +3,12 @@ package com.vitgon.schedule.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vitgon.schedule.dto.school.MajorPojo;
-import com.vitgon.schedule.dto.school.SchoolPojo;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Major;
 import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.model.translation.SchoolTranslation;
+import com.vitgon.schedule.pojo.MajorPOJO;
+import com.vitgon.schedule.pojo.SchoolPOJO;
 
 public class SchoolUtil {
 	
@@ -23,21 +23,21 @@ public class SchoolUtil {
 			.findFirst().get();
 	}
 	
-	public static List<SchoolPojo> prepareSchoolPojos(List<School> schools, Locale locale) {
+	public static List<SchoolPOJO> prepareSchoolPojos(List<School> schools, Locale locale) {
 		
-		List<SchoolPojo> schoolsPojos = new ArrayList<>();
+		List<SchoolPOJO> schoolsPojos = new ArrayList<>();
 		
 		for (School school : schools) {
-			SchoolPojo schoolPojo = new SchoolPojo();
+			SchoolPOJO schoolPojo = new SchoolPOJO();
 			schoolPojo.setId(school.getId());
 			schoolPojo.setUrl(school.getUrl());
 			schoolPojo.setTitle(getSchoolTitle(school, locale));
 			
 			List<Major> majors = school.getMajors();
 			if (majors != null) {
-				List<MajorPojo> majorsPojos = new ArrayList<>();
+				List<MajorPOJO> majorsPojos = new ArrayList<>();
 				for (Major major : majors) {
-					MajorPojo majorPojo = new MajorPojo();
+					MajorPOJO majorPojo = new MajorPOJO();
 					majorPojo.setTitle(MajorUtil.getMajorTitle(major, locale));
 					majorPojo.setUrl(major.getUrl());
 					

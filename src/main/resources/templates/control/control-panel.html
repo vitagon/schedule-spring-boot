@@ -27,13 +27,13 @@
 					   data-toggle="tab"
 					   role="tab"
 					   aria-controls="add-subject-tab-content" aria-selected="true">[[#{addSubject}]]</a>
-					<a href="#add-teacher-tab-content"
+					<a href="#add-teacher-translation-tab-content"
 					   class="nav-link"
-					   th:classappend="${#strings.equals(activeTab, 'addTeacher')} ? 'active' : ''"
-					   id="add-teacher-tab"
+					   th:classappend="${#strings.equals(activeTab, 'addTeacherTranslation')} ? 'active' : ''"
+					   id="add-teacher-translation-tab"
 					   data-toggle="pill"
 					   role="tab"
-					   aria-controls="add-teacher-tab-content" aria-selected="true">[[#{addTeacher}]]</a>
+					   aria-controls="add-teacher-translation-tab-content" aria-selected="true">[[#{addTeacherTranslation}]]</a>
 				</div>
 			</div>
 			
@@ -58,12 +58,12 @@
 					</div>
 					 
 					<div class="tab-pane fade"
-						 th:classappend="${#strings.equals(activeTab,'addTeacher')} ? 'show active' : ''"
-						 id="add-teacher-tab-content"
+						 th:classappend="${#strings.equals(activeTab,'addTeacherTranslation')} ? 'show active' : ''"
+						 id="add-teacher-translation-tab-content"
 						 role="tab"
-						 aria-labelledby="add-teacher-tab">
+						 aria-labelledby="add-teacher-translation-tab">
 						  
-						  <th:block th:replace="control/add-teacher :: add-teacher-tab-content"></th:block>
+						  <th:block th:replace="control/add-teacher-translation :: add-teacher-translation-tab-content"></th:block>
 					</div>
 				</div>
 			</div>

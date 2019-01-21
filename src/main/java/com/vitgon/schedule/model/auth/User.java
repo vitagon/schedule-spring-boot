@@ -1,5 +1,6 @@
 package com.vitgon.schedule.model.auth;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,10 +14,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.vitgon.schedule.model.BaseModel;
 import com.vitgon.schedule.model.translation.UserTranslation;
@@ -52,6 +56,9 @@ public class User extends BaseModel<Integer> {
 	@NotEmpty
 	private String keyMiddlename;
 	
+	@Column(name = "birth")
+	private Date birth;
+	
 	@Column(name = "active")
 	private int active;
 	
@@ -59,6 +66,6 @@ public class User extends BaseModel<Integer> {
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "userTranslationId.user")
 	private List<UserTranslation> userTranslations = new ArrayList<>();
 }

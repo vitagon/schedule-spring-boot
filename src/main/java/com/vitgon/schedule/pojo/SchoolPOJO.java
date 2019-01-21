@@ -1,13 +1,13 @@
-package com.vitgon.schedule.dto.school;
+package com.vitgon.schedule.pojo;
 
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class SchoolPojo {
+public class SchoolPOJO {
 	private int id;
 	private String title;
 	private String url;
-	private List<MajorPojo> majors;
+	private List<MajorPOJO> majors;
 }

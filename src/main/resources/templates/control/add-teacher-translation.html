@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	 <form th:fragment="add-teacher-translation-tab-content"
+	 	   th:action="@{/control/teacher/translation/add}"
+	 	   th:object="${addTeacherTranslationDTO}"
+	 	   method="POST">
+	 	   
+ 	   <div class="alert alert-success" th:if="${teacherTranslationAddedSuccess}" th:text="#{teacherTranslationAddedMessage}"></div>
+	 	  
+	 	<div class="form-group">
+	 		<label for="user">[[#{teacher}]]</label>
+	 		<select class="custom-select" id="user" th:field="*{userId}">
+				<option value="0">[[#{chooseTeacher}]]</option>
+				<option th:each="teacher: ${teachers}" th:value="${teacher.id}">[[${teacher.name}]]</option>
+			</select>
+			<div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"
+	 			 style="color: red"></div>
+	 	</div>
+		
+		<div class="form-group">
+			<label for="locale">[[#{localization}]]</label>
+			<select class="custom-select" id="locale" th:field="*{localeId}">
+				<option value="0">[[#{chooseLocalization}]]</option>
+				<option th:each="locale: ${locales}" th:value="${locale.id}">[[${locale.code}]]</option>
+			</select>
+			<div th:if="${#fields.hasErrors('localeId')}" th:errors="*{localeId}"
+	 			 style="color: red"></div>
+			
+		</div>	
+ 		
+ 		<div class="form-group">
+	 		<label for="teacher-lastname">[[#{lastName}]]</label>
+	 		<input type="text" class="form-control" id="teacher-lastname" th:field="*{lastname}"/>
+	 		<div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"
+	 			 style="color: red"></div>
+ 		</div>
+ 		
+ 		<div class="form-group">
+	 		<label for="teacher-firstname">[[#{firstName}]]</label>
+	 		<input type="text" class="form-control" id="teacher-firstname" th:field="*{firstname}"/>
+	 		<div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"
+	 			 style="color: red"></div>
+ 		</div>
+ 		
+ 		<div class="form-group">
+	 		<label for="teacher-middlename">[[#{middleName}]]</label>
+	 		<input type="text" class="form-control" id="teacher-middlename" th:field="*{middlename}"/>
+	 		<div th:if="${#fields.hasErrors('middlename')}" th:errors="*{middlename}"
+	 			 style="color: red"></div>
+ 		</div>
+ 		
+ 		<button type="submit" class="btn btn-success">[[#{add}]]</button>
+	 </form>
+</body>
+</html>

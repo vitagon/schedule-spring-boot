@@ -48,6 +48,11 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 	
 	@Override
+	public Subject findByName(String name) {
+		return subjectDao.findByName(name);
+	}
+
+	@Override
 	public Subject findByTitle(String title) {
 		SubjectTranslation subjectTransl = subjectTranslDao.findByTitle(title);
 		return subjectTransl.getSubjectTranslationId().getSubject();

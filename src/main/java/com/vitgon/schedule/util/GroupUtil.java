@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.vitgon.schedule.dto.group.CourseNum;
-import com.vitgon.schedule.dto.group.GroupPojo;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.pojo.CourseNumPOJO;
+import com.vitgon.schedule.pojo.GroupPOJO;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
 public class GroupUtil {
@@ -28,18 +28,18 @@ public class GroupUtil {
 				.findFirst().get();
 	}
 	
-	public static Map<CourseNum, List<GroupPojo>> prepareGroupPojos(List<Group> groups, Locale locale) {
-		Map<CourseNum, List<GroupPojo>> groupsMap = new HashMap<>();
+	public static Map<CourseNumPOJO, List<GroupPOJO>> prepareGroupPojos(List<Group> groups, Locale locale) {
+		Map<CourseNumPOJO, List<GroupPOJO>> groupsMap = new HashMap<>();
 		
 		for (Group group : groups) {
-			CourseNum courseNum = new CourseNum(group.getCourseNum());
+			CourseNumPOJO courseNum = new CourseNumPOJO(group.getCourseNum());
 			
 			if (!groupsMap.containsKey(courseNum)) {
 				groupsMap.put(courseNum, new ArrayList<>());
 			}
 			
-			List<GroupPojo> groupsList = groupsMap.get(courseNum);
-			groupsList.add(new GroupPojo(
+			List<GroupPOJO> groupsList = groupsMap.get(courseNum);
+			groupsList.add(new GroupPOJO(
 					group.getId(),
 					getGroupTitle(group, locale)
 			));
@@ -48,18 +48,18 @@ public class GroupUtil {
 		return sortGroupsMap(groupsMap);
 	}
 	
-	public static Map<CourseNum, List<GroupPojo>> sortGroupsMap(Map<CourseNum, List<GroupPojo>> unsortedGroupsMap) {
-		List<Entry<CourseNum, List<GroupPojo>>> list = new LinkedList<Map.Entry<CourseNum, List<GroupPojo>>>(unsortedGroupsMap.entrySet());
+	public static Map<CourseNumPOJO, List<GroupPOJO>> sortGroupsMap(Map<CourseNumPOJO, List<GroupPOJO>> unsortedGroupsMap) {
+		List<Entry<CourseNumPOJO, List<GroupPOJO>>> list = new LinkedList<Map.Entry<CourseNumPOJO, List<GroupPOJO>>>(unsortedGroupsMap.entrySet());
 		
-		Collections.sort(list, new Comparator<Entry<CourseNum, List<GroupPojo>>>() {
-			public int compare(Map.Entry<CourseNum, List<GroupPojo>> o1, Map.Entry<CourseNum, List<GroupPojo>> o2) {
+		Collections.sort(list, new Comparator<Entry<CourseNumPOJO, List<GroupPOJO>>>() {
+			public int compare(Map.Entry<CourseNumPOJO, List<GroupPOJO>> o1, Map.Entry<CourseNumPOJO, List<GroupPOJO>> o2) {
 				return (o1.getKey()).compareTo(o2.getKey());
 			}
 		});
 
 		//convert sortedMap back to Map
-		Map<CourseNum, List<GroupPojo>> sortedMap = new LinkedHashMap<CourseNum, List<GroupPojo>>();
-		for (Entry<CourseNum, List<GroupPojo>> entry : list) {
+		Map<CourseNumPOJO, List<GroupPOJO>> sortedMap = new LinkedHashMap<CourseNumPOJO, List<GroupPOJO>>();
+		for (Entry<CourseNumPOJO, List<GroupPOJO>> entry : list) {
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
 		return sortedMap;

@@ -1,9 +1,9 @@
-package com.vitgon.schedule.dto.request;
+package com.vitgon.schedule.dto;
 
 import lombok.Data;
 
 @Data
-public class EditScheduleRequest {
+public class EditScheduleDTO {
 	private int groupId;
 	private int scheduleId;
 	private int week;

@@ -22,7 +22,7 @@ public class UserUtil {
 		List<UserTranslation> teacherTransl = user.getUserTranslations();
 		
 		return teacherTransl.stream()
-			.filter(x -> x.getLocale() == locale)
+			.filter(x -> x.getUserTranslationId().getLocale() == locale)
 			.map(x -> {
 				String lastname = x.getLastname();
 				lastname = lastname.substring(0,1).toUpperCase() + lastname.substring(1);
@@ -43,5 +43,28 @@ public class UserUtil {
 			})
 			.findFirst()
 			.orElse("Teacher doesn't have name in this lang");
+	}
+	
+	public static String makeupUsername(User user) {
+		if (user == null) {
+			return null;
+		}
+		
+		String lastname = user.getKeyLastname();
+		lastname = lastname.substring(0,1).toUpperCase() + lastname.substring(1);
+		
+		String firstname = user.getKeyFirstname();
+		firstname = firstname.substring(0,1).toUpperCase() + firstname.substring(1);
+		
+		String middlename = user.getKeyMiddlename();
+		middlename = middlename.substring(0,1).toUpperCase() + middlename.substring(1);
+		
+		return new StringBuilder()
+				.append(lastname)
+				.append(" ")
+				.append(firstname)
+				.append(" ")
+				.append(middlename)
+				.toString();
 	}
 }

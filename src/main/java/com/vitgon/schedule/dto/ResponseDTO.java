@@ -1,11 +1,11 @@
-package com.vitgon.schedule.dto.response;
+package com.vitgon.schedule.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Response {
+public class ResponseDTO {
 	private boolean success;
 	private String message;
 }
