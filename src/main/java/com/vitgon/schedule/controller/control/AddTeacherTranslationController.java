@@ -17,9 +17,10 @@ import com.vitgon.schedule.model.translation.pk.UserTranslationId;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.UserService;
 import com.vitgon.schedule.service.translation.UserTranslationService;
+import com.vitgon.schedule.validator.UserTranslationValidator;
 
 @Controller
-public class AddTeacherTranslation {
+public class AddTeacherTranslationController {
 	
 	@Autowired
 	private UserTranslationService userTranslationService;
@@ -29,6 +30,9 @@ public class AddTeacherTranslation {
 	
 	@Autowired
 	private LocaleService localeService;
+	
+	@Autowired
+	private UserTranslationValidator userTranslationValidator;
 	
 	@PostMapping("/control/teacher/translation/add")
 	public RedirectView addTeacherTranslation(@Valid AddTeacherTranslationDTO addTeacherTranslationDTO,
@@ -42,8 +46,8 @@ public class AddTeacherTranslation {
 			return new RedirectView("/control");
 		}
 		
-		if (!checkIfTeacherTranslationExists(addTeacherTranslationDTO)) {
-			result.rejectValue("localeId", "UniqueTeacherTranslation.teacherTranslation");
+		userTranslationValidator.validate(addTeacherTranslationDTO, result);
+		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addTeacherTranslationDTO", result);
 			redirectAttributes.addFlashAttribute("addTeacherTranslationDTO", addTeacherTranslationDTO);
 			return new RedirectView("/control");
@@ -60,37 +64,5 @@ public class AddTeacherTranslation {
 		));
 		redirectAttributes.addFlashAttribute("teacherTranslationAddedSuccess", true);
 		return new RedirectView("/control");
-	}
-	
-	private boolean checkIfTeacherTranslationExists(AddTeacherTranslationDTO addTeacherTranslationDTO) {
-		// get user
-		if (addTeacherTranslationDTO.getUserId() <= 0) {
-			return false;
-		}
-		User user = userService.findById(addTeacherTranslationDTO.getUserId());
-		if (user == null) {
-			return false;
-		}
-		
-		// get locale
-		if (addTeacherTranslationDTO.getLocaleId() <= 0) {
-			return false;
-		}
-		Locale locale = localeService.findById(addTeacherTranslationDTO.getLocaleId());
-		if (locale == null) {
-			return false;
-		}
-		
-		// check if user translation for this locale already exists
-		boolean userTranslationExists = user.getUserTranslations().stream()
-			.filter(userTranslation -> locale == userTranslation.getUserTranslationId().getLocale())
-			.findFirst()
-			.isPresent();
-		
-		if (!userTranslationExists) {
-			return true;
-		}
-		
-		return false;
 	}
 }

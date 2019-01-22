@@ -27,6 +27,13 @@
 					   data-toggle="tab"
 					   role="tab"
 					   aria-controls="add-subject-tab-content" aria-selected="true">[[#{addSubject}]]</a>
+					<a href="#add-subject-translation-tab-content"
+					   class="nav-link"
+					   th:classappend="${#strings.equals(activeTab, 'addSubjectTranslation')} ? 'active' : ''"
+					   id="add-subject-translation-tab"
+					   data-toggle="pill"
+					   role="tab"
+					   aria-controls="add-subject-translation-tab-content" aria-selected="true">[[#{addSubjectTranslation}]]</a>
 					<a href="#add-teacher-translation-tab-content"
 					   class="nav-link"
 					   th:classappend="${#strings.equals(activeTab, 'addTeacherTranslation')} ? 'active' : ''"
@@ -55,6 +62,15 @@
 						 aria-labelledby="add-subject-tab">
 						 
 						 <th:block th:replace="control/add-subject :: add-subject-tab-content"></th:block>
+					</div>
+					
+					<div class="tab-pane fade"
+						 th:classappend="${#strings.equals(activeTab, 'addSubjectTranslation')} ? 'show active' : ''"
+						 id="add-subject-translation-tab-content"
+						 role="tabpanel"
+						 aria-labelledby="add-subject-translation-tab">
+					
+						<th:block th:replace="control/add-subject-translation :: add-subject-translation-tab-content"></th:block>
 					</div>
 					 
 					<div class="tab-pane fade"

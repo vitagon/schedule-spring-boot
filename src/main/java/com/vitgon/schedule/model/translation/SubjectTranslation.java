@@ -9,11 +9,13 @@ import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "subject_translations")
 public class SubjectTranslation {

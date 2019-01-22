@@ -2,7 +2,6 @@ package com.vitgon.schedule.dto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -12,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddTeacherTranslationDTO {
 	
-	@Min(value = 1, message = "{Min.teacherTranslation.userId}")
+	@Min(value = 1, message = "{validation.chooseTeacher}")
 	private int userId;
 	
-	@Min(value = 1, message = "{Min.teacherTranslation.localeId}")
+	@Min(value = 1, message = "{validation.chooseLocale}")
 	private int localeId;
 	
 	@Size(min = 2, max = 40, message = "{Size.teacherTranslation.lastname}")

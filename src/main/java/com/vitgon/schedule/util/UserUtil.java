@@ -1,7 +1,9 @@
 package com.vitgon.schedule.util;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.vitgon.schedule.dto.TeacherDTO;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.model.translation.UserTranslation;
@@ -66,5 +68,16 @@ public class UserUtil {
 				.append(" ")
 				.append(middlename)
 				.toString();
+	}
+	
+	public static List<TeacherDTO> mapToTeacherDTOList(List<User> users) {
+		return users.stream()
+			.map(user -> {
+				TeacherDTO teacherDTO = new TeacherDTO();
+				teacherDTO.setId(user.getId());
+				teacherDTO.setName(UserUtil.makeupUsername(user));
+				return teacherDTO;
+			})
+			.collect(Collectors.toList());
 	}
 }
