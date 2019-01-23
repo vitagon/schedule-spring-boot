@@ -12,7 +12,7 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        #dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         temp.use_jdbc_metadata_defaults: false
   queries:
     users-query: 'select email, password, active from users where email=?'

@@ -17,7 +17,7 @@ import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SubjectService;
 import com.vitgon.schedule.service.translation.SubjectTranslationService;
-import com.vitgon.schedule.validator.SubjectTranslationValidator;
+import com.vitgon.schedule.validator.UniqueTranslationValidator;
 
 @Controller
 public class AddSubjectTranslationController {
@@ -31,16 +31,12 @@ public class AddSubjectTranslationController {
 	@Autowired
 	private SubjectTranslationService subjectTranslationService;
 	
-	@Autowired
-	private SubjectTranslationValidator subjectTranslationValidator;
-	
 	@PostMapping("/control/subject/translation/add")
 	public RedirectView addSubjectTranslation(@Valid AddSubjectTranslationDTO addSubjectTranslationDTO,
 											  BindingResult result,
 											  RedirectAttributes redirectAttributes) {
 		redirectAttributes.addFlashAttribute("activeTab", "addSubjectTranslation");
 		
-		subjectTranslationValidator.validate(addSubjectTranslationDTO, result);
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addSubjectTranslationDTO", result);
 			redirectAttributes.addFlashAttribute("addSubjectTranslationDTO", addSubjectTranslationDTO);

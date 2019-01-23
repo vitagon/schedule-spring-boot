@@ -17,7 +17,7 @@ public class SubjectUtil {
 		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
 			subjectTitle = subject.getName();
 		} else {
-			subjectTitle = subject.getSubjectTranslations().stream()
+			subjectTitle = subject.getTranslations().stream()
 					.filter(x -> locale == x.getSubjectTranslationId().getLocale())
 					.map(SubjectTranslation::getTitle)
 					.findFirst().get();

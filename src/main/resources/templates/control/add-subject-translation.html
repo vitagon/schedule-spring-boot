@@ -11,6 +11,8 @@
 		  th:action="@{/control/subject/translation/add}" method="post"
 		  th:object="${addSubjectTranslationDTO}">
 		  
+		  <div class="alert alert-danger">Test</div>
+		  
 		  <div class="form-group">
 		  	<label for="subject">[[#{chooseSubject}]]</label>
 		  	<select class="custom-select" id="subject" th:field="*{subjectId}">
