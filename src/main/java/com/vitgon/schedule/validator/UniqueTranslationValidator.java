@@ -21,7 +21,6 @@ import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.base.Service;
 
 
-// Don't forget to read: https://www.baeldung.com/spring-mvc-custom-validator
 @Component
 public class UniqueTranslationValidator implements ConstraintValidator<UniqueTranslation, Object> {
 	

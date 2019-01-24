@@ -18,27 +18,37 @@ import com.vitgon.schedule.service.SubjectService;
 import com.vitgon.schedule.service.UserService;
 
 @Controller
-public class EditScheduleController {
+public class ScheduleRestController {
 	
-	@Autowired
 	private ScheduleService scheduleService;
-	
-	@Autowired
 	private SubjectService subjectService;
-	
-	@Autowired
 	private UserService userService;
-	
-	@Autowired
 	private GroupService groupService;
+
+	@Autowired
+	public ScheduleRestController(ScheduleService scheduleService,
+								  SubjectService subjectService,
+								  UserService userService,
+								  GroupService groupService) {
+		this.scheduleService = scheduleService;
+		this.subjectService = subjectService;
+		this.userService = userService;
+		this.groupService = groupService;
+	}
+
+
 
 	@ResponseBody
 	@PostMapping("/api/schedule/edit")
 	public ResponseDTO editSchedulePage(@ModelAttribute EditScheduleDTO editScheduleReq) {
-		// util attribute for editing schedule
+		Schedule schedule = null;
+		User user = null;
+		String message;
+		
+		// attribute for editing schedule
 		int scheduleId = editScheduleReq.getScheduleId();
 		
-		// util attributes for creating new schedule
+		// attributes for creating new schedule
 		int groupId = editScheduleReq.getGroupId();
 		int week = editScheduleReq.getWeek();
 		int dayNum = editScheduleReq.getDayNum();
@@ -50,15 +60,10 @@ public class EditScheduleController {
 		int userId = editScheduleReq.getUserId();
 		String classroom = editScheduleReq.getClassroom();
 		
-		Schedule schedule = null;
-		User user = null;
-		
 		Subject subject = subjectService.findById(subjectId);
 		if (userId != 0) {
 			user = userService.findById(userId);
 		}
-		
-		String message;
 		
 		// if scheduleId not equals to 0 then change attributes
 		// otherwise create new schedule with provided attributes

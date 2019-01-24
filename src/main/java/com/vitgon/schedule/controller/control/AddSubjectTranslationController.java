@@ -21,15 +21,19 @@ import com.vitgon.schedule.service.translation.SubjectTranslationService;
 @Controller
 public class AddSubjectTranslationController {
 	
-	@Autowired
 	private SubjectService subjectService;
-	
-	@Autowired
 	private LocaleService localeService;
-	
-	@Autowired
 	private SubjectTranslationService subjectTranslationService;
 	
+	@Autowired
+	public AddSubjectTranslationController(SubjectService subjectService,
+										   LocaleService localeService,
+										   SubjectTranslationService subjectTranslationService) {
+		this.subjectService = subjectService;
+		this.localeService = localeService;
+		this.subjectTranslationService = subjectTranslationService;
+	}
+
 	@PostMapping("/control/subject/translation/add")
 	public RedirectView addSubjectTranslation(@Validated(TranslationValidationSequence.class) AddSubjectTranslationDTO addSubjectTranslationDTO,
 											  BindingResult result,

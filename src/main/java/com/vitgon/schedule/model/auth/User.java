@@ -67,5 +67,5 @@ public class User extends BaseModel<Integer> {
 	private Set<Role> roles;
 	
 	@OneToMany(mappedBy = "userTranslationId.user")
-	private List<UserTranslation> userTranslations = new ArrayList<>();
+	private List<UserTranslation> translations = new ArrayList<>();
 }

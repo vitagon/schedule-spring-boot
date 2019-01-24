@@ -17,7 +17,7 @@ public class SchoolUtil {
 			return school.getName();
 		}
 		
-		return school.getSchoolTranslations().stream()
+		return school.getTranslations().stream()
 			.filter(x -> locale == x.getLocale())
 			.map(SchoolTranslation::getTitle)
 			.findFirst().get();

@@ -21,7 +21,7 @@ public class UserUtil {
 			return null;
 		}
 		
-		List<UserTranslation> teacherTransl = user.getUserTranslations();
+		List<UserTranslation> teacherTransl = user.getTranslations();
 		
 		return teacherTransl.stream()
 			.filter(x -> x.getUserTranslationId().getLocale() == locale)

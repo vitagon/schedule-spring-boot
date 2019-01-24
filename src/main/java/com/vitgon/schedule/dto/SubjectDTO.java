@@ -10,4 +10,11 @@ import lombok.NoArgsConstructor;
 public class SubjectDTO {
 	private int id;
 	private String name;
+	private String translation;
+	
+	public SubjectDTO(int id, String name) {
+		this.id = id;
+		this.name = name;
+		this.translation = null;
+	}
 }

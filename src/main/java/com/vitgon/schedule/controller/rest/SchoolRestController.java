@@ -15,10 +15,7 @@ import com.vitgon.schedule.service.SchoolService;
 
 @RestController
 @RequestMapping("/api")
-public class SchoolController {
-	
-	@Autowired
-	private SchoolDao schoolDao;
+public class SchoolRestController {
 	
 	@Autowired
 	private SchoolService schoolService;
@@ -30,11 +27,5 @@ public class SchoolController {
 	public List<School> getSchools() {
 		Locale locale = localeService.findByCode("en");
 		return schoolService.findAllByLocale(locale);
-	}
-	
-	@GetMapping("/my-controller")
-	public School getSchool() {
-		
-		return schoolDao.findByUrl("school_of_economics_and_management");
 	}
 }

@@ -53,7 +53,7 @@ public class Major extends BaseModel<Integer> {
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "major")
-	private List<MajorTranslation> majorTranslations = new ArrayList<>();
+	private List<MajorTranslation> translations = new ArrayList<>();
 
 	public Major(String url, int duration, School school) {
 		this.url = url;

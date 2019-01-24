@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddSubjectDTO {
 	
-	@UniqueSubject(message = "{Unique.subject.subjectName}")
-	@NotEmpty(message = "{NotEmpty.subject.subjectName}")
-	@Size(min = 5, max = 40, message = "{Size.subject.subjectName}")
-	@Latin(message = "{Latin.subject.subjectName}")
+	@UniqueSubject(message = "{Duplicate.subject}")
+	@NotEmpty(message = "{NotEmpty.default}")
+	@Size(min = 5, max = 40, message = "{Size.default}")
+	@Latin(message = "{Latin.default}")
 	private String subjectName;
 }

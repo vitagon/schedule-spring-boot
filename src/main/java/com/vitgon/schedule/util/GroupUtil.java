@@ -22,7 +22,7 @@ public class GroupUtil {
 			return group.getName();
 		}
 		
-		return group.getGroupTranslations().stream()
+		return group.getTranslations().stream()
 				.filter(x -> locale == x.getLocale())
 				.map(x -> x.getTitle())
 				.findFirst().get();

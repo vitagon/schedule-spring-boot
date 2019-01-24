@@ -11,7 +11,7 @@ public class MajorUtil {
 			return major.getName();
 		}
 		
-		return major.getMajorTranslations().stream()
+		return major.getTranslations().stream()
 			.filter(x -> locale == x.getLocale())
 			.map(MajorTranslation::getTitle)
 			.findFirst().get();

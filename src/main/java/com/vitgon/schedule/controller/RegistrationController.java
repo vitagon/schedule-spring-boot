@@ -41,8 +41,7 @@ public class RegistrationController {
 		User userExists = userService.findByEmail(user.getEmail());
 		
 		if (userExists != null) {
-			bindingResult
-				.rejectValue("email", "error.user", MessageUtil.getAttribute("duplicateEmailError", locale));
+			bindingResult.rejectValue("email", "Duplicate.email");
 		}
 		
 		if (bindingResult.hasErrors()) {

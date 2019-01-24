@@ -14,8 +14,8 @@ import com.vitgon.schedule.service.LocaleService;
 
 @RestController
 @RequestMapping("/api")
-public class LocaleController {
-	private static final Logger logger = LoggerFactory.getLogger(LocaleController.class);
+public class LocaleRestController {
+	private static final Logger logger = LoggerFactory.getLogger(LocaleRestController.class);
 	
 	@Autowired
 	private LocaleService localeService;

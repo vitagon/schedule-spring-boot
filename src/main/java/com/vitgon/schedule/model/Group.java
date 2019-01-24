@@ -43,7 +43,7 @@ public class Group extends BaseModel<Integer> {
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-	private List<GroupTranslation> groupTranslations = new ArrayList<>();
+	private List<GroupTranslation> translations = new ArrayList<>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "group")
