@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 
 import com.vitgon.schedule.annotation.UniqueField;
 import com.vitgon.schedule.annotation.UniqueTranslation;
+import com.vitgon.schedule.group.TranslationGroup;
 import com.vitgon.schedule.service.SubjectService;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +21,8 @@ import lombok.NoArgsConstructor;
 			field = "subjectId",
 			service = SubjectService.class
 	),
-	message = ":)Such translation exists:)"
+	message = "{Duplicate.translation}",
+	groups = TranslationGroup.class
 )
 public class AddSubjectTranslationDTO {
 	

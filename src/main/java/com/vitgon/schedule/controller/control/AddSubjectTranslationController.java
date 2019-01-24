@@ -1,10 +1,9 @@
 package com.vitgon.schedule.controller.control;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -14,10 +13,10 @@ import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.translation.SubjectTranslation;
 import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
+import com.vitgon.schedule.sequence.TranslationValidationSequence;
 import com.vitgon.schedule.service.LocaleService;
 import com.vitgon.schedule.service.SubjectService;
 import com.vitgon.schedule.service.translation.SubjectTranslationService;
-import com.vitgon.schedule.validator.UniqueTranslationValidator;
 
 @Controller
 public class AddSubjectTranslationController {
@@ -32,7 +31,7 @@ public class AddSubjectTranslationController {
 	private SubjectTranslationService subjectTranslationService;
 	
 	@PostMapping("/control/subject/translation/add")
-	public RedirectView addSubjectTranslation(@Valid AddSubjectTranslationDTO addSubjectTranslationDTO,
+	public RedirectView addSubjectTranslation(@Validated(TranslationValidationSequence.class) AddSubjectTranslationDTO addSubjectTranslationDTO,
 											  BindingResult result,
 											  RedirectAttributes redirectAttributes) {
 		redirectAttributes.addFlashAttribute("activeTab", "addSubjectTranslation");
