@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<div th:fragment="footer" id="footer">
+		<!-- <span sec:authorize="isAuthenticated()">| Logged user: <span sec:authentication="name"></span> |
+	        Roles: <span sec:authentication="principal.authorities"></span> |
+	        <a th:href="@{/logout}">Sign Out</a>
+	    </span>
+	    
+	    <span sec:authorize="hasAuthority('MANAGER')">
+	    	You are manager!
+	    </span> -->
+	    
+		<script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+		<script src="../static/js/popper.js" th:src="@{/js/popper.js}"></script>
+		<script src="../static/js/bootstrap-material-design.min.js" th:src="@{/js/bootstrap-material-design.min.js}"></script>
+		<script>$(document).ready(function() { $('body').bootstrapMaterialDesign();});</script>
+		<script src="../static/js/gijgo/gijgo.min.js" th:src="@{/js/gijgo/gijgo.min.js}"></script>
+		<script src="../static/js/i18n.js" th:src="@{/js/i18n.js}"></script>
+	</div>
+</body>
+</html>

@@ -3,10 +3,10 @@
 	  xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-	<th:block th:replace="layouts/_head"></th:block>
+	<th:block th:replace="fragments/_head"></th:block>
 </head>
 <body>
-	<div th:replace="layouts/_menu :: menu"></div>
+	<div th:replace="fragments/_menu :: menu"></div>
 	
 	<form th:action="@{/register}" method="get">
 		<button class="btn btn-md btn-warning btn-block" type="Submit">[[#{goToRegistrationPage}]]</button>

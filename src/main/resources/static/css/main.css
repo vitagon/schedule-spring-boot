@@ -1,3 +1,9 @@
+body {
+	min-height: 100vh;
+}
+.remove-schedule-btn, .edit-schedule-btn {
+	padding: .46rem .8rem!important;
+}
 .dvfu-logo-wrap {
 	padding-top: 0;
 	padding-bottom: 0;

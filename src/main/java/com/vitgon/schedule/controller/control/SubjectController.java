@@ -14,12 +14,12 @@ import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.service.SubjectService;
 
 @Controller
-public class AddSubjectController {
+public class SubjectController {
 	
 	private SubjectService subjectService;
 
 	@Autowired
-	public AddSubjectController(SubjectService subjectService) {
+	public SubjectController(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
 

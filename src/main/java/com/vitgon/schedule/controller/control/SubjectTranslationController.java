@@ -19,14 +19,14 @@ import com.vitgon.schedule.service.SubjectService;
 import com.vitgon.schedule.service.translation.SubjectTranslationService;
 
 @Controller
-public class AddSubjectTranslationController {
+public class SubjectTranslationController {
 	
 	private SubjectService subjectService;
 	private LocaleService localeService;
 	private SubjectTranslationService subjectTranslationService;
 	
 	@Autowired
-	public AddSubjectTranslationController(SubjectService subjectService,
+	public SubjectTranslationController(SubjectService subjectService,
 										   LocaleService localeService,
 										   SubjectTranslationService subjectTranslationService) {
 		this.subjectService = subjectService;

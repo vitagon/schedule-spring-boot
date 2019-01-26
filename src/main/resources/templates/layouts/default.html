@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="fragments/_header :: head"></th:block>
+</head>
+<body>
+	<th:block th:replace="fragments/_header :: header"></th:block>
+	
+	<div class="container" style="padding-top: 2em">
+		<div layout:fragment="content"></div>
+	</div>
+	
+	<th:block th:replace="fragments/_footer :: footer"></th:block>
+	<th:block layout:fragment="extend-footer"></th:block>
+</body>
+</html>

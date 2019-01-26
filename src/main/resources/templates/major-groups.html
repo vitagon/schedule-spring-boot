@@ -4,10 +4,10 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<th:block th:replace="layouts/_head"></th:block>
+	<th:block th:replace="fragments/_head"></th:block>
 </head>
 <body>
-	<div th:replace="layouts/_menu :: menu"></div>
+	<div th:replace="fragments/_menu :: menu"></div>
 	
 	<div class="container" style="padding-top: 2em">
 		<div class="courseGroups" th:each="groupMap:  ${groupsMap}">
@@ -21,6 +21,6 @@
 		</div>
 	</div>
 	
-	<th:block th:replace="layouts/_footer"></th:block>
+	<th:block th:replace="fragments/_footer"></th:block>
 </body>
 </html>

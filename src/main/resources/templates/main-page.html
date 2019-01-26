@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layouts/default}"
+	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
- <th:block th:replace="layouts/_head"></th:block>
+	<!-- Add specific stylesheets here -->
 </head>
 <body>
-	<div th:replace="layouts/_menu :: menu"></div>
-
-	<div class="container" style="padding-top: 2em">
+	<div layout:fragment="content" class="container">
 		<div class="info">
 			<img alt=""
 				src="http://vladivostok.travel/upload/resize_cache/iblock/5af/800_450_2/5af2cd1cfc1918546d093a19d3f13bab.jpg">
@@ -17,15 +16,9 @@
 		</div>
 	</div>
 	
-	<!-- <span sec:authorize="isAuthenticated()">| Logged user: <span sec:authentication="name"></span> |
-        Roles: <span sec:authentication="principal.authorities"></span> |
-        <a th:href="@{/logout}">Sign Out</a>
-    </span>
-    
-    <span sec:authorize="hasAuthority('MANAGER')">
-    	You are manager!
-    </span> -->
-	
-	<th:block th:replace="layouts/_footer"></th:block>
+	<!-- Use it to add specific scripts to this page -->
+	<th:block layout:fragment="extend-footer">
+		<!-- <script src="custom-script"></script> -->
+	</th:block>
 </body>
 </html>

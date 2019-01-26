@@ -31,7 +31,7 @@ public class AddTeacherTranslationDTO {
 	private int localeId;
 	
 	@Size(min = 2, max = 40, message = "{Size.default}")
-	@NotEmpty(message = "{NotEmpty.teacherTranslation.lastname}")
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String lastname;
 	
 	@Size(min = 2, max = 40, message = "{Size.default}")
