@@ -8,11 +8,11 @@
 	<title>Document</title>
 </head>
 <body>
-	<div class="modal edit-schedule-modal"
+	<div class="modal fade edit-schedule-modal"
 		 tabindex="-1"
 		 role="dialog"
 		 th:fragment="target">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Modal title</h5>
@@ -29,7 +29,7 @@
 						<input type="text" class="form-control" id="modal-day-num" style="display: none">
 						
 						<div class="form-group">
-							<label for="modal-lesson-num" class="col-form-label">Lesson number:</label>
+							<label for="modal-lesson-num">Lesson number:</label>
 							<select class="custom-select" id="modal-lesson-num" disabled>
 								<option selected>Choose...</option>
 								<option value="1">1</option>
@@ -42,13 +42,13 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="modal-subject" class="col-form-label">Subject title:</label>
+							<label for="modal-subject">Subject title:</label>
 							<select class="custom-select" id="modal-subject">
 								<option th:each="subject: ${subjects}" th:text="${subject.value}" th:value="${subject.key}"></option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="modal-lesson-type" class="col-form-label">Lesson type:</label>
+							<label for="modal-lesson-type">Lesson type:</label>
 							<select class="custom-select" id="modal-lesson-type">
 								<option value="0" selected>Choose...</option>
 								<option value="1">Lection</option>
@@ -56,14 +56,14 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="modal-teacher" class="col-form-label">Teacher:</label>
+							<label for="modal-teacher">Teacher:</label>
 							<select class="custom-select" id="modal-teacher">
 								<option value="0" selected>Choose...</option>
 								<option th:each="teacher: ${teachersNames}" th:text="${teacher.value}" th:value="${teacher.key}"></option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="col-form-label">Classroom:</label>
+							<label for="message-text">Classroom:</label>
 							<input type="text" class="form-control" id="modal-classroom">
 						</div>
 					</form>

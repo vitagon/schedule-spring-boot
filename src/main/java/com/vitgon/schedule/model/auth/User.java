@@ -14,13 +14,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.vitgon.schedule.model.BaseModel;
 import com.vitgon.schedule.model.translation.UserTranslation;
@@ -35,28 +33,29 @@ import lombok.EqualsAndHashCode;
 public class User extends BaseModel<Integer> {
 	
 	@Column(name = "email")
-	@Email
-	@NotEmpty
+	@Email(message = "{Email.user.email}")
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String email;
 	
 	@Column(name = "password")
-	@Length(min = 5)
-	@NotEmpty
+	@Length(min = 5, message = "{Length.user.password}")
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String password;
 	
 	@Column(name = "key_firstname")
-	@NotEmpty
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String keyFirstname;
 	
 	@Column(name = "key_lastname")
-	@NotEmpty
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String keyLastname;
 	
 	@Column(name = "key_middlename")
-	@NotEmpty
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String keyMiddlename;
 	
 	@Column(name = "birth")
+	@NotNull(message = "{NotNull.default}")
 	private Date birth;
 	
 	@Column(name = "active")

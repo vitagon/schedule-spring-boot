@@ -1,20 +1,22 @@
 <!doctype html>
-<html lang="en"
+<html layout:decorate="~{layouts/default}"
+	  lang="en"
 	  xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-	<th:block th:replace="fragments/_head"></th:block>
+	<!-- Add specific stylesheets here -->
 </head>
 <body>
-	<div th:replace="fragments/_menu :: menu"></div>
-	
-	<div class="container">
+	<div layout:fragment="content">
 		<div class="row justify-content-center mt-5 font-weight-bold"
 			 style="font-size: 1.2em">
 			[[#{accessDeniedMsg}]]!
 		</div>
 	</div>
 	
-	<th:block th:replace="fragments/_footer"></th:block>
+	<!-- Use it to add specific scripts to this page -->
+	<th:block layout:fragment="extend-footer">
+		<!-- <script src="custom-script"></script> -->
+	</th:block>
 </body>
 </html>

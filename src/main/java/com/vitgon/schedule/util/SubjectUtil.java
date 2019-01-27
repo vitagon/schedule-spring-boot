@@ -12,6 +12,14 @@ import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
 public class SubjectUtil {
 	
+	/**
+	 * Get subject title translation
+	 * If translation doesn't exist then take default English title
+	 * 
+	 * @param subject
+	 * @param locale
+	 * @return
+	 */
 	public static String getSubjectTitle(Subject subject, Locale locale) {
 		String subjectTitle = null;
 		Optional<String> subjectTitleOptional = null;
@@ -23,10 +31,10 @@ public class SubjectUtil {
 					.filter(x -> locale == x.getSubjectTranslationId().getLocale())
 					.map(SubjectTranslation::getTitle)
 					.findFirst();
-		}
-		
-		if (!subjectTitleOptional.isPresent()) {
-			return null;
+			
+			if (!subjectTitleOptional.isPresent()) {
+				subjectTitle = subject.getName();
+			}
 		}
 		
 		return subjectTitle.substring(0, 1).toUpperCase() + subjectTitle.substring(1);

@@ -6,10 +6,11 @@
 	<!-- Add specific stylesheets here -->
 </head>
 <body>
-	<div layout:fragment="content" class="container">
+	<div layout:fragment="content">
 		<div class="info">
 			<img alt=""
-				src="http://vladivostok.travel/upload/resize_cache/iblock/5af/800_450_2/5af2cd1cfc1918546d093a19d3f13bab.jpg">
+				src="http://vladivostok.travel/upload/resize_cache/iblock/5af/800_450_2/5af2cd1cfc1918546d093a19d3f13bab.jpg"
+				th:src="@{/img/dvfu_top_view.jpg}">
 			<p th:text="#{mainInfo1}"></p>
 
 			<p th:text="#{mainInfo2}"></p>

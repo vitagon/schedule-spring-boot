@@ -1,15 +1,14 @@
 <!doctype html>
-<html lang="en"
+<html layout:decorate="~{layouts/default}"
+	  lang="en"
 	  xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<th:block th:replace="layouts/_head"></th:block>
+	<!-- Add specific stylesheets here -->
 </head>
 <body>
-	<th:block th:replace="layouts/_menu :: menu"></th:block>
-	
-	<div class="container">
+	<div layout:fragment="content">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="nav flex-column nav-pills" id="control-tab" role="tablist" aria-orientation="vertical">
@@ -86,7 +85,9 @@
 		</div>
 	</div>
 	
-	<th:block th:replace="layouts/_footer"></th:block>
-	<script src="../../static/js/control-panel.js" th:src="@{/js/control-panel.js}"></script>
+	<!-- Use it to add specific scripts to this page -->
+	<th:block layout:fragment="extend-footer">
+		<script src="../../static/js/control-panel.js" th:src="@{/js/control-panel.js}"></script>
+	</th:block>
 </body>
 </html>
