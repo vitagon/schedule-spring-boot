@@ -33,96 +33,48 @@
 			</thead>
 			<tbody>
 				<tr th:each="bell, iStat : ${bells}"
-					th:data-schedule-id="${(schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null) ? 
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__]['scheduleId'] : 0}">
+					th:with="curSchedule=${
+								#maps.containsKey(schedules, day) &&
+								#maps.containsKey(schedules[__${day}__], iStat.index+1) &&
+								#maps.containsKey(schedules[__${day}__][__${iStat.index+1}__], week)
+							} ? 
+							${schedules[__${day}__][__${iStat.index+1}__][__${week}__]} : null"
+					th:data-schedule-id="${curSchedule != null ? curSchedule['scheduleId'] : 0}">
 					<td scope="col" class="lesson-num" th:text="${iStat.index + 1}" style="width: 10%">Lesson number</td>
 					<td scope="col" th:text="${bell}">Time</td>
 					
 					<!-- Subject title -->
 					<td scope="col"
 						class="subject"
-						th:if="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null}"
-						th:data-id="${(schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null) ? 
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__]['subjId'] : 0}"
-						th:text="${schedules[__${day}__][__${iStat.index+1}__][__${week}__]['subjectTitle']}">
+						th:data-id="${(curSchedule != null) ? curSchedule['subjId'] : 0}"
+						th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
 						Subject
-					</td>
-					<td scope="col"
-						class="subjectTitle"
-						th:unless="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null}"
-						th:text="#{noLesson}">
-						No lesson
 					</td>
 					
 					<!-- Lesson type -->
 					<td scope="col"
 						class="lesson-type"
-						th:if="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null}"
-						th:with="lessonType=${schedules[__${day}__][__${iStat.index+1}__][__${week}__]['lessonType']}"
+						th:with="lessonType=${curSchedule != null ? curSchedule['lessonType'] : null}"
 						th:text="${lessonType != null} ? #{__${lessonType}__} : #{notStated}"
-						th:data-lesson-type="${lessonType}">
+						th:data-lesson-type="${lessonType != null ? lessonType : 0}">
 						Lesson type
-					</td>
-					<td scope="col"
-						class="lessonType"
-						th:unless="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null}"
-						th:text="#{notStated}"
-						th:data-lesson-type="0">
-						Not stated
 					</td>
 					
 					<!-- Teacher -->
 					<td scope="col"
 						class="teacher"
-						th:if="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__]['teacher'] != null}"
-						th:with="teacher=${schedules[__${day}__][__${iStat.index+1}__][__${week}__]['teacher']}"
-						th:text="${teacher['name']}"
-						th:data-id="${teacher['id']}">
+						th:with="teacher=${curSchedule != null ? curSchedule['teacher'] : null}"
+						th:text="${teacher != null} ? ${teacher['name']} : #{notStated}"
+						th:data-id="${teacher != null ? teacher['id'] : 0}">
 						Teacher
-					</td>
-					<td scope="col"
-						class="teacher"
-						th:unless="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__]['teacher'] != null}"
-						th:text="#{notStated}"
-						th:data-id="0">
-						Not stated
 					</td>
 					
 					<!-- Classroom -->
 					<td scope="col"
 						class="classroom"
-						th:if="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null}"
-						th:with="classroom=${schedules[__${day}__][__${iStat.index+1}__][__${week}__]['classroom']}"
+						th:with="classroom=${curSchedule != null ? curSchedule['classroom'] : null}"
 						th:text="${classroom != null} ? ${classroom} : #{notStated}">
 						Classroom
-					</td>
-					<td scope="col"
-						class="classroom"
-						th:unless="${schedules[__${day}__] != null && 
-							schedules[__${day}__][__${iStat.index+1}__] != null &&
-							schedules[__${day}__][__${iStat.index+1}__][__${week}__] != null}"
-						th:text="#{notStated}">
-						Not stated
 					</td>
 					
 					<td th:if="${showControls}" scope="col" colspan="2">
