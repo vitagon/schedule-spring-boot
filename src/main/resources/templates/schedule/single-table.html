@@ -10,75 +10,54 @@
 <body>
 	<table th:fragment="target" class="table table-sm table-responsive single-table-schedule">
 		<tbody class="table-bordered">
-			<th:block th:each="day: ${days}" th:with="dayMap=${schedules[__${day}__]}">
+			<th:block th:each="day: ${days}">
 					<tr>
 						<td th:rowspan="${bells.size()*2}" th:text="#{__${day}__}"></td>
 						<td rowspan="2">
-							<div th:text="${bells[0]}" align="center"></div>
+							<div th:text="${bells[1]}" align="center"></div>
 							<div align="center">1</div>
 						</td>
-						<td th:if="${dayMap != null &&
-								dayMap[0] != null &&
-								dayMap[0]['up'] != null}">
-							[[${dayMap[0]['up']['subjectTitle']}]]
-						</td>
-						<td th:unless="${dayMap != null &&
-								dayMap[0] != null &&
-								dayMap[0]['up'] != null}">
-							[[#{noLesson}]]
+						<td th:with="curSchedule=${schedules.get(day, 1, 'up')}"
+							th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
+							Subject title of first lesson of 'up' week
 						</td>
 					</tr>
 					<tr>
-						<td th:if="${dayMap != null &&
-								dayMap[0] != null &&
-								dayMap[0]['down'] != null}">
-							[[${dayMap[0]['down']['subjectTitle']}]]
-						</td>
-						<td th:unless="${dayMap != null &&
-								dayMap[0] != null &&
-								dayMap[0]['down'] != null}">
-							[[#{noLesson}]]
+						<td th:with="curSchedule=${schedules.get(day, 1, 'down')}"
+							th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
+							Subject title of first lesson of 'down' week
 						</td>
 					</tr>
 					
 					<!-- Here we display subjects from 2nd lesson to 6th lesson -->
-					<th:block th:each="lessonNum: ${#numbers.sequence(1, __${bells.size()-1}__)}">
-							<th:block th:if="${dayMap != null}" th:with="subjectsPair=${dayMap[__${lessonNum+1}__]}">
+					<th:block th:each="lessonNum: ${#numbers.sequence(2, __${bells.size()}__)}"
+							  th:with="
+							  	upSchedule=${schedules.get(day, lessonNum, 'up')},
+							  	downSchedule=${schedules.get(day, lessonNum, 'down')}">
+							<th:block th:if="${upSchedule != null || downSchedule != null}">
 								<tr>
 									<td rowspan="2">
 										<div th:text="${bells[__${lessonNum}__]}" align="center"></div>
 										<div th:text="${lessonNum+1}" align="center"></div>
 									</td>
-									<td th:if="${subjectsPair != null &&
-											subjectsPair['up'] != null}"
-										th:text="${subjectsPair['up']['subjectTitle']}">
-										Up subject
-									</td>
-									<td th:unless="${subjectsPair != null &&
-											subjectsPair['up'] != null}"
-										th:text="#{noLesson}">
+									<td th:with="curSchedule=${schedules.get(day, lessonNum, 'up')}"
+										th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
 										Up subject
 									</td>
 								</tr>
 								<tr>
-									<td th:if="${subjectsPair != null &&
-											subjectsPair['down'] != null}"
-										th:text="${subjectsPair['down']['subjectTitle']}">
-										Down subject
-									</td>
-									<td th:unless="${subjectsPair != null &&
-											subjectsPair['down'] != null}"
-										th:text="#{noLesson}">
+									<td th:with="curSchedule=${schedules.get(day, lessonNum, 'down')}"
+										th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
 										Down subject
 									</td>
 								</tr>
 							</th:block>
 							
-							<th:block th:unless="${dayMap != null}">
+							<th:block th:unless="${upSchedule != null || downSchedule != null}">
 								<tr>
 									<td rowspan="2">
 										<div th:text="${bells[__${lessonNum}__]}"></div>
-										<div th:text="${lessonNum+1}" align="center"></div>
+										<div th:text="${lessonNum}" align="center"></div>
 									</td>
 									<td th:text="#{noLesson}">Up subject</td>
 								</tr>

@@ -50,7 +50,7 @@ public class ScheduleRestController {
 		
 		// attributes for creating new schedule
 		int groupId = editScheduleReq.getGroupId();
-		int week = editScheduleReq.getWeek();
+		String week = editScheduleReq.getWeek();
 		int dayNum = editScheduleReq.getDayNum();
 		int lessonNum = editScheduleReq.getLessonNum();
 		

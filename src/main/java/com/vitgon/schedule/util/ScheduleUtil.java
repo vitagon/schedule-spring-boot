@@ -9,15 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Optional;
 
+import com.vitgon.schedule.collection.ScheduleTree;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.pojo.SchedulePOJO;
+import com.vitgon.schedule.pojo.TeacherPOJO;
 
 public class ScheduleUtil {
 	
-	private static final int UP_WEEK = 1;
-	private static final int DOWN_WEEK = 2;
+	public static final String WEEK_UP = "up";
+	public static final String WEEK_DOWN = "down";
 	
 	private final static Map<Integer, String> DAYS_MAP = new HashMap<>();
 	
@@ -46,6 +48,32 @@ public class ScheduleUtil {
 		public int getDayNum() {
 			return this.dayNum;
 		}
+	}
+	
+	public static ScheduleTree getScheduleTree(List<Schedule> schedules, Locale locale) {
+		ScheduleTree scheduleTree = new ScheduleTree();
+		for (Schedule schedule : schedules) {
+			String dayTitle = DAYS_MAP.get(schedule.getDayNum());
+			int lessonNum = schedule.getLessonNum();
+			String weekType = schedule.getWeek();
+			
+			SchedulePOJO schedulePOJO = new SchedulePOJO();
+			schedulePOJO.setScheduleId(schedule.getId());
+			schedulePOJO.setSubjId(schedule.getSubject().getId());
+			schedulePOJO.setSubjectTitle(SubjectUtil.getSubjectTitle(schedule.getSubject(), locale));
+			schedulePOJO.setLessonType(LessonUtil.getLessonType(schedule.getLessonType()));
+			
+			if (schedule.getUser() != null) {
+				schedulePOJO.setTeacher(new TeacherPOJO(
+						schedule.getUser().getId(),
+						UserUtil.makeupUsername(schedule.getUser(), locale)
+				));
+			}
+			
+			schedulePOJO.setClassroom(schedule.getClassroom());
+			scheduleTree.add(dayTitle, lessonNum, weekType, schedulePOJO);
+		}
+		return scheduleTree;
 	}
 	
 	/**
@@ -107,42 +135,44 @@ public class ScheduleUtil {
 	 * @param locale
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Map<String, Map<Integer, Map>> getScheduleMap(List<Schedule> schedules, Locale locale) {
-		Map<String, Map<Integer, Map>> rootMap = new HashMap<>();
-		Map<Integer, String> daysMap = DAYS_MAP;
+//	@SuppressWarnings({ "unchecked", "rawtypes" })
+//	public static Map<String, Map<Integer, Map>> getScheduleMap(List<Schedule> schedules, Locale locale) {
+//		Map<String, Map<Integer, Map>> rootMap = new HashMap<>();
+//		Map<Integer, String> daysMap = DAYS_MAP;
+//	
+//		for (Schedule schedule : schedules) {
+//			String dayTitle = daysMap.get(schedule.getDayNum());
+//			int subjectNum = schedule.getLessonNum();
+//			
+//			if (rootMap.containsKey(dayTitle)) {
+//				Map<Integer, Map> subjectsPairMap = rootMap.get(dayTitle);
+//				
+//				Optional<Map> subjectsPairOptional = Optional.of(subjectsPairMap)
+//					.map(x -> x.get(subjectNum));
+//				
+//				if (subjectsPairOptional.isPresent()) {
+//					Map subjectsPair = subjectsPairOptional.get();
+//					setSubjectsPair(subjectsPair, schedule, locale);
+//				} else {
+//					Map subjectsPair = new HashMap<>();
+//					subjectsPairMap.put(subjectNum, subjectsPair);
+//					setSubjectsPair(subjectsPair, schedule, locale);
+//				}
+//			} else {
+//				Map<Integer, Map> subjectsPairMap = new HashMap<>();
+//				
+//				Map subjectsPair = new HashMap<>();
+//				subjectsPairMap.put(subjectNum, subjectsPair);
+//				setSubjectsPair(subjectsPair, schedule, locale);
+//				
+//				rootMap.put(dayTitle, subjectsPairMap);
+//			}
+//		}
+//		
+//		return sortByDay(rootMap);
+//	}
 	
-		for (Schedule schedule : schedules) {
-			String dayTitle = daysMap.get(schedule.getDayNum());
-			int subjectNum = schedule.getLessonNum();
-			
-			if (rootMap.containsKey(dayTitle)) {
-				Map<Integer, Map> subjectsPairMap = rootMap.get(dayTitle);
-				
-				Optional<Map> subjectsPairOptional = Optional.of(subjectsPairMap)
-					.map(x -> x.get(subjectNum));
-				
-				if (subjectsPairOptional.isPresent()) {
-					Map subjectsPair = subjectsPairOptional.get();
-					setSubjectsPair(subjectsPair, schedule, locale);
-				} else {
-					Map subjectsPair = new HashMap<>();
-					subjectsPairMap.put(subjectNum, subjectsPair);
-					setSubjectsPair(subjectsPair, schedule, locale);
-				}
-			} else {
-				Map<Integer, Map> subjectsPairMap = new HashMap<>();
-				
-				Map subjectsPair = new HashMap<>();
-				subjectsPairMap.put(subjectNum, subjectsPair);
-				setSubjectsPair(subjectsPair, schedule, locale);
-				
-				rootMap.put(dayTitle, subjectsPairMap);
-			}
-		}
-		
-		return sortByDay(rootMap);
-	}
+	
 	
 	/**
 	 * SubjectsPair map:
@@ -174,38 +204,38 @@ public class ScheduleUtil {
 	 * @param schedule
 	 * @param locale
 	 */
-	public static void setSubjectsPair(Map<String, Map> subjectsPair, Schedule schedule, Locale locale) {
-		int subjId = schedule.getSubject().getId();
-		int week = schedule.getWeek();
-		String subjectTitle = SubjectUtil.getSubjectTitle(schedule.getSubject(), locale);
-		String teacherName = UserUtil.makeupUsername(schedule.getUser(), locale);
-		String lessonType = LessonUtil.getLessonType(schedule.getLessonType());
-		String classroom = schedule.getClassroom();
-		
-		Map<String, Object> subjectMap = new HashMap<>();
-		subjectMap.put("scheduleId", String.valueOf(schedule.getId()));
-		subjectMap.put("subjId", String.valueOf(subjId));
-		subjectMap.put("subjectTitle", subjectTitle);
-		subjectMap.put("lessonType", lessonType);
-		subjectMap.put("classroom", classroom);
-		
-		if (teacherName != null) {
-			Map<String, String> teacherMap = new HashMap<>();
-			teacherMap.put("id", schedule.getUser().getId().toString());
-			teacherMap.put("name", teacherName);
-			
-			subjectMap.put("teacher", teacherMap);
-		}
-		
-		
-		if (week == UP_WEEK) {
-			subjectsPair.put("up", subjectMap);
-		}
-		
-		if (week == DOWN_WEEK){
-			subjectsPair.put("down", subjectMap);
-		}
-	}
+//	public static void setSubjectsPair(Map<String, Map> subjectsPair, Schedule schedule, Locale locale) {
+//		int subjId = schedule.getSubject().getId();
+//		int week = schedule.getWeek();
+//		String subjectTitle = SubjectUtil.getSubjectTitle(schedule.getSubject(), locale);
+//		String teacherName = UserUtil.makeupUsername(schedule.getUser(), locale);
+//		String lessonType = LessonUtil.getLessonType(schedule.getLessonType());
+//		String classroom = schedule.getClassroom();
+//		
+//		Map<String, Object> subjectMap = new HashMap<>();
+//		subjectMap.put("scheduleId", String.valueOf(schedule.getId()));
+//		subjectMap.put("subjId", String.valueOf(subjId));
+//		subjectMap.put("subjectTitle", subjectTitle);
+//		subjectMap.put("lessonType", lessonType);
+//		subjectMap.put("classroom", classroom);
+//		
+//		if (teacherName != null) {
+//			Map<String, String> teacherMap = new HashMap<>();
+//			teacherMap.put("id", schedule.getUser().getId().toString());
+//			teacherMap.put("name", teacherName);
+//			
+//			subjectMap.put("teacher", teacherMap);
+//		}
+//		
+//		
+//		if (week == WEEK_UP) {
+//			subjectsPair.put("up", subjectMap);
+//		}
+//		
+//		if (week == WEEK_DOWN){
+//			subjectsPair.put("down", subjectMap);
+//		}
+//	}
 	
 	/**
 	 * 

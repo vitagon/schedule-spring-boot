@@ -44,7 +44,7 @@ public class UserUtil {
 						.toString();
 			})
 			.findFirst()
-			.orElse("Teacher doesn't have name in this lang");
+			.orElse(makeupUsername(user));
 	}
 	
 	public static String makeupUsername(User user) {
@@ -59,15 +59,22 @@ public class UserUtil {
 		firstname = firstname.substring(0,1).toUpperCase() + firstname.substring(1);
 		
 		String middlename = user.getKeyMiddlename();
-		middlename = middlename.substring(0,1).toUpperCase() + middlename.substring(1);
+		if (middlename != null) {
+			middlename = middlename.substring(0,1).toUpperCase() + middlename.substring(1);
+		}
 		
-		return new StringBuilder()
+		StringBuilder nameStringBuilder = new StringBuilder()
 				.append(lastname)
 				.append(" ")
-				.append(firstname)
+				.append(firstname);
+		
+		if (middlename != null) {
+			nameStringBuilder
 				.append(" ")
-				.append(middlename)
-				.toString();
+				.append(middlename);
+		}
+
+		return nameStringBuilder.toString();
 	}
 	
 	public static List<TeacherDTO> mapToTeacherDTOList(List<User> users) {

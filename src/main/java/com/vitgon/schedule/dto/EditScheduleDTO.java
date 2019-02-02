@@ -6,7 +6,7 @@ import lombok.Data;
 public class EditScheduleDTO {
 	private int groupId;
 	private int scheduleId;
-	private int week;
+	private String week;
 	private int dayNum;
 	private int lessonNum;
 	

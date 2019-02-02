@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vitgon.schedule.collection.ScheduleTree;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
@@ -45,7 +46,6 @@ public class ScheduleViewController {
 	@Autowired
 	private GroupService groupService;
 
-	@SuppressWarnings("rawtypes")
 	@GetMapping("/{groupId}/schedule")
 	public ModelAndView showScheduleInSingleTable(HttpServletRequest request, @PathVariable("groupId") int groupId) {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
@@ -53,17 +53,17 @@ public class ScheduleViewController {
 		
 		Group group = groupService.findById(groupId);
 		List<Schedule> schedulesList = scheduleService.findByGroup(group);
-		Map<String, Map<Integer, Map>> schedules = ScheduleUtil.getScheduleMap(schedulesList, locale);
+		ScheduleTree schedules = ScheduleUtil.getScheduleTree(schedulesList, locale);
 		
 		List<String> days = Arrays.asList("monday","tuesday","wednesday","thursday","friday","saturday");
-		List<String> bells = Arrays.asList(
-				"8.30-10.00",
-				"10.10-11.40",
-				"11.50-13.20",
-				"13.30-15.00",
-				"15.10-16.40",
-				"16.50-18.20"
-		);
+		Map<Integer, String> bells = new HashMap<>();
+		bells.put(1, "8.30-10.00");
+		bells.put(2, "10.10-11.40");
+		bells.put(3, "11.50-13.20");
+		bells.put(4, "13.30-15.00");
+		bells.put(5, "15.10-16.40");
+		bells.put(6, "16.50-18.20");
+		bells.put(7, "18.30-20.00");
 		
 		// for modal
 		List<User> users = userService.findAll();

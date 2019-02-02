@@ -30,7 +30,7 @@ public class Schedule extends BaseModel<Integer> {
 	private int dayNum;
 	
 	@Column(name = "week_type")
-	private int week;
+	private String week;
 	
 	@Column(name = "lesson_num")
 	private int lessonNum;

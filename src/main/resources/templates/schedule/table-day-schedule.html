@@ -9,9 +9,10 @@
 </head>
 <body>
 	<div class="table-responsive" th:fragment="target" th:each="day, itr : ${days}">
+		
 		<table class="table table-condensed table-sm table-striped"
 			th:data-day-num="${itr.index + 1}"
-			th:data-week="${week == 'up' ? 1 : 2}"
+			th:data-week="${week}"
 			th:data-group-id="${groupId}"
 			style="margin-top: 2em">
 			<thead>
@@ -32,21 +33,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="bell, iStat : ${bells}"
-					th:with="curSchedule=${
-								#maps.containsKey(schedules, day) &&
-								#maps.containsKey(schedules[__${day}__], iStat.index+1) &&
-								#maps.containsKey(schedules[__${day}__][__${iStat.index+1}__], week)
-							} ? 
-							${schedules[__${day}__][__${iStat.index+1}__][__${week}__]} : null"
+				<tr th:each="bell : ${bells}"
+					th:with="curSchedule=${schedules.get(day, bell.key, week)}"
 					th:data-schedule-id="${curSchedule != null ? curSchedule['scheduleId'] : 0}">
-					<td scope="col" class="lesson-num" th:text="${iStat.index + 1}" style="width: 10%">Lesson number</td>
-					<td scope="col" th:text="${bell}">Time</td>
+					<td scope="col" class="lesson-num" th:text="${bell.key}" style="width: 10%">Lesson number</td>
+					<td scope="col" th:text="${bell.value}">Time</td>
 					
 					<!-- Subject title -->
 					<td scope="col"
 						class="subject"
-						th:data-id="${(curSchedule != null) ? curSchedule['subjId'] : 0}"
+						th:data-id="${curSchedule != null ? curSchedule['subjId'] : 0}"
 						th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
 						Subject
 					</td>
