@@ -17,8 +17,8 @@ import com.vitgon.schedule.annotation.UniqueField;
 import com.vitgon.schedule.annotation.UniqueTranslation;
 import com.vitgon.schedule.exception.GenericTypeNotFoundException;
 import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.base.Service;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.base.Service;
 
 
 @Component

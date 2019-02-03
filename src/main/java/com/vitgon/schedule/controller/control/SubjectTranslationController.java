@@ -14,9 +14,9 @@ import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.translation.SubjectTranslation;
 import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.sequence.TranslationValidationSequence;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.SubjectService;
-import com.vitgon.schedule.service.translation.SubjectTranslationService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.SubjectService;
+import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
 
 @Controller
 public class SubjectTranslationController {

@@ -18,7 +18,7 @@
 
 		<div class="form-group">
 			<label for="subject">[[#{chooseSubject}]]</label>
-			<select class="custom-select" id="subject" th:field="*{subjectId}">
+			<select class="form-control" id="subject" th:field="*{subjectId}">
 				<option value="0">[[#{chooseSubject}]]</option>
 				<option th:each="subject: ${subjects}" th:value="${subject.id}">[[${subject.name}]]</option>
 			</select>
@@ -28,7 +28,7 @@
 
 		<div class="form-group">
 			<label for="locale">[[#{chooseLocalization}]]</label>
-			<select class="custom-select" id="locale" th:field="*{localeId}">
+			<select class="form-control" id="locale" th:field="*{localeId}">
 				<option value="0">[[#{chooseLocalization}]]</option>
 				<option th:each="locale: ${locales}" th:value="${locale.id}">[[${locale.code}]]</option>
 			</select>

@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import com.vitgon.schedule.annotation.UniqueField;
 import com.vitgon.schedule.annotation.UniqueTranslation;
 import com.vitgon.schedule.group.TranslationGroup;
-import com.vitgon.schedule.service.SubjectService;
+import com.vitgon.schedule.service.database.SubjectService;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

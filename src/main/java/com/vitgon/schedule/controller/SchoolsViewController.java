@@ -13,8 +13,8 @@ import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.pojo.SchoolPOJO;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.SchoolService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.SchoolService;
 import com.vitgon.schedule.util.SchoolUtil;
 
 @Controller

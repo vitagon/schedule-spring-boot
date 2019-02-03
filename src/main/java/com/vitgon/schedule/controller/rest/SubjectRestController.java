@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vitgon.schedule.dto.SubjectDTO;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.SubjectService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.util.SubjectUtil;
 
 @RestController

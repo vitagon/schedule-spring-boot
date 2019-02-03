@@ -12,10 +12,10 @@ import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
-import com.vitgon.schedule.service.GroupService;
-import com.vitgon.schedule.service.ScheduleService;
-import com.vitgon.schedule.service.SubjectService;
-import com.vitgon.schedule.service.UserService;
+import com.vitgon.schedule.service.database.GroupService;
+import com.vitgon.schedule.service.database.ScheduleService;
+import com.vitgon.schedule.service.database.SubjectService;
+import com.vitgon.schedule.service.database.UserService;
 
 @Controller
 public class ScheduleRestController {

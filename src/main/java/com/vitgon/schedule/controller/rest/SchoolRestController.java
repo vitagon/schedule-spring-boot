@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vitgon.schedule.dao.SchoolDao;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.School;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.SchoolService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.SchoolService;
 
 @RestController
 @RequestMapping("/api")

@@ -15,8 +15,8 @@ import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Major;
 import com.vitgon.schedule.pojo.CourseNumPOJO;
 import com.vitgon.schedule.pojo.GroupPOJO;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.MajorService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.util.GroupUtil;
 
 @Controller

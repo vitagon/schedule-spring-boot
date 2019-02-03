@@ -1,0 +1,8 @@
+.control-panel-tabs .nav-link {
+	padding: 1em .8575em;
+	border-left: 3px solid transparent;
+}
+.control-panel-tabs .nav-link.active {
+	border-left: 3px solid blue!important;
+	background: #5757e014!important;
+}

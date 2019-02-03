@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.vitgon.schedule.dto.AddSubjectDTO;
 import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.service.SubjectService;
+import com.vitgon.schedule.service.database.SubjectService;
 
 @Controller
 public class SubjectController {

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<div th:fragment="edit-schedule-tab-controls">
+		<form action="#" method="post">
+			<div class="form-group">
+				<label for="choose-schedule-school__select">School</label>
+				<select id="choose-schedule-school__select" name="school" class="form-control">
+					<option value="0" selected>Choose...</option>
+					<option th:each="school: ${schools}" th:value="${school.key}" th:text="${school.value}">School 1</option>
+				</select>
+			</div>
+			
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="choose-schedule-major__select">Major</label>
+					<select id="choose-schedule-major__select" name="major" class="form-control">
+						<option value="0" selected>Choose...</option>
+						<option value="1">Major 1</option>
+						<option value="2">Major 2</option>
+					</select>
+				</div>
+			
+				<div class="form-group col-md-2">
+					<label for="choose-schedule-course__select">Course</label>
+					<select id="choose-schedule-course__select" name="course" class="form-control">
+						<option value="0" selected>Choose...</option>
+						<option value="1">Course 1</option>
+						<option value="2">Course 2</option>
+					</select>
+				</div>
+			
+				<div class="form-group col-md-4">
+					<label for="choose-schedule-group__select">Group</label>
+					<select id="choose-schedule-group__select" name="group" class="form-control">
+						<option value="0" selected>Choose...</option>
+						<option value="1">Group 1</option>
+						<option value="2">Group 2</option>
+					</select>
+				</div>	
+			</div>
+		</form>
+		
+		<div id="edit-schedule-content"></div>
+	</div>
+	
+	<div th:fragment="target">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="up-week-edit-tab" data-toggle="tab" href="#up-week-edit" role="tab" aria-controls="up-week-edit" aria-selected="true">[[#{up}]]</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="down-week-edit-tab" data-toggle="tab" href="#down-week-edit" role="tab" aria-controls="down-week-edit" aria-selected="false">[[#{down}]]</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			
+			<div class="tab-pane fade show active" id="up-week-edit" role="tabpanel" aria-labelledby="up-week-edit-tab">
+				<th:block th:insert="schedule/table-day-schedule :: target" th:with="week=${'up'},showControls=${true}"></th:block>
+			</div>
+			
+			<div class="tab-pane fade" id="down-week-edit" role="tabpanel" aria-labelledby="down-week-edit-tab">
+				<th:block th:insert="schedule/table-day-schedule :: target" th:with="week=${'down'},showControls=${true}"></th:block>
+			</div>
+		</div>
+		
+		<!-- Modal window for editing schedule -->
+		<th:block th:replace="control/edit-schedule-modal :: target"></th:block>
+	</div>
+</body>
+</html>

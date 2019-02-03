@@ -6,12 +6,13 @@
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<!-- Add specific stylesheets here -->
+	<link rel="stylesheet" th:href="@{/css/control-panel.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
 		<div class="row">
 			<div class="col-md-3">
-				<div class="nav flex-column nav-pills" id="control-tab" role="tablist" aria-orientation="vertical">
+				<div class="nav flex-column nav-pills control-panel-tabs" id="control-tab" role="tablist" aria-orientation="vertical">
 					<a href="#main-tab-content"
 					   class="nav-link"
 					   th:classappend="${#strings.equals(activeTab, 'main')} ? 'active' : ''"
@@ -40,6 +41,12 @@
 					   data-toggle="pill"
 					   role="tab"
 					   aria-controls="add-teacher-translation-tab-content" aria-selected="true">[[#{addTeacherTranslation}]]</a>
+					<a href="#v-pills-edit-schedule"
+					   class="nav-link"
+					   id="v-pills-edit-schedule-tab"
+					   data-toggle="pill"
+					   role="tab"
+					   aria-controls="v-pills-edit-schedule" aria-selected="true">[[#{editSchedule}]]</a>
 				</div>
 			</div>
 			
@@ -80,6 +87,14 @@
 						  
 						  <th:block th:replace="control/add-teacher-translation :: add-teacher-translation-tab-content"></th:block>
 					</div>
+					
+					<div class="tab-pane fade"
+						 id="v-pills-edit-schedule"
+						 role="tabpanel"
+						 aria-labelledby="v-pills-edit-schedule-tab">
+						 
+						<th:block th:replace="control/edit-schedule :: edit-schedule-tab-controls"></th:block>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -88,6 +103,7 @@
 	<!-- Use it to add specific scripts to this page -->
 	<th:block layout:fragment="extend-footer">
 		<script src="../../static/js/control-panel.js" th:src="@{/js/control-panel.js}"></script>
+		<script src="../../static/js/edit-schedule.js" th:src="@{/js/edit-schedule.js}"></script>
 	</th:block>
 </body>
 </html>

@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.SchoolService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.SchoolService;
 
 
 /**

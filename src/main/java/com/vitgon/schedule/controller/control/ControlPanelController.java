@@ -1,7 +1,11 @@
 package com.vitgon.schedule.controller.control;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +20,16 @@ import com.vitgon.schedule.dto.LocaleDTO;
 import com.vitgon.schedule.dto.SubjectDTO;
 import com.vitgon.schedule.dto.TeacherDTO;
 import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.SubjectService;
-import com.vitgon.schedule.service.UserService;
+import com.vitgon.schedule.service.LocaleConverterService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.SchoolService;
+import com.vitgon.schedule.service.database.SubjectService;
+import com.vitgon.schedule.service.database.UserService;
 import com.vitgon.schedule.util.LocaleUtil;
+import com.vitgon.schedule.util.SchoolUtil;
 import com.vitgon.schedule.util.SubjectUtil;
 import com.vitgon.schedule.util.UserUtil;
 
@@ -37,9 +45,23 @@ public class ControlPanelController {
 	@Autowired
 	private LocaleService localeService;
 	
+	@Autowired
+	private SchoolService schoolService;
+	
+	@Autowired
+	private LocaleConverterService localeConverterService;
+	
 	@GetMapping("/control")
-	public ModelAndView showControlPanel(ModelMap modelMap) {
+	public ModelAndView showControlPanel(HttpServletRequest request, ModelMap modelMap) {
 		ModelAndView modelAndView = new ModelAndView();
+		Locale locale = localeConverterService.getClientLocale(request);
+		
+		List<School> schools = schoolService.findAll();
+		Map<Integer, String> schoolsMap = new HashMap<>();
+		for (School school : schools) {
+			schoolsMap.put(school.getId(), SchoolUtil.getSchoolTitle(school, locale));
+		}
+		modelMap.addAttribute("schools", schoolsMap);
 		
 		List<User> users = userService.findBySpecificRoles(Arrays.asList("teacher".toUpperCase()));
 		List<TeacherDTO> teachers = UserUtil.mapToTeacherDTOList(users);

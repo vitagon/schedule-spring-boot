@@ -14,9 +14,9 @@ import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.model.translation.UserTranslation;
 import com.vitgon.schedule.model.translation.pk.UserTranslationId;
 import com.vitgon.schedule.sequence.TranslationValidationSequence;
-import com.vitgon.schedule.service.LocaleService;
-import com.vitgon.schedule.service.UserService;
-import com.vitgon.schedule.service.translation.UserTranslationService;
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.database.UserService;
+import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
 @Controller
 public class TeacherTranslationController {

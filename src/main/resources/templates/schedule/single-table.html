@@ -8,63 +8,122 @@
 	<title>Document</title>
 </head>
 <body>
-	<table th:fragment="target" class="table table-sm table-responsive single-table-schedule">
-		<tbody class="table-bordered">
+	<table th:fragment="target" class="table table-sm table-responsive">
+		<tbody class="table-bordered schedule-single-table-tbody">
 			<th:block th:each="day: ${days}">
-					<tr>
+					<!-- I can't iterate lessons in this row, so I get scheduleDTO directly from ScheduleTree -->
+					<tr th:with="upSchedule=${schedules.get(day, 1, 'up')}">
+						<!-- Day title -->
 						<td th:rowspan="${bells.size()*2}" th:text="#{__${day}__}"></td>
+						
+						<!-- Bell (ex.: 8.30-10.00) and number of lesson (ex.: 1) -->
 						<td rowspan="2">
 							<div th:text="${bells[1]}" align="center"></div>
 							<div align="center">1</div>
 						</td>
-						<td th:with="curSchedule=${schedules.get(day, 1, 'up')}"
-							th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
+						
+						<!-- This cell for lesson type of the first lesson of the day (WEEK_UP) -->
+						<td th:with="lessonType=${upSchedule != null ? upSchedule['lessonType'] : null}"
+							th:text="${lessonType != null} ? #{__${lessonType}__} : #{noLesson}">
+							Lesson type
+						</td>
+						
+						<!-- Subject title of the first lesson of the day -->
+						<td th:text="${upSchedule != null} ? ${upSchedule['subjectTitle']} : #{noLesson}">
 							Subject title of first lesson of 'up' week
 						</td>
-					</tr>
-					<tr>
-						<td th:with="curSchedule=${schedules.get(day, 1, 'down')}"
-							th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
-							Subject title of first lesson of 'down' week
+						
+						<!-- This cell for teacher name of the first lesson of the day (WEEK_UP) -->
+						<td th:text="${upSchedule?.teacher != null} ? ${upSchedule['teacher']['name']} : #{noLesson}">
+							Teacher name
+						</td>
+						
+						<!-- This cell for classroom of the first lesson of the day (WEEK_UP) -->
+						<td th:text="${upSchedule != null} ? ${upSchedule['classroom']} : #{noLesson}">
+							Classroom
 						</td>
 					</tr>
 					
-					<!-- Here we display subjects from 2nd lesson to 6th lesson -->
+					<!-- I can't iterate lessons in this row, so I get scheduleDTO directly from ScheduleTree -->
+					<tr th:with="downSchedule=${schedules.get(day, 1, 'down')}">
+						<!-- This cell for lesson type of the first lesson of the day (WEEK_DOWN) -->
+						<td th:with="lessonType=${downSchedule != null ? downSchedule['lessonType'] : null}"
+							th:text="${lessonType != null} ? #{__${lessonType}__} : #{noLesson}">
+							Lesson type
+						</td>
+					
+						<td th:text="${downSchedule != null} ? ${downSchedule['subjectTitle']} : #{noLesson}">
+							Subject title of first lesson of the day of 'down' week
+						</td>
+						
+						<!-- This cell for teacher name of the first lesson of the day (WEEK_DOWN) -->
+						<td th:text="${downSchedule?.teacher != null} ? ${downSchedule['teacher']['name']} : #{noLesson}">
+							Teacher name
+						</td>
+						
+						<!-- This cell for classroom of the first lesson of the day (WEEK_DOWN) -->
+						<td th:text="${downSchedule != null} ? ${downSchedule['classroom']} : #{noLesson}">
+							Classroom
+						</td>
+					</tr>
+					
+					<!-- Here we display subjects titles from 2nd lesson to 7th lesson -->
 					<th:block th:each="lessonNum: ${#numbers.sequence(2, __${bells.size()}__)}"
 							  th:with="
 							  	upSchedule=${schedules.get(day, lessonNum, 'up')},
 							  	downSchedule=${schedules.get(day, lessonNum, 'down')}">
-							<th:block th:if="${upSchedule != null || downSchedule != null}">
-								<tr>
-									<td rowspan="2">
-										<div th:text="${bells[__${lessonNum}__]}" align="center"></div>
-										<div th:text="${lessonNum+1}" align="center"></div>
-									</td>
-									<td th:with="curSchedule=${schedules.get(day, lessonNum, 'up')}"
-										th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
-										Up subject
-									</td>
-								</tr>
-								<tr>
-									<td th:with="curSchedule=${schedules.get(day, lessonNum, 'down')}"
-										th:text="${curSchedule != null} ? ${curSchedule['subjectTitle']} : #{noLesson}">
-										Down subject
-									</td>
-								</tr>
-							</th:block>
+					  	
+						<tr>
+							<!-- This cell is for bell + lessonNum -->
+							<td rowspan="2">
+								<div th:text="${bells[__${lessonNum}__]}" align="center"></div>
+								<div th:text="${lessonNum}" align="center"></div>
+							</td>
 							
-							<th:block th:unless="${upSchedule != null || downSchedule != null}">
-								<tr>
-									<td rowspan="2">
-										<div th:text="${bells[__${lessonNum}__]}"></div>
-										<div th:text="${lessonNum}" align="center"></div>
-									</td>
-									<td th:text="#{noLesson}">Up subject</td>
-								</tr>
-								<tr>
-									<td th:text="#{noLesson}">Down subject</td>
-								</tr>
-							</th:block>
+							<!-- This cell for lesson type of the first lesson of the day (WEEK_UP) -->
+							<td th:with="lessonType=${upSchedule != null ? upSchedule['lessonType'] : null}"
+								th:text="${lessonType != null} ? #{__${lessonType}__} : #{noLesson}">
+								Lesson type
+							</td>
+							
+							<!-- This cell is for subject title of current lesson in WEEK_UP -->
+							<td th:text="${upSchedule != null} ? ${upSchedule['subjectTitle']} : #{noLesson}">
+								Subject title (WEEK_UP)
+							</td>
+							
+							<!-- This cell for teacher name of lesson in WEEK_UP -->
+							<td th:text="${upSchedule?.teacher != null} ? ${upSchedule['teacher']['name']} : #{noLesson}">
+								Teacher name
+							</td>
+							
+							<!-- This cell for classroom of the first lesson of the day (WEEK_UP) -->
+							<td th:text="${upSchedule != null} ? ${upSchedule['classroom']} : #{noLesson}">
+								Classroom
+							</td>
+						</tr>
+						
+						<tr>
+							<!-- This cell for lesson type of the first lesson of the day (WEEK_DOWN) -->
+							<td th:with="lessonType=${downSchedule != null ? downSchedule['lessonType'] : null}"
+								th:text="${lessonType != null} ? #{__${lessonType}__} : #{noLesson}">
+								Lesson type
+							</td>
+							
+							<!-- This cell is for subject title of current lesson in WEEK_DOWN -->
+							<td th:text="${downSchedule != null} ? ${downSchedule['subjectTitle']} : #{noLesson}">
+								Subject title (WEEK_DOWN)
+							</td>
+							
+							<!-- This cell for teacher name of lesson in WEEK_DOWN -->
+							<td th:text="${downSchedule?.teacher != null} ? ${downSchedule['teacher']['name']} : #{noLesson}">
+								Teacher name
+							</td>
+							
+							<!-- This cell for classroom of the first lesson of the day (WEEK_DOWN) -->
+							<td th:text="${downSchedule != null} ? ${downSchedule['classroom']} : #{noLesson}">
+								Classroom
+							</td>
+						</tr>
 					</th:block>
 			</th:block>
 		</tbody>
