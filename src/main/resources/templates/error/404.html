@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="fragments/_header :: head"></th:block>
+	<style>
+		#error-wrap {
+			min-height: 100vh;
+			background: #fff;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+		#error-code {
+			color: #000;
+			font-size: 5em;
+		}
+		#error-msg {
+			color: #000;
+			font-size: 3em;
+		}
+	</style>
+</head>
+<body>
+	<div id="error-wrap">
+		<p id="error-code">Error 404</p>
+		<h3 id="error-msg">Sorry, this page doesn't exist!</h3>
+	</div>
+	
+	<th:block th:replace="fragments/_footer :: footer"></th:block>
+</body>
+</html>
