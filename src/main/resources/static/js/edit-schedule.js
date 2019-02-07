@@ -38,7 +38,7 @@ function showEditScheduleModal(e) {
 	let teacherId  = $(scheduleRow).find('.teacher').attr('data-id');
 	let classroom  = $(scheduleRow).find('.classroom').html();
 	
-	console.log("TeacherId: " + teacherId);
+	console.log("Lesson type: " + lessonType);
 	
 	$(MODAL_GROUP_ID_INPUT).val(groupId);
 	$(MODAL_WEEK_TYPE_INPUT).val(week);
@@ -48,24 +48,9 @@ function showEditScheduleModal(e) {
 	$(MODAL_SUBJECT_SELECT).val(subjectId);
 	$(MODAL_TEACHER_SELECT).val(teacherId);
 	$(MODAL_CLASSROOM_INPUT).val(classroom);
+	$(MODAL_LESSON_TYPE_SELECT).val(lessonType);
 	
-	let lessonTypeNumeric;
-	switch (lessonType) {
-		case LECTURE: {
-			lessonTypeNumeric = 1;
-			break;
-		}
-		case PRACTICE: {
-			lessonTypeNumeric = 2;
-			break;
-		}
-		default: {
-			lessonTypeNumeric = 0;
-			break;
-		}
-	}
-	$(MODAL_LESSON_TYPE_SELECT).val(lessonTypeNumeric);
-	
+	$(scheduleRow).addClass("is-being-edited");
 	$('.edit-schedule-modal').modal('show');
 }
 
@@ -86,13 +71,33 @@ function saveScheduleChanges(e) {
 		type: 'POST',
 		url: '/api/schedule/edit',
 		data: obj,
+		contentType: "application/json; charset=utf-8",
 		dataType: 'JSON',
 		success: function (response) {
+			let $editedRow = $("#edit-schedule-content .is-being-edited");
+			
+			$editedRow.find('.subject').attr('data-id', obj.subjectId);
+			$editedRow.find('.subject').html(obj.subjectId);
+			$editedRow.find('.lesson-type').attr('data-lesson-type', obj.lessonType);
+			$editedRow.find('.lesson-type').html(obj.lessonType);
+			$editedRow.find('.teacher').attr('data-id', obj.userId);
+			$editedRow.find('.teacher').html(obj.userId);
+			$editedRow.find('.classroom').html(obj.classroom);
+			
+			$editedRow.removeClass('is-being-edited');
+			
 			console.log(response);
-			location.reload();
+			$('.edit-schedule-modal').modal('hide');
 		}
 	});
 }
+
+$(document).on('hidden.bs.modal', '#edit-schedule-modal', function (event) {
+	console.log("Remove class");
+	let $editedRow = $("#edit-schedule-content .is-being-edited");
+	$editedRow.removeClass('is-being-edited');
+});
+
 /** Example, how to make query no more than N time per ...
  
 $('#teacher').on('keyup', debounce(function () {

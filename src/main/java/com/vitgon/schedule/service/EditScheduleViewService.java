@@ -13,8 +13,7 @@ import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
-import com.vitgon.schedule.util.SubjectUtil;
-import com.vitgon.schedule.util.UserUtil;
+import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
 
 @Service
 public class EditScheduleViewService {
@@ -23,13 +22,22 @@ public class EditScheduleViewService {
 	private UserService userService;
 	private SubjectService subjectService;
 	
+	private SubjectTranslationService subjectTranslationService;
+	private UserNameService userNameService;
+	
 	@Autowired
 	public EditScheduleViewService(ScheduleViewService scheduleViewService,
 								   UserService userService,
-								   SubjectService subjectService) {
+								   SubjectService subjectService,
+								   SubjectTranslationService subjectTranslationService,
+								   UserNameService userNameService) {
 		this.scheduleViewService = scheduleViewService;
 		this.userService = userService;
 		this.subjectService = subjectService;
+		
+		// I think it needs to be refactored
+		this.subjectTranslationService = subjectTranslationService;
+		this.userNameService = userNameService;
 	}
 
 	public void addEditScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
@@ -39,13 +47,13 @@ public class EditScheduleViewService {
 		List<User> users = userService.findAll();
 		Map<Integer, String> teachersNames = new HashMap<>();
 		for (User teacher : users) {
-			teachersNames.put(teacher.getId(), UserUtil.makeupUsername(teacher, locale));
+			teachersNames.put(teacher.getId(), userNameService.makeupUsername(teacher, locale));
 		}
 		
 		List<Subject> subjects = subjectService.findAll();
 		Map<Integer, String> subjectTitles = new HashMap<>();
 		for (Subject subject : subjects) {
-			subjectTitles.put(subject.getId(), SubjectUtil.getSubjectTitle(subject, locale));
+			subjectTitles.put(subject.getId(), subjectTranslationService.getSubjectTitle(subject, locale));
 		}
 		
 		modelAndView.addObject("teachersNames", teachersNames);

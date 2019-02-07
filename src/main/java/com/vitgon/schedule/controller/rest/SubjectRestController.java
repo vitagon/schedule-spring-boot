@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vitgon.schedule.dto.SubjectDTO;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Subject;
+import com.vitgon.schedule.service.SubjectMapperService;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SubjectService;
-import com.vitgon.schedule.util.SubjectUtil;
 
 @RestController
 @RequestMapping("/api")
@@ -21,11 +21,15 @@ public class SubjectRestController {
 	
 	private SubjectService subjectService;
 	private LocaleService localeService;
+	private SubjectMapperService subjectMapperService;
 	
 	@Autowired
-	public SubjectRestController(SubjectService subjectService, LocaleService localeService) {
+	public SubjectRestController(SubjectService subjectService,
+								 LocaleService localeService,
+								 SubjectMapperService subjectMapperService) {
 		this.subjectService = subjectService;
 		this.localeService = localeService;
+		this.subjectMapperService = subjectMapperService;
 	}
 	
 	@GetMapping("/subjects")
@@ -35,6 +39,6 @@ public class SubjectRestController {
 			throw new IllegalArgumentException("Provided localeCode doesn't exist");
 		}
 		List<Subject> subjects = subjectService.findAll();
-		return SubjectUtil.mapToSubjectDTOList(subjects, locale);
+		return subjectMapperService.mapToSubjectDTOList(subjects, locale);
 	}
 }

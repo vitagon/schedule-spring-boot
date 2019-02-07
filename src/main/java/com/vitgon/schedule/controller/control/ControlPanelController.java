@@ -24,33 +24,41 @@ import com.vitgon.schedule.model.School;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.service.LocaleConverterService;
+import com.vitgon.schedule.service.SubjectMapperService;
+import com.vitgon.schedule.service.UserMapperService;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SchoolService;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
 import com.vitgon.schedule.util.LocaleUtil;
 import com.vitgon.schedule.util.SchoolUtil;
-import com.vitgon.schedule.util.SubjectUtil;
-import com.vitgon.schedule.util.UserUtil;
 
 @Controller
 public class ControlPanelController {
 	
-	@Autowired
 	private UserService userService;
-	
-	@Autowired
 	private SubjectService subjectService;
-	
-	@Autowired
 	private LocaleService localeService;
-	
-	@Autowired
 	private SchoolService schoolService;
+	private LocaleConverterService localeConverterService;
+	private SubjectMapperService subjectMapperService;
+	private UserMapperService userMapperService;
 	
 	@Autowired
-	private LocaleConverterService localeConverterService;
-	
+	public ControlPanelController(UserService userService, SubjectService subjectService, LocaleService localeService,
+			SchoolService schoolService, LocaleConverterService localeConverterService,
+			SubjectMapperService subjectMapperService, UserMapperService userMapperService) {
+		this.userService = userService;
+		this.subjectService = subjectService;
+		this.localeService = localeService;
+		this.schoolService = schoolService;
+		this.localeConverterService = localeConverterService;
+		this.subjectMapperService = subjectMapperService;
+		this.userMapperService = userMapperService;
+	}
+
+
+
 	@GetMapping("/control")
 	public ModelAndView showControlPanel(HttpServletRequest request, ModelMap modelMap) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -64,7 +72,7 @@ public class ControlPanelController {
 		modelMap.addAttribute("schools", schoolsMap);
 		
 		List<User> users = userService.findBySpecificRoles(Arrays.asList("teacher".toUpperCase()));
-		List<TeacherDTO> teachers = UserUtil.mapToTeacherDTOList(users);
+		List<TeacherDTO> teachers = userMapperService.mapToTeacherDTOList(users);
 		modelMap.addAttribute("teachers", teachers);
 		
 		// get locales
@@ -74,7 +82,7 @@ public class ControlPanelController {
 		
 		// get subjects
 		List<Subject> subjects = subjectService.findAll();
-		List<SubjectDTO> subjectsDTO = SubjectUtil.mapToSubjectDTOList(subjects);
+		List<SubjectDTO> subjectsDTO = subjectMapperService.mapToSubjectDTOList(subjects);
 		modelMap.addAttribute("subjects", subjectsDTO);
 		
 		if (!modelMap.containsAttribute("addSubjectDTO")) {

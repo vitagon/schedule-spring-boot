@@ -25,18 +25,21 @@ public class ScheduleViewService {
 	
 	private ScheduleService scheduleService;
 	private GroupService groupService;
+	private ScheduleTreeService scheduleTreeService;
 	
 	@Autowired
 	public ScheduleViewService(ScheduleService scheduleService,
-							   GroupService groupService) {
+							   GroupService groupService,
+							   ScheduleTreeService scheduleTreeService) {
 		this.scheduleService = scheduleService;
 		this.groupService = groupService;
+		this.scheduleTreeService = scheduleTreeService;
 	}
 
 	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
 		Group group = groupService.findById(groupId);
 		List<Schedule> schedulesList = scheduleService.findByGroup(group);
-		ScheduleTree schedules = ScheduleUtil.getScheduleTree(schedulesList, locale); 
+		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale); 
 		
 		modelAndView.addObject("days", DAYS);
 		modelAndView.addObject("bells", BELLS);

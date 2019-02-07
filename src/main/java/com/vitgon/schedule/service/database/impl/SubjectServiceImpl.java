@@ -1,30 +1,29 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.SubjectDao;
-import com.vitgon.schedule.dao.translation.SubjectTranslationDao;
+import com.vitgon.schedule.dto.SubjectDTO;
+import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.translation.SubjectTranslation;
 import com.vitgon.schedule.service.database.SubjectService;
+import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
 
 @Service
 @Transactional
 public class SubjectServiceImpl implements SubjectService {
-
-	@Autowired
+	
 	private final SubjectDao subjectDao;
 	
 	@Autowired
-	private final SubjectTranslationDao subjectTranslDao;
-	
-	public SubjectServiceImpl(SubjectDao subjectDao, SubjectTranslationDao subjectTranslDao) {
+	public SubjectServiceImpl(SubjectDao subjectDao) {
 		this.subjectDao = subjectDao;
-		this.subjectTranslDao = subjectTranslDao;
 	}
 	
 	@Override
@@ -39,7 +38,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public Subject findById(Integer id) {
-		return subjectDao.findById(id).get();
+		return subjectDao.findById(id).orElse(null);
 	}
 
 	@Override
@@ -50,11 +49,5 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Subject findByName(String name) {
 		return subjectDao.findByName(name);
-	}
-
-	@Override
-	public Subject findByTitle(String title) {
-		SubjectTranslation subjectTransl = subjectTranslDao.findByTitle(title);
-		return subjectTransl.getSubjectTranslationId().getSubject();
 	}
 }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vitgon.schedule.model.auth.User;
@@ -19,7 +20,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(exclude = {"group"})
 @Entity
-@Table(name = "schedules")
+@Table(name = "schedules",
+	   uniqueConstraints = @UniqueConstraint(
+			   columnNames= {"group_id", "day_num", "week_type", "lesson_num"},
+			   name = "schedule_UI")
+)
 public class Schedule extends BaseModel<Integer> {
 	
 	@ManyToOne
@@ -29,7 +34,7 @@ public class Schedule extends BaseModel<Integer> {
 	@Column(name = "day_num")
 	private int dayNum;
 	
-	@Column(name = "week_type")
+	@Column(name = "week_type", length = 4)
 	private String week;
 	
 	@Column(name = "lesson_num")
@@ -47,6 +52,6 @@ public class Schedule extends BaseModel<Integer> {
 	@Column(name = "lesson_type")
 	private int lessonType;
 	
-	@Column(name = "classroom")
+	@Column(name = "classroom", length = 6)
 	private String classroom;
 }
