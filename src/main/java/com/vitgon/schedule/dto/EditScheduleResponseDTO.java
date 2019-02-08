@@ -14,6 +14,7 @@ public class EditScheduleResponseDTO implements Serializable {
 	private int dayNum;
 	private String week;
 	private int lessonNum;
+	private int teacherId;
 	private String teacherName;
 	private String lessonType;
 	private String lessonTypeName;

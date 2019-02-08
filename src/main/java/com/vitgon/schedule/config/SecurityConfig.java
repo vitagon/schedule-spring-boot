@@ -1,7 +1,5 @@
 package com.vitgon.schedule.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +16,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.vitgon.schedule.handler.CustomAccessDeniedHandler;
+import com.vitgon.schedule.service.auth.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -26,17 +25,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Autowired
-	private DataSource dataSource;
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
 	@Value("${spring.queries.users-query}")
 	private String usersQuery;
 	
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new CustomUserDetailsService();
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setUserDetailsService(userDetailsService());
 		authProvider.setPasswordEncoder(bCryptPasswordEncoder);
 		return authProvider;
 	}

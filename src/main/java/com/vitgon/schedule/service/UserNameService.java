@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.model.translation.UserTranslation;
+import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
 @Component
@@ -29,6 +30,10 @@ public class UserNameService {
 	public String makeupUsername(User user, Locale locale) {
 		if (user == null) {
 			return null;
+		}
+		
+		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
+			
 		}
 		
 		UserTranslation userTranslation = userTranslationService.findByLocaleAndUser(locale, user);

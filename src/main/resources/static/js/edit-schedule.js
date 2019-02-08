@@ -12,7 +12,6 @@ const MODAL_TEACHER_SELECT     = '#modal-teacher';
 const MODAL_CLASSROOM_INPUT    = '#modal-classroom';
 
 
-
 const debounce = (func, delay) => {
     let debounceTimer 
     return function() { 
@@ -70,19 +69,19 @@ function saveScheduleChanges(e) {
 	$.ajax({
 		type: 'POST',
 		url: '/api/schedule/edit',
-		data: obj,
+		data: JSON.stringify(obj),
 		contentType: "application/json; charset=utf-8",
 		dataType: 'JSON',
 		success: function (response) {
 			let $editedRow = $("#edit-schedule-content .is-being-edited");
 			
-			$editedRow.find('.subject').attr('data-id', obj.subjectId);
-			$editedRow.find('.subject').html(obj.subjectId);
-			$editedRow.find('.lesson-type').attr('data-lesson-type', obj.lessonType);
-			$editedRow.find('.lesson-type').html(obj.lessonType);
-			$editedRow.find('.teacher').attr('data-id', obj.userId);
-			$editedRow.find('.teacher').html(obj.userId);
-			$editedRow.find('.classroom').html(obj.classroom);
+			$editedRow.find('.subject').attr('data-id', response.subjectId);
+			$editedRow.find('.subject').html(response.subjectTitle);
+			$editedRow.find('.lesson-type').attr('data-lesson-type', response.lessonType);
+			$editedRow.find('.lesson-type').html(response.lessonTypeName);
+			$editedRow.find('.teacher').attr('data-id', response.teacherId);
+			$editedRow.find('.teacher').html(response.teacherName);
+			$editedRow.find('.classroom').html(response.classroom);
 			
 			$editedRow.removeClass('is-being-edited');
 			

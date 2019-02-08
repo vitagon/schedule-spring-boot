@@ -17,12 +17,18 @@ import com.vitgon.schedule.service.database.SchoolService;
 @RequestMapping("/api")
 public class SchoolRestController {
 	
-	@Autowired
 	private SchoolService schoolService;
-	
-	@Autowired
 	private LocaleService localeService;
 	
+	public SchoolRestController() {
+	}
+
+	@Autowired
+	public SchoolRestController(SchoolService schoolService, LocaleService localeService) {
+		this.schoolService = schoolService;
+		this.localeService = localeService;
+	}
+
 	@GetMapping("/schools")
 	public List<School> getSchools() {
 		Locale locale = localeService.findByCode("en");

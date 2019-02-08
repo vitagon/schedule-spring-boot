@@ -7,10 +7,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -23,6 +21,7 @@ import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.model.translation.SubjectTranslation;
 import com.vitgon.schedule.service.LocaleConverterService;
+import com.vitgon.schedule.service.SubjectTitleService;
 import com.vitgon.schedule.service.UserNameService;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.ScheduleService;
@@ -40,10 +39,10 @@ public class ScheduleRestController {
 	private GroupService groupService;
 	
 	private LocaleConverterService localeConverterService;
-	private SubjectTranslationService subjectTranslationService;
 	
 	private MessageSource messageSource;
 	private UserNameService userNameService;
+	private SubjectTitleService subjectTitleService;
 
 	@Autowired
 	public ScheduleRestController(ScheduleService scheduleService,
@@ -53,25 +52,16 @@ public class ScheduleRestController {
 								  LocaleConverterService localeConverterService,
 								  SubjectTranslationService subjectTranslationService,
 								  MessageSource messageSource,
-								  UserNameService userNameService) {
+								  UserNameService userNameService,
+								  SubjectTitleService subjectTitleService) {
 		this.scheduleService = scheduleService;
 		this.subjectService = subjectService;
 		this.userService = userService;
 		this.groupService = groupService;
 		this.localeConverterService = localeConverterService;
-		this.subjectTranslationService = subjectTranslationService;
 		this.messageSource = messageSource;
 		this.userNameService = userNameService;
-	}
-	
-	@ResponseBody
-	@GetMapping("/api/subject/translation")
-	public String getTransl(@RequestParam("lang") String langCode, @RequestParam("subject") int subjectId) {
-		SubjectTranslation translation = subjectTranslationService.findByLangCodeAndSubjectId(langCode, subjectId);
-		if (translation == null) {
-			return "translation doesn't exist";
-		}
-		return translation.getTitle();
+		this.subjectTitleService = subjectTitleService;
 	}
 	
 	/**
@@ -154,14 +144,16 @@ public class ScheduleRestController {
 		EditScheduleResponseDTO response = new EditScheduleResponseDTO();
 		response.setId(schedule.getId());
 		response.setSubjectId(schedule.getSubject().getId());
-		response.setSubjectTitle(subjectTranslationService.findByLocaleAndSubject(locale, subject).getTitle());
+		response.setSubjectTitle(subjectTitleService.getSubjectTitle(locale, subject));
 		response.setDayNum(editScheduleReq.getDayNum());
 		response.setWeek(editScheduleReq.getWeek());
 		response.setLessonNum(editScheduleReq.getLessonNum());
 		
 		if (user != null) {
+			response.setTeacherId(user.getId());
 			response.setTeacherName(userNameService.makeupUsername(user, locale));
 		}
+		
 		response.setLessonType(editScheduleReq.getLessonType());
 		response.setClassroom(editScheduleReq.getClassroom());
 		

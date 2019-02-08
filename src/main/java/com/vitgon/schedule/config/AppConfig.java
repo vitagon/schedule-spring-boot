@@ -2,6 +2,7 @@ package com.vitgon.schedule.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
@@ -15,6 +16,7 @@ import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
 @Configuration
+@ComponentScan(basePackages = { "com.vitgon.schedule" })
 public class AppConfig implements WebMvcConfigurer {
 	
 	@Bean(name = "localeResolver")
