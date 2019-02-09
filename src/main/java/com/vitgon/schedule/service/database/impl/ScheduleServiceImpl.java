@@ -34,7 +34,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public Schedule findById(Integer id) {
-		return scheduleDao.findById(id).get();
+		return scheduleDao.findById(id).orElse(null);
 	}
 
 	@Override

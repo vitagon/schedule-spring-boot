@@ -51,4 +51,11 @@ public class LessonUtil {
 		}
 		return lessonTypeInt;
 	}
+	
+	public static boolean isValid(String lessonType) {
+		if (lessonType.equals(LECTURE_STR) || lessonType.equals(PRACTICE_STR)) {
+			return true;
+		}
+		return false;
+	}
 }

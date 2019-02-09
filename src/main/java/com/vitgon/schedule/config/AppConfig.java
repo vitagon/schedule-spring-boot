@@ -1,16 +1,21 @@
 package com.vitgon.schedule.config;
 
+import java.util.List;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.vitgon.schedule.converter.CreateScheduleDTOConverter;
+import com.vitgon.schedule.converter.EditScheduleDTOConverter;
 import com.vitgon.schedule.formatter.DateFormatter;
 import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
@@ -52,5 +57,11 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatter(new DateFormatter());
+	}
+
+	@Override
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(new CreateScheduleDTOConverter());
+		converters.add(new EditScheduleDTOConverter());
 	}
 }

@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vitgon.schedule.dto.EditScheduleDTO;
+import com.vitgon.schedule.model.Subject;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -52,14 +53,15 @@ public class ScheduleRestControllerIntegrationTest {
 	}
 	
 	private static String createEditScheduleDTO() throws JsonProcessingException {
-		EditScheduleDTO editScheduleReq = new EditScheduleDTO();
-		editScheduleReq.setScheduleId(4);
-		editScheduleReq.setSubjectId(4);
-		editScheduleReq.setClassroom("G999");
-		editScheduleReq.setLessonNum(3);
-		editScheduleReq.setLessonType("lecture");
-		editScheduleReq.setWeek("up");;
+		EditScheduleDTO editScheduleDTO = new EditScheduleDTO();
+		editScheduleDTO.setScheduleId(1);
+		
+		// I guess here we need to provide real subject
+		editScheduleDTO.setSubject(new Subject());
+		
+		editScheduleDTO.setClassroom("G999");
+		editScheduleDTO.setLessonType("lecture");
 		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(editScheduleReq);
+		return mapper.writeValueAsString(editScheduleDTO);
 	}
 }
