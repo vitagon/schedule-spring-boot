@@ -2,6 +2,8 @@ package com.vitgon.schedule.config;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -23,6 +26,20 @@ import com.vitgon.schedule.resolver.UrlLocaleResolver;
 @Configuration
 @ComponentScan(basePackages = { "com.vitgon.schedule" })
 public class AppConfig implements WebMvcConfigurer {
+	
+	
+	private ApplicationContext applicationContext;
+	
+	@Autowired
+	public AppConfig(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		return bCryptPasswordEncoder;
+	}
 	
 	@Bean(name = "localeResolver")
 	public LocaleResolver getLocaleResolver() {
@@ -61,7 +78,7 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-		converters.add(new CreateScheduleDTOConverter());
-		converters.add(new EditScheduleDTOConverter());
+		converters.add(new CreateScheduleDTOConverter(applicationContext));
+		converters.add(new EditScheduleDTOConverter(applicationContext));
 	}
 }

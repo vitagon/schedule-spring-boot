@@ -1,58 +1,44 @@
 package com.vitgon.schedule.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
-import java.util.Scanner;
+import java.nio.charset.Charset;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vitgon.schedule.dto.CreateScheduleDTO;
+import com.vitgon.schedule.converter.util.EditScheduleDTOAuxiliary;
 import com.vitgon.schedule.dto.EditScheduleDTO;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Component
 public class EditScheduleDTOConverter extends AbstractHttpMessageConverter<EditScheduleDTO> {
 	
 	private SubjectService subjectService;
 	private UserService userService;
 	
-	public EditScheduleDTOConverter() {
-	}
-
-	public EditScheduleDTOConverter(SubjectService subjectService,
-									UserService userService) {
-		this.subjectService = subjectService;
-		this.userService = userService;
-	}
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+	private ObjectMapper mapper = new ObjectMapper();
 	
-	@NoArgsConstructor
-	@Data
-	private class EditScheduleDTOAuxiliary implements Serializable {
-		private static final long serialVersionUID = 7274534115141402913L;
-		
-		private int scheduleId;
-		
-		private int subjectId;
-		private String lessonType;
-		private int userId;
-		private String classroom;
+	public EditScheduleDTOConverter(ApplicationContext context) {
+		super(new MediaType("application","json"));
+		subjectService = context.getBean(SubjectService.class);
+		userService = context.getBean(UserService.class);
 	}
-	
-	
 	
 	@Override
 	protected boolean supports(Class<?> clazz) {
@@ -62,9 +48,8 @@ public class EditScheduleDTOConverter extends AbstractHttpMessageConverter<EditS
 	@Override
 	protected EditScheduleDTO readInternal(Class<? extends EditScheduleDTO> clazz, HttpInputMessage inputMessage)
 			throws IOException, HttpMessageNotReadableException {
-		String requestBody = toString(inputMessage.getBody());
+		String requestBody = IOUtils.toString(inputMessage.getBody(), DEFAULT_CHARSET);
 		
-		ObjectMapper mapper = new ObjectMapper();
 		EditScheduleDTOAuxiliary editScheduleDTOAuxiliary = null;
 		try {
 			editScheduleDTOAuxiliary = mapper.readValue(requestBody, EditScheduleDTOAuxiliary.class);
@@ -102,14 +87,13 @@ public class EditScheduleDTOConverter extends AbstractHttpMessageConverter<EditS
 	@Override
 	protected void writeInternal(EditScheduleDTO t, HttpOutputMessage outputMessage)
 			throws IOException, HttpMessageNotWritableException {
-		ObjectMapper mapper = new ObjectMapper();
 		try {
 			OutputStream outputStream = outputMessage.getBody();
 			String body = mapper.writeValueAsString(t);
 			outputStream.write(body.getBytes());
 			outputStream.close();
 		} catch (IOException e) {
-			log.error("Can't parse String to EditScheduleDTO!", e);
+			log.error("Can't parse JSON to EditScheduleDTO!", e);
 		}
 	}
 	
@@ -123,12 +107,5 @@ public class EditScheduleDTOConverter extends AbstractHttpMessageConverter<EditS
 		if (scheduleId <= 0) {
 			throw new IllegalArgumentException("ScheduleId is not valid. Must be greater than 0!");
 		}
-	}
-	
-	private static String toString(InputStream inputStream) {
-		Scanner scanner = new Scanner(inputStream, "UTF-8");
-		String result = scanner.useDelimiter("\\A").next();
-		scanner.close();
-		return result;
 	}
 }

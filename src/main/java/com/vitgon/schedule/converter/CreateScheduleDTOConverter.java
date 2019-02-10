@@ -1,18 +1,21 @@
 package com.vitgon.schedule.converter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
-import java.util.Scanner;
+import java.nio.charset.Charset;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vitgon.schedule.converter.util.CreateScheduleDTOAuxiliary;
 import com.vitgon.schedule.dto.CreateScheduleDTO;
 import com.vitgon.schedule.model.Group;
 import com.vitgon.schedule.model.Subject;
@@ -23,42 +26,24 @@ import com.vitgon.schedule.service.database.UserService;
 import com.vitgon.schedule.util.LessonUtil;
 import com.vitgon.schedule.util.ScheduleUtil;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Component
 public class CreateScheduleDTOConverter extends AbstractHttpMessageConverter<CreateScheduleDTO> {
 	
 	private GroupService groupService;
 	private SubjectService subjectService;
 	private UserService userService;
 	
-	public CreateScheduleDTOConverter() {
-	}
-
-	public CreateScheduleDTOConverter(GroupService groupService,
-									SubjectService subjectService,
-									UserService userService) {
-		this.groupService = groupService;
-		this.subjectService = subjectService;
-		this.userService = userService;
-	}
-
-	@NoArgsConstructor
-	@Data
-	private class CreateScheduleDTOAuxiliary implements Serializable {
-		private static final long serialVersionUID = 7274534115141402913L;
-		
-		private int groupId;
-		private String week;
-		private int dayNum;
-		private int lessonNum;
-		
-		private int subjectId;
-		private String lessonType;
-		private int userId;
-		private String classroom;
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+	private ObjectMapper mapper = new ObjectMapper();
+	
+	public CreateScheduleDTOConverter(ApplicationContext context) {
+		super(new MediaType("application","json"));
+		groupService = context.getBean(GroupService.class);
+		subjectService = context.getBean(SubjectService.class);
+		userService = context.getBean(UserService.class);
 	}
 
 	@Override
@@ -69,14 +54,13 @@ public class CreateScheduleDTOConverter extends AbstractHttpMessageConverter<Cre
 	@Override
 	protected CreateScheduleDTO readInternal(Class<? extends CreateScheduleDTO> clazz, HttpInputMessage inputMessage)
 			throws IOException, HttpMessageNotReadableException {
-		String requestBody = toString(inputMessage.getBody());
+		String requestBody = IOUtils.toString(inputMessage.getBody(), DEFAULT_CHARSET);
 		
-		ObjectMapper mapper = new ObjectMapper();
-		CreateScheduleDTOAuxiliary createScheduleDTOAuxiliary = null;
+		CreateScheduleDTOAuxiliary createScheduleDTOAuxiliary = new CreateScheduleDTOAuxiliary();
 		try {
 			createScheduleDTOAuxiliary = mapper.readValue(requestBody, CreateScheduleDTOAuxiliary.class);
 		} catch (IOException e) {
-			log.error("Can't parse String to EditScheduleDTO!", e);
+			log.error("Can't parse JSON to EditScheduleDTO!", e);
 		}
 		
 		User user = null;
@@ -128,14 +112,13 @@ public class CreateScheduleDTOConverter extends AbstractHttpMessageConverter<Cre
 	@Override
 	protected void writeInternal(CreateScheduleDTO t, HttpOutputMessage outputMessage)
 			throws IOException, HttpMessageNotWritableException {
-		ObjectMapper mapper = new ObjectMapper();
 		try {
 			OutputStream outputStream = outputMessage.getBody();
 			String body = mapper.writeValueAsString(t);
 			outputStream.write(body.getBytes());
 			outputStream.close();
 		} catch (IOException e) {
-			log.error("Can't parse String to EditScheduleDTO!", e);
+			log.error("Can't parse JSON to EditScheduleDTO!", e);
 		}
 	}
 	
@@ -165,12 +148,5 @@ public class CreateScheduleDTOConverter extends AbstractHttpMessageConverter<Cre
 		if (subject == null) {
 			throw new IllegalArgumentException("Subject was not found!");
 		}
-	}
-	
-	private static String toString(InputStream inputStream) {
-		Scanner scanner = new Scanner(inputStream, "UTF-8");
-		String result = scanner.useDelimiter("\\A").next();
-		scanner.close();
-		return result;
 	}
 }
