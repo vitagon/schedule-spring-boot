@@ -1,6 +1,5 @@
 package com.vitgon.schedule.converter;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.converter.Converter;
 
 import com.vitgon.schedule.dto.ScheduleDTO;
@@ -21,10 +20,12 @@ public class ScheduleDTO2ScheduleConverter implements Converter<ScheduleDTO, Sch
     private SubjectService subjectService;
     private UserService userService;
 
-    public ScheduleDTO2ScheduleConverter(ApplicationContext context) {
-        groupService = context.getBean(GroupService.class);
-        subjectService = context.getBean(SubjectService.class);
-        userService = context.getBean(UserService.class);
+    public ScheduleDTO2ScheduleConverter(GroupService groupService,
+    									 SubjectService subjectService,
+    									 UserService userService) {
+        this.groupService = groupService;
+        this.subjectService = subjectService;
+        this.userService = userService;
     }
 
     @Override

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +24,9 @@ import com.vitgon.schedule.formatter.DateFormatter;
 import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
 import com.vitgon.schedule.resolver.FromDTOMapper;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
+import com.vitgon.schedule.service.database.GroupService;
+import com.vitgon.schedule.service.database.SubjectService;
+import com.vitgon.schedule.service.database.UserService;
 
 @Configuration
 @ComponentScan(basePackages = { "com.vitgon.schedule" })
@@ -36,6 +38,18 @@ public class AppConfig implements WebMvcConfigurer {
 	@Autowired
 	public AppConfig(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
+	}
+	
+	public GroupService groupService() {
+		return this.applicationContext.getBean(GroupService.class);
+	}
+	
+	public SubjectService subjectService() {
+		return this.applicationContext.getBean(SubjectService.class);
+	}
+	
+	public UserService userService() {
+		return this.applicationContext.getBean(UserService.class);
 	}
 
 	@Bean
@@ -77,7 +91,7 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatter(new DateFormatter());
-		registry.addConverter(new ScheduleDTO2ScheduleConverter(applicationContext));
+		registry.addConverter(new ScheduleDTO2ScheduleConverter(groupService(), subjectService(), userService()));
 	}
 
 	@Override

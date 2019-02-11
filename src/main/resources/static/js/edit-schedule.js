@@ -56,13 +56,14 @@ function showEditScheduleModal(e) {
 }
 
 function saveScheduleChanges(e) {
+	let scheduleId = $(MODAL_SCHEDULE_ID_INPUT).val();
 	
-	let obj = {
-		scheduleId: $(MODAL_SCHEDULE_ID_INPUT).val(),
+	let scheduleDTO = {
 		groupId: $(MODAL_GROUP_ID_INPUT).val(),
 		week: $(MODAL_WEEK_TYPE_INPUT).val(),
 		dayNum: $(MODAL_DAY_NUM_INPUT).val(),
 		lessonNum: $(MODAL_LESSON_NUM_SELECT).val(),
+		
 		subjectId: $(MODAL_SUBJECT_SELECT).val(),
 		lessonType: $(MODAL_LESSON_TYPE_SELECT).val(),
 		userId: $(MODAL_TEACHER_SELECT).val(),
@@ -70,7 +71,7 @@ function saveScheduleChanges(e) {
 	}
 	
 	let url = '';
-	if (obj.scheduleId == 0) {
+	if (scheduleId == 0) {
 		url = '/api/schedule/create';
 	} else {
 		url = '/api/schedule/edit';
@@ -79,42 +80,11 @@ function saveScheduleChanges(e) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data: JSON.stringify(obj),
+		data: JSON.stringify(scheduleDTO),
 		contentType: "application/json; charset=utf-8",
 		dataType: 'JSON',
 		success: function (response) {
-			let $editedRow = $("#edit-schedule-content .is-being-edited");
-			
-			$editedRow.attr('data-schedule-id', response.id);
-			$editedRow.find('.subject').attr('data-id', response.subjectId);
-			$editedRow.find('.subject').html(response.subjectTitle);
-			
-			if (response.lessonType != null) {
-				$editedRow.find('.lesson-type').attr('data-lesson-type', response.lessonType);
-				$editedRow.find('.lesson-type').html(response.lessonTypeName);
-			} else {
-				$editedRow.find('.lesson-type').attr('data-lesson-type', 0);
-				$editedRow.find('.lesson-type').html('-');
-			}
-			
-			$editedRow.find('.teacher').attr('data-id', response.teacherId);
-			if (response.teacherId != 0) {
-				$editedRow.find('.teacher').html(response.teacherName);
-			} else {
-				$editedRow.find('.teacher').html('-');
-			}
-			
-			if (response.classroom != null) {
-				$editedRow.find('.classroom').html(response.classroom);
-			} else {
-				$editedRow.find('.classroom').html('-');
-			}
-			
-			
-			$editedRow.removeClass('is-being-edited');
-			
-			console.log(response);
-			$('.edit-schedule-modal').modal('hide');
+			updateRow(response);
 		},
 		error: function (jqXHR, exception) {
 			let msg = '';
@@ -139,10 +109,49 @@ function saveScheduleChanges(e) {
 }
 
 $(document).on('hidden.bs.modal', '#edit-schedule-modal', function (event) {
-	console.log("Remove class");
 	let $editedRow = $("#edit-schedule-content .is-being-edited");
 	$editedRow.removeClass('is-being-edited');
 });
+
+/**
+ * This function will be called after successful schedule creation/edit
+ * It updated row in the table with new data,
+ * for ex. with new subject or classroom
+ * 
+ * @param response
+ * @returns
+ */
+function updateRow(response, lio) {
+	let $editedRow = $("#edit-schedule-content .is-being-edited");
+	
+	$editedRow.attr('data-schedule-id', response.id);
+	$editedRow.find('.subject').attr('data-id', response.subjectId);
+	$editedRow.find('.subject').html(response.subjectTitle);
+	
+	if (response.lessonType != null) {
+		$editedRow.find('.lesson-type').attr('data-lesson-type', response.lessonType);
+		$editedRow.find('.lesson-type').html(response.lessonTypeName);
+	} else {
+		$editedRow.find('.lesson-type').attr('data-lesson-type', 0);
+		$editedRow.find('.lesson-type').html('-');
+	}
+	
+	$editedRow.find('.teacher').attr('data-id', response.teacherId);
+	if (response.teacherId != 0) {
+		$editedRow.find('.teacher').html(response.teacherName);
+	} else {
+		$editedRow.find('.teacher').html('-');
+	}
+	
+	if (response.classroom != null) {
+		$editedRow.find('.classroom').html(response.classroom);
+	} else {
+		$editedRow.find('.classroom').html('-');
+	}
+	
+	$editedRow.removeClass('is-being-edited');
+	$('.edit-schedule-modal').modal('hide');
+}
 
 /** Example, how to make query no more than N time per ...
  

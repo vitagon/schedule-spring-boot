@@ -19,8 +19,8 @@ public class ScheduleResponseService {
 
 	@Autowired
 	public ScheduleResponseService(MessageSource messageSource,
-									   UserNameService userNameService,
-									   SubjectTitleService subjectTitleService) {
+								   UserNameService userNameService,
+								   SubjectTitleService subjectTitleService) {
 		this.messageSource = messageSource;
 		this.userNameService = userNameService;
 		this.subjectTitleService = subjectTitleService;
