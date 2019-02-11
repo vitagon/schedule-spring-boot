@@ -9,18 +9,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.vitgon.schedule.converter.CreateScheduleDTOConverter;
-import com.vitgon.schedule.converter.EditScheduleDTOConverter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vitgon.schedule.converter.ScheduleDTO2ScheduleConverter;
 import com.vitgon.schedule.formatter.DateFormatter;
 import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
+import com.vitgon.schedule.resolver.FromDTOMapper;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
 @Configuration
@@ -74,11 +77,13 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatter(new DateFormatter());
+		registry.addConverter(new ScheduleDTO2ScheduleConverter(applicationContext));
 	}
 
 	@Override
-	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-		converters.add(new CreateScheduleDTOConverter(applicationContext));
-		converters.add(new EditScheduleDTOConverter(applicationContext));
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		WebMvcConfigurer.super.addArgumentResolvers(resolvers);
+		ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().applicationContext(applicationContext).build();
+		resolvers.add(new FromDTOMapper(objectMapper, applicationContext));
 	}
 }

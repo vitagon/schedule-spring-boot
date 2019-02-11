@@ -46,4 +46,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public List<Schedule> findByGroup(Group group) {
 		return scheduleDao.findByGroup(group);
 	}
+	
+	@Override
+	public Schedule findByGroupAndDayNumAndWeekAndLessonNum(Group group, int dayNum, String week, int lessonNum) {
+		return scheduleDao.findByGroupAndDayNumAndWeekAndLessonNum(group, dayNum, week, lessonNum);
+	}
 }

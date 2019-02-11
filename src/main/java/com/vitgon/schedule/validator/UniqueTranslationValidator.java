@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.vitgon.schedule.annotation.UniqueField;
-import com.vitgon.schedule.annotation.UniqueTranslation;
+import com.vitgon.schedule.annotation.validation.UniqueField;
+import com.vitgon.schedule.annotation.validation.UniqueTranslation;
 import com.vitgon.schedule.exception.GenericTypeNotFoundException;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.service.database.LocaleService;

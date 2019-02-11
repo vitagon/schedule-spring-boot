@@ -13,16 +13,16 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateScheduleDTO implements Serializable {
+public class ScheduleDTO implements Serializable {
 	private static final long serialVersionUID = 892216499352228418L;
 	
-	private Group group;
+	private int groupId;
 	private String week;
 	private int dayNum;
 	private int lessonNum;
 	
-	private Subject subject;
+	private int subjectId;
 	private String lessonType;
-	private User user;
+	private int userId;
 	private String classroom;
 }

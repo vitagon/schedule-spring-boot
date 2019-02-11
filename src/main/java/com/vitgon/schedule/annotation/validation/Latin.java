@@ -1,4 +1,4 @@
-package com.vitgon.schedule.annotation;
+package com.vitgon.schedule.annotation.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,13 +8,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.vitgon.schedule.validator.UniqueSubjectValidator;
+import com.vitgon.schedule.validator.LatinValidator;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueSubjectValidator.class)
-public @interface UniqueSubject {
+@Constraint(validatedBy = LatinValidator.class)
+public @interface Latin {
 	String message() default "";
 	Class<?>[] groups() default {};
-	Class<? extends Payload>[] payload() default {}; 
+	Class<? extends Payload>[] payload() default {};
 }

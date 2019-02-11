@@ -3,7 +3,7 @@ package com.vitgon.schedule.validator;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.vitgon.schedule.annotation.Latin;
+import com.vitgon.schedule.annotation.validation.Latin;
 
 public class LatinValidator implements ConstraintValidator<Latin, String>{
 	

@@ -11,14 +11,14 @@ import com.vitgon.schedule.model.auth.User;
 import com.vitgon.schedule.util.LessonUtil;
 
 @Service
-public class EditScheduleResponseService {
+public class ScheduleResponseService {
 	
 	private MessageSource messageSource;
 	private UserNameService userNameService;
 	private SubjectTitleService subjectTitleService;
 
 	@Autowired
-	public EditScheduleResponseService(MessageSource messageSource,
+	public ScheduleResponseService(MessageSource messageSource,
 									   UserNameService userNameService,
 									   SubjectTitleService subjectTitleService) {
 		this.messageSource = messageSource;

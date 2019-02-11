@@ -4,8 +4,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.vitgon.schedule.annotation.UniqueField;
-import com.vitgon.schedule.annotation.UniqueTranslation;
+import com.vitgon.schedule.annotation.validation.UniqueField;
+import com.vitgon.schedule.annotation.validation.UniqueTranslation;
 import com.vitgon.schedule.group.TranslationGroup;
 import com.vitgon.schedule.service.database.UserService;
 

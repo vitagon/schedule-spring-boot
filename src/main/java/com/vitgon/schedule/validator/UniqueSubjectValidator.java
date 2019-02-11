@@ -3,7 +3,7 @@ package com.vitgon.schedule.validator;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.vitgon.schedule.annotation.UniqueSubject;
+import com.vitgon.schedule.annotation.validation.UniqueSubject;
 import com.vitgon.schedule.model.Subject;
 import com.vitgon.schedule.service.database.SubjectService;
 
