@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model;
+package com.vitgon.schedule.model.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.translation.GroupTranslation;
+import com.vitgon.schedule.model.database.translation.GroupTranslation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

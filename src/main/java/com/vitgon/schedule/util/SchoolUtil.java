@@ -3,10 +3,10 @@ package com.vitgon.schedule.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Major;
-import com.vitgon.schedule.model.School;
-import com.vitgon.schedule.model.translation.SchoolTranslation;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.School;
+import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.pojo.MajorPOJO;
 import com.vitgon.schedule.pojo.SchoolPOJO;
 

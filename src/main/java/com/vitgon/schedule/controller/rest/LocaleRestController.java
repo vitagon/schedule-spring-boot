@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.database.LocaleService;
 
 @RestController

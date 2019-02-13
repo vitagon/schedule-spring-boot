@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.vitgon.schedule.dto.AddSubjectDTO;
-import com.vitgon.schedule.model.Subject;
+import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.database.SubjectService;
 
 @Controller

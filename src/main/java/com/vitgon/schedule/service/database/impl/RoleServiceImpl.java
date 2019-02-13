@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.auth.RoleDao;
-import com.vitgon.schedule.model.auth.Role;
+import com.vitgon.schedule.model.database.auth.Role;
 import com.vitgon.schedule.service.database.RoleService;
 
 @Service

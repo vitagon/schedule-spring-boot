@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.database.LocaleService;
 
 @Service

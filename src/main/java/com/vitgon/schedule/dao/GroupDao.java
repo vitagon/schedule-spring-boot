@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Major;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Major;
 
 @Repository
 public interface GroupDao extends JpaRepository<Group, Integer> {

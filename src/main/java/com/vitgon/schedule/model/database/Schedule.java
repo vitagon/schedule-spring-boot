@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model;
+package com.vitgon.schedule.model.database;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.auth.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

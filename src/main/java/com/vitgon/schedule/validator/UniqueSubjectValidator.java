@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.vitgon.schedule.annotation.validation.UniqueSubject;
-import com.vitgon.schedule.model.Subject;
+import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.database.SubjectService;
 
 public class UniqueSubjectValidator implements ConstraintValidator<UniqueSubject, String> {

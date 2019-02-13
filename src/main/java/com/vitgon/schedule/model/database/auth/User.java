@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model.auth;
+package com.vitgon.schedule.model.database.auth;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.vitgon.schedule.model.BaseModel;
-import com.vitgon.schedule.model.translation.UserTranslation;
+import com.vitgon.schedule.model.database.BaseModel;
+import com.vitgon.schedule.model.database.translation.UserTranslation;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

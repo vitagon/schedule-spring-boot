@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.LocaleDao;
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.database.LocaleService;
 
 @Service

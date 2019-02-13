@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.ScheduleDao;
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.ScheduleService;
 
 @Service

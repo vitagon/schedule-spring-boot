@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.translation.UserTranslationDao;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.auth.User;
-import com.vitgon.schedule.model.translation.UserTranslation;
-import com.vitgon.schedule.model.translation.pk.UserTranslationId;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.model.database.translation.UserTranslation;
+import com.vitgon.schedule.model.database.translation.pk.UserTranslationId;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
 @Service

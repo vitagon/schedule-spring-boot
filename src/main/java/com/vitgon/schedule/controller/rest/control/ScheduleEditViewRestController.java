@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.EditScheduleViewService;
 import com.vitgon.schedule.service.LocaleConverterService;
 

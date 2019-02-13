@@ -1,9 +1,9 @@
-package com.vitgon.schedule.model.translation.pk;
+package com.vitgon.schedule.model.database.translation.pk;
 
 import java.io.Serializable;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Major;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Major;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

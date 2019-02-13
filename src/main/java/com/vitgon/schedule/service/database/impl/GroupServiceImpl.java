@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.GroupDao;
 import com.vitgon.schedule.dao.translation.GroupTranslationDao;
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Major;
-import com.vitgon.schedule.model.translation.GroupTranslation;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.translation.GroupTranslation;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.MajorService;
 

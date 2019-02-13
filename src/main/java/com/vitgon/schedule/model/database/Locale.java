@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model;
+package com.vitgon.schedule.model.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.translation.GroupTranslation;
-import com.vitgon.schedule.model.translation.MajorTranslation;
-import com.vitgon.schedule.model.translation.SchoolTranslation;
-import com.vitgon.schedule.model.translation.SubjectTranslation;
-import com.vitgon.schedule.model.translation.UserTranslation;
+import com.vitgon.schedule.model.database.translation.GroupTranslation;
+import com.vitgon.schedule.model.database.translation.MajorTranslation;
+import com.vitgon.schedule.model.database.translation.SchoolTranslation;
+import com.vitgon.schedule.model.database.translation.SubjectTranslation;
+import com.vitgon.schedule.model.database.translation.UserTranslation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

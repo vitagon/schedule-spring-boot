@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.vitgon.schedule.dao.MajorDao;
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
-import com.vitgon.schedule.model.Major;
+import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.service.database.impl.MajorServiceImpl;
 

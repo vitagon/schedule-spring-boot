@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.util.GroupUtil;

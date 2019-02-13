@@ -3,10 +3,10 @@ package com.vitgon.schedule.converter;
 import org.springframework.core.convert.converter.Converter;
 
 import com.vitgon.schedule.dto.ScheduleDTO;
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Schedule;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Schedule;
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;

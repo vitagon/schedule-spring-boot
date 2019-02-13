@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vitgon.schedule.collection.ScheduleTree;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.pojo.SchedulePOJO;
 import com.vitgon.schedule.pojo.TeacherPOJO;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;

@@ -9,10 +9,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.vitgon.schedule.dto.AddSubjectTranslationDTO;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.translation.SubjectTranslation;
-import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.translation.SubjectTranslation;
+import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.sequence.TranslationValidationSequence;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SubjectService;

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vitgon.schedule.dto.SubjectDTO;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
 
 @Component

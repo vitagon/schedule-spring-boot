@@ -17,8 +17,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.vitgon.schedule.controller.rest.SchoolRestController;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.School;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SchoolService;
 

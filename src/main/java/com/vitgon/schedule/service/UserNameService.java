@@ -1,13 +1,11 @@
 package com.vitgon.schedule.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.auth.User;
-import com.vitgon.schedule.model.translation.UserTranslation;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.model.database.translation.UserTranslation;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
 

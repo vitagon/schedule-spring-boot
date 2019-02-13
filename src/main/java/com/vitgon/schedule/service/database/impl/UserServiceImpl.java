@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dao.auth.RoleDao;
 import com.vitgon.schedule.dao.auth.UserDao;
-import com.vitgon.schedule.model.auth.Role;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.auth.Role;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
 
 @Service("userService")

@@ -1,10 +1,10 @@
-package com.vitgon.schedule.model.auth;
+package com.vitgon.schedule.model.database.auth;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.vitgon.schedule.model.BaseModel;
+import com.vitgon.schedule.model.database.BaseModel;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

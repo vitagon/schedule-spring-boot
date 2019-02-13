@@ -5,9 +5,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dto.ScheduleResponseDTO;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Schedule;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.util.LessonUtil;
 
 @Service

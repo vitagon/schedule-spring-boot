@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model.translation;
+package com.vitgon.schedule.model.database.translation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Major;
-import com.vitgon.schedule.model.translation.pk.MajorTranslationId;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

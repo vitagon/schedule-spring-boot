@@ -25,6 +25,8 @@ public class UrlLocaleResolver implements LocaleResolver {
 		supportedLocales.add(EN);
 		supportedLocales.add(RU);
 	}
+	
+	
 
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {

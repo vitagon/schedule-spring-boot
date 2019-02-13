@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.SchoolDao;
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.School;
-import com.vitgon.schedule.model.translation.SchoolTranslation;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.School;
+import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.service.database.SchoolService;
 
 @Service

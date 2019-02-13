@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model;
+package com.vitgon.schedule.model.database;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

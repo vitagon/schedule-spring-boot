@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.School;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.pojo.SchoolPOJO;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.LocaleService;

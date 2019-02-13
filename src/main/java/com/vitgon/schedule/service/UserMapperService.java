@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vitgon.schedule.dto.TeacherDTO;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.auth.User;
 
 @Component
 public class UserMapperService {

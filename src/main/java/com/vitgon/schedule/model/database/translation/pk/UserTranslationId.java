@@ -1,4 +1,4 @@
-package com.vitgon.schedule.model.translation.pk;
+package com.vitgon.schedule.model.database.translation.pk;
 
 import java.io.Serializable;
 
@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.auth.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

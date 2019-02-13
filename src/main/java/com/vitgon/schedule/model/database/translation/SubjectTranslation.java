@@ -1,13 +1,13 @@
-package com.vitgon.schedule.model.translation;
+package com.vitgon.schedule.model.database.translation;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

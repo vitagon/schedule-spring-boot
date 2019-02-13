@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.dto.SubjectDTO;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.SubjectMapperService;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SubjectService;

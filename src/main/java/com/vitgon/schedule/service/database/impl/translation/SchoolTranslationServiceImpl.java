@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
-import com.vitgon.schedule.model.translation.SchoolTranslation;
-import com.vitgon.schedule.model.translation.pk.SchoolTranslationId;
+import com.vitgon.schedule.model.database.translation.SchoolTranslation;
+import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
 import com.vitgon.schedule.service.database.translation.SchoolTranslationService;
 
 @Service

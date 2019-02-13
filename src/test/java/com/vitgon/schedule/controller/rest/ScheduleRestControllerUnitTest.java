@@ -15,11 +15,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.vitgon.schedule.dto.ScheduleResponseDTO;
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Schedule;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.ScheduleResponseService;
 import com.vitgon.schedule.service.database.ScheduleService;

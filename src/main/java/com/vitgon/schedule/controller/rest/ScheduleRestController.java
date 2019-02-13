@@ -2,38 +2,33 @@ package com.vitgon.schedule.controller.rest;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.annotation.FromDTO;
 import com.vitgon.schedule.dto.ScheduleDTO;
 import com.vitgon.schedule.dto.ScheduleResponseDTO;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.ScheduleResponseService;
 import com.vitgon.schedule.service.database.ScheduleService;
 
-@Controller
+import lombok.AllArgsConstructor;
+
+@RestController
+@RequestMapping("/api/schedule")
+@AllArgsConstructor
 public class ScheduleRestController {
 	
 	private ScheduleService scheduleService;
 	private LocaleConverterService localeConverterService;
 	private ScheduleResponseService scheduleResponseService;
-	
-	@Autowired
-	public ScheduleRestController(ScheduleService scheduleService,
-								  LocaleConverterService localeConverterService,
-								  ScheduleResponseService scheduleResponseService) {
-		this.scheduleService = scheduleService;
-		this.localeConverterService = localeConverterService;
-		this.scheduleResponseService = scheduleResponseService;
-	}
 	
 	/**
 	 * Method creates new schedule using groupId, dayNum, weekType, lessonNum 
@@ -42,9 +37,7 @@ public class ScheduleRestController {
 	 * @param request
 	 * @return ScheduleResponseDTO
 	 */
-	@ResponseBody
-	@PostMapping(value = "/api/schedule/create",
-				 consumes = MediaType.APPLICATION_JSON_VALUE,
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
 				 produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public ScheduleResponseDTO create(
@@ -65,19 +58,8 @@ public class ScheduleRestController {
 			));
 		}
 		
-		schedule = new Schedule();
-		schedule.setGroup(scheduleTransient.getGroup());
-		schedule.setWeek(scheduleTransient.getWeek());
-		schedule.setDayNum(scheduleTransient.getDayNum());
-		schedule.setSubject(scheduleTransient.getSubject());
-		schedule.setLessonNum(scheduleTransient.getLessonNum());
-		schedule.setLessonType(scheduleTransient.getLessonType());
-		schedule.setUser(scheduleTransient.getUser());
-		schedule.setClassroom(scheduleTransient.getClassroom());
-		
-		schedule = scheduleService.save(schedule);
-		
-		return scheduleResponseService.createResponseObject(schedule, locale);
+		scheduleTransient = scheduleService.save(scheduleTransient);
+		return scheduleResponseService.createResponseObject(scheduleTransient, locale);
 	}
 	
 	
@@ -89,10 +71,8 @@ public class ScheduleRestController {
 	 * @param request
 	 * @return ScheduleResponseDTO
 	 */
-	@ResponseBody
-	@PostMapping(value = "/api/schedule/edit",
-				 consumes = MediaType.APPLICATION_JSON_VALUE,
-				 produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+				produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ScheduleResponseDTO update(
 			@FromDTO(ScheduleDTO.class) Schedule scheduleTransient,

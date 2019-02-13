@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dao.auth.UserDao;
-import com.vitgon.schedule.model.auth.CustomUserDetails;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.CustomUserDetails;
+import com.vitgon.schedule.model.database.auth.User;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

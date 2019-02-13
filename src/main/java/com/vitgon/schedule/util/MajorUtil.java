@@ -1,8 +1,8 @@
 package com.vitgon.schedule.util;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Major;
-import com.vitgon.schedule.model.translation.MajorTranslation;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.translation.MajorTranslation;
 
 public class MajorUtil {
 	

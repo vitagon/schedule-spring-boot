@@ -10,12 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.collection.ScheduleTree;
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Schedule;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.ScheduleService;
-import com.vitgon.schedule.util.ScheduleUtil;
 
 @Service
 public class ScheduleViewService {

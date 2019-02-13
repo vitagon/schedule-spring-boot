@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.vitgon.schedule.model.Group;
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.pojo.CourseNumPOJO;
 import com.vitgon.schedule.pojo.GroupPOJO;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;

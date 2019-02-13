@@ -70,16 +70,16 @@ function saveScheduleChanges(e) {
 		classroom: $(MODAL_CLASSROOM_INPUT).val()
 	}
 	
-	let url = '';
+	let type = '';
 	if (scheduleId == 0) {
-		url = '/api/schedule/create';
+		type = 'POST';
 	} else {
-		url = '/api/schedule/edit';
+		type = 'PUT';
 	}
 	
 	$.ajax({
-		type: 'POST',
-		url: url,
+		type: type,
+		url: '/api/schedule',
 		data: JSON.stringify(scheduleDTO),
 		contentType: "application/json; charset=utf-8",
 		dataType: 'JSON',
@@ -92,6 +92,19 @@ function saveScheduleChanges(e) {
 	            msg = 'Not connect.\n Verify Network.';
 	        } else if (jqXHR.status == 404) {
 	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 400) {
+	        	let $formGroup = $(MODAL_SUBJECT_SELECT).closest(".form-group");
+	        	
+	        	// clear old errorMessage div
+	        	$formGroup.find('.validation-message').remove();
+	        	
+	        	let errorMsgs = jqXHR.responseJSON.details.subjectId;
+	        	$.each(errorMsgs, function (index, msg) {
+	        		$formGroup.append('<div class="validation-message" style="color: red">' +
+	        				msg +
+	    	        		'</div>');
+	        	});
+	        	return;
 	        } else if (jqXHR.status == 500) {
 	            msg = jqXHR.responseJSON.message;
 	        } else if (exception === 'parsererror') {
@@ -111,6 +124,10 @@ function saveScheduleChanges(e) {
 $(document).on('hidden.bs.modal', '#edit-schedule-modal', function (event) {
 	let $editedRow = $("#edit-schedule-content .is-being-edited");
 	$editedRow.removeClass('is-being-edited');
+	
+	// clear old errorMessage div
+	let $formGroup = $(MODAL_SUBJECT_SELECT).closest(".form-group");
+	$formGroup.find('.validation-message').remove();
 });
 
 /**

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
 import com.vitgon.schedule.util.MessageUtil;
 

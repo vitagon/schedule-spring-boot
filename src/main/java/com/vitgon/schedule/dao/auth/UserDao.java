@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.vitgon.schedule.model.auth.Role;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.auth.Role;
+import com.vitgon.schedule.model.database.auth.User;
 
 @Repository("userRepository")
 public interface UserDao extends JpaRepository<User, Integer> {

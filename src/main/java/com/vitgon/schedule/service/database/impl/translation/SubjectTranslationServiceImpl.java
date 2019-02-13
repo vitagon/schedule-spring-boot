@@ -1,18 +1,16 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.translation.SubjectTranslationDao;
-import com.vitgon.schedule.dto.SubjectDTO;
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.translation.SubjectTranslation;
-import com.vitgon.schedule.model.translation.pk.SubjectTranslationId;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.translation.SubjectTranslation;
+import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SubjectService;

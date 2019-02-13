@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Major;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.pojo.CourseNumPOJO;
 import com.vitgon.schedule.pojo.GroupPOJO;
 import com.vitgon.schedule.service.database.LocaleService;

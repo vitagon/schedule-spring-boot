@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.Subject;
-import com.vitgon.schedule.model.auth.User;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;

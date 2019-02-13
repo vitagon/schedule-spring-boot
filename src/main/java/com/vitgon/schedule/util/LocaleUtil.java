@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vitgon.schedule.dto.LocaleDTO;
-import com.vitgon.schedule.model.Locale;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
 public class LocaleUtil {

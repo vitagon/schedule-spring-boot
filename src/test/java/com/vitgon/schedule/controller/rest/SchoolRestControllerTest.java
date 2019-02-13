@@ -1,5 +1,7 @@
 package com.vitgon.schedule.controller.rest;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,12 +12,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 
-import com.vitgon.schedule.model.Locale;
-import com.vitgon.schedule.model.School;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SchoolService;
-
-import static org.mockito.Mockito.mock;
 
 public class SchoolRestControllerTest {
 	
