@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dto.EditScheduleResponseDTO;
+import com.vitgon.schedule.dto.ScheduleResponseDTO;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
 import com.vitgon.schedule.model.auth.User;
@@ -26,8 +26,8 @@ public class ScheduleResponseService {
 		this.subjectTitleService = subjectTitleService;
 	}
 
-	public EditScheduleResponseDTO createResponseObject(Schedule schedule, Locale locale) {
-		EditScheduleResponseDTO response = new EditScheduleResponseDTO();
+	public ScheduleResponseDTO createResponseObject(Schedule schedule, Locale locale) {
+		ScheduleResponseDTO response = new ScheduleResponseDTO();
 		response.setId(schedule.getId());
 		response.setSubjectId(schedule.getSubject().getId());
 		response.setSubjectTitle(subjectTitleService.getSubjectTitle(locale, schedule.getSubject()));

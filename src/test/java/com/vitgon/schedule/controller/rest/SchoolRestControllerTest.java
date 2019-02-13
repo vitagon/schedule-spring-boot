@@ -28,7 +28,7 @@ public class SchoolRestControllerTest {
 	public void getSchoolsTest() throws Exception {
 		Locale locale = new Locale("en");
 		BDDMockito.given(localeService.findByCode(ArgumentMatchers.anyString())).willReturn(locale);
-		BDDMockito.given(schoolService.findAllByLocale(ArgumentMatchers.any(Locale.class))).willReturn(Arrays.asList(new School(1, "management")));
+		BDDMockito.given(schoolService.findAllByLocale(locale)).willReturn(Arrays.asList(new School(1, "management")));
 		
 		List<School> schools = schoolRestController.getSchools();
 		System.out.println(schools);

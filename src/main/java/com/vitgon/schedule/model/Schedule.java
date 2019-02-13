@@ -25,7 +25,7 @@ import lombok.ToString;
 			   columnNames= {"group_id", "day_num", "week_type", "lesson_num"},
 			   name = "schedule_UI")
 )
-public class Schedule extends BaseModel<Integer> {
+public class Schedule extends BaseModel<Integer> implements Cloneable {
 	
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
@@ -54,4 +54,8 @@ public class Schedule extends BaseModel<Integer> {
 	
 	@Column(name = "classroom", length = 6)
 	private String classroom;
+	
+	public Schedule clone() throws CloneNotSupportedException {  
+		return (Schedule) super.clone();
+	}
 }

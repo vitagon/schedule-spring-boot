@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.vitgon.schedule.annotation.FromDTO;
-import com.vitgon.schedule.dto.EditScheduleResponseDTO;
 import com.vitgon.schedule.dto.ScheduleDTO;
+import com.vitgon.schedule.dto.ScheduleResponseDTO;
 import com.vitgon.schedule.model.Locale;
 import com.vitgon.schedule.model.Schedule;
-import com.vitgon.schedule.service.ScheduleResponseService;
 import com.vitgon.schedule.service.LocaleConverterService;
+import com.vitgon.schedule.service.ScheduleResponseService;
 import com.vitgon.schedule.service.database.ScheduleService;
 
 @Controller
@@ -36,17 +36,18 @@ public class ScheduleRestController {
 	}
 	
 	/**
-	 * Attributes for creating new schedule: groupId, week, dayNum, lessonNum
+	 * Method creates new schedule using groupId, dayNum, weekType, lessonNum 
 	 * 
-	 * @param editScheduleReq
-	 * @return
+	 * @param scheduleTransient ScheduleDTO that mapped to Schedule
+	 * @param request
+	 * @return ScheduleResponseDTO
 	 */
 	@ResponseBody
 	@PostMapping(value = "/api/schedule/create",
 				 consumes = MediaType.APPLICATION_JSON_VALUE,
 				 produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	private EditScheduleResponseDTO create(
+	public ScheduleResponseDTO create(
 			@FromDTO(ScheduleDTO.class) Schedule scheduleTransient,
 			HttpServletRequest request) {
 		Locale locale = localeConverterService.getClientLocale(request);
@@ -79,18 +80,21 @@ public class ScheduleRestController {
 		return scheduleResponseService.createResponseObject(schedule, locale);
 	}
 	
+	
 	/**
-	 * Attributes that we can change: subject, lessonType, teacher (user), classroom
+	 * Method changes schedule. It uses [groupId, dayNum, weekType, lessonNum]
+	 * to find schedule in the database 
 	 * 
-	 * @param editScheduleReq
-	 * @return
+	 * @param scheduleTransient
+	 * @param request
+	 * @return ScheduleResponseDTO
 	 */
 	@ResponseBody
 	@PostMapping(value = "/api/schedule/edit",
 				 consumes = MediaType.APPLICATION_JSON_VALUE,
 				 produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	private EditScheduleResponseDTO update(
+	public ScheduleResponseDTO update(
 			@FromDTO(ScheduleDTO.class) Schedule scheduleTransient,
 			HttpServletRequest request) {
 		Locale locale = localeConverterService.getClientLocale(request);

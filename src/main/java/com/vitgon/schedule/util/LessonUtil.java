@@ -2,11 +2,11 @@ package com.vitgon.schedule.util;
 
 public class LessonUtil {
 
-	private static final int LECTURE = 1;
-	private static final int PRACTICE = 2;
+	public static final int LECTURE = 1;
+	public static final int PRACTICE = 2;
 	
-	private static final String LECTURE_STR = "lecture";
-	private static final String PRACTICE_STR = "practice";
+	public static final String LECTURE_STR = "lecture";
+	public static final String PRACTICE_STR = "practice";
 	
 	/**
 	 * Turn lesson type from int to string

@@ -1,5 +1,10 @@
 package com.vitgon.schedule.controller.rest;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import javax.servlet.http.Cookie;
 
 import org.junit.Before;
@@ -22,7 +27,6 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vitgon.schedule.dto.ScheduleDTO;
-import com.vitgon.schedule.model.Subject;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -40,26 +44,86 @@ public class ScheduleRestControllerIntegrationTest {
 	}
 	
 	@Test
-	public void testScheduleRestController() throws Exception {
+	public void testCreateMethod() throws Exception {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
-				.post("/api/schedule/edit")
+				.post("/api/schedule/create")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(createEditScheduleDTO())
-				.cookie(new Cookie("user_lang", "ru"));
+				.content(createScheduleDTOForScheduleCreation())
+				.cookie(new Cookie("user_lang", "en"));
 		
 		this.mockMvc.perform(builder)
-			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.status().isCreated())
+			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.id", notNullValue()))
+			.andExpect(jsonPath("$.subjectId", is(4)))
+			.andExpect(jsonPath("$.subjectTitle", notNullValue()))
+			.andExpect(jsonPath("$.dayNum", is(1)))
+			.andExpect(jsonPath("$.week", is("up")))
+			.andExpect(jsonPath("$.lessonNum", is(1)))
+			.andExpect(jsonPath("$.teacherId", is(1)))
+			.andExpect(jsonPath("$.teacherName", notNullValue()))
+			.andExpect(jsonPath("$.lessonType", is("lecture")))
+			.andExpect(jsonPath("$.lessonTypeName", is("Lecture")))
+			.andExpect(jsonPath("$.classroom", is("L2391")))
 			.andDo(MockMvcResultHandlers.print());
 	}
 	
-	private static String createEditScheduleDTO() throws JsonProcessingException {
-		ScheduleDTO editScheduleDTO = new ScheduleDTO();
+	@Test
+	public void testEditMethod() throws Exception {
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+				.post("/api/schedule/edit")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(createScheduleDTOForScheduleEdit())
+				.cookie(new Cookie("user_lang", "en"));
 		
-		editScheduleDTO.setSubjectId(1);
+		this.mockMvc.perform(builder)
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.id", notNullValue()))
+			.andExpect(jsonPath("$.subjectId", is(4)))
+			.andExpect(jsonPath("$.subjectTitle", notNullValue()))
+			.andExpect(jsonPath("$.dayNum", is(1)))
+			.andExpect(jsonPath("$.week", is("up")))
+			.andExpect(jsonPath("$.lessonNum", is(1)))
+			.andExpect(jsonPath("$.teacherId", is(1)))
+			.andExpect(jsonPath("$.teacherName", notNullValue()))
+			.andExpect(jsonPath("$.lessonType", is("practice")))
+			.andExpect(jsonPath("$.lessonTypeName", is("Practice")))
+			.andExpect(jsonPath("$.classroom", is("P2251")))
+			.andDo(MockMvcResultHandlers.print());
+	}
+	
+	private static String createScheduleDTOForScheduleCreation() throws JsonProcessingException {
+		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		
-		editScheduleDTO.setClassroom("G999");
-		editScheduleDTO.setLessonType("lecture");
+		scheduleDTO.setGroupId(1);
+		scheduleDTO.setWeek("up");
+		scheduleDTO.setDayNum(1);
+		scheduleDTO.setLessonNum(1);
+		
+		scheduleDTO.setSubjectId(4);
+		scheduleDTO.setLessonType("lecture");
+		scheduleDTO.setUserId(1);
+		scheduleDTO.setClassroom("L2391");
+		
 		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(editScheduleDTO);
+		return mapper.writeValueAsString(scheduleDTO);
+	}
+	
+	private static String createScheduleDTOForScheduleEdit() throws JsonProcessingException {
+		ScheduleDTO scheduleDTO = new ScheduleDTO();
+		
+		scheduleDTO.setGroupId(1);
+		scheduleDTO.setWeek("up");
+		scheduleDTO.setDayNum(1);
+		scheduleDTO.setLessonNum(1);
+		
+		scheduleDTO.setSubjectId(4);
+		scheduleDTO.setLessonType("practice");
+		scheduleDTO.setUserId(1);
+		scheduleDTO.setClassroom("P2251");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(scheduleDTO);
 	}
 }
