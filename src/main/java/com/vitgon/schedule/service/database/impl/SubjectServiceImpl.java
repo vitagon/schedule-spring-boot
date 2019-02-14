@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.SubjectDao;
 import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.SubjectService;
 
 @Service
@@ -44,5 +45,15 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Subject findByName(String name) {
 		return subjectDao.findByName(name);
+	}
+	
+	@Override
+	public void delete(Subject obj) {
+		subjectDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		subjectDao.deleteById(id);
 	}
 }

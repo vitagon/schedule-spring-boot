@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.translation.UserTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.model.database.translation.SubjectTranslation;
 import com.vitgon.schedule.model.database.translation.UserTranslation;
+import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.model.database.translation.pk.UserTranslationId;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
@@ -47,5 +49,15 @@ public class UserTranslationServiceImpl implements UserTranslationService {
 	@Override
 	public UserTranslation findByLocaleAndUser(Locale locale, User user) {
 		return userTranslDao.findByUserTranslationIdLocaleAndUserTranslationIdUser(locale, user);
+	}
+	
+	@Override
+	public void delete(UserTranslation obj) {
+		userTranslDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(UserTranslationId id) {
+		userTranslDao.deleteById(id);
 	}
 }

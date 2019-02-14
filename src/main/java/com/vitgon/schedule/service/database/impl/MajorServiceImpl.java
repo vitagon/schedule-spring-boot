@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.MajorDao;
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
 import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.service.database.MajorService;
 
@@ -54,5 +55,15 @@ public class MajorServiceImpl implements MajorService {
 	@Override
 	public Major findByUrl(String url) {
 		return majorDao.findByUrl(url);
+	}
+	
+	@Override
+	public void delete(Major obj) {
+		majorDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		majorDao.deleteById(id);
 	}
 }

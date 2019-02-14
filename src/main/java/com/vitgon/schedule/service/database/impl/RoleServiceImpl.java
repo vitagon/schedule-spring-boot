@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.auth.RoleDao;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.auth.Role;
 import com.vitgon.schedule.service.database.RoleService;
 
@@ -40,5 +41,15 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role findByRole(String role) {
 		return roleDao.findByRole(role);
+	}
+	
+	@Override
+	public void delete(Role obj) {
+		roleDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		roleDao.deleteById(id);
 	}
 }

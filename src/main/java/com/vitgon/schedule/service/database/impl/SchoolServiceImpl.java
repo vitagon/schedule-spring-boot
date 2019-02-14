@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.SchoolDao;
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.service.database.SchoolService;
@@ -57,5 +58,15 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public List<School> findAllByLocale(Locale locale) {
 		return schoolDao.findAllByLocale(locale);
+	}
+	
+	@Override
+	public void delete(School obj) {
+		schoolDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		schoolDao.deleteById(id);
 	}
 }

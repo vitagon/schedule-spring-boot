@@ -10,6 +10,7 @@ import com.vitgon.schedule.dao.GroupDao;
 import com.vitgon.schedule.dao.translation.GroupTranslationDao;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.translation.GroupTranslation;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.MajorService;
@@ -64,5 +65,15 @@ public class GroupServiceImpl implements GroupService {
 			return null;
 		}
 		return groupDao.findAllByMajorAndCourseNum(major, courseNum);
+	}
+	
+	@Override
+	public void delete(Group obj) {
+		groupDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		groupDao.deleteById(id);
 	}
 }

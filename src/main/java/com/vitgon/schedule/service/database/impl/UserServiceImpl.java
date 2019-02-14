@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dao.auth.RoleDao;
 import com.vitgon.schedule.dao.auth.UserDao;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.auth.Role;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
@@ -62,5 +63,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findBySpecificRoles(List<String> roles) {
 		return userDao.findBySpecificRoles(roles);
+	}
+
+	@Override
+	public void delete(User obj) {
+		userDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		userDao.deleteById(id);
 	}
 }

@@ -51,4 +51,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public Schedule findByGroupAndDayNumAndWeekAndLessonNum(Group group, int dayNum, String week, int lessonNum) {
 		return scheduleDao.findByGroupAndDayNumAndWeekAndLessonNum(group, dayNum, week, lessonNum);
 	}
+
+	@Override
+	public void delete(Schedule obj) {
+		scheduleDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		scheduleDao.deleteById(id);
+	}
 }

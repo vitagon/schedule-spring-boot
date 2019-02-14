@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.LocaleDao;
 import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.LocaleService;
 
 @Service
@@ -44,5 +45,15 @@ public class LocaleServiceImpl implements LocaleService {
 	@Override
 	public Locale findByCode(String code) {
 		return localeDao.findByCode(code);
+	}
+	
+	@Override
+	public void delete(Locale obj) {
+		localeDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		localeDao.deleteById(id);
 	}
 }

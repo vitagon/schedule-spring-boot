@@ -1,18 +1,23 @@
 package com.vitgon.schedule.controller.rest;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.annotation.FromDTO;
 import com.vitgon.schedule.dto.ScheduleDTO;
 import com.vitgon.schedule.dto.ScheduleResponseDTO;
+import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.LocaleConverterService;
@@ -29,6 +34,16 @@ public class ScheduleRestController {
 	private ScheduleService scheduleService;
 	private LocaleConverterService localeConverterService;
 	private ScheduleResponseService scheduleResponseService;
+	
+	@DeleteMapping(params = {"id"})
+	@ResponseStatus(HttpStatus.OK)
+	public ApiSuccess delete(@RequestParam("id") Integer id) {
+		if (id == null) {
+			throw new IllegalArgumentException("id can not be null!");
+		}
+		scheduleService.deleteById(id);
+		return new ApiSuccess(new Date(), "Record was successfully deleted!");
+	}
 	
 	/**
 	 * Method creates new schedule using groupId, dayNum, weekType, lessonNum 

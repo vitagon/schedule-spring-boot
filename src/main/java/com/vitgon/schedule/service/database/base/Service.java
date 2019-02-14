@@ -7,4 +7,6 @@ public interface Service<T, K> {
 	T update(T obj);
 	T findById(K id);
 	List<T> findAll();
+	void delete(T obj);
+	void deleteById(K id);
 }

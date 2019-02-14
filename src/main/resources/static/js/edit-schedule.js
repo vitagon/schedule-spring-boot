@@ -170,6 +170,62 @@ function updateRow(response, lio) {
 	$('.edit-schedule-modal').modal('hide');
 }
 
+function showRemoveScheduleModal(e) {
+	let scheduleRow = e.target.closest('tr');
+	
+	let scheduleId = $(scheduleRow).attr('data-schedule-id');
+	
+	if (scheduleId == 0) {
+		alert('Schedule does not exist!');
+	} else {
+		$('#remove-schedule-modal .scheduleId').val(scheduleId);
+		$('#remove-schedule-modal').modal('show');
+	}
+}
+
+function removeSchedule(e) {
+	let scheduleId = $('#remove-schedule-modal .scheduleId').val();
+	
+	$.ajax({
+		type: 'DELETE',
+		data: {"id": scheduleId},
+		url: '/api/schedule',
+		dataType: 'json',
+		success: function (response) {
+			alert('Record was deleted!');
+			let scheduleRow = $('#edit-schedule-content tr[data-schedule-id='+ scheduleId + ']');
+			$(scheduleRow).attr('data-schedule-id', 0);
+			$(scheduleRow).find('.subject').attr('data-id', 0);
+			$(scheduleRow).find('.subject').html('-');
+			$(scheduleRow).find('.lesson-type').attr('data-lesson-type', 0);
+			$(scheduleRow).find('.lesson-type').html('-');
+			$(scheduleRow).find('.teacher').attr('data-id', 0);
+			$(scheduleRow).find('.teacher').html('-');
+			$(scheduleRow).find('.classroom').html('-');
+			$('#remove-schedule-modal').modal('hide');
+		},
+		error: function (jqXHR, exception) {
+			let msg = '';
+	        if (jqXHR.status === 0) {
+	            msg = 'Not connect.\n Verify Network.';
+	        } else if (jqXHR.status == 404) {
+	            msg = 'Requested page not found. [404]';
+	        } else if (jqXHR.status == 500) {
+	            msg = 'Internal Server Error [500].';
+	        } else if (exception === 'parsererror') {
+	            msg = 'Requested JSON parse failed.';
+	        } else if (exception === 'timeout') {
+	            msg = 'Time out error.';
+	        } else if (exception === 'abort') {
+	            msg = 'Ajax request aborted.';
+	        } else {
+	            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	        }
+			alert(msg);
+		}
+	});
+}
+
 /** Example, how to make query no more than N time per ...
  
 $('#teacher').on('keyup', debounce(function () {

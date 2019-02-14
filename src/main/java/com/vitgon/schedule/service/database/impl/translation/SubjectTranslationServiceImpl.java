@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.translation.SubjectTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.model.database.translation.SubjectTranslation;
+import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
 import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.LocaleService;
@@ -96,5 +98,15 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 	@Override
 	public SubjectTranslation findByTitle(String title) {
 		return subjectTranslDao.findByTitle(title);
+	}
+	
+	@Override
+	public void delete(SubjectTranslation obj) {
+		subjectTranslDao.delete(obj);
+	}
+
+	@Override
+	public void deleteById(SubjectTranslationId id) {
+		subjectTranslDao.deleteById(id);
 	}
 }
