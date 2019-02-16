@@ -61,7 +61,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<Group> findAllByMajorAndCourseNum(int majorId, int courseNum) {
 		Major major = majorService.findById(majorId);
-		if (major == null) {
+		if (major == null || courseNum == 0) {
 			return null;
 		}
 		return groupDao.findAllByMajorAndCourseNum(major, courseNum);

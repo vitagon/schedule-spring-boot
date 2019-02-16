@@ -8,9 +8,7 @@
 <body>
 	<th:block th:replace="fragments/_header :: header"></th:block>
 	
-	<div class="container" style="padding-top: 2em">
-		<div layout:fragment="content"></div>
-	</div>
+	<div layout:fragment="content"></div>
 	
 	<th:block th:replace="fragments/_footer :: footer"></th:block>
 	<th:block layout:fragment="extend-footer"></th:block>

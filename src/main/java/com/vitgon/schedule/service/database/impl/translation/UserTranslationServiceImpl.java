@@ -38,7 +38,7 @@ public class UserTranslationServiceImpl implements UserTranslationService {
 
 	@Override
 	public UserTranslation findById(UserTranslationId id) {
-		return userTranslDao.findById(id).get();
+		return userTranslDao.findById(id).orElse(null);
 	}
 
 	@Override

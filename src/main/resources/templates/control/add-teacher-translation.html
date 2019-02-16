@@ -10,19 +10,10 @@
 <body>
 	
 	 <form th:fragment="add-teacher-translation-tab-content"
-	 	   th:action="@{/control/teacher/translation/add}"
+	 	   th:action="@{/api/control/teacher/translation}"
 	 	   th:object="${addTeacherTranslationDTO}"
 	 	   method="POST">
 	 	
-	 	<div class="alert alert-danger"
-			  th:if="${#fields.errors('${addTeacherTranslationDTO}')}"
-			  th:errors="${addTeacherTranslationDTO}">
-		</div>
-		
-		<div class="alert alert-success"
-			 th:if="${teacherTranslationAddedSuccess}"
-			 th:text="#{teacherTranslationAddedMessage}">
-		</div>
 		
 	 	<div class="form-group">
 	 		<label for="user">[[#{teacher}]]</label>
@@ -30,8 +21,6 @@
 				<option value="0">[[#{chooseTeacher}]]</option>
 				<option th:each="teacher: ${teachers}" th:value="${teacher.id}">[[${teacher.name}]]</option>
 			</select>
-			<div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"
-	 			 style="color: red"></div>
 	 	</div>
 		
 		<div class="form-group">
@@ -48,25 +37,19 @@
  		<div class="form-group">
 	 		<label for="teacher-lastname">[[#{lastName}]]</label>
 	 		<input type="text" class="form-control" id="teacher-lastname" th:field="*{lastname}"/>
-	 		<div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"
-	 			 style="color: red"></div>
  		</div>
  		
  		<div class="form-group">
 	 		<label for="teacher-firstname">[[#{firstName}]]</label>
 	 		<input type="text" class="form-control" id="teacher-firstname" th:field="*{firstname}"/>
-	 		<div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"
-	 			 style="color: red"></div>
  		</div>
  		
  		<div class="form-group">
 	 		<label for="teacher-middlename">[[#{middleName}]]</label>
 	 		<input type="text" class="form-control" id="teacher-middlename" th:field="*{middlename}"/>
-	 		<div th:if="${#fields.hasErrors('middlename')}" th:errors="*{middlename}"
-	 			 style="color: red"></div>
  		</div>
  		
- 		<button type="submit" class="btn btn-success">[[#{add}]]</button>
+ 		<button type="submit" class="btn btn-success" onclick="addTeacherTranslation(event)">[[#{add}]]</button>
 	 </form>
 </body>
 </html>
