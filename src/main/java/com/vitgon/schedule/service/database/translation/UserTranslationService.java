@@ -7,6 +7,5 @@ import com.vitgon.schedule.model.database.translation.pk.UserTranslationId;
 import com.vitgon.schedule.service.database.base.Service;
 
 public interface UserTranslationService extends Service<UserTranslation, UserTranslationId> {
-
 	UserTranslation findByLocaleAndUser(Locale locale, User user);
 }

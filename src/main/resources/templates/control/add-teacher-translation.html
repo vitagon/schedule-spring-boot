@@ -8,13 +8,22 @@
 	<title>Document</title>
 </head>
 <body>
+	
 	 <form th:fragment="add-teacher-translation-tab-content"
 	 	   th:action="@{/control/teacher/translation/add}"
 	 	   th:object="${addTeacherTranslationDTO}"
 	 	   method="POST">
-	 	   
- 	   <div class="alert alert-success" th:if="${teacherTranslationAddedSuccess}" th:text="#{teacherTranslationAddedMessage}"></div>
-	 	  
+	 	
+	 	<div class="alert alert-danger"
+			  th:if="${#fields.errors('${addTeacherTranslationDTO}')}"
+			  th:errors="${addTeacherTranslationDTO}">
+		</div>
+		
+		<div class="alert alert-success"
+			 th:if="${teacherTranslationAddedSuccess}"
+			 th:text="#{teacherTranslationAddedMessage}">
+		</div>
+		
 	 	<div class="form-group">
 	 		<label for="user">[[#{teacher}]]</label>
 	 		<select class="form-control" id="user" th:field="*{userId}">

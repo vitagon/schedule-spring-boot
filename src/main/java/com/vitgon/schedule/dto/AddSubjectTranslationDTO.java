@@ -16,21 +16,21 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@UniqueTranslation(
-	uniqueField = @UniqueField(
-			field = "subjectId",
-			service = SubjectService.class
-	),
-	message = "{Duplicate.translation}",
-	groups = TranslationGroup.class
-)
+//@UniqueTranslation(
+//	uniqueField = @UniqueField(
+//			field = "subjectId",
+//			service = SubjectService.class
+//	),
+//	message = "{Duplicate.translation}",
+//	groups = TranslationGroup.class
+//)
 public class AddSubjectTranslationDTO {
 	
 	@Min(value = 1, message = "{validation.chooseSubject}")
-	private int subjectId;
+	private Integer subjectId;
 	
 	@Min(value = 1, message = "{validation.chooseLocale}")
-	private int localeId;
+	private Integer localeId;
 	
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@NotEmpty(message = "{NotEmpty.default}")

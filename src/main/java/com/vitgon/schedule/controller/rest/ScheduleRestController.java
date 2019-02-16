@@ -35,6 +35,12 @@ public class ScheduleRestController {
 	private LocaleConverterService localeConverterService;
 	private ScheduleResponseService scheduleResponseService;
 	
+	/**
+	 * Delete schedule record by its id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping(params = {"id"})
 	@ResponseStatus(HttpStatus.OK)
 	public ApiSuccess delete(@RequestParam("id") Integer id) {

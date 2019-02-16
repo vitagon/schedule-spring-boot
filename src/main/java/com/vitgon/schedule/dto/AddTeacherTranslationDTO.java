@@ -4,10 +4,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.vitgon.schedule.annotation.validation.TranslationEntity;
 import com.vitgon.schedule.annotation.validation.UniqueField;
 import com.vitgon.schedule.annotation.validation.UniqueTranslation;
 import com.vitgon.schedule.group.TranslationGroup;
 import com.vitgon.schedule.service.database.UserService;
+import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,16 +21,20 @@ import lombok.NoArgsConstructor;
 				field = "userId",
 				service = UserService.class
 		),
+		translationEntity = @TranslationEntity(
+			entityField = "user",
+			service = UserTranslationService.class
+		),
 		message = "{Duplicate.translation}",
 		groups = TranslationGroup.class
 )	
 public class AddTeacherTranslationDTO {
 	
 	@Min(value = 1, message = "{validation.chooseTeacher}")
-	private int userId;
+	private Integer userId;
 	
 	@Min(value = 1, message = "{validation.chooseLocale}")
-	private int localeId;
+	private Integer localeId;
 	
 	@Size(min = 2, max = 40, message = "{Size.default}")
 	@NotEmpty(message = "{NotEmpty.default}")
