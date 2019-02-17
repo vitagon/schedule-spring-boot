@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.control;
+package com.vitgon.schedule.controller.rest.control;
 
 import javax.validation.Valid;
 
@@ -14,12 +14,12 @@ import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.database.SubjectService;
 
 @Controller
-public class SubjectController {
+public class SubjectRestControllerControl {
 	
 	private SubjectService subjectService;
 
 	@Autowired
-	public SubjectController(SubjectService subjectService) {
+	public SubjectRestControllerControl(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
 

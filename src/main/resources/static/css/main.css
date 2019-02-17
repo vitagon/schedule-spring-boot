@@ -1,6 +1,9 @@
 body {
 	min-height: 100vh;
 }
+.main-container {
+	 padding-top: 2em;
+}
 .remove-schedule-btn, .edit-schedule-btn {
 	padding: .46rem .8rem!important;
 }

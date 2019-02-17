@@ -47,7 +47,7 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 
 	@Override
 	public SubjectTranslation findById(SubjectTranslationId id) {
-		return subjectTranslDao.findById(id).get();
+		return subjectTranslDao.findById(id).orElse(null);
 	}
 
 	@Override

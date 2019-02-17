@@ -9,14 +9,16 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div class="courseGroups" th:each="groupMap:  ${groupsMap}">
-			<h3 th:text="${groupMap.key.number} +' '+ #{courseTitle}"></h3>
-			<ul class="nav">
-				<li class="nav-item" th:each="group: ${groupMap.value}">
-					<a href="№" th:href="@{/__${group.id}__/schedule}" th:text="${group.title}"></a>
-				</li>
-			</ul>
-			<br>
+		<div class="container main-container">
+			<div class="courseGroups" th:each="groupMap:  ${groupsMap}">
+				<h3 th:text="${groupMap.key.number} +' '+ #{courseTitle}"></h3>
+				<ul class="nav">
+					<li class="nav-item" th:each="group: ${groupMap.value}">
+						<a href="№" th:href="@{/__${group.id}__/schedule}" th:text="${group.title}"></a>
+					</li>
+				</ul>
+				<br>
+			</div>
 		</div>
 	</div>
 	

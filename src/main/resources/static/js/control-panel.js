@@ -169,6 +169,64 @@ function addTeacherTranslation(e) {
 	});
 }
 
+
+function addSubjectTranslation(e) {
+	e.preventDefault();
+	let $form = $(e.target.closest('form'));
+	
+	let $subjectId = $form.find('select[name=subjectId]');
+	let $localeId = $form.find('select[name=localeId]');
+	let $title = $form.find('input[name=title]');
+	
+	let obj = {
+		subjectId: $subjectId.val(),
+		localeId: $localeId.val(),
+		title: $title.val()
+	};
+	
+	console.log(obj);
+	$.ajax({
+		type: 'POST',
+		url: $form.attr('action'),
+		contentType: 'application/json; charset=utf-8',
+		data: JSON.stringify(obj),
+		dataType: 'json',
+		success: function (response) {
+			$form.find('.validation-message').remove();
+			$subjectId.val(0);
+			$localeId.val(0);
+			$title.val('');
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function (jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				$form.find('.validation-message').remove();
+				$.each(errors, function(fieldName, fieldErrors) {
+					let $formField = $form.find('[name=' + fieldName + ']');
+					let $formFieldWrap = null;
+					if ($formField != null) {
+						$formFieldWrap = $formField.closest('div');
+						for (fieldError of fieldErrors) {
+							$formFieldWrap.append('<div class="validation-message" style="color: red">' +
+											fieldError +
+											'</div>'
+							);
+						}
+					}
+				});
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
 function getErrorMessage(jqXHR, exception) {
 	let msg = '';
 	if (jqXHR.status === 0) {

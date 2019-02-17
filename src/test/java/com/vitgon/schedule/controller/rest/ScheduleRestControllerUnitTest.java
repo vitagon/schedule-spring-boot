@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.vitgon.schedule.controller.rest.control.ScheduleRestControllerControl;
 import com.vitgon.schedule.dto.ScheduleResponseDTO;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
@@ -36,7 +37,7 @@ public class ScheduleRestControllerUnitTest {
 	private ScheduleResponseService scheduleResponseService;
 	
 	@InjectMocks
-	private ScheduleRestController scheduleRestController;
+	private ScheduleRestControllerControl scheduleRestController;
 	
 	@Test
 	public void testCreateMethod() throws Exception {

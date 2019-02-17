@@ -13,13 +13,13 @@ import com.vitgon.schedule.service.EditScheduleViewService;
 import com.vitgon.schedule.service.LocaleConverterService;
 
 @RestController
-public class ScheduleEditViewRestController {
+public class ScheduleEditViewRestControllerControl {
 	
 	private LocaleConverterService localeConverterService;
 	private EditScheduleViewService editScheduleViewService;
 
 	@Autowired
-	public ScheduleEditViewRestController(LocaleConverterService localeConverterService,
+	public ScheduleEditViewRestControllerControl(LocaleConverterService localeConverterService,
 										  EditScheduleViewService editScheduleViewService) {
 		this.localeConverterService = localeConverterService;
 		this.editScheduleViewService = editScheduleViewService;

@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.rest;
+package com.vitgon.schedule.controller.rest.control;
 
 import java.util.Date;
 
@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/schedule")
 @AllArgsConstructor
-public class ScheduleRestController {
+public class ScheduleRestControllerControl {
 	
 	private ScheduleService scheduleService;
 	private LocaleConverterService localeConverterService;
