@@ -3,22 +3,26 @@ package com.vitgon.schedule.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vitgon.schedule.dto.SubjectDTO;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Component
 public class SubjectMapperService {
 	
+	private SubjectService subjectService;
 	private SubjectTranslationService subjectTranslService;
-
-	@Autowired
-	public SubjectMapperService(SubjectTranslationService subjectTranslService) {
-		this.subjectTranslService = subjectTranslService;
+	
+	public List<SubjectDTO> mapToSubjectDTOList() {
+		List<Subject> subjects = subjectService.findAll();
+		return mapToSubjectDTOList(subjects);
 	}
 
 	public List<SubjectDTO> mapToSubjectDTOList(List<Subject> subjects) {
