@@ -209,9 +209,8 @@ function addSubjectTranslation(e) {
 				$form.find('.validation-message').remove();
 				$.each(errors, function(fieldName, fieldErrors) {
 					let $formField = $form.find('[name=' + fieldName + ']');
-					let $formFieldWrap = null;
 					if ($formField != null) {
-						$formFieldWrap = $formField.closest('div');
+						let $formFieldWrap = $formField.closest('div');
 						for (fieldError of fieldErrors) {
 							$formFieldWrap.append('<div class="validation-message" style="color: red">' +
 											fieldError +
@@ -224,6 +223,54 @@ function addSubjectTranslation(e) {
 				alert(msg);
 			}
 		}
+	});
+}
+
+function addSubject(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let subjectName = $form.find('input[name=subjectName]').val();
+	
+	let obj = {subjectName: subjectName};
+	
+	$.ajax({
+		type: 'POST',
+		url: $form.attr('action'),
+		data: JSON.stringify(obj),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function (response) {
+			$form.find('.validation-message').remove();
+			$form.find('input[name=subjectName]').val('');
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function (jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				$form.find('.validation-message').remove();
+				$.each(errors, function (fieldName, fieldErrors) {
+					let $field = $form.find('[name=' + fieldName + ']');
+					
+					if ($field != null) {
+						let $fieldWrap = $field.closest('div');
+						$.each(fieldErrors, function (index, fieldError) {
+							$fieldWrap.append('<div class="validation-message" style="color: red">' +
+											  fieldError +
+											  '</div>');
+						});
+					}
+				});
+			} else {
+				alert(msg);
+			}
+		}
+		
 	});
 }
 
