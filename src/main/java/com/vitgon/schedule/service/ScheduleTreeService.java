@@ -36,7 +36,7 @@ public class ScheduleTreeService {
 			SchedulePOJO schedulePOJO = new SchedulePOJO();
 			schedulePOJO.setScheduleId(schedule.getId());
 			schedulePOJO.setSubjId(schedule.getSubject().getId());
-			schedulePOJO.setSubjectTitle(subjectTranslationService.getSubjectTitle(schedule.getSubject(), locale));
+			schedulePOJO.setSubjectTitle(subjectTranslationService.getSubjectTitle(schedule.getSubject(), locale, true));
 			schedulePOJO.setLessonType(LessonUtil.convertLessonType(schedule.getLessonType()));
 			
 			if (schedule.getUser() != null) {

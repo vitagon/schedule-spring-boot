@@ -2,11 +2,11 @@ package com.vitgon.schedule.controller.rest;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.dto.SubjectDTO;
 import com.vitgon.schedule.model.database.Locale;
@@ -15,6 +15,9 @@ import com.vitgon.schedule.service.SubjectMapperService;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SubjectService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class SubjectRestController {
@@ -23,22 +26,32 @@ public class SubjectRestController {
 	private LocaleService localeService;
 	private SubjectMapperService subjectMapperService;
 	
-	@Autowired
-	public SubjectRestController(SubjectService subjectService,
-								 LocaleService localeService,
-								 SubjectMapperService subjectMapperService) {
-		this.subjectService = subjectService;
-		this.localeService = localeService;
-		this.subjectMapperService = subjectMapperService;
+	@GetMapping("/subjects")
+	public List<SubjectDTO> getSubjectsByLocale() {
+		List<Subject> subjects = subjectService.findAll();
+		return subjectMapperService.mapToSubjectDTOList(subjects);
 	}
 	
-	@GetMapping("/subjects")
-	public List<SubjectDTO> getListOfSubject(@RequestParam String localeCode) {
-		Locale locale = localeService.findByCode(localeCode);
+	@GetMapping("/subjects/locale")
+	public List<SubjectDTO> getSubjectsByLocale(@RequestParam int localeId) {
+		if (localeId == 0) {
+			List<Subject> subjects = subjectService.findAll();
+			return subjectMapperService.mapToSubjectDTOList(subjects);
+		}
+		
+		Locale locale = localeService.findById(localeId);
 		if (locale == null) {
 			throw new IllegalArgumentException("Provided localeCode doesn't exist");
 		}
 		List<Subject> subjects = subjectService.findAll();
-		return subjectMapperService.mapToSubjectDTOList(subjects, locale);
+		return subjectMapperService.mapToSubjectDTOList(subjects, locale, false);
+	}
+	
+	@GetMapping("/subjects/view")
+	public ModelAndView getSubjectsWithView(@RequestParam int localeId) {
+		List<SubjectDTO> subjects = getSubjectsByLocale(localeId);
+		ModelAndView model = new ModelAndView("control/subjects-list :: subjects-list");
+		model.addObject("subjects", subjects);
+		return model;
 	}
 }

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf/extras/spring-security"> 
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<div th:fragment="subjects-list">
+		<table class="table table-condensed table-sm table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>name</th>
+					<th>translation</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="subject: ${subjects}">
+					<td>[[${subject.id}]]</td>
+					<td>[[${subject.name}]]</td>
+					<td>[[${subject.translation}]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

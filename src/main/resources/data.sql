@@ -55,12 +55,12 @@ INSERT INTO subjects (id, name) VALUES (5, 'economic security')
 INSERT INTO subjects (id, name) VALUES (6, 'criminal process')
 
 /**/
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (1, 1, 'управление затратами на предприятии')
+/*INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (1, 1, 'управление затратами на предприятии')
 INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (2, 1, 'ценообразование')
 INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (3, 1, 'планирование на предприятии')
 INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (4, 1, 'информационная безопасность')
 INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (5, 1, 'экономическая безопасность')
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (6, 1, 'уголовный процесс')
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (6, 1, 'уголовный процесс')*/
 /**/
 
 INSERT INTO schedules (id, subject_id, day_num, week_type, lesson_num, group_id, user_id, lesson_type, classroom) VALUES (2, 4, 1, 'down', 5, 1, NULL, 1, 'G427')

@@ -1,6 +1,8 @@
 package com.vitgon.schedule.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -33,11 +35,35 @@ public class SubjectMapperService {
 				.collect(Collectors.toList());
 	}
 	
-	public List<SubjectDTO> mapToSubjectDTOList(List<Subject> subjects, Locale locale) {
+	/**
+	 * Map list of subjects to list of subject dto
+	 * 
+	 * @param subjects
+	 * @param locale
+	 * @param substituteNull if translation doesn't exist, then take english name
+	 * @return
+	 */
+	public List<SubjectDTO> mapToSubjectDTOList(List<Subject> subjects, Locale locale, boolean substituteNull) {
 		return subjects.stream()
 				.map(subject -> {
-					return new SubjectDTO(subject.getId(), subject.getName(), subjectTranslService.getSubjectTitle(subject, locale));
+					String translation = subjectTranslService.getSubjectTitle(subject, locale, substituteNull);
+					return new SubjectDTO(subject.getId(), subject.getName(), translation);
 				})
 				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * 
+	 * @param locale
+	 * @param substituteNull
+	 * @return
+	 */
+	public Map<Integer, String> mapToMap(Locale locale, boolean substituteNull) {
+		List<Subject> subjects = subjectService.findAll();
+		Map<Integer, String> subjectTitles = new HashMap<>();
+		for (Subject subject : subjects) {
+			subjectTitles.put(subject.getId(), subjectTranslService.getSubjectTitle(subject, locale, substituteNull));
+		}
+		return subjectTitles;
 	}
 }

@@ -274,6 +274,26 @@ function addSubject(e) {
 	});
 }
 
+function getSubjectsList(e) {
+	let localeId = e.target.value;
+	let $subjectsListContainer = $('.subjects-list_content'); 
+	
+	$.ajax({
+		type: 'GET',
+		url: '/api/subjects/view',
+		data: {localeId: localeId},
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'html',
+		success: function(response) {
+			$subjectsListContainer.html(response);
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			alert(msg);
+		}
+	});
+}
+
 function getErrorMessage(jqXHR, exception) {
 	let msg = '';
 	if (jqXHR.status === 0) {

@@ -9,6 +9,6 @@ import com.vitgon.schedule.service.database.base.Service;
 public interface SubjectTranslationService extends Service<SubjectTranslation, SubjectTranslationId> {
 	SubjectTranslation findByLangCodeAndSubjectId(String langCode, int subjectId);
 	SubjectTranslation findByLocaleAndSubject(Locale locale, Subject subject);
-	String getSubjectTitle(Subject subject, Locale locale);
+	String getSubjectTitle(Subject subject, Locale locale, boolean substituteNull);
 	SubjectTranslation findByTitle(String title);
 }

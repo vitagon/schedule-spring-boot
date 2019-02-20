@@ -79,17 +79,25 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 	 * 
 	 * @param subject
 	 * @param locale
+	 * @param substituteNull
 	 * @return
 	 */
 	@Override
-	public String getSubjectTitle(Subject subject, Locale locale) {
+	public String getSubjectTitle(Subject subject, Locale locale, boolean substituteNull) {
 		String subjectTitle = null;
 		
 		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
 			subjectTitle = subject.getName();
 		} else {
 			SubjectTranslation translation = findByLocaleAndSubject(locale, subject);
-			subjectTitle = translation.getTitle();
+			if (translation == null) {
+				if (substituteNull)
+					subjectTitle = subject.getName();
+				else
+					return null;
+			} else {
+				subjectTitle = translation.getTitle();
+			}
 		}
 		
 		return subjectTitle.substring(0, 1).toUpperCase() + subjectTitle.substring(1);
