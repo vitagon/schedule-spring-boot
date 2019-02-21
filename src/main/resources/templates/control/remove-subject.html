@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<form th:fragment="remove-subject-tab-content"
+		action="/api/control/subject" th:action="@{/api/control/subject}" method="DELETE">
+		
+			<div class="form-group">
+				<label for="remove-subject_subject-select">[[#{chooseSubject}]]</label>
+				<select class="form-control" id="remove-subject_subject-select" name="subjectId">
+					<option value="0" selected>[[#{chooseSubject}]]</option>
+					<option th:each="subject: ${subjects}" th:value="${subject.id}">[[${subject.name}]]</option>
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-success" onclick="removeSubject(event)">[[#{delete}]]</button>
+	 </form>
+</body>
+</html>

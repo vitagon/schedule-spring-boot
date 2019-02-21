@@ -32,6 +32,18 @@
 						   data-toggle="tab"
 						   role="tab"
 						   aria-controls="add-subject-tab-content" aria-selected="true">[[#{addSubject}]]</a>
+					   	<a href="#edit-subject-tab-content"
+						   class="nav-link"
+						   id="edit-subject-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="edit-subject-tab-content" aria-selected="true">[[#{editSubject}]]</a>
+						<a href="#remove-subject-tab-content"
+						   class="nav-link"
+						   id="remove-subject-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="remove-subject-tab-content" aria-selected="true">[[#{removeSubject}]]</a>
 						<a href="#add-subject-translation-tab-content"
 						   class="nav-link"
 						   id="add-subject-translation-tab"
@@ -55,8 +67,7 @@
 				
 				<div class="col-md-9">
 					<div class="tab-content">
-						<div class="tab-pane fade"
-							 th:classappend="${#strings.equals(activeTab, 'main')} ? 'show active' : ''"
+						<div class="tab-pane fade show active"
 							 id="main-tab-content"
 							 role="tabpanel"
 							 aria-labelledby="main-tab">
@@ -73,7 +84,6 @@
 						</div>
 						 
 						<div class="tab-pane fade"
-							 th:classappend="${#strings.equals(activeTab, 'addSubject')} ? 'show active' : ''"
 							 id="add-subject-tab-content"
 							 role="tabpanel"
 							 aria-labelledby="add-subject-tab">
@@ -82,7 +92,22 @@
 						</div>
 						
 						<div class="tab-pane fade"
-							 th:classappend="${#strings.equals(activeTab, 'addSubjectTranslation')} ? 'show active' : ''"
+							 id="edit-subject-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="edit-subject-tab">
+							 
+							 <th:block th:replace="control/edit-subject :: edit-subject-tab-content"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="remove-subject-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="remove-subject-tab">
+							 
+							 <th:block th:replace="control/remove-subject :: remove-subject-tab-content"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
 							 id="add-subject-translation-tab-content"
 							 role="tabpanel"
 							 aria-labelledby="add-subject-translation-tab">
@@ -91,7 +116,6 @@
 						</div>
 						 
 						<div class="tab-pane fade"
-							 th:classappend="${#strings.equals(activeTab,'addTeacherTranslation')} ? 'show active' : ''"
 							 id="add-teacher-translation-tab-content"
 							 role="tab"
 							 aria-labelledby="add-teacher-translation-tab">

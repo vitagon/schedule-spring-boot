@@ -46,12 +46,4 @@ public class SubjectRestController {
 		List<Subject> subjects = subjectService.findAll();
 		return subjectMapperService.mapToSubjectDTOList(subjects, locale, false);
 	}
-	
-	@GetMapping("/subjects/view")
-	public ModelAndView getSubjectsWithView(@RequestParam int localeId) {
-		List<SubjectDTO> subjects = getSubjectsByLocale(localeId);
-		ModelAndView model = new ModelAndView("control/subjects-list :: subjects-list");
-		model.addObject("subjects", subjects);
-		return model;
-	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -41,12 +42,10 @@ public class Group extends BaseModel<Integer> {
 	@JoinColumn(name="major_id")
 	private Major major;
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<GroupTranslation> translations = new ArrayList<>();
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "group")
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Schedule> schedules = new ArrayList<>();
 
 	public Group(int courseNum, Major major) {

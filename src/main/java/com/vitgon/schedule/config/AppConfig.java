@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vitgon.schedule.converter.ScheduleDTO2ScheduleConverter;
+import com.vitgon.schedule.converter.SubjectId2SubjectConverter;
 import com.vitgon.schedule.formatter.DateFormatter;
 import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
 import com.vitgon.schedule.resolver.FromDTOMapper;
@@ -91,6 +92,7 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatter(new DateFormatter());
+		registry.addConverter(new SubjectId2SubjectConverter(subjectService()));
 		registry.addConverter(new ScheduleDTO2ScheduleConverter(groupService(), subjectService(), userService()));
 	}
 

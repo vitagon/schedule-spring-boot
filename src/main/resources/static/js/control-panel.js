@@ -148,20 +148,7 @@ function addTeacherTranslation(e) {
 			let msg = getErrorMessage(jqXHR, exception);
 			if (jqXHR.status == 400) {
 				let errors = jqXHR.responseJSON.details;
-				$form.find('.validation-message').remove();
-				$.each(errors, function(fieldName, fieldErrors) {
-					let $formField = $form.find('[name=' + fieldName + ']');
-					let $formFieldWrap = null;
-					if ($formField != null) {
-						$formFieldWrap = $formField.closest('div');
-						for (fieldError of fieldErrors) {
-							$formFieldWrap.append('<div class="validation-message" style="color: red">' +
-											fieldError +
-											'</div>'
-							);
-						}
-					}
-				});
+				showValidationErrors(errors, $form);
 			} else {
 				alert(msg);
 			}
@@ -206,19 +193,7 @@ function addSubjectTranslation(e) {
 			let msg = getErrorMessage(jqXHR, exception);
 			if (jqXHR.status == 400) {
 				let errors = jqXHR.responseJSON.details;
-				$form.find('.validation-message').remove();
-				$.each(errors, function(fieldName, fieldErrors) {
-					let $formField = $form.find('[name=' + fieldName + ']');
-					if ($formField != null) {
-						let $formFieldWrap = $formField.closest('div');
-						for (fieldError of fieldErrors) {
-							$formFieldWrap.append('<div class="validation-message" style="color: red">' +
-											fieldError +
-											'</div>'
-							);
-						}
-					}
-				});
+				showValidationErrors(errors, $form);
 			} else {
 				alert(msg);
 			}
@@ -253,19 +228,7 @@ function addSubject(e) {
 			let msg = getErrorMessage(jqXHR, exception);
 			if (jqXHR.status == 400) {
 				let errors = jqXHR.responseJSON.details;
-				$form.find('.validation-message').remove();
-				$.each(errors, function (fieldName, fieldErrors) {
-					let $field = $form.find('[name=' + fieldName + ']');
-					
-					if ($field != null) {
-						let $fieldWrap = $field.closest('div');
-						$.each(fieldErrors, function (index, fieldError) {
-							$fieldWrap.append('<div class="validation-message" style="color: red">' +
-											  fieldError +
-											  '</div>');
-						});
-					}
-				});
+				showValidationErrors(errors, $form);
 			} else {
 				alert(msg);
 			}
@@ -280,7 +243,7 @@ function getSubjectsList(e) {
 	
 	$.ajax({
 		type: 'GET',
-		url: '/api/subjects/view',
+		url: '/api/control/subjects/view',
 		data: {localeId: localeId},
 		contentType: 'application/json; charset=utf-8',
 		dataType: 'html',
@@ -290,6 +253,88 @@ function getSubjectsList(e) {
 		error: function(jqXHR, exception) {
 			let msg = getErrorMessage(jqXHR, exception);
 			alert(msg);
+		}
+	});
+}
+
+function editSubject(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let obj = {
+		oldSubjectId: $form.find('select[name=oldSubjectId]').val(),
+		newSubjectName: $form.find('input[name=newSubjectName]').val() 
+	}
+	
+	$.ajax({
+		type: 'PUT',
+		url: $form.attr('action'),
+		data: JSON.stringify(obj),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function(response) {
+			$form.find('.validation-message').remove();
+			$form.find('select[name=oldSubjectId]').val(0);
+			$form.find('input[name=newSubjectName]').val('');
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
+function removeSubject(e) {
+	e.preventDefault();
+	let $form = $(e.target.closest('form'));
+	
+	$.ajax({
+		type: 'DELETE',
+		url: $form.attr('action'),
+		data: {id: $form.find('select[name=subjectId]').val()},
+		dataType: 'json',
+		success: function(response) {
+			$form.find('select[name=subjectId]').val(0);
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
+function showValidationErrors(errors, $form) {
+	$form.find('.validation-message').remove();
+	$.each(errors, function (fieldName, fieldErrors) {
+		let $field = $form.find('[name=' + fieldName + ']');
+		
+		if ($field != null) {
+			let $fieldWrap = $field.closest('div');
+			$.each(fieldErrors, function (index, fieldError) {
+				$fieldWrap.append('<div class="validation-message" style="color: red">' +
+								  fieldError +
+								  '</div>');
+			});
 		}
 	});
 }

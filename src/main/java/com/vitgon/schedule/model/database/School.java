@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,12 +35,10 @@ public class School extends BaseModel<Integer> {
 	@Column(name = "url")
 	private String url;
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "school")
+	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
 	private List<Major> majors = new ArrayList<>();
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "school")
+	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
 	private List<SchoolTranslation> translations = new ArrayList<>();
 	
 	public School(String url) {

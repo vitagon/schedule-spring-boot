@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -47,12 +48,10 @@ public class Major extends BaseModel<Integer> {
 	@Column(name = "degree")
 	private String degree;
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "major")
+	@OneToMany(mappedBy = "major", fetch = FetchType.LAZY)
 	private List<Group> groups = new ArrayList<>();
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy = "major")
+	@OneToMany(mappedBy = "major", fetch = FetchType.LAZY)
 	private List<MajorTranslation> translations = new ArrayList<>();
 
 	public Major(String url, int duration, School school) {
