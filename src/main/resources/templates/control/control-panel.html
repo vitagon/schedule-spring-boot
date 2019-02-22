@@ -20,6 +20,30 @@
 						   data-toggle="tab"
 						   role="tab"
 						   aria-controls="main-tab-content" aria-selected="true">[[#{main}]]</a>
+					    <a href="#schools-list-tab-content"
+						   class="nav-link"
+						   id="schools-list-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="schools-list-tab-content" aria-selected="true">[[#{schools}]]</a>
+					    <a href="#add-school-tab-content"
+						   class="nav-link"
+						   id="add-school-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="add-school-tab-content" aria-selected="true">[[#{addSchool}]]</a>
+					    <a href="#edit-school-tab-content"
+						   class="nav-link"
+						   id="edit-school-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="edit-school-tab-content" aria-selected="true">[[#{editSchool}]]</a>
+					    <a href="#remove-school-tab-content"
+						   class="nav-link"
+						   id="remove-school-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="remove-school-tab-content" aria-selected="true">[[#{removeSchool}]]</a>
 					    <a href="#subjects-list-tab-content"
 						   class="nav-link"
 						   id="subjects-list-tab"
@@ -73,6 +97,38 @@
 							 aria-labelledby="main-tab">
 							 
 							 <th:block th:replace="control/main :: main-tab-content"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="schools-list-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="schools-list-tab">
+							 
+							<th:block th:replace="control/schools-list-tab :: schools-list-tab"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="add-school-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="add-school-tab">
+							 
+							<th:block th:replace="control/add-school :: add-school"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="edit-school-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="edit-school-tab">
+							 
+							<th:block th:replace="control/edit-school :: edit-school"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="remove-school-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="remove-school-tab">
+							 
+							<th:block th:replace="control/remove-school :: remove-school"></th:block>
 						</div>
 						
 						<div class="tab-pane fade"

@@ -8,18 +8,18 @@
 	<title>Document</title>
 </head>
 <body>
-	<div th:fragment="subjects-list-tab">
+	<form th:fragment="schools-list-tab">
 		<div class="form-group">
-			<label for="subjects-list_locale">[[#{localization}]]</label>
-			<select name="" id="subjects-list_locale" class="form-control" onchange="getSubjectsList(event)">
+			<label for="schools-list_locale">[[#{localization}]]</label>
+			<select name="schoolId" id="schools-list_locale" class="form-control" onchange="getSchoolsList(event)">
 				<option value="0" selected>[[#{chooseLocalization}]]</option>
 				<option th:each="locale: ${locales}" th:value="${locale.id}">[[${locale.code}]]</option>
 			</select>
 		</div>
 		
-		<div class="subjects-list_content">
-			<div th:replace="control/subjects-list :: subjects-list"></div>
+		<div class="schools-list_content">
+			<div th:replace="control/schools-list :: schools-list"></div>
 		</div>
-	</div>
+	</form>
 </body>
 </html>

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
@@ -52,5 +54,10 @@ public class SchoolTranslationServiceImpl implements SchoolTranslationService {
 	@Override
 	public void deleteById(SchoolTranslationId id) {
 		schoolTranslDao.deleteById(id);
+	}
+
+	@Override
+	public SchoolTranslation findByLocaleAndSchool(Locale locale, School school) {
+		return schoolTranslDao.findByLocaleAndSchool(locale, school);
 	}
 }

@@ -9,4 +9,5 @@ import com.vitgon.schedule.service.database.base.Service;
 public interface SchoolService extends Service<School, Integer> {
 	School findByTitle(String title);
 	List<School> findAllByLocale(Locale locale);
+	School findByName(String name);
 }

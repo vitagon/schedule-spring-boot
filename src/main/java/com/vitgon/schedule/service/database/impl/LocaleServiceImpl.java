@@ -34,7 +34,7 @@ public class LocaleServiceImpl implements LocaleService {
 
 	@Override
 	public Locale findById(Integer id) {
-		return localeDao.findById(id).get();
+		return localeDao.findById(id).orElse(null);
 	}
 
 	@Override

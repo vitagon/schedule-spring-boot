@@ -9,11 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,16 +21,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"majors"})
 @Entity
 @Table(name = "school")
 @EqualsAndHashCode(callSuper=false, of = {"url", "majors"})
 public class School extends BaseModel<Integer> {
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "url")
+	@Column(name = "url", nullable = false)
 	private String url;
 	
 	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
@@ -50,8 +49,8 @@ public class School extends BaseModel<Integer> {
 		this.url = url;
 	}
 
-	public School(String url, List<Major> majors) {
+	public School(String name, String url) {
+		this.name = name;
 		this.url = url;
-		this.majors = majors;
 	}
 }

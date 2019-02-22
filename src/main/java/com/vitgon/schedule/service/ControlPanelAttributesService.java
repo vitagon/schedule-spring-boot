@@ -21,5 +21,6 @@ public class ControlPanelAttributesService {
 		modelMap.addAttribute("teachers", userDTOService.getTeachersDTO());
 		modelMap.addAttribute("locales", localeMapperService.mapLocalesToList());
 		modelMap.addAttribute("subjects", subjectMapperService.mapToSubjectDTOList());
+		modelMap.addAttribute("schoolDtoList", schoolMapperService.mapAllSchoolsToSchoolDTOList());
 	}
 }

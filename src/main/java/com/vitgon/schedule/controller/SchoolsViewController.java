@@ -13,9 +13,8 @@ import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.pojo.SchoolPOJO;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.LocaleConverterService;
-import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.service.SchoolMapperService;
 import com.vitgon.schedule.service.database.SchoolService;
-import com.vitgon.schedule.util.SchoolUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -23,6 +22,7 @@ import lombok.AllArgsConstructor;
 @Controller
 public class SchoolsViewController {
 	
+	private SchoolMapperService schoolMapperService;
 	private SchoolService schoolService;
 	private LocaleConverterService localeConverterService;
 	
@@ -37,7 +37,7 @@ public class SchoolsViewController {
 			schools = schoolService.findAllByLocale(locale);
 		}
 		
-		List<SchoolPOJO> preparedSchools = SchoolUtil.prepareSchoolPojos(schools, locale);
+		List<SchoolPOJO> preparedSchools = schoolMapperService.prepareSchoolPojos(schools, locale);
 		model.addAttribute("schools", preparedSchools);
 		return "schools";
 	}

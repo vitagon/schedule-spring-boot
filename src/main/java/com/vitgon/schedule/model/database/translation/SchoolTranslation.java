@@ -42,7 +42,6 @@ public class SchoolTranslation {
 	private String title;
 	
 	public SchoolTranslation(School school, Locale locale, String title) {
-		super();
 		this.school = school;
 		this.locale = locale;
 		this.title = title;

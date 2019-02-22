@@ -69,4 +69,9 @@ public class SchoolServiceImpl implements SchoolService {
 	public void deleteById(Integer id) {
 		schoolDao.deleteById(id);
 	}
+	
+	@Override
+	public School findByName(String name) {
+		return schoolDao.findByName(name);
+	}
 }

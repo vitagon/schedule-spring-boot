@@ -304,6 +304,7 @@ function removeSubject(e) {
 		data: {id: $form.find('select[name=subjectId]').val()},
 		dataType: 'json',
 		success: function(response) {
+			$form.find('.validation-message').remove();
 			$form.find('select[name=subjectId]').val(0);
 			
 			$.snackbar({
@@ -335,6 +336,130 @@ function showValidationErrors(errors, $form) {
 								  fieldError +
 								  '</div>');
 			});
+		}
+	});
+}
+
+function getSchoolsList(e) {
+	let localeId = e.target.value;
+	
+	$.ajax({
+		type: 'GET',
+		url: '/api/control/schools/view',
+		data: {localeId: localeId},
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'html',
+		success: function(response) {
+			$('.schools-list_content').html(response);
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			alert(msg);
+		}
+	});
+}
+
+function addSchool(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let schoolName = $form.find('input[name=schoolName]').val();
+	
+	let obj = {schoolName: schoolName};
+	
+	$.ajax({
+		type: 'POST',
+		url: $form.attr('action'),
+		data: JSON.stringify(obj),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function (response) {
+			$form.find('.validation-message').remove();
+			$form.find('input[name=schoolName]').val('');
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function (jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+		
+	});
+}
+
+function editSchool(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let obj = {
+		schoolId: $form.find('select[name=schoolId]').val(),
+		newSchoolName: $form.find('input[name=newSchoolName]').val()
+	}
+	
+	$.ajax({
+		type: 'PUT',
+		url: $form.attr('action'),
+		data: JSON.stringify(obj),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function(response) {
+			$form.find('.validation-message').remove();
+			$form.find('select[name=schoolId]').val(0);
+			$form.find('input[name=newSchoolName]').val('');
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
+function removeSchool(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let obj = {id: $form.find('select[name=schoolId]').val()};
+	
+	$.ajax({
+		type: 'DELETE',
+		url: $form.attr('action'),
+		data: obj,
+		dataType: 'json',
+		success: function(response) {
+			$form.find('.validation-message').remove();
+			$form.find('select[name=schoolId]').val(0);
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
 		}
 	});
 }

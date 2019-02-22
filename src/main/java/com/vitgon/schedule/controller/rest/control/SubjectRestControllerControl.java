@@ -69,7 +69,7 @@ public class SubjectRestControllerControl {
 			errors.put("subjectId", Arrays.asList(messageService.getMessage("chooseValue", request)));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
-					.body(new ApiError(new Date(), "Convertion Error", errors));
+					.body(new ApiError(new Date(), "Subject Not Found", errors));
 		}
 		subjectService.delete(subject);
 		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed subject!"));
@@ -78,7 +78,7 @@ public class SubjectRestControllerControl {
 	@GetMapping("/subjects/view")
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView getSubjectsWithView(@RequestParam int localeId) {
-		List<SubjectDTO> subjects = subjectRestController.getSubjectsByLocale(localeId);
+		List<SubjectDTO> subjects = subjectRestController.getSubjectDTOListByLocale(localeId);
 		ModelAndView model = new ModelAndView("control/subjects-list :: subjects-list");
 		model.addObject("subjects", subjects);
 		return model;

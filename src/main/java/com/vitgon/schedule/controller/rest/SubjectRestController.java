@@ -33,7 +33,10 @@ public class SubjectRestController {
 	}
 	
 	@GetMapping("/subjects/locale")
-	public List<SubjectDTO> getSubjectsByLocale(@RequestParam int localeId) {
+	public List<SubjectDTO> getSubjectDTOListByLocale(@RequestParam int localeId) {
+		if (localeId < 0) {
+			throw new IllegalArgumentException("Locale id must be equal OR greater than 0!");
+		}
 		if (localeId == 0) {
 			List<Subject> subjects = subjectService.findAll();
 			return subjectMapperService.mapToSubjectDTOList(subjects);

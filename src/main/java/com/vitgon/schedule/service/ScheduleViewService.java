@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,6 +15,9 @@ import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.ScheduleService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class ScheduleViewService {
 	
@@ -25,15 +27,6 @@ public class ScheduleViewService {
 	private ScheduleService scheduleService;
 	private GroupService groupService;
 	private ScheduleTreeService scheduleTreeService;
-	
-	@Autowired
-	public ScheduleViewService(ScheduleService scheduleService,
-							   GroupService groupService,
-							   ScheduleTreeService scheduleTreeService) {
-		this.scheduleService = scheduleService;
-		this.groupService = groupService;
-		this.scheduleTreeService = scheduleTreeService;
-	}
 
 	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
 		Group group = groupService.findById(groupId);
