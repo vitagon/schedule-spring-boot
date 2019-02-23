@@ -6,16 +6,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.vitgon.schedule.dto.DegreeEnum;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 
 import lombok.Getter;
@@ -31,13 +31,13 @@ import lombok.ToString;
 @Table(name = "major")
 public class Major extends BaseModel<Integer> {
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 	
-	@Column(name = "url")
+	@Column(name = "url", nullable = false, unique = true)
 	private String url;
 	
-	@Column(name = "duration")
+	@Column(name = "duration", nullable = false)
 	private int duration;
 	
 	@JsonBackReference
@@ -45,8 +45,9 @@ public class Major extends BaseModel<Integer> {
 	@JoinColumn(name = "school_id")
 	private School school;
 	
-	@Column(name = "degree")
-	private String degree;
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "degree", nullable = false)
+	private DegreeEnum degree;
 	
 	@OneToMany(mappedBy = "major", fetch = FetchType.LAZY)
 	private List<Group> groups = new ArrayList<>();

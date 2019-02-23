@@ -61,7 +61,6 @@
 						  		<span sec:authentication="principal.lastName"></span> 
 						  		<span sec:authentication="principal.firstName"></span>
 						  	</h6>
-						  	<a class="dropdown-item" href="#" th:href="@{/account/}">[[#{account}]]</a>
 						  	<a class="dropdown-item" href="#" th:href="@{/control/}"
 						  	   sec:authorize="hasAnyAuthority('MANAGER','ADMIN')">
 						  		[[#{control}]]

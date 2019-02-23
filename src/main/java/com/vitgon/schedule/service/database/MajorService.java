@@ -6,4 +6,5 @@ import com.vitgon.schedule.service.database.base.Service;
 public interface MajorService extends Service<Major, Integer>{
 	Major findByTitle(String title);
 	Major findByUrl(String url);
+	Major findByName(String name);
 }

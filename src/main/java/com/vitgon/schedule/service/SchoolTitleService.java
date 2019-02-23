@@ -24,10 +24,9 @@ public class SchoolTitleService {
 		
 		SchoolTranslation schoolTranslation = schoolTranslationService.findByLocaleAndSchool(locale, school);
 		
-		if (schoolTranslation == null) {
-			return StringUtil.capitalizeFirstLetter(school.getName());
-		} else {
+		if (schoolTranslation != null) {
 			return StringUtil.capitalizeFirstLetter(schoolTranslation.getTitle());
 		}
+		return null;
 	}
 }

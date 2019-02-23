@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.GroupTranslation;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.model.database.translation.pk.GroupTranslationId;
@@ -52,5 +54,10 @@ public class MajorTranslationServiceImpl implements MajorTranslationService {
 	@Override
 	public void deleteById(MajorTranslationId id) {
 		majorTranslDao.deleteById(id);
+	}
+
+	@Override
+	public MajorTranslation findByLocaleAndMajor(Locale locale, Major major) {
+		return majorTranslDao.findByLocaleAndMajor(locale, major);
 	}
 }

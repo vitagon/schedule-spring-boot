@@ -17,10 +17,10 @@ INSERT INTO locales (id, code) VALUES (2, 'en')
 INSERT INTO school (id, name, url) VALUES (1, 'school of economics and management', 'school_of_economics_and_management')
 INSERT INTO school_translations (school_id, locale_id, title) VALUES (1, 1, 'школа экономики и менеджмента')
 
-INSERT INTO major (id, name, url, duration, school_id, degree) VALUES (1, 'economics security', 'economics_security', 5, 1, 'specialist')
+INSERT INTO major (id, name, url, duration, school_id, degree) VALUES (1, 'economics security', 'economics_security', 5, 1, 2)
 INSERT INTO major_translations (major_id, locale_id, title) VALUES (1, 1, 'экономическая безопасность')
 
-INSERT INTO major (id, name, url, duration, school_id, degree) VALUES (2, 'management', 'management', 4, 1, 'bachelor')
+INSERT INTO major (id, name, url, duration, school_id, degree) VALUES (2, 'management', 'management', 4, 1, 1)
 INSERT INTO major_translations (major_id, locale_id, title) VALUES (2, 1, 'менеджмент')
 
 INSERT INTO school (id, name, url) VALUES (2, 'school of natural sciences', 'school_of_natural_sciences')

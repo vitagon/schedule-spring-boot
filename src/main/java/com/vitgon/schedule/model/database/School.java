@@ -28,10 +28,10 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false, of = {"url", "majors"})
 public class School extends BaseModel<Integer> {
 	
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 	
-	@Column(name = "url", nullable = false)
+	@Column(name = "url", nullable = false, unique = true)
 	private String url;
 	
 	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)

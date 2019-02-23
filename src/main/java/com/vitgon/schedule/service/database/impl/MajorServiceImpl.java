@@ -66,4 +66,9 @@ public class MajorServiceImpl implements MajorService {
 	public void deleteById(Integer id) {
 		majorDao.deleteById(id);
 	}
+
+	@Override
+	public Major findByName(String name) {
+		return majorDao.findByName(name);
+	}
 }
