@@ -78,7 +78,7 @@ public class SchoolRestControllerControl {
 					.body(new ApiError(new Date(), "School Not Found", errors));
 		}
 		schoolService.delete(school);
-		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully updated school!"));
+		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed school!"));
 	}
 
 	@GetMapping("/schools/view")

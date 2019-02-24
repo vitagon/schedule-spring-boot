@@ -1,5 +1,10 @@
 package com.vitgon.schedule.controller.rest.control;
 
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyEditorSupport;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +16,10 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.dto.AddMajorDto;
+import com.vitgon.schedule.dto.DegreeEnum;
 import com.vitgon.schedule.dto.EditMajorDto;
 import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.model.ApiError;
@@ -61,7 +69,7 @@ public class MajorRestControllerControl {
 		major.setName(addMajorDto.getName().toLowerCase());
 		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getName()));
 		major.setDuration(addMajorDto.getDuration());
-		major.setDegree(addMajorDto.getDegree());
+		major.setDegree(DegreeEnum.valueOf(addMajorDto.getDegree()));
 		majorService.save(major);
 		return new ApiSuccess(new Date(), "You successfully added major!");
 	}
@@ -75,6 +83,8 @@ public class MajorRestControllerControl {
 		}
 		major.setName(editMajorDto.getNewMajorName().toLowerCase());
 		major.setUrl(StringUtil.applyUnderlyingStyle(editMajorDto.getNewMajorName()));
+		major.setDuration(editMajorDto.getDuration());
+		major.setDegree(DegreeEnum.valueOf(editMajorDto.getDegree()));
 		majorService.update(major);
 		return new ApiSuccess(new Date(), "You successfully updated major!");
 	}
@@ -90,7 +100,7 @@ public class MajorRestControllerControl {
 					.body(new ApiError(new Date(), "Major Not Found", errors));
 		}
 		majorService.delete(major);
-		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully updated major!"));
+		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed major!"));
 	}
 
 	@GetMapping("/majors/view")
