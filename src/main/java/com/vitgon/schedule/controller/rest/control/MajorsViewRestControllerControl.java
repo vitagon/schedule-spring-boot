@@ -29,7 +29,7 @@ public class MajorsViewRestControllerControl {
 			throw new IllegalArgumentException("Locale id must be equal or greater than 0!");
 		}
 		
-		ModelAndView model = new ModelAndView("control/schools-list :: schools-list");
+		ModelAndView model = new ModelAndView("control/majors-list :: majors-list");
 		List<MajorDto> majorDtoList = null;
 		
 		if (localeId == 0) {

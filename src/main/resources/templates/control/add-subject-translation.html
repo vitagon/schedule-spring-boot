@@ -9,7 +9,7 @@
 <body>
 	<form th:fragment="add-subject-translation-tab-content"
 		  th:action="@{api/control/subject/translation}" method="post"
-		  th:object="${addSubjectTranslationDTO}">
+		  th:object="${addSubjectTranslationDto}">
 
 		<div class="form-group">
 			<label for="subject">[[#{chooseSubject}]]</label>

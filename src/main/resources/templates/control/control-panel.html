@@ -44,7 +44,31 @@
 						   data-toggle="tab"
 						   role="tab"
 						   aria-controls="remove-school-tab-content" aria-selected="true">[[#{removeSchool}]]</a>
-					    <a href="#subjects-list-tab-content"
+						<a href="#majors-list-tab-content"
+						   class="nav-link"
+						   id="majors-list-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="majors-list-tab-content" aria-selected="true">[[#{majors}]]</a>
+						<a href="#add-major-tab-content"
+						   class="nav-link"
+						   id="add-major-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="add-major-tab-content" aria-selected="true">[[#{addMajor}]]</a>
+						<a href="#edit-major-tab-content"
+						   class="nav-link"
+						   id="edit-major-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="edit-major-tab-content" aria-selected="true">[[#{editMajor}]]</a>
+						<a href="#remove-major-tab-content"
+						   class="nav-link"
+						   id="remove-major-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="remove-major-tab-content" aria-selected="true">[[#{removeMajor}]]</a>
+						<a href="#subjects-list-tab-content"
 						   class="nav-link"
 						   id="subjects-list-tab"
 						   data-toggle="tab"
@@ -129,6 +153,38 @@
 							 aria-labelledby="remove-school-tab">
 							 
 							<th:block th:replace="control/remove-school :: remove-school"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="majors-list-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="majors-list-tab">
+							 
+							<th:block th:replace="control/majors-list-tab :: majors-list-tab"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="add-major-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="add-major-tab">
+							 
+							<th:block th:replace="control/add-major :: add-major"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="edit-major-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="edit-major-tab">
+							 
+							<th:block th:replace="control/edit-major :: edit-major"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="remove-major-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="remove-major-tab">
+							 
+							<th:block th:replace="control/remove-major :: remove-major"></th:block>
 						</div>
 						
 						<div class="tab-pane fade"

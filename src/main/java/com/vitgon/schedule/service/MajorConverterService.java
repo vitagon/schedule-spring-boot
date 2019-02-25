@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dto.AddMajorDto;
 import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.MajorService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class MajorConverterService {
 	

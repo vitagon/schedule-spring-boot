@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<div th:fragment="majors-list-tab">
+		<div class="form-group">
+			<label for="majors-list_locale">[[#{localization}]]</label>
+			<select name="" id="majors-list_locale" class="form-control" onchange="getMajorsList(event)">
+				<option value="0" selected>[[#{chooseLocalization}]]</option>
+				<option th:each="locale: ${locales}" th:value="${locale.id}">[[${locale.code}]]</option>
+			</select>
+		</div>
+		
+		<div id="majors-list_content">
+			<div th:replace="control/majors-list :: majors-list"></div>
+		</div>
+	</div>
+</body>
+</html>

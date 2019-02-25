@@ -33,7 +33,7 @@ public class ScheduleDto implements Serializable {
 	@Min(value = 1, message = "{NotNull.default}")
 	private int subjectId;
 	
-	@Pattern(regexp = "^[lecture|practice|0]?$")
+	@Pattern(regexp = "^lecture|practice|0$")
 	private String lessonType;
 	
 	@PositiveOrZero
