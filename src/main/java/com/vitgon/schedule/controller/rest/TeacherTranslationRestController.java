@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.dto.AddTeacherTranslationDTO;
+import com.vitgon.schedule.dto.AddTeacherTranslationDto;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.auth.User;
@@ -33,7 +33,7 @@ public class TeacherTranslationRestController {
 
 	@ResponseBody
 	@PostMapping
-	public ApiSuccess addTeacherTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddTeacherTranslationDTO addTeacherTranslationDTO) {
+	public ApiSuccess addTeacherTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddTeacherTranslationDto addTeacherTranslationDTO) {
 		User user = userService.findById(addTeacherTranslationDTO.getUserId());
 		Locale locale = localeService.findById(addTeacherTranslationDTO.getLocaleId());
 		

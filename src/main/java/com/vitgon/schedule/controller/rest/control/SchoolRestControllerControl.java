@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.dto.AddSchoolDTO;
+import com.vitgon.schedule.dto.AddSchoolDto;
 import com.vitgon.schedule.dto.EditSchoolDto;
-import com.vitgon.schedule.dto.SchoolDTO;
+import com.vitgon.schedule.dto.SchoolDto;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Locale;
@@ -49,7 +49,7 @@ public class SchoolRestControllerControl {
 	
 	@PostMapping("/school")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addSchool(@RequestBody @Valid AddSchoolDTO addSchoolDTO) {
+	public ApiSuccess addSchool(@RequestBody @Valid AddSchoolDto addSchoolDTO) {
 		schoolService.save(new School(addSchoolDTO.getSchoolName().toLowerCase(), StringUtil.applyUnderlyingStyle(addSchoolDTO.getSchoolName())));
 		return new ApiSuccess(new Date(), "You successfully added school!");
 	}
@@ -88,7 +88,7 @@ public class SchoolRestControllerControl {
 		}
 		
 		ModelAndView model = new ModelAndView("control/schools-list :: schools-list");
-		List<SchoolDTO> schoolDtoList = null;
+		List<SchoolDto> schoolDtoList = null;
 		
 		if (localeId == 0) {
 			schoolDtoList = schoolMapperService.mapAllSchoolsToSchoolDTOList();

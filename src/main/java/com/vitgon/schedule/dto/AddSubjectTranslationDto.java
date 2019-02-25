@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 	message = "{Duplicate.translation}",
 	groups = TranslationGroup.class
 )
-public class AddSubjectTranslationDTO {
+public class AddSubjectTranslationDto {
 	
 	@Min(value = 1, message = "{validation.chooseSubject}")
 	private Integer subjectId;

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.annotation.FromDTO;
-import com.vitgon.schedule.dto.ScheduleDTO;
-import com.vitgon.schedule.dto.ScheduleResponseDTO;
+import com.vitgon.schedule.dto.ScheduleDto;
+import com.vitgon.schedule.dto.ScheduleResponseDto;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Schedule;
@@ -61,8 +61,8 @@ public class ScheduleRestControllerControl {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
 				 produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ScheduleResponseDTO create(
-			@FromDTO(ScheduleDTO.class) Schedule scheduleTransient,
+	public ScheduleResponseDto create(
+			@FromDTO(ScheduleDto.class) Schedule scheduleTransient,
 			HttpServletRequest request) {
 		Locale locale = localeConverterService.getClientLocale(request);
 		
@@ -95,8 +95,8 @@ public class ScheduleRestControllerControl {
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
 				produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public ScheduleResponseDTO update(
-			@FromDTO(ScheduleDTO.class) Schedule scheduleTransient,
+	public ScheduleResponseDto update(
+			@FromDTO(ScheduleDto.class) Schedule scheduleTransient,
 			HttpServletRequest request) {
 		Locale locale = localeConverterService.getClientLocale(request);
 		

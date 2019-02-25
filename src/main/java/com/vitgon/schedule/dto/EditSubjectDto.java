@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class EditSubjectDTO {
+public class EditSubjectDto {
 
 	@Min(value = 1, message = "{NotEmpty.default}")
 	private int oldSubjectId;

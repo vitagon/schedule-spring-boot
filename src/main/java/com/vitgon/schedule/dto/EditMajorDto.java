@@ -20,19 +20,19 @@ import lombok.NoArgsConstructor;
 public class EditMajorDto {
 
 	@Min(value = 1, message = "{NotEmpty.default}")
-	private int id;
+	protected int id;
 	
 	@UniqueMajor(message = "{Duplicate.major}")
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
-	private String newMajorName;
+	protected String name;
 	
 	@Min(value = 1, message = "{NotEmpty.default}")
 	@Max(value = 10, message = "{Max.default}")
-	private int duration;
+	protected int duration;
 	
 	@NotNull(message = "{NotNull.default}")
 	@EnumMatch(enumClazz = DegreeEnum.class, message = "{Degree.noMatch}")
-	private String degree;
+	protected String degree;
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dto.SchoolDTO;
+import com.vitgon.schedule.dto.SchoolDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.School;
@@ -26,22 +26,22 @@ public class SchoolMapperService {
 	private SchoolService schoolService;
 	private SchoolTitleService schoolTitleService;
 	
-	public List<SchoolDTO> mapAllSchoolsToSchoolDTOList() {
+	public List<SchoolDto> mapAllSchoolsToSchoolDTOList() {
 		List<School> schools = schoolService.findAll();
-		List<SchoolDTO> schoolsDTOList = new ArrayList<>();
+		List<SchoolDto> schoolsDTOList = new ArrayList<>();
 		for (School school : schools) {
-			SchoolDTO schoolDTO = new SchoolDTO(school.getId(), school.getName(), null);
+			SchoolDto schoolDTO = new SchoolDto(school.getId(), school.getName(), null);
 			schoolsDTOList.add(schoolDTO);
 		}
 		return schoolsDTOList;
 	} 
 	
-	public List<SchoolDTO> mapAllSchoolsToSchoolDTOList(Locale locale) {
+	public List<SchoolDto> mapAllSchoolsToSchoolDTOList(Locale locale) {
 		List<School> schools = schoolService.findAll();
-		List<SchoolDTO> schoolsDTOList = new ArrayList<>();
+		List<SchoolDto> schoolsDTOList = new ArrayList<>();
 		for (School school : schools) {
 			String title = schoolTitleService.getSchoolTitle(locale, school);
-			SchoolDTO schoolDTO = new SchoolDTO(school.getId(), school.getName(), title);
+			SchoolDto schoolDTO = new SchoolDto(school.getId(), school.getName(), title);
 			schoolsDTOList.add(schoolDTO);
 		}
 		return schoolsDTOList;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.dto.AddSubjectTranslationDTO;
+import com.vitgon.schedule.dto.AddSubjectTranslationDto;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
@@ -31,7 +31,7 @@ public class SubjectTranslationRestControllerControl {
 	private SubjectTranslationService subjectTranslationService;
 
 	@PostMapping
-	public ApiSuccess addSubjectTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddSubjectTranslationDTO addSubjectTranslationDTO) {
+	public ApiSuccess addSubjectTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddSubjectTranslationDto addSubjectTranslationDTO) {
 		Subject subject = subjectService.findById(addSubjectTranslationDTO.getSubjectId());
 		Locale locale = localeService.findById(addSubjectTranslationDTO.getLocaleId());
 		

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class LocaleDTO {
+public class LocaleDto {
 	private int id;
 	private String code;
 }

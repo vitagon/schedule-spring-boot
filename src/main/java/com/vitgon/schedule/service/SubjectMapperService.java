@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.vitgon.schedule.dto.SubjectDTO;
+import com.vitgon.schedule.dto.SubjectDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.database.SubjectService;
@@ -22,15 +22,15 @@ public class SubjectMapperService {
 	private SubjectService subjectService;
 	private SubjectTranslationService subjectTranslService;
 	
-	public List<SubjectDTO> mapToSubjectDTOList() {
+	public List<SubjectDto> mapToSubjectDTOList() {
 		List<Subject> subjects = subjectService.findAll();
 		return mapToSubjectDTOList(subjects);
 	}
 
-	public List<SubjectDTO> mapToSubjectDTOList(List<Subject> subjects) {
+	public List<SubjectDto> mapToSubjectDTOList(List<Subject> subjects) {
 		return subjects.stream()
 				.map(subject -> {
-					return new SubjectDTO(subject.getId(), subject.getName());
+					return new SubjectDto(subject.getId(), subject.getName());
 				})
 				.collect(Collectors.toList());
 	}
@@ -43,11 +43,11 @@ public class SubjectMapperService {
 	 * @param substituteNull if translation doesn't exist, then take english name
 	 * @return
 	 */
-	public List<SubjectDTO> mapToSubjectDTOList(List<Subject> subjects, Locale locale, boolean substituteNull) {
+	public List<SubjectDto> mapToSubjectDTOList(List<Subject> subjects, Locale locale, boolean substituteNull) {
 		return subjects.stream()
 				.map(subject -> {
 					String translation = subjectTranslService.getSubjectTitle(subject, locale, substituteNull);
-					return new SubjectDTO(subject.getId(), subject.getName(), translation);
+					return new SubjectDto(subject.getId(), subject.getName(), translation);
 				})
 				.collect(Collectors.toList());
 	}

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.dto.AddSubjectDTO;
-import com.vitgon.schedule.dto.AddSubjectTranslationDTO;
-import com.vitgon.schedule.dto.AddTeacherTranslationDTO;
+import com.vitgon.schedule.dto.AddSubjectDto;
+import com.vitgon.schedule.dto.AddSubjectTranslationDto;
+import com.vitgon.schedule.dto.AddTeacherTranslationDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.ControlPanelAttributesService;
 import com.vitgon.schedule.service.LocaleConverterService;
@@ -32,15 +32,15 @@ public class ControlPanelController {
 		controlPanelAttributesService.setDataAttributes(modelMap, locale);
 		
 		if (!modelMap.containsAttribute("addSubjectDTO")) {
-			modelAndView.addObject(new AddSubjectDTO());
+			modelAndView.addObject(new AddSubjectDto());
 		}
 		
 		if (!modelMap.containsAttribute("addSubjectTranslationDTO")) {
-			modelAndView.addObject(new AddSubjectTranslationDTO());
+			modelAndView.addObject(new AddSubjectTranslationDto());
 		}
 		
 		if (!modelMap.containsAttribute("addTeacherTranslationDTO")) {
-			modelAndView.addObject(new AddTeacherTranslationDTO());
+			modelAndView.addObject(new AddTeacherTranslationDto());
 		}
 		
 		if (!modelMap.containsAttribute("activeTab")) {

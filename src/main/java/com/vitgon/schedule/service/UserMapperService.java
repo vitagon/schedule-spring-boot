@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.vitgon.schedule.dto.TeacherDTO;
+import com.vitgon.schedule.dto.TeacherDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
@@ -21,10 +21,10 @@ public class UserMapperService {
 	private UserService userService;
 	private UserNameService userNameService;
 
-	public List<TeacherDTO> mapToTeacherDTOList(List<User> users) {
+	public List<TeacherDto> mapToTeacherDTOList(List<User> users) {
 		return users.stream()
 			.map(user -> {
-				TeacherDTO teacherDTO = new TeacherDTO();
+				TeacherDto teacherDTO = new TeacherDto();
 				teacherDTO.setId(user.getId());
 				teacherDTO.setName(userNameService.makeupUsername(user));
 				return teacherDTO;

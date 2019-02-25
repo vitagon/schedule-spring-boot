@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.dto.SubjectDTO;
+import com.vitgon.schedule.dto.SubjectDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.SubjectMapperService;
@@ -27,13 +27,13 @@ public class SubjectRestController {
 	private SubjectMapperService subjectMapperService;
 	
 	@GetMapping("/subjects")
-	public List<SubjectDTO> getSubjectsByLocale() {
+	public List<SubjectDto> getSubjectsByLocale() {
 		List<Subject> subjects = subjectService.findAll();
 		return subjectMapperService.mapToSubjectDTOList(subjects);
 	}
 	
 	@GetMapping("/subjects/locale")
-	public List<SubjectDTO> getSubjectDTOListByLocale(@RequestParam int localeId) {
+	public List<SubjectDto> getSubjectDTOListByLocale(@RequestParam int localeId) {
 		if (localeId < 0) {
 			throw new IllegalArgumentException("Locale id must be equal OR greater than 0!");
 		}

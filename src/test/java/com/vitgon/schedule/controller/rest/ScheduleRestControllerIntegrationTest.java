@@ -26,7 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vitgon.schedule.dto.ScheduleDTO;
+import com.vitgon.schedule.dto.ScheduleDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -94,7 +94,7 @@ public class ScheduleRestControllerIntegrationTest {
 	}
 	
 	private static String createScheduleDTOForScheduleCreation() throws JsonProcessingException {
-		ScheduleDTO scheduleDTO = new ScheduleDTO();
+		ScheduleDto scheduleDTO = new ScheduleDto();
 		
 		scheduleDTO.setGroupId(1);
 		scheduleDTO.setWeek("up");
@@ -111,7 +111,7 @@ public class ScheduleRestControllerIntegrationTest {
 	}
 	
 	private static String createScheduleDTOForScheduleEdit() throws JsonProcessingException {
-		ScheduleDTO scheduleDTO = new ScheduleDTO();
+		ScheduleDto scheduleDTO = new ScheduleDto();
 		
 		scheduleDTO.setGroupId(1);
 		scheduleDTO.setWeek("up");

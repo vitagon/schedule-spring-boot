@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 		message = "{Duplicate.translation}",
 		groups = TranslationGroup.class
 )	
-public class AddTeacherTranslationDTO {
+public class AddTeacherTranslationDto {
 	
 	@Min(value = 1, message = "{validation.chooseTeacher}")
 	private Integer userId;

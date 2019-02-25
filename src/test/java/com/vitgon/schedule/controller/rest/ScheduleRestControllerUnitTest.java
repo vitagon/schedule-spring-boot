@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.vitgon.schedule.controller.rest.control.ScheduleRestControllerControl;
-import com.vitgon.schedule.dto.ScheduleResponseDTO;
+import com.vitgon.schedule.dto.ScheduleResponseDto;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Schedule;
@@ -59,11 +59,11 @@ public class ScheduleRestControllerUnitTest {
 		// must return schedule with generated id
 		given(scheduleService.save(scheduleTransient)).willReturn(scheduleWithId);
 		
-		ScheduleResponseDTO mockResponse = createScheduleResponse(scheduleWithId);
+		ScheduleResponseDto mockResponse = createScheduleResponse(scheduleWithId);
 		given(scheduleResponseService.createResponseObject(scheduleWithId, locale)).willReturn(mockResponse);
 		
 		// call method on controller
-		ScheduleResponseDTO realResponse = scheduleRestController.create(scheduleTransient, request);
+		ScheduleResponseDto realResponse = scheduleRestController.create(scheduleTransient, request);
 		assertThat(realResponse, is(mockResponse));
 		
 		assertThat(realResponse.getSubjectId(), is(scheduleTransient.getSubject().getId()));
@@ -98,11 +98,11 @@ public class ScheduleRestControllerUnitTest {
 		// in this case of updating the returning object will be the same
 		given(scheduleService.update(newSchedule)).willReturn(newSchedule);
 		
-		ScheduleResponseDTO mockResponse = createScheduleResponse(newSchedule);
+		ScheduleResponseDto mockResponse = createScheduleResponse(newSchedule);
 		given(scheduleResponseService.createResponseObject(newSchedule, locale)).willReturn(mockResponse);
 		
 		// call method on controller
-		ScheduleResponseDTO realResponse = scheduleRestController.update(newSchedule, request);
+		ScheduleResponseDto realResponse = scheduleRestController.update(newSchedule, request);
 		assertThat(realResponse, is(mockResponse));
 		
 		assertThat(realResponse.getSubjectId(), is(newSchedule.getSubject().getId()));
@@ -147,8 +147,8 @@ public class ScheduleRestControllerUnitTest {
 		return schedule;
 	}
 	
-	private static ScheduleResponseDTO createScheduleResponse(Schedule schedule) {
-		ScheduleResponseDTO response = new ScheduleResponseDTO();
+	private static ScheduleResponseDto createScheduleResponse(Schedule schedule) {
+		ScheduleResponseDto response = new ScheduleResponseDto();
 		response.setId(schedule.getId());
 		response.setSubjectId(schedule.getSubject().getId());
 		response.setDayNum(schedule.getDayNum());

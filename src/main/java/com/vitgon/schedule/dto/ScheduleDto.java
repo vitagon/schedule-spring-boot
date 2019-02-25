@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ScheduleDTO implements Serializable {
+public class ScheduleDto implements Serializable {
 	private static final long serialVersionUID = 892216499352228418L;
 	
 	@Min(value = 1, message = "{NotNull.default}")

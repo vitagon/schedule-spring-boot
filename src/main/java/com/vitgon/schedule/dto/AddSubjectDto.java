@@ -4,18 +4,18 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.vitgon.schedule.annotation.validation.Latin;
-import com.vitgon.schedule.annotation.validation.UniqueSchool;
+import com.vitgon.schedule.annotation.validation.UniqueSubject;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
-public class AddSchoolDTO {
+@NoArgsConstructor
+public class AddSubjectDto {
 	
-	@UniqueSchool(message = "{Duplicate.school}")
+	@UniqueSubject(message = "{Duplicate.subject}")
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
-	private String schoolName;
+	private String subjectName;
 }

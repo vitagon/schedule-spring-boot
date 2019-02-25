@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class ScheduleResponseDTO implements Serializable {
+public class ScheduleResponseDto implements Serializable {
 	private static final long serialVersionUID = -6993176968171153486L;
 	
 	private int id;

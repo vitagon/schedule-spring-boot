@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.controller.rest.SubjectRestController;
-import com.vitgon.schedule.dto.AddSubjectDTO;
-import com.vitgon.schedule.dto.EditSubjectDTO;
-import com.vitgon.schedule.dto.SubjectDTO;
+import com.vitgon.schedule.dto.AddSubjectDto;
+import com.vitgon.schedule.dto.EditSubjectDto;
+import com.vitgon.schedule.dto.SubjectDto;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Subject;
@@ -45,14 +45,14 @@ public class SubjectRestControllerControl {
 
 	@PostMapping("/subject")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addSubject(@RequestBody @Valid AddSubjectDTO addSubjectDTO) {
+	public ApiSuccess addSubject(@RequestBody @Valid AddSubjectDto addSubjectDTO) {
 		subjectService.save(new Subject(addSubjectDTO.getSubjectName().toLowerCase()));
 		return new ApiSuccess(new Date(), "You successfully added subject!");
 	}
 	
 	@PutMapping("/subject")
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess update(@RequestBody @Valid EditSubjectDTO editSubjectDTO) {
+	public ApiSuccess update(@RequestBody @Valid EditSubjectDto editSubjectDTO) {
 		Subject subject = subjectService.findById(editSubjectDTO.getOldSubjectId());
 		if (subject == null) {
 			throw new IllegalArgumentException("Subject with such name doesn't exist!");
@@ -78,7 +78,7 @@ public class SubjectRestControllerControl {
 	@GetMapping("/subjects/view")
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView getSubjectsWithView(@RequestParam int localeId) {
-		List<SubjectDTO> subjects = subjectRestController.getSubjectDTOListByLocale(localeId);
+		List<SubjectDto> subjects = subjectRestController.getSubjectDTOListByLocale(localeId);
 		ModelAndView model = new ModelAndView("control/subjects-list :: subjects-list");
 		model.addObject("subjects", subjects);
 		return model;

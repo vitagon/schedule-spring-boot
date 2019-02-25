@@ -12,13 +12,13 @@ import lombok.AllArgsConstructor;
 public class ControlPanelAttributesService {
 	
 	private SubjectMapperService subjectMapperService;
-	private UserDTOService userDTOService;
+	private UserDtoService userDTOService;
 	private SchoolMapperService schoolMapperService;
 	private LocaleMapperService localeMapperService;
 
 	public void setDataAttributes(ModelMap modelMap, Locale locale) {
 		modelMap.addAttribute("schools", schoolMapperService.mapAllSchoolsToMap(locale));
-		modelMap.addAttribute("teachers", userDTOService.getTeachersDTO());
+		modelMap.addAttribute("teachers", userDTOService.getTeachersDto());
 		modelMap.addAttribute("locales", localeMapperService.mapLocalesToList());
 		modelMap.addAttribute("subjects", subjectMapperService.mapToSubjectDTOList());
 		modelMap.addAttribute("schoolDtoList", schoolMapperService.mapAllSchoolsToSchoolDTOList());
