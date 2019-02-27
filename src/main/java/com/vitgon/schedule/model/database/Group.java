@@ -11,12 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.database.translation.GroupTranslation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,24 +23,29 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(of = {"courseNum", "translations"})
+@ToString(of = {"number","suffix","courseNum"})
 @Entity
-@Table(name = "_groups")
+@Table(name = "_groups",
+	   uniqueConstraints = @UniqueConstraint(
+			   columnNames = {"major_id","number","suffix"},
+			   name = "_groups_UI"
+	   )	
+)
 public class Group extends BaseModel<Integer> {
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name = "number", nullable = false)
+	private int number;
 	
-	@Column(name = "course_num")
+	@Column(name = "suffix", nullable = false)
+	private String suffix;
+	
+	@Column(name = "course_num", nullable = false)
 	private int courseNum;
 	
 	@JsonIgnore
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name="major_id")
 	private Major major;
-	
-	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<GroupTranslation> translations = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Schedule> schedules = new ArrayList<>();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.vitgon.schedule.pojo.SchedulePOJO;
+import com.vitgon.schedule.dto.ScheduleDto;
 import com.vitgon.schedule.util.ScheduleUtil;
 
 public class ScheduleTree {
@@ -50,15 +50,15 @@ public class ScheduleTree {
 	 * @param weekType
 	 * @return
 	 */
-	public SchedulePOJO get(String dayName, int lessonNum, String weekType) {
-		SchedulePOJO schedulePOJO = null;
+	public ScheduleDto get(String dayName, int lessonNum, String weekType) {
+		ScheduleDto schedulePOJO = null;
 		List<Object> mutablePathList = new ArrayList<>(Arrays.asList(dayName, lessonNum, weekType));
 		
 		Node foundedNode = getElement(mutablePathList, rootNode.children);
 		if (foundedNode == null) {
 			return null;
 		}
-		schedulePOJO = (SchedulePOJO) foundedNode.value;
+		schedulePOJO = (ScheduleDto) foundedNode.value;
 		
 		return schedulePOJO;
 	}
@@ -98,7 +98,7 @@ public class ScheduleTree {
 	 * @param weekType
 	 * @param schedulePOJO
 	 */
-	public void add(String dayName, int lessonNum, String weekType, SchedulePOJO schedulePOJO) {
+	public void add(String dayName, int lessonNum, String weekType, ScheduleDto schedulePOJO) {
 		validateArguments(lessonNum, weekType);
 		List<Object> mutablePathList = new ArrayList<>(Arrays.asList(dayName, lessonNum, weekType));
 		add(mutablePathList, schedulePOJO);

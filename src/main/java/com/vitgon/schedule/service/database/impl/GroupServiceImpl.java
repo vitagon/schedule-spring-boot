@@ -2,41 +2,24 @@ package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.GroupDao;
-import com.vitgon.schedule.dao.translation.GroupTranslationDao;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Major;
-import com.vitgon.schedule.model.database.Schedule;
-import com.vitgon.schedule.model.database.translation.GroupTranslation;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.MajorService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class GroupServiceImpl implements GroupService {
 	
 	private final GroupDao groupDao;
 	private MajorService majorService;
-	private final GroupTranslationDao groupTranslDao;
-	
-	@Autowired
-	public GroupServiceImpl(GroupDao groupDao,
-							MajorService majorService,
-							GroupTranslationDao groupTranslDao) {
-		this.groupDao = groupDao;
-		this.majorService = majorService;
-		this.groupTranslDao = groupTranslDao;
-	}
-	
-	@Override
-	public Group findByTitle(String title) {
-		GroupTranslation groupTransl = groupTranslDao.findByTitle(title);
-		return groupTransl.getGroup();
-	}
 
 	@Override
 	public Group save(Group obj) {

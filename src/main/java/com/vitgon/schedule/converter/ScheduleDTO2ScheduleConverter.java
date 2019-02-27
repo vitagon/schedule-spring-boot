@@ -2,7 +2,7 @@ package com.vitgon.schedule.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.vitgon.schedule.dto.ScheduleDto;
+import com.vitgon.schedule.dto.EditScheduleDto;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.Subject;
@@ -14,7 +14,7 @@ import com.vitgon.schedule.util.LessonUtil;
 import com.vitgon.schedule.util.ScheduleUtil;
 
 
-public class ScheduleDTO2ScheduleConverter implements Converter<ScheduleDto, Schedule> {
+public class ScheduleDTO2ScheduleConverter implements Converter<EditScheduleDto, Schedule> {
 
     private GroupService groupService;
     private SubjectService subjectService;
@@ -29,7 +29,7 @@ public class ScheduleDTO2ScheduleConverter implements Converter<ScheduleDto, Sch
     }
 
     @Override
-    public Schedule convert(ScheduleDto dtoObject) {
+    public Schedule convert(EditScheduleDto dtoObject) {
         Group group = groupService.findById(dtoObject.getGroupId());
         Subject subject = subjectService.findById(dtoObject.getSubjectId());
 

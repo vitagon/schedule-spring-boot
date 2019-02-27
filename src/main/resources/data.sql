@@ -29,8 +29,7 @@ INSERT INTO school_translations (school_id, locale_id, title) VALUES (2, 1, 'ш�
 INSERT INTO school (id, name, url) VALUES (3, 'law school', 'law_school')
 INSERT INTO school_translations (school_id, locale_id, title) VALUES (3, 1, 'школа юридических наук')
 
-INSERT INTO _groups (course_num, major_id, name) VALUES (4, 1, '1401pd')
-INSERT INTO group_translations (group_id, locale_id, title) VALUES (1, 1, '1401пд')
+INSERT INTO _groups (course_num, major_id, number, suffix) VALUES (4, 1, 1401, 'pd')
 
 /* Create users with role TEACHER | Passwords are the same: 123123 | ROLES: [USER, TEACHER] */
 INSERT INTO users (id, email, password, key_lastname, key_firstname, key_middlename, active, birth) VALUES (3, 'efremova.pv@dvfu.ru', '$2a$10$D5R2BLeMpFJ0GSCVQejLVetF0273XekBLOoPlSWNargBuRe/rinYm', 'efremova','polina','vitalyevna', 1, STR_TO_DATE('1980-01-01', '%Y-%m-%d'))

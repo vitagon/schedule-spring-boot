@@ -17,7 +17,7 @@
 									th:data-target="${'#school_' + school.id + '_collapse'}"
 									aria-expanded="true"
 									th:aria-controls="${'school_' + school.id + '_collapse'}"
-									th:text="${school.title}">Collapsible Group Item #1
+									th:text="${school.translation}">Collapsible Group Item #1
 								</button>
 							</h5>
 						</div>
@@ -31,7 +31,7 @@
 									<li th:each="major: ${school.majors}">
 										<a href=""
 											th:href="@{/school/__${school.url}__/major/__${major.url}__}"
-											th:text="${major.title}">
+											th:text="${major.translation}">
 										</a>
 									</li>
 								</ul>

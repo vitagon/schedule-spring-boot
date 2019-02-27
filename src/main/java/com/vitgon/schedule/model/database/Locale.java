@@ -9,7 +9,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.database.translation.GroupTranslation;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.model.database.translation.SubjectTranslation;
@@ -42,10 +41,6 @@ public class Locale extends BaseModel<Integer> {
 	@JsonIgnore
 	@OneToMany(mappedBy = "subjectTranslationId.locale")
 	private List<SubjectTranslation> subjectTranslations = new ArrayList<>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "locale")
-	private List<GroupTranslation> groupTranslations = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "userTranslationId.locale")

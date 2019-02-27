@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +13,9 @@ import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.LocaleConverterService;
+import com.vitgon.schedule.service.MajorTitleService;
 import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.service.database.SchoolService;
-import com.vitgon.schedule.util.MajorUtil;
 
 @RestController
 public class MajorRestController {
@@ -24,15 +23,7 @@ public class MajorRestController {
 	private SchoolService schoolService;
 	private LocaleConverterService localeConverterService;
 	private MajorService majorService;
-
-	@Autowired
-	public MajorRestController(SchoolService schoolService,
-							   LocaleConverterService localeConverterService,
-							   MajorService majorService) {
-		this.schoolService = schoolService;
-		this.localeConverterService = localeConverterService;
-		this.majorService = majorService;
-	}
+	private MajorTitleService majorTitleService;
 
 	@GetMapping("/api/school/{schoolId}/majors")
 	public Map<Integer, String> getMajors(HttpServletRequest request, @PathVariable("schoolId") int schoolId) {
@@ -40,7 +31,7 @@ public class MajorRestController {
 		School school = schoolService.findById(schoolId);
 		Map<Integer, String> majors = new HashMap<>();
 		for (Major major : school.getMajors()) {
-			majors.put(major.getId(), MajorUtil.getMajorTitle(major, locale));
+			majors.put(major.getId(), majorTitleService.getMajorTitle(locale, major));
 		}
 		return majors;
 	}

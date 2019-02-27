@@ -7,15 +7,12 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.dto.SchoolDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.School;
-import com.vitgon.schedule.pojo.MajorPOJO;
-import com.vitgon.schedule.pojo.SchoolPOJO;
-import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.SchoolService;
-import com.vitgon.schedule.util.MajorUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -25,6 +22,7 @@ public class SchoolMapperService {
 	
 	private SchoolService schoolService;
 	private SchoolTitleService schoolTitleService;
+	private MajorTitleService majorTitleService;
 	
 	public List<SchoolDto> mapAllSchoolsToSchoolDTOList() {
 		List<School> schools = schoolService.findAll();
@@ -56,31 +54,31 @@ public class SchoolMapperService {
 		return schoolsMap;
 	}
 	
-	public List<SchoolPOJO> prepareSchoolPojos(List<School> schools, Locale locale) {
+	public List<SchoolDto> prepareSchoolPojos(List<School> schools, Locale locale) {
 		
-		List<SchoolPOJO> schoolsPojos = new ArrayList<>();
+		List<SchoolDto> schoolDtoList = new ArrayList<>();
 		
 		for (School school : schools) {
-			SchoolPOJO schoolPojo = new SchoolPOJO();
-			schoolPojo.setId(school.getId());
-			schoolPojo.setUrl(school.getUrl());
-			schoolPojo.setTitle(schoolTitleService.getSchoolTitle(locale, school));
+			SchoolDto schoolDto = new SchoolDto();
+			schoolDto.setId(school.getId());
+			schoolDto.setUrl(school.getUrl());
+			schoolDto.setTranslation(schoolTitleService.getSchoolTitle(locale, school));
 			
 			List<Major> majors = school.getMajors();
 			if (majors != null) {
-				List<MajorPOJO> majorsPojos = new ArrayList<>();
+				List<MajorDto> majorDtoList = new ArrayList<>();
 				for (Major major : majors) {
-					MajorPOJO majorPojo = new MajorPOJO();
-					majorPojo.setTitle(MajorUtil.getMajorTitle(major, locale));
-					majorPojo.setUrl(major.getUrl());
+					MajorDto majorDto = new MajorDto();
+					majorDto.setTranslation(majorTitleService.getMajorTitle(locale, major));
+					majorDto.setUrl(major.getUrl());
 					
-					majorsPojos.add(majorPojo);
+					majorDtoList.add(majorDto);
 				}
-				schoolPojo.setMajors(majorsPojos);
+				schoolDto.setMajors(majorDtoList);
 			}
 			
-			schoolsPojos.add(schoolPojo);
+			schoolDtoList.add(schoolDto);
 		}
-		return schoolsPojos;
+		return schoolDtoList;
 	}
 }

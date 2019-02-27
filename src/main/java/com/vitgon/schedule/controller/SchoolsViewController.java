@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.vitgon.schedule.dto.SchoolDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
-import com.vitgon.schedule.pojo.SchoolPOJO;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.SchoolMapperService;
@@ -37,7 +37,7 @@ public class SchoolsViewController {
 			schools = schoolService.findAllByLocale(locale);
 		}
 		
-		List<SchoolPOJO> preparedSchools = schoolMapperService.prepareSchoolPojos(schools, locale);
+		List<SchoolDto> preparedSchools = schoolMapperService.prepareSchoolPojos(schools, locale);
 		model.addAttribute("schools", preparedSchools);
 		return "schools";
 	}

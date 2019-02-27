@@ -8,7 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MajorDto {
+	
 	private int id;
 	private String name;
 	private String translation;
+	private String url;
+	
+	public MajorDto(Integer id, String name, String translation) {
+		this.id = id;
+		this.name = name;
+		this.translation = translation;
+	}
 }
