@@ -14,12 +14,15 @@ import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.service.database.GroupService;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
 public class GroupMapperService {
+	
+	private GroupService groupService;
 
 	public String getGroupTitle(Group group) {
 		return getDegree(group).charAt(0) + String.valueOf(group.getNumber()) + group.getSuffix();
@@ -27,6 +30,15 @@ public class GroupMapperService {
 	
 	public String getDegree(Group group) {
 		return group.getMajor().getDegree().name();
+	}
+	
+	public List<GroupDto> convertToGroupDtoList() {
+		List<GroupDto> groupDtoList = new ArrayList<>();
+		List<Group> groups = groupService.findAll();
+		for (Group group : groups) {
+			groupDtoList.add(new GroupDto(group.getId(), getGroupTitle(group)));
+		}
+		return groupDtoList;
 	}
 
 	public Map<Integer, List<GroupDto>> convertToGroupDtoMap(List<Group> groups) {

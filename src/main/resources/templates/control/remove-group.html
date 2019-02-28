@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<form th:fragment="remove-group"
+		  action="/api/control/group"
+		  th:action="@{/api/control/group}" method="DELETE">
+		
+	 		<div class="form-group">
+		 		<label for="remove-group_group">[[#{group}]]</label>
+		 		<select class="form-control" id="remove-group_group" name="id">
+		 			<option value="0">[[#{choose}]]</option>
+		 			<option th:each="group: ${groupDtoList}" th:value="${group.id}">[[${group.name}]]</option>
+		 		</select>
+			</div>
+			
+			<button type="submit" class="btn btn-success" onclick="removeGroup(event)">[[#{delete}]]</button>
+	</form>
+</body>
+</html>

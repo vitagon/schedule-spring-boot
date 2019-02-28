@@ -68,6 +68,30 @@
 						   data-toggle="tab"
 						   role="tab"
 						   aria-controls="remove-major-tab-content" aria-selected="true">[[#{removeMajor}]]</a>
+					    <a href="#groups-list-tab-content"
+						   class="nav-link"
+						   id="groups-list-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="groups-list-tab-content" aria-selected="true">[[#{groups}]]</a>
+						<a href="#add-group-tab-content"
+						   class="nav-link"
+						   id="add-group-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="add-group-tab-content" aria-selected="true">[[#{addGroup}]]</a>
+						<a href="#edit-group-tab-content"
+						   class="nav-link"
+						   id="edit-group-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="edit-group-tab-content" aria-selected="true">[[#{editGroup}]]</a>
+						<a href="#remove-group-tab-content"
+						   class="nav-link"
+						   id="remove-group-tab"
+						   data-toggle="tab"
+						   role="tab"
+						   aria-controls="remove-group-tab-content" aria-selected="true">[[#{removeGroup}]]</a>
 						<a href="#subjects-list-tab-content"
 						   class="nav-link"
 						   id="subjects-list-tab"
@@ -185,6 +209,38 @@
 							 aria-labelledby="remove-major-tab">
 							 
 							<th:block th:replace="control/remove-major :: remove-major"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="groups-list-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="groups-list-tab">
+							 
+							<th:block th:replace="control/groups-list-tab :: groups-list-tab"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="add-group-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="add-group-tab">
+							 
+							<th:block th:replace="control/add-group :: add-group"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="edit-group-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="edit-group-tab">
+							 
+							<th:block th:replace="control/edit-group :: edit-group"></th:block>
+						</div>
+						
+						<div class="tab-pane fade"
+							 id="remove-group-tab-content"
+							 role="tabpanel"
+							 aria-labelledby="remove-group-tab">
+							 
+							<th:block th:replace="control/remove-group :: remove-group"></th:block>
 						</div>
 						
 						<div class="tab-pane fade"
