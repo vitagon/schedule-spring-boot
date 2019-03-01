@@ -72,6 +72,10 @@ public class ScheduleTree {
 	 */
 	public Node getElement(List<Object> path, List<Node> childrenNodes) {
 		
+		if (childrenNodes == null) {
+			return null;
+		}
+		
 		if (path.size() == 0) {
 			Node targetNode = childrenNodes.get(0);
 			return targetNode;

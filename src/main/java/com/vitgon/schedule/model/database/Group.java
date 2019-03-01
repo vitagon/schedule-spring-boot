@@ -43,7 +43,7 @@ public class Group extends BaseModel<Integer> {
 	private int courseNum;
 	
 	@JsonIgnore
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false)
 	@JoinColumn(name="major_id")
 	private Major major;
 	

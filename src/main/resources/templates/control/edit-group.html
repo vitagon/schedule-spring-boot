@@ -14,7 +14,7 @@
 		  
 			<div class="form-group">
 				<label for="edit-group_group">[[#{group}]]</label>
-				<select class="form-control" name="groupId" id="edit-group_major">
+				<select class="form-control" name="id" id="edit-group_major">
 					<option value="0" selected>[[#{choose}]]</option>
 					<option th:each="group: ${groupDtoList}" th:value="${group.id}">[[${group.name}]]</option>
 				</select>

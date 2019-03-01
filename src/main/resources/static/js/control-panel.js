@@ -581,6 +581,104 @@ function removeMajor(e) {
 	});
 }
 
+function addGroup(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let obj = getFormData($form);
+	
+	$.ajax({
+		type: 'POST',
+		url: $form.attr('action'),
+		data: JSON.stringify(obj),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function (response) {
+			clearValidationMessages($form);
+			clearForm($form);
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function (jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
+function editGroup(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let obj = getFormData($form);
+	
+	$.ajax({
+		type: 'PUT',
+		url: $form.attr('action'),
+		data: JSON.stringify(obj),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		success: function (response) {
+			clearValidationMessages($form);
+			clearForm($form);
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function (jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
+function removeGroup(e) {
+	e.preventDefault();
+	
+	let $form = $(e.target.closest('form'));
+	let obj = {id: $form.find('select[name=id]').val()};
+	
+	$.ajax({
+		type: 'DELETE',
+		url: $form.attr('action'),
+		data: obj,
+		dataType: 'json',
+		success: function(response) {
+			clearValidationMessages($form);
+			clearForm($form);
+			
+			$.snackbar({
+				content: response.message,
+				timeout: 5000
+			});
+		},
+		error: function(jqXHR, exception) {
+			let msg = getErrorMessage(jqXHR, exception);
+			if (jqXHR.status == 400) {
+				let errors = jqXHR.responseJSON.details;
+				showValidationErrors(errors, $form);
+			} else {
+				alert(msg);
+			}
+		}
+	});
+}
+
 function getFormData($form){
     let unindexed_array = $form.serializeArray();
     let indexed_array = {};

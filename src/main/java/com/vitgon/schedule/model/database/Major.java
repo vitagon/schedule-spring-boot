@@ -42,7 +42,7 @@ public class Major extends BaseModel<Integer> {
 	private int duration;
 	
 	@JsonBackReference
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "school_id")
 	private School school;
 	
