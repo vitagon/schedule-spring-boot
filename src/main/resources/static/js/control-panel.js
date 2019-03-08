@@ -5,6 +5,93 @@ const $groupSelect  = $("#choose-schedule-group__select");
 
 const $editScheduleContent = $("#edit-schedule-content");
 
+
+$('#sidebar-toggle').click(function(e) {
+	$('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
+	$('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
+	e.stopPropagation();
+});
+
+$('#admin-panel_tabs a').on('click', function(e) {
+  e.preventDefault();
+  let $target = $(e.target);
+  
+  // if link is a parent link, we should just show submenu and hide others tab's submenus
+  if ($target.hasClass('submenu_parent-link')) {
+	  let submenuIsOpened = $target.hasClass('active');
+	  
+	  $('.nav-item_lvl-0').not(".opened").find('.submenu_parent-link').removeClass(['active','show']);
+	  $('.nav-item_lvl-0').not(".opened").find('.side-menu-tab_submenu').collapse('hide');
+	  
+	  if (!submenuIsOpened) {
+		  $target.toggleClass(['show', 'active']);
+	  }
+	  
+	  $target.siblings('ul').collapse('toggle');
+	  return;
+  }
+  
+  // hide all tab's content
+  $('#admin-panel_tabs-content .tab-pane').removeClass(['show','active']);
+  
+  // if target is a link of sublist we should not remove .active.show from parent link
+  if ($target.closest('.side-menu-tab_submenu').length) {
+	  
+	  let rootLinks = $('.nav-item_lvl-0');
+	  for (rootLink of rootLinks) {
+		  let rootLink_submenu = $(rootLink).find('.side-menu-tab_submenu');
+		  let target_submenu = $target.closest('.side-menu-tab_submenu'); 
+		  
+		  if (rootLink_submenu != null && rootLink_submenu[0] != target_submenu[0]) {
+			  $(rootLink_submenu).collapse('hide');
+			  $(rootLink).removeClass('opened');
+			  $(rootLink).find('a').removeClass(['show','active']);
+		  }
+		  
+		  if (rootLink_submenu != null && rootLink_submenu[0] == target_submenu[0]) {
+			  $(target_submenu).find('a').removeClass(['show','active']);
+		  }
+		  
+		  if (rootLink_submenu == null) {
+			  $(rootLink).removeClass('opened');
+		  }
+	  }
+	  
+	  $target.closest('.nav-item_lvl-0').addClass('opened');
+  } else {
+	  // collapse all sidemenu submenu-s 
+	  $('#admin-panel_tabs .side-menu-tab_submenu').collapse('hide');
+	  // deactivate all active tabs
+	  $('#admin-panel_tabs a').removeClass('show');
+	  $('#admin-panel_tabs a').removeClass('active');
+  }
+  
+  // mark tab and show tab content
+  let href = $target[0].hash;
+  $(href).addClass('show');
+  $(href).addClass('active');
+  $target.addClass('show');
+  $target.addClass('active');
+  
+  // if it is mobile device, then hide side menu (after user had chosen tab)
+  if ($(window).width() < 768) {
+	  $('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
+	  $('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
+  }
+});
+
+$(document).click(function(event) {
+	
+	// when user clicks on 'content' on mobile devices, then hide sidemenu if it is opened
+	if (!$(event.target).closest("#admin-panel_tabs-wrap").length &&
+			$(window).width() < 768 &&
+			$('#admin-panel_tabs-wrap').hasClass('side-menu-toggled') &&
+			$('#admin-panel_tabs-content').hasClass('side-menu-toggled')) {
+		$('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
+		$('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
+	}
+})
+
 $schoolSelect.on('change', function() {
 	// if user choose default value (option[value=0])
 	if (this.value == 0) return;
