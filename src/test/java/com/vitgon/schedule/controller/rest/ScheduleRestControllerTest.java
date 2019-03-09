@@ -27,7 +27,7 @@ import com.vitgon.schedule.service.database.ScheduleService;
 import com.vitgon.schedule.util.LessonUtil;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ScheduleRestControllerUnitTest {
+public class ScheduleRestControllerTest {
 	
 	@Mock
 	private ScheduleService scheduleService;

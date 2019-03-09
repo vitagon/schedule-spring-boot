@@ -1,40 +1,58 @@
 package com.vitgon.schedule.controller.rest;
 
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.BDDMockito;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import com.vitgon.schedule.controller.rest.SchoolRestController;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SchoolService;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SchoolRestControllerTest {
 	
-	private SchoolService schoolService = mock(SchoolService.class);
-	private LocaleService localeService = mock(LocaleService.class);
+	@Mock
+	private SchoolService schoolService;
 	
-	private SchoolRestController schoolRestController = new SchoolRestController(schoolService, localeService);
+	@Mock
+	private LocaleService localeService;
+	
+	@InjectMocks
+	SchoolRestController schoolRestController;
+	
+	@Before
+	public void setUp() {
+		School school = new School(1, "test_school");
+		List<School> schools = Arrays.asList(school);
+	    
+	    when(localeService.findByCode(ArgumentMatchers.anyString())).thenReturn(new Locale());
+		when(schoolService.findAllByLocale(ArgumentMatchers.any(Locale.class)))
+			.thenReturn(schools);
+	}
+
+	@Test
+	public void testReturnValueIsListOfSchools() {
+		List<School> returnedValue = schoolRestController.getSchools();
+		assertEquals("test_school", returnedValue.get(0).getUrl());
+	}
 	
 	@Test
-	public void getSchoolsTest() throws Exception {
-		Locale locale = new Locale("en");
-		BDDMockito.given(localeService.findByCode(ArgumentMatchers.anyString())).willReturn(locale);
-		BDDMockito.given(schoolService.findAllByLocale(locale)).willReturn(Arrays.asList(new School(1, "management")));
-		
-		List<School> schools = schoolRestController.getSchools();
-		System.out.println(schools);
-		
-		Mockito.verify(localeService, Mockito.times(1)).findByCode(ArgumentMatchers.anyString());
-		Assert.assertThat(schools.toString(),
-				CoreMatchers.is(Arrays.asList(new School(1, "management")).toString()));
+	public void testFindAllMethodWasInvoked() {
+		schoolRestController.getSchools();
+		verify(schoolService, times(1)).findAllByLocale(ArgumentMatchers.any(Locale.class));
 	}
 }

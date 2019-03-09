@@ -17,6 +17,9 @@ import com.vitgon.schedule.service.MajorTitleService;
 import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.service.database.SchoolService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @RestController
 public class MajorRestController {
 	

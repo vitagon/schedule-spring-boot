@@ -21,10 +21,11 @@ $('#admin-panel_tabs a').on('click', function(e) {
 	  let submenuIsOpened = $target.hasClass('active');
 	  
 	  $('.nav-item_lvl-0').not(".opened").find('.submenu_parent-link').removeClass(['active','show']);
-	  $('.nav-item_lvl-0').not(".opened").find('.side-menu-tab_submenu').collapse('hide');
+	  $('.nav-item_lvl-0').find('.side-menu-tab_submenu').collapse('hide');
 	  
+	  // if we click link of another submenu that is not opened
 	  if (!submenuIsOpened) {
-		  $target.toggleClass(['show', 'active']);
+		  $target.addClass(['show', 'active']);
 	  }
 	  
 	  $target.siblings('ul').collapse('toggle');

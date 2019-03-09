@@ -31,21 +31,10 @@ public class ControlPanelController {
 		Locale locale = localeConverterService.getClientLocale(request);
 		controlPanelAttributesService.setDataAttributes(modelMap, locale);
 		
-		if (!modelMap.containsAttribute("addSubjectDTO")) {
-			modelAndView.addObject(new AddSubjectDto());
-		}
-		
-		if (!modelMap.containsAttribute("addSubjectTranslationDTO")) {
-			modelAndView.addObject(new AddSubjectTranslationDto());
-		}
-		
-		if (!modelMap.containsAttribute("addTeacherTranslationDTO")) {
-			modelAndView.addObject(new AddTeacherTranslationDto());
-		}
-		
-		if (!modelMap.containsAttribute("activeTab")) {
-			modelAndView.addObject("activeTab", "main");
-		}
+		modelAndView.addObject(new AddSubjectDto());
+		modelAndView.addObject(new AddSubjectTranslationDto());
+		modelAndView.addObject(new AddTeacherTranslationDto());
+		modelAndView.addObject("activeTab", "main");
 		
 		modelAndView.setViewName("control/control-panel");
 		return modelAndView;

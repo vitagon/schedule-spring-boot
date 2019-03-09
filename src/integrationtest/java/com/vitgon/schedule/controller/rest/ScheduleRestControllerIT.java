@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,11 +27,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vitgon.schedule.annotation.test.IntegrationTest;
 import com.vitgon.schedule.dto.EditScheduleDto;
 
+@Category(IntegrationTest.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class ScheduleRestControllerIntegrationTest {
+public class ScheduleRestControllerIT {
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -46,7 +49,7 @@ public class ScheduleRestControllerIntegrationTest {
 	@Test
 	public void testCreateMethod() throws Exception {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
-				.post("/api/schedule/create")
+				.post("/api/schedule")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(createScheduleDTOForScheduleCreation())
 				.cookie(new Cookie("user_lang", "en"));
@@ -71,7 +74,7 @@ public class ScheduleRestControllerIntegrationTest {
 	@Test
 	public void testEditMethod() throws Exception {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
-				.post("/api/schedule/edit")
+				.put("/api/schedule")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(createScheduleDTOForScheduleEdit())
 				.cookie(new Cookie("user_lang", "en"));
