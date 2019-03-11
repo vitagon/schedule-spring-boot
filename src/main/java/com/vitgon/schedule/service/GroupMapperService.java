@@ -17,6 +17,7 @@ import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.service.database.GroupService;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Service

@@ -2,7 +2,7 @@ spring:
   application:
     name: schedule-spring-boot-app
   profiles:
-    active: mysql
+    active: dev
   main:
     banner-mode: "off"
 
