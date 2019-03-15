@@ -91,13 +91,13 @@ public class SchoolRestControllerControl {
 		List<SchoolDto> schoolDtoList = null;
 		
 		if (localeId == 0) {
-			schoolDtoList = schoolMapperService.mapAllSchoolsToSchoolDTOList();
+			schoolDtoList = schoolMapperService.mapAllToSchoolDTOList();
 		} else {
 			Locale locale = localeService.findById(localeId);
 			if (locale == null) {
 				throw new IllegalArgumentException(String.format("Locale with id=%d was not found!", localeId));
 			}
-			schoolDtoList = schoolMapperService.mapAllSchoolsToSchoolDTOList(locale);
+			schoolDtoList = schoolMapperService.mapAllToSchoolDTOList(locale);
 		}
 		
 		model.addObject("schoolDtoList", schoolDtoList);

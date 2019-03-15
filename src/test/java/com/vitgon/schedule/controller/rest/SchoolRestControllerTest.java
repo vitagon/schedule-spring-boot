@@ -36,7 +36,9 @@ public class SchoolRestControllerTest {
 	
 	@Before
 	public void setUp() {
-		School school = new School(1, "test_school");
+		School school = new School();
+		school.setName("engineering");
+		school.setId(1);
 		List<School> schools = Arrays.asList(school);
 	    
 	    when(localeService.findByCode(ArgumentMatchers.anyString())).thenReturn(new Locale());
@@ -46,8 +48,8 @@ public class SchoolRestControllerTest {
 
 	@Test
 	public void testReturnValueIsListOfSchools() {
-		List<School> returnedValue = schoolRestController.getSchools();
-		assertEquals("test_school", returnedValue.get(0).getUrl());
+		List<School> schools = schoolRestController.getSchools();
+		assertEquals("engineering", schools.get(0).getName());
 	}
 	
 	@Test

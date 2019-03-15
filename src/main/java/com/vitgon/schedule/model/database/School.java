@@ -12,12 +12,14 @@ import javax.persistence.Table;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,11 +43,6 @@ public class School extends BaseModel<Integer> {
 	private List<SchoolTranslation> translations = new ArrayList<>();
 	
 	public School(String url) {
-		this.url = url;
-	}
-	
-	public School(Integer id, String url) {
-		this.id = id;
 		this.url = url;
 	}
 

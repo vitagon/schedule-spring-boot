@@ -2,29 +2,24 @@ package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.MajorDao;
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
 import com.vitgon.schedule.model.database.Major;
-import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.service.database.MajorService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class MajorServiceImpl implements MajorService {
-
-	@Autowired
+	
 	private MajorDao majorDao;
-	
-	@Autowired
 	private MajorTranslationDao majorTranslDao;
-	
-	public MajorServiceImpl() {
-	}
 
 	@Override
 	public Major save(Major obj) {

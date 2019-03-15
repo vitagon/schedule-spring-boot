@@ -24,7 +24,7 @@ public class SchoolMapperService {
 	private SchoolTitleService schoolTitleService;
 	private MajorTitleService majorTitleService;
 	
-	public List<SchoolDto> mapAllSchoolsToSchoolDTOList() {
+	public List<SchoolDto> mapAllToSchoolDTOList() {
 		List<School> schools = schoolService.findAll();
 		List<SchoolDto> schoolsDTOList = new ArrayList<>();
 		for (School school : schools) {
@@ -34,7 +34,7 @@ public class SchoolMapperService {
 		return schoolsDTOList;
 	} 
 	
-	public List<SchoolDto> mapAllSchoolsToSchoolDTOList(Locale locale) {
+	public List<SchoolDto> mapAllToSchoolDTOList(Locale locale) {
 		List<School> schools = schoolService.findAll();
 		List<SchoolDto> schoolsDTOList = new ArrayList<>();
 		for (School school : schools) {
@@ -45,7 +45,7 @@ public class SchoolMapperService {
 		return schoolsDTOList;
 	} 
 
-	public Map<Integer, String> mapAllSchoolsToMap(Locale locale) {
+	public Map<Integer, String> mapAllToMap(Locale locale) {
 		List<School> schools = schoolService.findAll();
 		Map<Integer, String> schoolsMap = new HashMap<>();
 		for (School school : schools) {
@@ -55,7 +55,6 @@ public class SchoolMapperService {
 	}
 	
 	public List<SchoolDto> prepareSchoolPojos(List<School> schools, Locale locale) {
-		
 		List<SchoolDto> schoolDtoList = new ArrayList<>();
 		
 		for (School school : schools) {

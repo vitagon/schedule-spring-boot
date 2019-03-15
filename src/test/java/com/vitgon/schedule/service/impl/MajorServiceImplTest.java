@@ -4,13 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.vitgon.schedule.dao.MajorDao;
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
@@ -18,30 +12,18 @@ import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.service.database.impl.MajorServiceImpl;
 
-@RunWith(SpringRunner.class)
-public class MajorServiceImplTest {
 
-	@TestConfiguration
-	static class MajorServiceImplTestContextConfiguration {
-		
-		@Bean
-		public MajorService majorService() {
-			return new MajorServiceImpl();
-		}
-	}
+public class MajorServiceImplTest {
 	
-	@Autowired
-	private MajorService majorService;
-	
-	@MockBean
-	private MajorDao majorDao;
-	
-	@MockBean
-	private MajorTranslationDao majorTranslationDao;
+	private MajorDao majorDao = Mockito.mock(MajorDao.class);
+	private MajorTranslationDao majorTranslationDao = Mockito.mock(MajorTranslationDao.class);
+	private MajorService majorService = new MajorServiceImpl(majorDao, majorTranslationDao);
 	
 	@Before
 	public void setUp() {
-		Major major = new Major("economics_security",5,null);
+		Major major = new Major();
+		major.setUrl("economics_security");
+		major.setDuration(5);
 		
 		Mockito.when(majorDao.findByUrl(major.getUrl())).thenReturn(major);
 	}
