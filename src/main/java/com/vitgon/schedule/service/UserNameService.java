@@ -1,7 +1,6 @@
 package com.vitgon.schedule.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.auth.User;
@@ -9,21 +8,19 @@ import com.vitgon.schedule.model.database.translation.UserTranslation;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
-@Component
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@Service
 public class UserNameService {
 	
 	private UserTranslationService userTranslationService;
-	
-	@Autowired
-	public UserNameService(UserTranslationService userTranslationService) {
-		this.userTranslationService = userTranslationService;
-	}
 
 	/**
-	 * Make up user name | Combine firstname, lastname and middlename
-	 * Will return ex.:"Jordan Daniel"
+	 * Make up user name
+	 * Will return ex.: Jordan Daniel
 	 * 
-	 * @return 
+	 * @return combined firstname, lastname and middlename with capitalized first letter
 	 */
 	public String makeupUsername(User user, Locale locale) {
 		if (user == null) {
@@ -31,7 +28,7 @@ public class UserNameService {
 		}
 		
 		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
-			
+			return makeupUsername(user);
 		}
 		
 		UserTranslation userTranslation = userTranslationService.findByLocaleAndUser(locale, user);
@@ -64,7 +61,7 @@ public class UserNameService {
 		return makeUp(lastname, firstname, middlename);
 	}
 	
-	public String makeUp(String lastname, String firstname, String middlename) {
+	private String makeUp(String lastname, String firstname, String middlename) {
 		StringBuilder nameStringBuilder = new StringBuilder()
 				.append(capitalizeFirstLetter(lastname))
 				.append(" ")
@@ -79,7 +76,7 @@ public class UserNameService {
 		return nameStringBuilder.toString();
 	}
 	
-	public String capitalizeFirstLetter(String word) {
+	private String capitalizeFirstLetter(String word) {
 		return word.substring(0,1).toUpperCase() + word.substring(1);
 	}
 }

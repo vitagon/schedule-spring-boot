@@ -31,7 +31,7 @@ public class ScheduleViewService {
 	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
 		Group group = groupService.findById(groupId);
 		List<Schedule> schedulesList = scheduleService.findByGroup(group);
-		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale); 
+		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale);
 		
 		modelAndView.addObject("days", DAYS);
 		modelAndView.addObject("bells", BELLS);
@@ -39,7 +39,7 @@ public class ScheduleViewService {
 		modelAndView.addObject("groupId", groupId);
 	}
 	
-	public static Map<Integer, String> getBellsMap() {
+	private static Map<Integer, String> getBellsMap() {
 		Map<Integer, String> bellsMap = new HashMap<>();
 		bellsMap.put(1, "8.30-10.00");
 		bellsMap.put(2, "10.10-11.40");
@@ -51,7 +51,7 @@ public class ScheduleViewService {
 		return bellsMap;
 	}
 	
-	public static List<String> getDaysList() {
+	private static List<String> getDaysList() {
 		return Arrays.asList("monday","tuesday","wednesday","thursday","friday","saturday");
 	}
 }
