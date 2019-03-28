@@ -110,13 +110,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.vitgon.schedule.ScheduleSpringBootApplication</mainClass>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<skipMain>true</skipMain>
-					<skip>true</skip>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
@@ -179,8 +180,12 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/*Config.*</exclude>
-						<exclude>**/*Dto.*</exclude>
+						<exclude>com/vitgon/schedule/ScheduleSpringBootApplication.class</exclude>
+						<exclude>com/vitgon/schedule/config/**</exclude>
+						<exclude>com/vitgon/schedule/dto/**</exclude>
+						<exclude>com/vitgon/schedule/model/**</exclude>
+						<exclude>com/vitgon/schedule/exception/**</exclude>
+						<exclude>**/*IT.*</exclude>
 					</excludes>
 					<systemPropertyVariables>
 						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
