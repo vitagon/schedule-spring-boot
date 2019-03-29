@@ -30,7 +30,7 @@ import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.ScheduleService;
 
-@RunWith(PowerMockRunner.class)
+
 public class ScheduleViewServiceTest {
 	
 	private ScheduleService scheduleService;
