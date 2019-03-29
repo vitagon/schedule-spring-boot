@@ -1,6 +1,5 @@
 package com.vitgon.schedule.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +9,15 @@ import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.util.LessonUtil;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class ScheduleResponseService {
 	
 	private MessageSource messageSource;
 	private UserNameService userNameService;
 	private SubjectTitleService subjectTitleService;
-
-	@Autowired
-	public ScheduleResponseService(MessageSource messageSource,
-								   UserNameService userNameService,
-								   SubjectTitleService subjectTitleService) {
-		this.messageSource = messageSource;
-		this.userNameService = userNameService;
-		this.subjectTitleService = subjectTitleService;
-	}
 
 	public ScheduleResponseDto createResponseObject(Schedule schedule, Locale locale) {
 		ScheduleResponseDto response = new ScheduleResponseDto();

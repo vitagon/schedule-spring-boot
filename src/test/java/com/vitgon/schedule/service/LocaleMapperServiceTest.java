@@ -39,7 +39,9 @@ public class LocaleMapperServiceTest {
 		List<LocaleDto> localeDtoList = localeDtoList();
 		int localeId = localeDtoList.get(0).getId();
 		String code = localeDtoList.get(0).getCode();
-		when(localeService.findAll()).thenReturn(Arrays.asList(new Locale("en")));
+		List<Locale> locales = Arrays.asList(new Locale("en"));
+		
+		when(localeService.findAll()).thenReturn(locales);
 		
 		PowerMockito.mockStatic(LocaleUtil.class);
 		PowerMockito.when(LocaleUtil.mapToLocaleDTOList(Arrays.asList(new Locale("en"))))
@@ -52,7 +54,7 @@ public class LocaleMapperServiceTest {
 		BDDMockito.verify(localeService, Mockito.times(1)).findAll();
 		
 		PowerMockito.verifyStatic(LocaleUtil.class, Mockito.times(1));
-		LocaleUtil.mapToLocaleDTOList(any(List.class));
+		LocaleUtil.mapToLocaleDTOList(locales);
 	}
 	
 	private List<LocaleDto> localeDtoList() {
