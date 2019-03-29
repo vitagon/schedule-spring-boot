@@ -2,8 +2,7 @@ package com.vitgon.schedule.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.collection.ScheduleTree;
 import com.vitgon.schedule.dto.ScheduleDto;
@@ -14,17 +13,14 @@ import com.vitgon.schedule.service.database.translation.SubjectTranslationServic
 import com.vitgon.schedule.util.LessonUtil;
 import com.vitgon.schedule.util.ScheduleUtil;
 
-@Component
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@Service
 public class ScheduleTreeService {
 
 	private SubjectTranslationService subjectTranslationService;
 	private UserNameService userNameService;
-	
-	@Autowired
-	public ScheduleTreeService(SubjectTranslationService subjectTranslationService, UserNameService userNameService) {
-		this.subjectTranslationService = subjectTranslationService;
-		this.userNameService = userNameService;
-	}
 	
 	public ScheduleTree getScheduleTree(List<Schedule> schedules, Locale locale) {
 		ScheduleTree scheduleTree = new ScheduleTree();
