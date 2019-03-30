@@ -1,5 +1,6 @@
 package com.vitgon.schedule.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +33,11 @@ public class UserMapperService {
 			.collect(Collectors.toList());
 	}
 	
-	public Map<Integer, String> mapUsersToMap(Locale locale) {
+	public Map<Integer, String> mapAllToMap(Locale locale) {
 		List<User> users = userService.findAll();
-		Map<Integer, String> teachersNames = new HashMap<>();
-		for (User teacher : users) {
-			teachersNames.put(teacher.getId(), userNameService.makeupUsername(teacher, locale));
-		}
-		return teachersNames;
+		return users.stream()
+			.collect(Collectors.toMap(User::getId, user -> {
+				return userNameService.makeupUsername(user, locale);
+			}));
 	}
 }

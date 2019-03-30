@@ -46,7 +46,7 @@ public class GroupMapperServiceTest {
 	
 	@Test
 	public void testGetGroupTitle() {
-		Group group = new Group().builder()
+		Group group = Group.builder()
 				.number(1101)
 				.suffix("rb")
 				.build();
@@ -60,7 +60,7 @@ public class GroupMapperServiceTest {
 	public void testGetDegree() {
 		Major major = new Major();
 		major.setDegree(DegreeEnum.BACHELORS);
-		Group group = new Group().builder()
+		Group group = Group.builder()
 				.number(1101)
 				.suffix("rb")
 				.major(major)

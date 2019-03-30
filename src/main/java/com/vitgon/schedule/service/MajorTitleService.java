@@ -19,13 +19,14 @@ public class MajorTitleService {
 	
 	public String getMajorTitle(Locale locale, Major major) {
 		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
-			return major.getName();
+			return StringUtil.capitalizeFirstLetter(major.getName());
 		}
 		
 		MajorTranslation majorTranslation = majorTranslationService.findByLocaleAndMajor(locale, major);
 		if (majorTranslation != null) {
 			return StringUtil.capitalizeFirstLetter(majorTranslation.getTitle());
+		} else {
+			return StringUtil.capitalizeFirstLetter(major.getName());
 		}
-		return null;
 	}
 }
