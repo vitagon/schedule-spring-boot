@@ -1,6 +1,5 @@
 package com.vitgon.schedule.service;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;

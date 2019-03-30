@@ -16,9 +16,8 @@ public class EditScheduleViewService {
 	private UserMapperService userMapperService;
 
 	public void addEditScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
-		// set model vars that we use for rendering schedule
 		scheduleViewService.setScheduleViewVars(locale, modelAndView, groupId);
-		modelAndView.addObject("teachersNames", userMapperService.mapUsersToMap(locale));
+		modelAndView.addObject("teachersNames", userMapperService.mapAllToMap(locale));
 		modelAndView.addObject("subjects", subjectMapperService.mapToMap(locale, true));
 	}
 }

@@ -26,7 +26,8 @@ public class SchoolTitleService {
 		
 		if (schoolTranslation != null) {
 			return StringUtil.capitalizeFirstLetter(schoolTranslation.getTitle());
+		} else {
+			return StringUtil.capitalizeFirstLetter(school.getName());
 		}
-		return null;
 	}
 }
