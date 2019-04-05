@@ -25,12 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Value("${spring.queries.users-query}")
-	private String usersQuery;
-	
-	@Value("${spring.queries.roles-query}")
-	private String rolesQuery;
-	
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new CustomUserDetailsService();
