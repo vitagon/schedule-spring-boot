@@ -16,6 +16,7 @@ services:
 
   spring-boot-app:
     container_name: schedule-app
+    image: schedule-app-image
     build: ./
     environment:
       - SPRING_PROFILES_ACTIVE=prod
