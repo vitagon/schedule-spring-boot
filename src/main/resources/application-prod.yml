@@ -7,6 +7,9 @@ spring:
     initialization-mode: always
     sql-script-encoding: UTF-8
     driver-class-name: org.postgresql.Driver
+  devtools:
+    remote:
+      secret: scheduleapp
   jpa:
     show-sql: true
     hibernate:

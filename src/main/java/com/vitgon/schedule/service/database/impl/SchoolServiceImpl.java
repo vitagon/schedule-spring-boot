@@ -9,25 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.SchoolDao;
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.service.database.SchoolService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class SchoolServiceImpl implements SchoolService {
 	
-	@Autowired
 	private final SchoolDao schoolDao;
-	
-	@Autowired
 	private final SchoolTranslationDao schoolTranslDao;
-	
-	public SchoolServiceImpl(SchoolDao schoolDao, SchoolTranslationDao schoolTranslDao) {
-		this.schoolDao = schoolDao;
-		this.schoolTranslDao = schoolTranslDao;
-	}
 	
 	@Override
 	public School save(School obj) {

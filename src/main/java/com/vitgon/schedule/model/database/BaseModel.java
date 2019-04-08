@@ -19,6 +19,5 @@ public abstract class BaseModel<T> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@SequenceGenerator(name = "entity_seq_gen", sequenceName = "hibernate_sequence")
 	protected T id;
 }
