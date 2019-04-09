@@ -27,5 +27,6 @@ services:
       - database
     ports:
       - 8082:8080
+      - 8000:8000
 volumes:
   pg:

@@ -10,6 +10,8 @@ spring:
   devtools:
     remote:
       secret: scheduleapp
+      debug:
+        local-port: 8000
   jpa:
     show-sql: true
     hibernate:
