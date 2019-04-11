@@ -7,9 +7,10 @@ spring:
     initialization-mode: always
     sql-script-encoding: UTF-8
   jpa:
+    generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
   thymeleaf: 
     cache: false
@@ -21,12 +22,5 @@ spring:
       enabled: true
       force: true
       charset: UTF-8
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-  level:
-    org:
-      hibernate:
-        SQL: debug
 app:
   title: 'DVFU SCHEDULE'

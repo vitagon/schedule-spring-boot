@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.dto.DegreeEnum;
@@ -31,13 +32,19 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(of = {"url", "duration", "school"})
 @Entity
-@Table(name = "major")
+@Table(
+		name = "major",
+		uniqueConstraints = @UniqueConstraint(
+			   columnNames = {"name","url"},
+			   name = "UQ_major_name_url"
+	   )
+)
 public class Major extends BaseModel<Integer> {
 	
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "url", nullable = false, unique = true)
+	@Column(name = "url", nullable = false)
 	private String url;
 	
 	@Column(name = "duration", nullable = false)

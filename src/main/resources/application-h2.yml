@@ -14,7 +14,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
   queries:
     users-query: 'select email, password, active from users where email=?'

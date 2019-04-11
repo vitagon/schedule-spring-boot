@@ -18,6 +18,6 @@ import lombok.Setter;
 public abstract class BaseModel<T> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected T id;
 }
