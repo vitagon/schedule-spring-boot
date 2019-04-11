@@ -10,12 +10,11 @@ spring:
   devtools:
     remote:
       secret: scheduleapp
-      debug:
-        local-port: 8000
   jpa:
+    generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
   thymeleaf: 
     cache: false

@@ -20,10 +20,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(exclude = {"group"})
 @Entity
-@Table(name = "schedules",
-	   uniqueConstraints = @UniqueConstraint(
-			   columnNames= {"group_id", "day_num", "week_type", "lesson_num"},
-			   name = "schedule_UI")
+@Table(
+	name = "schedules",
+	uniqueConstraints = @UniqueConstraint(
+		columnNames= {"group_id", "day_num", "week_type", "lesson_num"},
+		name = "UQ_schedules_group_id_day_num_week_type_lesson_num"
+	)
 )
 public class Schedule extends BaseModel<Integer> implements Cloneable {
 	

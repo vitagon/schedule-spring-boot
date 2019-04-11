@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 
@@ -26,14 +27,20 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(exclude = {"majors"})
 @Entity
-@Table(name = "school")
+@Table(
+	name = "school",
+	uniqueConstraints = @UniqueConstraint(
+		columnNames= {"name", "url"},
+		name = "UQ_school_name_url"
+	)
+)
 @EqualsAndHashCode(callSuper=false, of = {"url", "majors"})
 public class School extends BaseModel<Integer> {
 	
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "url", nullable = false, unique = true)
+	@Column(name = "url", nullable = false)
 	private String url;
 	
 	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
