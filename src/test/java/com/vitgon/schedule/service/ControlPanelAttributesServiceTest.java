@@ -26,7 +26,7 @@ public class ControlPanelAttributesServiceTest {
 	
 	private SubjectMapperService subjectMapperService = mock(SubjectMapperService.class);
 	private UserDtoService userDTOService = mock(UserDtoService.class);
-	private SchoolConverterService schoolMapperService = mock(SchoolConverterService.class);
+	private SchoolConverterService schoolConverterService = mock(SchoolConverterService.class);
 	private LocaleMapperService localeMapperService = mock(LocaleMapperService.class);
 	private MajorConverterService majorConverterService = mock(MajorConverterService.class);
 	private GroupMapperService groupMapperService = mock(GroupMapperService.class);
@@ -38,7 +38,7 @@ public class ControlPanelAttributesServiceTest {
 		controlPanelAttrService = new ControlPanelAttributesService(
 				subjectMapperService,
 				userDTOService,
-				schoolMapperService,
+				schoolConverterService,
 				localeMapperService,
 				majorConverterService,
 				groupMapperService);
@@ -49,21 +49,21 @@ public class ControlPanelAttributesServiceTest {
 		ModelMap modelMap = new ModelMap();
 		Locale locale = mock(Locale.class);
 		
-		when(schoolMapperService.convertToMap(locale)).thenReturn(new HashMap<Integer,String>());
+		when(schoolConverterService.convertToMap(locale)).thenReturn(new HashMap<Integer,String>());
 		when(userDTOService.getTeachersDto()).thenReturn(new ArrayList<TeacherDto>());
 		when(localeMapperService.mapLocalesToList()).thenReturn(new ArrayList<LocaleDto>());
 		when(subjectMapperService.mapToSubjectDTOList()).thenReturn(new ArrayList<SubjectDto>());
-		when(schoolMapperService.convertToSchoolDtoList()).thenReturn(new ArrayList<SchoolDto>());
+		when(schoolConverterService.convertToSchoolDtoList()).thenReturn(new ArrayList<SchoolDto>());
 		when(majorConverterService.convertToMajorDtoControlList()).thenReturn(new ArrayList<MajorDtoControl>());
 		when(groupMapperService.convertToGroupDtoList()).thenReturn(new ArrayList<GroupDto>());
 		
 		controlPanelAttrService.setDataAttributes(modelMap, locale);
 		
-		verify(schoolMapperService, times(1)).convertToMap(locale);
+		verify(schoolConverterService, times(1)).convertToMap(locale);
 		verify(userDTOService, times(1)).getTeachersDto();
 		verify(localeMapperService, times(1)).mapLocalesToList();
 		verify(subjectMapperService, times(1)).mapToSubjectDTOList();
-		verify(schoolMapperService, times(1)).convertToSchoolDtoList();
+		verify(schoolConverterService, times(1)).convertToSchoolDtoControlList();
 		verify(majorConverterService, times(1)).convertToMajorDtoControlList();
 		verify(groupMapperService, times(1)).convertToGroupDtoList();
 		

@@ -64,9 +64,11 @@ public class MajorConverterServiceTest {
 		assertNotNull(majorDtoControlList);
 		assertFalse(majorDtoControlList.isEmpty());
 		assertEquals(1, majorDtoControlList.get(0).getId());
-		assertEquals("менеджмент", majorDtoControlList.get(0).getName());
+		assertEquals("management", majorDtoControlList.get(0).getName());
+		assertEquals("менеджмент", majorDtoControlList.get(0).getTranslation());
 		assertEquals(2, majorDtoControlList.get(1).getId());
-		assertEquals("банковское дело", majorDtoControlList.get(1).getName());
+		assertEquals("banking", majorDtoControlList.get(1).getName());
+		assertEquals("банковское дело", majorDtoControlList.get(1).getTranslation());
 		verify(majorService, times(1)).findAll();
 		verify(majorTitleService, times(2)).getMajorTitle(any(Locale.class), any(Major.class));
 	}
