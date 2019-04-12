@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vitgon.schedule.dto.MajorDto;
+import com.vitgon.schedule.dto.MajorDtoControl;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.service.database.LocaleService;
@@ -39,14 +40,14 @@ public class MajorConverterServiceTest {
 	public void testConvertAllToDtoListMethod() {
 		List<Major> majorList = createMajorList();
 		when(majorService.findAll()).thenReturn(majorList);
-		List<MajorDto> majorDtoList = majorConverterService.convertAllToDtoList();
+		List<MajorDtoControl> majorDtoControlList = majorConverterService.convertToMajorDtoControlList();
 		
-		assertNotNull(majorDtoList);
-		assertFalse(majorDtoList.isEmpty());
-		assertEquals(1, majorDtoList.get(0).getId());
-		assertEquals("management", majorDtoList.get(0).getName());
-		assertEquals(2, majorDtoList.get(1).getId());
-		assertEquals("banking", majorDtoList.get(1).getName());
+		assertNotNull(majorDtoControlList);
+		assertFalse(majorDtoControlList.isEmpty());
+		assertEquals(1, majorDtoControlList.get(0).getId());
+		assertEquals("management", majorDtoControlList.get(0).getName());
+		assertEquals(2, majorDtoControlList.get(1).getId());
+		assertEquals("banking", majorDtoControlList.get(1).getName());
 		verify(majorService, times(1)).findAll();
 	}
 	
@@ -58,16 +59,14 @@ public class MajorConverterServiceTest {
 		when(majorTitleService.getMajorTitle(locale, majorList.get(0))).thenReturn("менеджмент");
 		when(majorTitleService.getMajorTitle(locale, majorList.get(1))).thenReturn("банковское дело");
 		
-		List<MajorDto> majorDtoList = majorConverterService.convertAllToDtoList(locale);
+		List<MajorDtoControl> majorDtoControlList = majorConverterService.convertToMajorDtoControlList(locale);
 		
-		assertNotNull(majorDtoList);
-		assertFalse(majorDtoList.isEmpty());
-		assertEquals(1, majorDtoList.get(0).getId());
-		assertEquals("management", majorDtoList.get(0).getName());
-		assertEquals("менеджмент", majorDtoList.get(0).getTranslation());
-		assertEquals(2, majorDtoList.get(1).getId());
-		assertEquals("banking", majorDtoList.get(1).getName());
-		assertEquals("банковское дело", majorDtoList.get(1).getTranslation());
+		assertNotNull(majorDtoControlList);
+		assertFalse(majorDtoControlList.isEmpty());
+		assertEquals(1, majorDtoControlList.get(0).getId());
+		assertEquals("менеджмент", majorDtoControlList.get(0).getName());
+		assertEquals(2, majorDtoControlList.get(1).getId());
+		assertEquals("банковское дело", majorDtoControlList.get(1).getName());
 		verify(majorService, times(1)).findAll();
 		verify(majorTitleService, times(2)).getMajorTitle(any(Locale.class), any(Major.class));
 	}
@@ -75,18 +74,18 @@ public class MajorConverterServiceTest {
 	@Test
 	public void testConvertAllToDtoListMethodWithLocaleId() {
 		when(localeService.findById(any(int.class))).thenReturn(new Locale());
-		when(majorConverterService.convertAllToDtoList(any(Locale.class))).thenReturn(new ArrayList<>());
+		when(majorConverterService.convertToMajorDtoControlList(any(Locale.class))).thenReturn(new ArrayList<>());
 		
-		List<MajorDto> majorDtoList = majorConverterService.convertAllToDtoList(1);
+		List<MajorDtoControl> majorDtoControlList = majorConverterService.convertToMajorDtoControlList(1);
 		
-		assertNotNull(majorDtoList);
+		assertNotNull(majorDtoControlList);
 		verify(localeService, times(1)).findById(any(int.class));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testConvertAllToDtoListMethodThrowsExceptionIfLocaleWasNotFound() {
 		when(localeService.findById(any(int.class))).thenReturn(null);
-		majorConverterService.convertAllToDtoList(1);
+		majorConverterService.convertToMajorDtoControlList(1);
 	}
 	
 	private List<Major> createMajorList() {

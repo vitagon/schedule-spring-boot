@@ -1,3 +1,4 @@
-INSERT INTO locales (id, code) VALUES (1, 'ru');
+INSERT INTO locales (id, code) VALUES (1, 'en');
+INSERT INTO locales (id, code) VALUES (2, 'ru');
 
-ALTER SEQUENCE locales_id_seq RESTART WITH 1;
+ALTER SEQUENCE hibernate_sequence RESTART WITH 3;

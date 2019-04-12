@@ -1,5 +1,5 @@
-INSERT INTO roles (id, role) VALUES (1, 'TEACHER');
-INSERT INTO roles (id, role) VALUES (2, 'MANAGER');
-INSERT INTO roles (id, role) VALUES (3, 'ADMIN');
+INSERT INTO roles (id, role) VALUES (3, 'TEACHER');
+INSERT INTO roles (id, role) VALUES (4, 'MANAGER');
+INSERT INTO roles (id, role) VALUES (5, 'ADMIN');
 
-ALTER SEQUENCE roles_id_seq RESTART WITH 3;
+ALTER SEQUENCE hibernate_sequence RESTART WITH 6;
