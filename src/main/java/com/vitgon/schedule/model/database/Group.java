@@ -28,11 +28,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(of = {"number","suffix","courseNum"})
 @Entity
-@Table(name = "_groups",
-	   uniqueConstraints = @UniqueConstraint(
-			   columnNames = {"major_id","number","suffix"},
-			   name = "UQ__groups_major_id_number"
-	   )	
+@Table(
+		name = "_groups",
+		uniqueConstraints = @UniqueConstraint(
+			columnNames = {"major_id","number","suffix"},
+			name = "UQ__groups_major_id_number"
+		)	
 )
 public class Group extends BaseModel<Integer> {
 	

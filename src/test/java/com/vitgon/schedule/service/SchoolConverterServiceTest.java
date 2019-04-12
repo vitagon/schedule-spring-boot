@@ -23,9 +23,9 @@ import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.SchoolService;
 
-public class SchoolMapperServiceTest {
+public class SchoolConverterServiceTest {
 	
-	private SchoolMapperService schoolMapperService;
+	private SchoolConverterService schoolMapperService;
 	
 	private SchoolService schoolService;
 	private SchoolTitleService schoolTitleService;
@@ -37,7 +37,7 @@ public class SchoolMapperServiceTest {
 		schoolTitleService = Mockito.mock(SchoolTitleService.class);
 		majorTitleService = Mockito.mock(MajorTitleService.class);
 		
-		schoolMapperService = new SchoolMapperService(schoolService, schoolTitleService, majorTitleService);
+		schoolMapperService = new SchoolConverterService(schoolService, schoolTitleService, majorTitleService);
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ public class SchoolMapperServiceTest {
 		String schoolTitle = schools.get(0).getName();
 		
 		BDDMockito.when(schoolService.findAll()).thenReturn(schools);
-		List<SchoolDto> schoolDtoList = schoolMapperService.mapAllToSchoolDTOList();
+		List<SchoolDto> schoolDtoList = schoolMapperService.convertToSchoolDtoList();
 		Assert.assertEquals(schoolId, schoolDtoList.get(0).getId());
 		Assert.assertEquals(schoolTitle, schoolDtoList.get(0).getName());
 		verify(schoolService, times(1)).findAll();
@@ -63,7 +63,7 @@ public class SchoolMapperServiceTest {
 		BDDMockito.when(schoolService.findAll()).thenReturn(schools);
 		BDDMockito.when(schoolTitleService.getSchoolTitle(any(Locale.class), any(School.class)))
 				.thenReturn(schoolTitle);
-		List<SchoolDto> schoolDtoList = schoolMapperService.mapAllToSchoolDTOList(locale);
+		List<SchoolDto> schoolDtoList = schoolMapperService.convertToSchoolDtoList(locale);
 		Assert.assertEquals(schoolId, schoolDtoList.get(0).getId());
 		Assert.assertEquals(schoolTitle, schoolDtoList.get(0).getName());
 		verify(schoolService, times(1)).findAll();
@@ -81,7 +81,7 @@ public class SchoolMapperServiceTest {
 		BDDMockito.when(schoolService.findAll()).thenReturn(schools);
 		BDDMockito.when(schoolTitleService.getSchoolTitle(any(Locale.class), any(School.class)))
 			.thenReturn(schoolTitle);
-		Map<Integer, String> schoolsMap = schoolMapperService.mapAllToMap(locale);
+		Map<Integer, String> schoolsMap = schoolMapperService.convertToMap(locale);
 		
 		Assert.assertTrue(schoolsMap.containsKey(schoolId));
 		Assert.assertEquals(schoolTitle, schoolsMap.get(schoolId));
@@ -101,10 +101,10 @@ public class SchoolMapperServiceTest {
 			.thenReturn(schoolName);
 		when(majorTitleService.getMajorTitle(any(Locale.class), any(Major.class)))
 			.thenReturn(majorName);
-		List<SchoolDto> schoolDtoList = schoolMapperService.prepareSchoolPojos(schools, locale);
+		List<SchoolDto> schoolDtoList = schoolMapperService.convertToSchoolDtoList(schools, locale);
 		Assert.assertEquals(schoolId, schoolDtoList.get(0).getId());
-		Assert.assertEquals(schoolName, schoolDtoList.get(0).getTranslation());
-		Assert.assertEquals(majorName, schoolDtoList.get(0).getMajors().get(0).getTranslation());
+		Assert.assertEquals(schoolName, schoolDtoList.get(0).getName());
+		Assert.assertEquals(majorName, schoolDtoList.get(0).getMajors().get(0).getName());
 		
 		verify(schoolTitleService, times(1)).getSchoolTitle(any(Locale.class), any(School.class));
 		verify(majorTitleService, times(1)).getMajorTitle(any(Locale.class), any(Major.class));

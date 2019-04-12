@@ -17,18 +17,18 @@ public class ControlPanelAttributesService {
 	
 	private SubjectMapperService subjectMapperService;
 	private UserDtoService userDTOService;
-	private SchoolMapperService schoolMapperService;
+	private SchoolConverterService schoolConverterService;
 	private LocaleMapperService localeMapperService;
 	private MajorConverterService majorConverterService;
 	private GroupMapperService groupMapperService;
 
 	public void setDataAttributes(ModelMap modelMap, Locale locale) {
-		modelMap.addAttribute("schools", schoolMapperService.mapAllToMap(locale));
+		modelMap.addAttribute("schools", schoolConverterService.convertToMap(locale));
 		modelMap.addAttribute("teachers", userDTOService.getTeachersDto());
 		modelMap.addAttribute("locales", localeMapperService.mapLocalesToList());
 		modelMap.addAttribute("subjects", subjectMapperService.mapToSubjectDTOList());
-		modelMap.addAttribute("schoolDtoList", schoolMapperService.mapAllToSchoolDTOList());
-		modelMap.addAttribute("majorDtoList", majorConverterService.convertAllToDtoList());
+		modelMap.addAttribute("schoolDtoList", schoolConverterService.convertToSchoolDtoControlList());
+		modelMap.addAttribute("majorDtoList", majorConverterService.convertToMajorDtoControlList());
 		modelMap.addAttribute("groupDtoList", groupMapperService.convertToGroupDtoList());
 		
 		modelMap.addAttribute("degrees", createDegreeList());

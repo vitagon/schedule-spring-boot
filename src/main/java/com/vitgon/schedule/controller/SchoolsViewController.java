@@ -13,7 +13,7 @@ import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.LocaleConverterService;
-import com.vitgon.schedule.service.SchoolMapperService;
+import com.vitgon.schedule.service.SchoolConverterService;
 import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
@@ -22,23 +22,17 @@ import lombok.AllArgsConstructor;
 @Controller
 public class SchoolsViewController {
 	
-	private SchoolMapperService schoolMapperService;
+	private SchoolConverterService schoolMapperService;
 	private SchoolService schoolService;
 	private LocaleConverterService localeConverterService;
 	
 	@RequestMapping("/schools")
 	public String showSchoolsPage(HttpServletRequest request, Model model) {
 		Locale locale = localeConverterService.getClientLocale(request);
+		List<School> schools = schoolService.findAll();
 		
-		List<School> schools;
-		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
-			schools = schoolService.findAll();
-		} else {
-			schools = schoolService.findAllByLocale(locale);
-		}
-		
-		List<SchoolDto> preparedSchools = schoolMapperService.prepareSchoolPojos(schools, locale);
-		model.addAttribute("schools", preparedSchools);
+		List<SchoolDto> schoolDtoList = schoolMapperService.convertToSchoolDtoList(schools, locale);
+		model.addAttribute("schools", schoolDtoList);
 		return "schools";
 	}
 }

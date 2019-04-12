@@ -1,15 +1,15 @@
-INSERT INTO subjects (id, name) VALUES (1, 'enterprise cost management');
-INSERT INTO subjects (id, name) VALUES (2, 'pricing');
-INSERT INTO subjects (id, name) VALUES (3, 'enterprise planning');
-INSERT INTO subjects (id, name) VALUES (4, 'information security');
-INSERT INTO subjects (id, name) VALUES (5, 'economic security');
-INSERT INTO subjects (id, name) VALUES (6, 'criminal process');
+INSERT INTO subjects (id, name) VALUES (18, 'enterprise cost management');
+INSERT INTO subjects (id, name) VALUES (19, 'pricing');
+INSERT INTO subjects (id, name) VALUES (20, 'enterprise planning');
+INSERT INTO subjects (id, name) VALUES (21, 'information security');
+INSERT INTO subjects (id, name) VALUES (22, 'economic security');
+INSERT INTO subjects (id, name) VALUES (23, 'criminal process');
 
-ALTER SEQUENCE subjects_id_seq RESTART WITH 6;
+ALTER SEQUENCE hibernate_sequence RESTART WITH 24;
 
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (1, 1, 'управление затратами на предприятии');
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (2, 1, 'ценообразование');
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (3, 1, 'планирование на предприятии');
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (4, 1, 'информационная безопасность');
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (5, 1, 'экономическая безопасность');
-INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (6, 1, 'уголовный процесс');
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (18, 2, 'управление затратами на предприятии');
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (19, 2, 'ценообразование');
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (20, 2, 'планирование на предприятии');
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (21, 2, 'информационная безопасность');
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (22, 2, 'экономическая безопасность');
+INSERT INTO subject_translations (subject_id, locale_id, title) VALUES (23, 2, 'уголовный процесс');

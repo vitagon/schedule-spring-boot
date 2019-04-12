@@ -24,13 +24,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.dto.AddSchoolDto;
 import com.vitgon.schedule.dto.EditSchoolDto;
-import com.vitgon.schedule.dto.SchoolDto;
+import com.vitgon.schedule.dto.SchoolDtoControl;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.MessageService;
-import com.vitgon.schedule.service.SchoolMapperService;
+import com.vitgon.schedule.service.SchoolConverterService;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SchoolService;
 import com.vitgon.schedule.util.StringUtil;
@@ -43,7 +43,7 @@ import lombok.AllArgsConstructor;
 public class SchoolRestControllerControl {
 	
 	private SchoolService schoolService;
-	private SchoolMapperService schoolMapperService;
+	private SchoolConverterService schoolConverterService;
 	private LocaleService localeService;
 	private MessageService messageService;
 	
@@ -88,19 +88,19 @@ public class SchoolRestControllerControl {
 		}
 		
 		ModelAndView model = new ModelAndView("control/schools-list :: schools-list");
-		List<SchoolDto> schoolDtoList = null;
+		List<SchoolDtoControl> schoolDtoControlList = null;
 		
 		if (localeId == 0) {
-			schoolDtoList = schoolMapperService.mapAllToSchoolDTOList();
+			schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList();
 		} else {
 			Locale locale = localeService.findById(localeId);
 			if (locale == null) {
 				throw new IllegalArgumentException(String.format("Locale with id=%d was not found!", localeId));
 			}
-			schoolDtoList = schoolMapperService.mapAllToSchoolDTOList(locale);
+			schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList(locale);
 		}
 		
-		model.addObject("schoolDtoList", schoolDtoList);
+		model.addObject("schoolDtoList", schoolDtoControlList);
 		return model;
 	}
 }

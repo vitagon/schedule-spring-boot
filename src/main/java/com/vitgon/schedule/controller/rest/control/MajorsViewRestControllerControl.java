@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.dto.MajorDto;
+import com.vitgon.schedule.dto.MajorDtoControl;
 import com.vitgon.schedule.service.MajorConverterService;
 
 import lombok.AllArgsConstructor;
@@ -30,15 +30,15 @@ public class MajorsViewRestControllerControl {
 		}
 		
 		ModelAndView model = new ModelAndView("control/majors-list :: majors-list");
-		List<MajorDto> majorDtoList = null;
+		List<MajorDtoControl> majorDtoControlList = null;
 		
 		if (localeId == 0) {
-			majorDtoList = majorConverterService.convertAllToDtoList();
+			majorDtoControlList = majorConverterService.convertToMajorDtoControlList();
 		} else {
-			majorDtoList = majorConverterService.convertAllToDtoList(localeId);
+			majorDtoControlList = majorConverterService.convertToMajorDtoControlList(localeId);
 		}
 		
-		model.addObject("majorDtoList", majorDtoList);
+		model.addObject("majorDtoList", majorDtoControlList);
 		return model;
 	}
 }

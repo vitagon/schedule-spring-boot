@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.dto.SchoolDto;
+import com.vitgon.schedule.dto.SchoolDtoControl;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.School;
@@ -18,34 +19,34 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class SchoolMapperService {
+public class SchoolConverterService {
 	
 	private SchoolService schoolService;
 	private SchoolTitleService schoolTitleService;
 	private MajorTitleService majorTitleService;
 	
-	public List<SchoolDto> mapAllToSchoolDTOList() {
+	public List<SchoolDto> convertToSchoolDtoList() {
 		List<School> schools = schoolService.findAll();
 		List<SchoolDto> schoolsDTOList = new ArrayList<>();
 		for (School school : schools) {
-			SchoolDto schoolDTO = new SchoolDto(school.getId(), school.getName(), null);
+			SchoolDto schoolDTO = new SchoolDto(school.getId(), school.getName());
 			schoolsDTOList.add(schoolDTO);
 		}
 		return schoolsDTOList;
 	} 
 	
-	public List<SchoolDto> mapAllToSchoolDTOList(Locale locale) {
+	public List<SchoolDto> convertToSchoolDtoList(Locale locale) {
 		List<School> schools = schoolService.findAll();
-		List<SchoolDto> schoolsDTOList = new ArrayList<>();
+		List<SchoolDto> schoolsDtoList = new ArrayList<>();
 		for (School school : schools) {
 			String title = schoolTitleService.getSchoolTitle(locale, school);
-			SchoolDto schoolDTO = new SchoolDto(school.getId(), school.getName(), title);
-			schoolsDTOList.add(schoolDTO);
+			SchoolDto schoolDto = new SchoolDto(school.getId(), title);
+			schoolsDtoList.add(schoolDto);
 		}
-		return schoolsDTOList;
+		return schoolsDtoList;
 	} 
 
-	public Map<Integer, String> mapAllToMap(Locale locale) {
+	public Map<Integer, String> convertToMap(Locale locale) {
 		List<School> schools = schoolService.findAll();
 		Map<Integer, String> schoolsMap = new HashMap<>();
 		for (School school : schools) {
@@ -54,21 +55,21 @@ public class SchoolMapperService {
 		return schoolsMap;
 	}
 	
-	public List<SchoolDto> prepareSchoolPojos(List<School> schools, Locale locale) {
+	public List<SchoolDto> convertToSchoolDtoList(List<School> schools, Locale locale) {
 		List<SchoolDto> schoolDtoList = new ArrayList<>();
 		
 		for (School school : schools) {
 			SchoolDto schoolDto = new SchoolDto();
 			schoolDto.setId(school.getId());
 			schoolDto.setUrl(school.getUrl());
-			schoolDto.setTranslation(schoolTitleService.getSchoolTitle(locale, school));
+			schoolDto.setName(schoolTitleService.getSchoolTitle(locale, school));
 			
 			List<Major> majors = school.getMajors();
 			if (majors != null) {
 				List<MajorDto> majorDtoList = new ArrayList<>();
 				for (Major major : majors) {
 					MajorDto majorDto = new MajorDto();
-					majorDto.setTranslation(majorTitleService.getMajorTitle(locale, major));
+					majorDto.setName(majorTitleService.getMajorTitle(locale, major));
 					majorDto.setUrl(major.getUrl());
 					
 					majorDtoList.add(majorDto);
@@ -80,4 +81,25 @@ public class SchoolMapperService {
 		}
 		return schoolDtoList;
 	}
+	
+	public List<SchoolDtoControl> convertToSchoolDtoControlList() {
+		List<School> schools = schoolService.findAll();
+		List<SchoolDtoControl> schoolsDTOControlList = new ArrayList<>();
+		for (School school : schools) {
+			SchoolDtoControl schoolDtoControl = new SchoolDtoControl(school.getId(), school.getName(), null);
+			schoolsDTOControlList.add(schoolDtoControl);
+		}
+		return schoolsDTOControlList;
+	}
+	
+	public List<SchoolDtoControl> convertToSchoolDtoControlList(Locale locale) {
+		List<School> schools = schoolService.findAll();
+		List<SchoolDtoControl> schoolsDTOControlList = new ArrayList<>();
+		for (School school : schools) {
+			String title = schoolTitleService.getSchoolTitle(locale, school);
+			SchoolDtoControl schoolDtoControl = new SchoolDtoControl(school.getId(), school.getName(), title);
+			schoolsDTOControlList.add(schoolDtoControl);
+		}
+		return schoolsDTOControlList;
+	} 
 }
