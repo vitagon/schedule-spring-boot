@@ -13,20 +13,14 @@ import com.vitgon.schedule.service.database.UserService;
 import com.vitgon.schedule.util.LessonUtil;
 import com.vitgon.schedule.util.ScheduleUtil;
 
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class ScheduleDTO2ScheduleConverter implements Converter<EditScheduleDto, Schedule> {
 
     private GroupService groupService;
     private SubjectService subjectService;
     private UserService userService;
-
-    public ScheduleDTO2ScheduleConverter(GroupService groupService,
-    									 SubjectService subjectService,
-    									 UserService userService) {
-        this.groupService = groupService;
-        this.subjectService = subjectService;
-        this.userService = userService;
-    }
 
     @Override
     public Schedule convert(EditScheduleDto dtoObject) {

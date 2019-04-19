@@ -15,7 +15,7 @@ create table locales (
 	primary key (id)
 );
 
-create table major (
+create table majors (
 	id  serial not null,
 	degree int4 not null,
 	duration int4 not null,
@@ -51,7 +51,7 @@ create table schedules (
 	primary key (id)
 );
 
-create table school (
+create table schools (
 	id  serial not null,
 	name varchar(255) not null,
 	url varchar(255) not null,
@@ -95,43 +95,59 @@ create table user_translations (
 
 create table users (
 	id  serial not null,
-	active int4,
+	active boolean not null,
 	birth date not null,
 	email varchar(255),
 	key_firstname varchar(255),
 	key_lastname varchar(255),
 	key_middlename varchar(255),
-	password varchar(255),
+	password varchar(255)
 	primary key (id)
 );
+
+create table user_connections (
+	user_id varchar(255) not null,
+	provider_id varchar(255) not null,
+	provider_user_id varchar(255),
+	rank int not null,
+	display_name varchar(255),
+	profile_url varchar(512),
+	image_url varchar(512),
+	access_token varchar(512) not null,
+	secret varchar(512),
+	refresh_token varchar(512),
+	expire_time int8,
+	primary key (user_id, provider_id, provider_user_id)
+);
+
 
 alter table if exists _groups
 	add constraint UQ__groups_major_id_number
 	unique (major_id, number, suffix);
 
-alter table if exists major
+alter table if exists majors
 	add constraint UQ_major_name_url
 	unique (name, url);
+	
+alter table if exists majors
+	add constraint FK_major_school
+	foreign key (school_id) references schools;
 	
 alter table if exists schedules
 	add constraint UQ_schedules_group_id_day_num_week_type_lesson_num
 	unique (group_id, day_num, week_type, lesson_num);
 
-alter table if exists school
+alter table if exists schools
 	add constraint UQ_school_name_url
 	unique (name, url);
 
 alter table if exists _groups
 	add constraint FK__groups_major
-	foreign key (major_id) references major;
-
-alter table if exists major
-	add constraint FK_major_school
-	foreign key (school_id) references school;
+	foreign key (major_id) references majors;
 
 alter table if exists major_translations
 	add constraint FK_major_translations_major
-	foreign key (major_id) references major;
+	foreign key (major_id) references majors;
 	
 alter table if exists major_translations
 	add constraint FK_major_translations_locales
@@ -151,7 +167,7 @@ alter table if exists schedules
 
 alter table if exists school_translations
 	add constraint FK_school_translations_school
-	foreign key (school_id) references school;
+	foreign key (school_id) references schools;
 
 alter table if exists school_translations
 	add constraint FK_school_translations_locales
@@ -180,3 +196,7 @@ alter table if exists user_translations
 alter table if exists user_translations
 	add constraint FK_user_translations_locales
 	foreign key (locale_id) references locales;
+	
+alter table if exists user_connections
+	add constraint UQ_user_connections_user_id_provider_id_rank
+	unique (user_id, provider_id, rank);

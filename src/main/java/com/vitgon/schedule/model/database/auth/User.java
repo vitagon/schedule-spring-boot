@@ -58,8 +58,8 @@ public class User extends BaseModel<Integer> {
 	@NotNull(message = "{NotNull.default}")
 	private Date birth;
 	
-	@Column(name = "active")
-	private int active;
+	@Column(name = "active", nullable = false)
+	private boolean active;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

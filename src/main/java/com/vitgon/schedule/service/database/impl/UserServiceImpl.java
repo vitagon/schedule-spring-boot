@@ -1,35 +1,28 @@
 package com.vitgon.schedule.service.database.impl;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionKey;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dao.auth.RoleDao;
 import com.vitgon.schedule.dao.auth.UserDao;
-import com.vitgon.schedule.model.database.Schedule;
-import com.vitgon.schedule.model.database.auth.Role;
 import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.model.database.auth.UserConnection;
+import com.vitgon.schedule.service.database.UserConnectionService;
 import com.vitgon.schedule.service.database.UserService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
-	private RoleDao roleDao;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
-	public UserServiceImpl(UserDao userDao,
-						   RoleDao roleDao,
-						   BCryptPasswordEncoder bCryptPasswordEncoder) {
-		this.userDao = userDao;
-		this.roleDao = roleDao;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	}
+	private PasswordEncoder passwordEncoder;
+	private UserConnectionService userConnectionService;
 	
 	@Override
 	public User findByEmail(String email) {
@@ -38,10 +31,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User save(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setActive(1);
-		Role userRole = roleDao.findByRole("USER");
-		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setActive(true);
 		return userDao.save(user);
 	}
 
@@ -73,5 +64,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteById(Integer id) {
 		userDao.deleteById(id);
+	}
+
+	@Override
+	public User createUser(Connection<?> connection) {
+		ConnectionKey key = connection.getKey();
+		
+		// find by provider and provider user id
+		UserConnection userConnection = userConnectionService.findByProviderIdAndProviderUserId(
+				key.getProviderId(), key.getProviderUserId());
+		User user = null;
+		if (userConnection != null) {
+			user = findById(Integer.parseInt(userConnection.getUserId()));
+			
+			if (user != null) {
+				return user;
+			}
+		}
+		
+		user = new User();
+		UserProfile userProfile = connection.fetchUserProfile();
+		
+		// TODO: create new user
+		return null;
 	}
 }

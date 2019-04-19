@@ -2,11 +2,11 @@ package com.vitgon.schedule.service.database.base;
 
 import java.util.List;
 
-public interface Service<T, K> {
+public interface Service<T, ID> {
 	T save(T obj);
 	T update(T obj);
-	T findById(K id);
+	T findById(ID id);
 	List<T> findAll();
 	void delete(T obj);
-	void deleteById(K id);
+	void deleteById(ID id);
 }

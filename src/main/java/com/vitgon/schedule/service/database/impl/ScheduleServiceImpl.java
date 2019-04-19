@@ -2,7 +2,6 @@ package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,16 +10,14 @@ import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.ScheduleService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class ScheduleServiceImpl implements ScheduleService {
 	
-	@Autowired
 	private final ScheduleDao scheduleDao;
-	
-	public ScheduleServiceImpl(ScheduleDao scheduleDao) {
-		this.scheduleDao = scheduleDao;
-	}
 	
 	@Override
 	public Schedule save(Schedule obj) {

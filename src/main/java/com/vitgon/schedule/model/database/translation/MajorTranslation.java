@@ -13,14 +13,14 @@ import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = {"major"})
 @Entity
 @Table(name = "major_translations")
@@ -40,11 +40,4 @@ public class MajorTranslation {
 	
 	@Column(name = "title")
 	private String title;
-
-	public MajorTranslation(Major major, Locale locale, String title) {
-		super();
-		this.major = major;
-		this.locale = locale;
-		this.title = title;
-	}
 }
