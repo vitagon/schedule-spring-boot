@@ -28,7 +28,7 @@ import lombok.ToString;
 @ToString(exclude = {"majors"})
 @Entity
 @Table(
-	name = "school",
+	name = "schools",
 	uniqueConstraints = @UniqueConstraint(
 		columnNames= {"name", "url"},
 		name = "UQ_school_name_url"

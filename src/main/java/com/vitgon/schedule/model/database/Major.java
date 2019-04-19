@@ -33,7 +33,7 @@ import lombok.ToString;
 @ToString(of = {"url", "duration", "school"})
 @Entity
 @Table(
-		name = "major",
+		name = "majors",
 		uniqueConstraints = @UniqueConstraint(
 			   columnNames = {"name","url"},
 			   name = "UQ_major_name_url"
