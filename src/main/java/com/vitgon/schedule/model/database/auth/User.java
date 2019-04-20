@@ -32,12 +32,15 @@ import lombok.EqualsAndHashCode;
 @Table(name = "users")
 public class User extends BaseModel<Integer> {
 	
+	@Column(name = "username", nullable = false, unique = true)
+	private String username;
+	
 	@Column(name = "email")
 	@Email(message = "{Email.user.email}")
 	@NotEmpty(message = "{NotEmpty.default}")
 	private String email;
 	
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	@Length(min = 5, message = "{Length.user.password}")
 	@NotEmpty(message = "{NotEmpty.default}")
 	private String password;
@@ -60,6 +63,9 @@ public class User extends BaseModel<Integer> {
 	
 	@Column(name = "active", nullable = false)
 	private boolean active;
+	
+	@Column(name = "providerId", nullable = false)
+	private String providerId;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

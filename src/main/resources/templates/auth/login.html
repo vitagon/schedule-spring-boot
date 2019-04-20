@@ -34,6 +34,10 @@
 							<p style="font-size: 20; color: #FF1C19;">[[#{invalidEmailOrPassword}]]</p>
 						</div>
 						<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="#{signIn}"></button>
+						
+						<a class="btn btn-block btn-social btn-facebook customBtn" th:href="@{/auth/facebook}">
+  							<span class="fa fa-facebook width42px"></span> Sign in with Facebook
+						</a>
 					</form>
 				</div>
 			</div>

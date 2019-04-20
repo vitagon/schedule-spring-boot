@@ -1,29 +1,30 @@
 package com.vitgon.schedule.service.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dao.auth.UserDao;
-import com.vitgon.schedule.model.CustomUserDetails;
+import com.vitgon.schedule.model.UserDetailsImpl;
 import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.service.database.UserService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userDao.findByEmail(username);
+		final User user = userService.findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}
 		
-		final CustomUserDetails userDetails = new CustomUserDetails(
+		final UserDetailsImpl userDetails = new UserDetailsImpl(
 				user.getEmail(),
 				user.getPassword(),
 				user.getKeyFirstname(),

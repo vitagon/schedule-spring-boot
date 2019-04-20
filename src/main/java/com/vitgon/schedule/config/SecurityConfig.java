@@ -14,9 +14,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import com.vitgon.schedule.handler.CustomAccessDeniedHandler;
-import com.vitgon.schedule.service.auth.CustomUserDetailsService;
+import com.vitgon.schedule.service.auth.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -24,11 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new CustomUserDetailsService();
-	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -80,6 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler());
+		http.apply(new SpringSocialConfigurer()).signupUrl("/signup");
 	}
 
 	@Override

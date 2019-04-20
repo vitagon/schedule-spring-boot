@@ -8,26 +8,33 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.security.SocialUserDetails;
 
 import com.vitgon.schedule.model.database.auth.Role;
 
 
-public class CustomUserDetails implements UserDetails {
+public class UserDetailsImpl implements UserDetails, SocialUserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2252279745523903046L;
 	
+	private String id;
 	private String email;
 	private String password;
 	
 	private String firstName;
 	private String lastName;
 	private List<SimpleGrantedAuthority> authorities;
+	
+	public UserDetailsImpl(String id, String email, String password, String firstName, String lastName, Set<Role> roles) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.authorities = convertToAuthorities(roles);
+	}
 
-	public CustomUserDetails(String email, String password, String firstName, String lastName, Set<Role> roles) {
-		super();
+	public UserDetailsImpl(String email, String password, String firstName, String lastName, Set<Role> roles) {
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
@@ -46,6 +53,11 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
+	}
+
+	@Override
+	public String getUserId() {
+		return id;
 	}
 
 	@Override
