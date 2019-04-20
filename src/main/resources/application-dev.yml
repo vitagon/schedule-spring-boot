@@ -29,5 +29,12 @@ logging:
     org:
       hibernate:
         SQL: debug
+server:
+  port: 8080
+  ssl:
+    key-store: classpath:schedule-keystore.p12
+    key-store-password: schedule283695
+    keyStoreType: PKCS12
+    keyAlias: schedule
 app:
   title: 'DVFU SCHEDULE'

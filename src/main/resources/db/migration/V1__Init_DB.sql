@@ -95,29 +95,31 @@ create table user_translations (
 
 create table users (
 	id  serial not null,
-	active boolean not null,
-	birth date not null,
+	username varchar(255) not null,
 	email varchar(255),
+	password varchar(255) not null,
 	key_firstname varchar(255),
 	key_lastname varchar(255),
 	key_middlename varchar(255),
-	password varchar(255)
+	birth date not null,
+	active boolean not null,
+	providerId varchar(255) not null,
 	primary key (id)
 );
 
-create table user_connections (
-	user_id varchar(255) not null,
-	provider_id varchar(255) not null,
-	provider_user_id varchar(255),
+create table userconnection (
+	userId varchar(255) not null,
+	providerId varchar(255) not null,
+	providerUserId varchar(255),
 	rank int not null,
-	display_name varchar(255),
-	profile_url varchar(512),
-	image_url varchar(512),
-	access_token varchar(512) not null,
+	displayName varchar(255),
+	profileUrl varchar(512),
+	imageUrl varchar(512),
+	accessToken varchar(512) not null,
 	secret varchar(512),
-	refresh_token varchar(512),
-	expire_time int8,
-	primary key (user_id, provider_id, provider_user_id)
+	refreshToken varchar(512),
+	expireTime int8,
+	primary key (userId, providerId, providerUserId)
 );
 
 
@@ -197,6 +199,10 @@ alter table if exists user_translations
 	add constraint FK_user_translations_locales
 	foreign key (locale_id) references locales;
 	
-alter table if exists user_connections
-	add constraint UQ_user_connections_user_id_provider_id_rank
-	unique (user_id, provider_id, rank);
+alter table if exists users
+	add constraint UQ_users_username
+	unique (username);
+	
+alter table if exists userconnection
+	add constraint UQ_userconnection_userId_providerId_rank
+	unique (userId, providerId, rank);

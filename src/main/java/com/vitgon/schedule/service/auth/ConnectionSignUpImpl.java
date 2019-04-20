@@ -18,6 +18,6 @@ public class ConnectionSignUpImpl implements ConnectionSignUp {
 	public String execute(Connection<?> connection) {
 		User user = usersService.createUser(connection);
 		// TODO: return username
-		return null;
+		return user.getUsername();
 	}	
 }

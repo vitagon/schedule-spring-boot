@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.connect.Connection;
@@ -23,6 +24,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	private PasswordEncoder passwordEncoder;
 	private UserConnectionService userConnectionService;
+	private HibernateSequenceService hibernateSequenceService;
+	private PasswordEncoder encoder;
 	
 	@Override
 	public User findByEmail(String email) {
@@ -85,7 +88,30 @@ public class UserServiceImpl implements UserService {
 		user = new User();
 		UserProfile userProfile = connection.fetchUserProfile();
 		
-		// TODO: create new user
-		return null;
+		String randomPasswod = UUID.randomUUID().toString().substring(0, 6);
+		String encryptedPassword = encoder.encode(randomPasswod);
+		
+		user.setUsername(generateUsername());
+		user.setEmail(userProfile.getEmail());
+		user.setPassword("{bcrypt}"+encryptedPassword);
+		user.setKeyFirstname(userProfile.getFirstName());
+		user.setKeyLastname(userProfile.getLastName());
+		user.setActive(true);
+		user.setProviderId(key.getProviderId());
+		user = save(user);
+		
+		return user;
+	}
+	
+	public String generateUsername() {
+		Integer nextVal = hibernateSequenceService.getNextVal();
+		if (nextVal <= 0) {
+			try {
+				throw new Exception("nextVal from hibernate_sequence cannot be less than 0");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "user" + nextVal;
 	}
 }
