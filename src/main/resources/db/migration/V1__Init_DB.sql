@@ -103,7 +103,7 @@ create table users (
 	key_middlename varchar(255),
 	birth date not null,
 	active boolean not null,
-	providerId varchar(255) not null,
+	provider_id varchar(255) not null,
 	primary key (id)
 );
 

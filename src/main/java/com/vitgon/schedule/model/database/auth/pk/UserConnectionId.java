@@ -17,12 +17,7 @@ public class UserConnectionId implements Serializable {
 
 	private static final long serialVersionUID = -8867549559315848321L;
 	
-	@Column(name = "userId", length = 255, nullable = false)
 	private String userId;
-	
-	@Column(name = "providerId", length = 255, nullable = false)
 	private String providerId;
-	
-	@Column(name = "providerUserId", length = 255, nullable = false)
 	private String providerUserId;
 }
