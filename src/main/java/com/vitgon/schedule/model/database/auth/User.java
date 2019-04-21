@@ -64,7 +64,7 @@ public class User extends BaseModel<Integer> {
 	@Column(name = "active", nullable = false)
 	private boolean active;
 	
-	@Column(name = "providerId", nullable = false)
+	@Column(name = "provider_id", nullable = false)
 	private String providerId;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

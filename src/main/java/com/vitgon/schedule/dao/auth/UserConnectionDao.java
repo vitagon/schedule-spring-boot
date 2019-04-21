@@ -7,6 +7,6 @@ import com.vitgon.schedule.model.database.auth.UserConnection;
 import com.vitgon.schedule.model.database.auth.pk.UserConnectionId;
 
 @Repository
-public interface UserConnectionDao extends JpaRepository<UserConnection, UserConnectionId>{
+public interface UserConnectionDao extends JpaRepository<UserConnection, UserConnectionId> {
 	UserConnection findByProviderIdAndProviderUserId(String providerId, String providerUserId);
 }

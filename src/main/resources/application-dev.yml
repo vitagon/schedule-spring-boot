@@ -10,7 +10,11 @@ spring:
     generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
+      # Just use columns names from @Column(name="") AS THEY ARE 
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
   thymeleaf: 
     cache: false
@@ -22,13 +26,15 @@ spring:
       enabled: true
       force: true
       charset: UTF-8
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-  level:
-    org:
-      hibernate:
-        SQL: debug
+  flyway:
+    enabled: false
+#logging:
+  #pattern:
+    #console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+  #level:
+    #org:
+      #hibernate:
+        #SQL: debug
 server:
   port: 8080
   ssl:
