@@ -12,7 +12,9 @@ import com.vitgon.schedule.model.database.auth.User;
 
 @Repository("userRepository")
 public interface UserDao extends JpaRepository<User, Integer> {
-	User findByEmail(String email);
+	List<User> findByEmail(String email);
+	User findByEmailAndProviderId(String email, String providerId);
+	User findByUsername(String username);
 	
 	@Query("select u from User u inner join u.roles r where r.role in :roles")
 	List<User> findBySpecificRoles(@Param("roles") List<String> roles);

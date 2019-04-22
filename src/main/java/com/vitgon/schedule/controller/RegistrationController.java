@@ -1,6 +1,7 @@
 package com.vitgon.schedule.controller;
 
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -38,7 +39,7 @@ public class RegistrationController {
 	public ModelAndView createUser(@Valid User user, BindingResult bindingResult) {
 		Locale locale = (Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		ModelAndView modelAndView = new ModelAndView();
-		User userExists = userService.findByEmail(user.getEmail());
+		User userExists = userService.findByEmailAndProviderId(user.getEmail(), "local");
 		
 		if (userExists != null) {
 			bindingResult.rejectValue("email", "Duplicate.email");
@@ -47,7 +48,12 @@ public class RegistrationController {
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("auth/register");
 		} else {
-			userService.save(user);
+			user.setUsername(UUID.randomUUID().toString().substring(0, 16));
+			user.setProviderId("local");
+			user = userService.save(user);
+			
+			user.setUsername("user"+user.getId());
+			userService.update(user);
 			modelAndView.addObject("signUpSuccess", true);
 			modelAndView.addObject("user", new User());
 			modelAndView.setViewName("auth/register");

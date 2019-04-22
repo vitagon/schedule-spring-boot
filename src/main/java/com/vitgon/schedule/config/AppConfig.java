@@ -58,12 +58,6 @@ public class AppConfig implements WebMvcConfigurer {
 	public UserService userService() {
 		return this.applicationContext.getBean(UserService.class);
 	}
-
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		return bCryptPasswordEncoder;
-	}
 	
 	@Bean(name = "localeResolver")
 	public LocaleResolver getLocaleResolver() {

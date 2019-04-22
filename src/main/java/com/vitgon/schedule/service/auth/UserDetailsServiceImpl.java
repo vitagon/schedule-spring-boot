@@ -18,14 +18,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserService userService;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userService.findByEmail(username);
+	public UserDetails loadUserByUsername(String emailOrUsername) throws UsernameNotFoundException {
+		User user = userService.findByEmailAndProviderId(emailOrUsername, "local");
 		if (user == null) {
-			throw new UsernameNotFoundException(username);
+			user = userService.findByUsername(emailOrUsername);
+		}
+		
+		if (user == null) {
+			throw new UsernameNotFoundException(emailOrUsername);
 		}
 		
 		final UserDetailsImpl userDetails = new UserDetailsImpl(
-				user.getEmail(),
+				user.getUsername(),
 				user.getPassword(),
 				user.getKeyFirstname(),
 				user.getKeyLastname(),

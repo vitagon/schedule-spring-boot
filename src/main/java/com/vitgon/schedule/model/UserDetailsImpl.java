@@ -18,24 +18,24 @@ public class UserDetailsImpl implements UserDetails, SocialUserDetails {
 	private static final long serialVersionUID = -2252279745523903046L;
 	
 	private String id;
-	private String email;
+	private String username;
 	private String password;
 	
 	private String firstName;
 	private String lastName;
 	private List<SimpleGrantedAuthority> authorities;
 	
-	public UserDetailsImpl(String id, String email, String password, String firstName, String lastName, Set<Role> roles) {
+	public UserDetailsImpl(String id, String username, String password, String firstName, String lastName, Set<Role> roles) {
 		this.id = id;
-		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.authorities = convertToAuthorities(roles);
 	}
 
-	public UserDetailsImpl(String email, String password, String firstName, String lastName, Set<Role> roles) {
-		this.email = email;
+	public UserDetailsImpl(String username, String password, String firstName, String lastName, Set<Role> roles) {
+		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -67,7 +67,7 @@ public class UserDetailsImpl implements UserDetails, SocialUserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return username;
 	}
 
 	public String getFirstName() {
@@ -80,25 +80,21 @@ public class UserDetailsImpl implements UserDetails, SocialUserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

@@ -17,7 +17,6 @@ public class ConnectionSignUpImpl implements ConnectionSignUp {
 	@Override
 	public String execute(Connection<?> connection) {
 		User user = usersService.createUser(connection);
-		// TODO: return username
 		return user.getUsername();
 	}	
 }

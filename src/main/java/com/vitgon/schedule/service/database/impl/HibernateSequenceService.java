@@ -2,23 +2,21 @@ package com.vitgon.schedule.service.database.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.model.HibernateSequence;
-
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 @Service
+@Transactional
 public class HibernateSequenceService {
 	
+	@Autowired
 	private EntityManager entityManager;
 	
 	public Integer getNextVal() {
-		Query query = entityManager.createQuery("select nextval('hibernate_sequence')", HibernateSequence.class);
-		// TODO: get nextval
-		HibernateSequence hibSequence = (HibernateSequence) query.getSingleResult();
-		return hibSequence.getNextval();
+		Query query = entityManager.createNativeQuery("select nextval('hibernate_sequence')");
+		Number nextValNumber = (Number) query.getSingleResult();
+		return nextValNumber.intValue();
 	}
 }

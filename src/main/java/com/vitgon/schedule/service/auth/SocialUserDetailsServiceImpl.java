@@ -18,11 +18,11 @@ public class SocialUserDetailsServiceImpl implements SocialUserDetailsService {
 	private UserService userService;
 
 	@Override
-	public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-		User user = userService.findById(Integer.parseInt(userId));
+	public SocialUserDetails loadUserByUserId(String username) throws UsernameNotFoundException {
+		User user = userService.findByUsername(username);
 		SocialUserDetails socialUserDetails = new UserDetailsImpl(
 				user.getId().toString(),
-				user.getEmail(),
+				user.getUsername(),
 				user.getPassword(),
 				user.getKeyFirstname(),
 				user.getKeyLastname(),
