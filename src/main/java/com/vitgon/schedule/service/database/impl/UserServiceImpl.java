@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder encoder;
 	
 	@Override
-	public User findByEmail(String email) {
+	public List<User> findByEmail(String email) {
 		return userDao.findByEmail(email);
 	}
 	
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 		String randomPasswod = UUID.randomUUID().toString().substring(0, 6);
 		String encryptedPassword = encoder.encode(randomPasswod);
 		
-		user.setUsername(generateUsername());
+		user.setUsername(UUID.randomUUID().toString().substring(0, 18));
 		user.setEmail(userProfile.getEmail());
 		user.setPassword("{bcrypt}"+encryptedPassword);
 		user.setKeyFirstname(userProfile.getFirstName());
@@ -100,10 +100,18 @@ public class UserServiceImpl implements UserService {
 		user.setProviderId(key.getProviderId());
 		user = save(user);
 		
+		// update username
+		user.setUsername(generateUsername(user.getId()));
+		user = update(user);
+		
 		return user;
 	}
 	
-	public String generateUsername() {
+	public String generateUsername(Integer id) {
+		return "user" + id.toString();
+	}
+	
+	private Integer getNextVal() {
 		Integer nextVal = hibernateSequenceService.getNextVal();
 		if (nextVal <= 0) {
 			try {
@@ -112,6 +120,16 @@ public class UserServiceImpl implements UserService {
 				e.printStackTrace();
 			}
 		}
-		return "user" + nextVal;
+		return nextVal;
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
+	}
+
+	@Override
+	public User findByEmailAndProviderId(String email, String providerId) {
+		return userDao.findByEmailAndProviderId(email, providerId);
 	}
 }

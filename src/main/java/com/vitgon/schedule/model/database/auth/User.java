@@ -46,19 +46,15 @@ public class User extends BaseModel<Integer> {
 	private String password;
 	
 	@Column(name = "key_firstname")
-	@NotEmpty(message = "{NotEmpty.default}")
 	private String keyFirstname;
 	
 	@Column(name = "key_lastname")
-	@NotEmpty(message = "{NotEmpty.default}")
 	private String keyLastname;
 	
 	@Column(name = "key_middlename")
-	@NotEmpty(message = "{NotEmpty.default}")
 	private String keyMiddlename;
 	
 	@Column(name = "birth")
-	@NotNull(message = "{NotNull.default}")
 	private Date birth;
 	
 	@Column(name = "active", nullable = false)
