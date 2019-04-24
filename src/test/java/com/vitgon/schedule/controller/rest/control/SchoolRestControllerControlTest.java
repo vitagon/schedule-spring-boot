@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -125,16 +126,38 @@ public class SchoolRestControllerControlTest {
 	}
 	
 	@Test
-	public void getSchoolsView_localeId__whenLocaleIdGreaterThanZeroAndLocaleIsNotNull_thenSuccess() {
+	public void getSchoolsView_localeId__whenLocaleIdIsGreaterThanZeroAndLocaleIsNotNull_thenSuccess() {
 		Locale locale = new Locale();
 		
 		when(localeService.findById(1)).thenReturn(locale);
-		when(schoolConverterService.convertToSchoolDtoControlList(locale)).thenReturn(new ArrayList());
+		when(schoolConverterService.convertToSchoolDtoControlList(locale)).thenReturn(new ArrayList<>());
 		ModelAndView modelAndView = schoolRestControllerControl.getSchoolsView(1);
 		
 		assertEquals("control/schools-list :: schools-list", modelAndView.getViewName());
 		assertNotNull(modelAndView.getModelMap().containsKey("schoolDtoList"));
 		verify(localeService, times(1)).findById(1);
 		verify(schoolConverterService, times(1)).convertToSchoolDtoControlList(locale);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void getSchoolsView_localeId__whenLocaleIdIsGreaterThanZeroAndLocaleIsNull_thenThrowException() {
+		when(localeService.findById(1)).thenReturn(null);
+		schoolRestControllerControl.getSchoolsView(1);
+	}
+	
+	@Test
+	public void getSchoolsView_localeId__whenLocaleIdIsZero_thenSuccess() {
+		when(schoolConverterService.convertToSchoolDtoControlList()).thenReturn(new ArrayList<>());
+		ModelAndView modelAndView = schoolRestControllerControl.getSchoolsView(0);
+		
+		assertEquals("control/schools-list :: schools-list", modelAndView.getViewName());
+		assertNotNull(modelAndView.getModelMap().containsKey("schoolDtoList"));
+		verify(schoolConverterService, times(1)).convertToSchoolDtoControlList();
+		verify(localeService, never()).findById(0);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void getSchoolsView_localeId__whenLocaleIdIsLessThanZero_thenThrowException() {
+		schoolRestControllerControl.getSchoolsView(-2);
 	}
 }
