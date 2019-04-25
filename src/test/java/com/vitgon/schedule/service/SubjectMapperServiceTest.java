@@ -39,20 +39,20 @@ public class SubjectMapperServiceTest {
 		List<Subject> subjects = createSubjects();
 		List<SubjectDto> subjectDtoList = createSubjectDtoList();
 		when(subjectService.findAll()).thenReturn(subjects);
-		when(subjectMapperService.mapToSubjectDTOList(subjects)).thenReturn(subjectDtoList);
+		when(subjectMapperService.mapToSubjectDtoList(subjects)).thenReturn(subjectDtoList);
 		
 		List<SubjectDto> resultList = subjectMapperService.mapToSubjectDTOList();
 		
 		Assert.assertEquals(689, resultList.get(0).getId());
 		
 		verify(subjectService).findAll();
-		verify(subjectMapperService).mapToSubjectDTOList(subjects);
+		verify(subjectMapperService).mapToSubjectDtoList(subjects);
 	}
 	
 	@Test
 	public void testMapToSubjectDTOListWithListOfSubjects() {
 		List<Subject> subjects = createSubjects();
-		List<SubjectDto> resultList = subjectMapperService.mapToSubjectDTOList(subjects);
+		List<SubjectDto> resultList = subjectMapperService.mapToSubjectDtoList(subjects);
 		
 		Assert.assertEquals(689, resultList.get(0).getId());
 		Assert.assertEquals("math", resultList.get(0).getName());
@@ -67,7 +67,7 @@ public class SubjectMapperServiceTest {
 		when(subjectTranslService.getSubjectTitle(subjects.get(0), locale, substituteNull))
 			.thenReturn("высшая математика");
 		
-		List<SubjectDto> resultList = subjectMapperService.mapToSubjectDTOList(subjects, locale, substituteNull);
+		List<SubjectDto> resultList = subjectMapperService.mapToSubjectDtoList(subjects, locale, substituteNull);
 		
 		Assert.assertEquals(689, resultList.get(0).getId());
 		Assert.assertEquals("math", resultList.get(0).getName());
