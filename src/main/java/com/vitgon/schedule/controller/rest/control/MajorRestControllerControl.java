@@ -44,7 +44,7 @@ public class MajorRestControllerControl {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addSchool(@RequestBody @Valid AddMajorDto addMajorDto) {
+	public ApiSuccess addMajor(@RequestBody @Valid AddMajorDto addMajorDto) {
 		Major major = majorDtoConverterService.convertToEntity(addMajorDto);
 		majorService.save(major);
 		return new ApiSuccess(new Date(), "You successfully added major!");
@@ -52,7 +52,7 @@ public class MajorRestControllerControl {
 	
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess updateSchool(@RequestBody @Valid EditMajorDto editMajorDto) {
+	public ApiSuccess updateMajor(@RequestBody @Valid EditMajorDto editMajorDto) {
 		Major major = majorService.findById(editMajorDto.getId());
 		if (major == null) {
 			throw new IllegalArgumentException(String.format("Major with id=%d name doesn't exist!", editMajorDto.getId()));
@@ -64,7 +64,7 @@ public class MajorRestControllerControl {
 	
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> deleteSchool(@RequestParam("id") Major major, HttpServletRequest request) {
+	public ResponseEntity<?> deleteMajor(@RequestParam("id") Major major, HttpServletRequest request) {
 		if (major == null) {
 			Map<String, List<String>> errors = new HashMap<>();
 			errors.put("majorId", Arrays.asList(messageService.getMessage("chooseValue", request)));
