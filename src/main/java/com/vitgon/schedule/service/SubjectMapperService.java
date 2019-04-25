@@ -24,10 +24,10 @@ public class SubjectMapperService {
 	
 	public List<SubjectDto> mapToSubjectDTOList() {
 		List<Subject> subjects = subjectService.findAll();
-		return mapToSubjectDTOList(subjects);
+		return mapToSubjectDtoList(subjects);
 	}
 
-	public List<SubjectDto> mapToSubjectDTOList(List<Subject> subjects) {
+	public List<SubjectDto> mapToSubjectDtoList(List<Subject> subjects) {
 		return subjects.stream()
 				.map(subject -> {
 					return new SubjectDto(subject.getId(), subject.getName());
@@ -43,7 +43,7 @@ public class SubjectMapperService {
 	 * @param substituteNull if translation doesn't exist, then take english name
 	 * @return
 	 */
-	public List<SubjectDto> mapToSubjectDTOList(List<Subject> subjects, Locale locale, boolean substituteNull) {
+	public List<SubjectDto> mapToSubjectDtoList(List<Subject> subjects, Locale locale, boolean substituteNull) {
 		return subjects.stream()
 				.map(subject -> {
 					String translation = subjectTranslService.getSubjectTitle(subject, locale, substituteNull);

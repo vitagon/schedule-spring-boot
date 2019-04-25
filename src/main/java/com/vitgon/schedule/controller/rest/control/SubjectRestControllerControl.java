@@ -45,25 +45,25 @@ public class SubjectRestControllerControl {
 
 	@PostMapping("/subject")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addSubject(@RequestBody @Valid AddSubjectDto addSubjectDTO) {
-		subjectService.save(new Subject(addSubjectDTO.getSubjectName().toLowerCase()));
+	public ApiSuccess addSubject(@RequestBody @Valid AddSubjectDto addSubjectDto) {
+		subjectService.save(new Subject(addSubjectDto.getSubjectName().toLowerCase()));
 		return new ApiSuccess(new Date(), "You successfully added subject!");
 	}
 	
 	@PutMapping("/subject")
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess update(@RequestBody @Valid EditSubjectDto editSubjectDTO) {
-		Subject subject = subjectService.findById(editSubjectDTO.getOldSubjectId());
+	public ApiSuccess updateSubject(@RequestBody @Valid EditSubjectDto editSubjectDto) {
+		Subject subject = subjectService.findById(editSubjectDto.getOldSubjectId());
 		if (subject == null) {
 			throw new IllegalArgumentException("Subject with such name doesn't exist!");
 		}
-		subject.setName(editSubjectDTO.getNewSubjectName());
+		subject.setName(editSubjectDto.getNewSubjectName());
 		subjectService.update(subject);
 		return new ApiSuccess(new Date(), "You successfully edited subject!");
 	}
 	
 	@DeleteMapping(value = "/subject", params = {"id"})
-	public ResponseEntity<?> delete(@RequestParam("id") Subject subject, HttpServletRequest request) {
+	public ResponseEntity<?> deleteSubject(@RequestParam("id") Subject subject, HttpServletRequest request) {
 		if (subject == null) {
 			Map<String, List<String>> errors = new HashMap<>();
 			errors.put("subjectId", Arrays.asList(messageService.getMessage("chooseValue", request)));
@@ -78,7 +78,7 @@ public class SubjectRestControllerControl {
 	@GetMapping("/subjects/view")
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView getSubjectsWithView(@RequestParam int localeId) {
-		List<SubjectDto> subjects = subjectRestController.getSubjectDTOListByLocale(localeId);
+		List<SubjectDto> subjects = subjectRestController.getSubjectDtoListByLocale(localeId);
 		ModelAndView model = new ModelAndView("control/subjects-list :: subjects-list");
 		model.addObject("subjects", subjects);
 		return model;

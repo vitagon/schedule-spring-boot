@@ -57,18 +57,18 @@ public class SchoolRestControllerControlTest {
 	private SchoolRestControllerControl schoolRestControllerControl;
 
 	@Test
-	public void addSchool_AddSchoolDto_success() {
-		AddSchoolDto addSchoolDTO = new AddSchoolDto();
-		addSchoolDTO.setSchoolName("school of humanities");
+	public void addSchool_AddSchoolDto__success() {
+		AddSchoolDto addSchoolDto = new AddSchoolDto();
+		addSchoolDto.setSchoolName("school of humanities");
 		
-		ApiSuccess apiSuccess = schoolRestControllerControl.addSchool(addSchoolDTO);
+		ApiSuccess apiSuccess = schoolRestControllerControl.addSchool(addSchoolDto);
 		assertNotNull(apiSuccess.getTimestamp());
 		assertFalse(apiSuccess.getMessage().isEmpty());
 		verify(schoolService, times(1)).save(any(School.class));
 	}
 	
 	@Test
-	public void updateSchool_EditSchoolDto_whenProvidedSchoolExists_thenSuccess() {
+	public void updateSchool_EditSchoolDto__whenProvidedSchoolExists_thenSuccess() {
 		EditSchoolDto editSchoolDto = new EditSchoolDto();
 		editSchoolDto.setSchoolId(22);
 		editSchoolDto.setNewSchoolName("school of humanities");

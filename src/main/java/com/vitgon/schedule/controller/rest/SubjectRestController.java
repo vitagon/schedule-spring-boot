@@ -29,17 +29,17 @@ public class SubjectRestController {
 	@GetMapping("/subjects")
 	public List<SubjectDto> getSubjectsByLocale() {
 		List<Subject> subjects = subjectService.findAll();
-		return subjectMapperService.mapToSubjectDTOList(subjects);
+		return subjectMapperService.mapToSubjectDtoList(subjects);
 	}
 	
 	@GetMapping("/subjects/locale")
-	public List<SubjectDto> getSubjectDTOListByLocale(@RequestParam int localeId) {
+	public List<SubjectDto> getSubjectDtoListByLocale(@RequestParam int localeId) {
 		if (localeId < 0) {
 			throw new IllegalArgumentException("Locale id must be equal OR greater than 0!");
 		}
 		if (localeId == 0) {
 			List<Subject> subjects = subjectService.findAll();
-			return subjectMapperService.mapToSubjectDTOList(subjects);
+			return subjectMapperService.mapToSubjectDtoList(subjects);
 		}
 		
 		Locale locale = localeService.findById(localeId);
@@ -47,6 +47,6 @@ public class SubjectRestController {
 			throw new IllegalArgumentException("Provided localeCode doesn't exist");
 		}
 		List<Subject> subjects = subjectService.findAll();
-		return subjectMapperService.mapToSubjectDTOList(subjects, locale, false);
+		return subjectMapperService.mapToSubjectDtoList(subjects, locale, false);
 	}
 }

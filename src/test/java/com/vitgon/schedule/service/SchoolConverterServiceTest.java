@@ -155,7 +155,7 @@ public class SchoolConverterServiceTest {
 	}
 	
 	@Test
-	public void convertToSchoolDtoControlList_Locale_ShouldReturnEmptySchoolsDTOControlList() {
+	public void convertToSchoolDtoControlList_Locale_ShouldReturnEmptySchoolsDtoControlList() {
 		Locale locale = mock(Locale.class);
 		when(schoolService.findAll()).thenReturn(new ArrayList<>());
 		List<SchoolDtoControl> schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList(locale);
