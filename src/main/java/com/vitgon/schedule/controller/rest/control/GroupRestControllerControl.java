@@ -34,7 +34,7 @@ public class GroupRestControllerControl {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess add(@RequestBody @Valid AddGroupDto addGroupDto) {
+	public ApiSuccess addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {
 		Major major = majorService.findById(addGroupDto.getMajorId());
 		
 		if (major == null) {
@@ -53,7 +53,7 @@ public class GroupRestControllerControl {
 	
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess edit(@RequestBody @Valid EditGroupDto editGroupDto) {
+	public ApiSuccess editGroup(@RequestBody @Valid EditGroupDto editGroupDto) {
 		Group group = groupService.findById(editGroupDto.getId());
 		
 		if (group == null) {
@@ -67,7 +67,7 @@ public class GroupRestControllerControl {
 	
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess delete(@RequestParam("id") int id) {
+	public ApiSuccess deleteGroup(@RequestParam("id") int id) {
 		Group group = groupService.findById(id);
 		if (group == null) {
 			throw new IllegalArgumentException("Group was not found!");
