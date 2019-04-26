@@ -195,8 +195,8 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>my-report</id>
-						<phase>prepare-package</phase>
+						<id>report</id>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
