@@ -31,13 +31,13 @@ public class SubjectTranslationRestControllerControl {
 	private SubjectTranslationService subjectTranslationService;
 
 	@PostMapping
-	public ApiSuccess addSubjectTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddSubjectTranslationDto addSubjectTranslationDTO) {
-		Subject subject = subjectService.findById(addSubjectTranslationDTO.getSubjectId());
-		Locale locale = localeService.findById(addSubjectTranslationDTO.getLocaleId());
+	public ApiSuccess addSubjectTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddSubjectTranslationDto addSubjectTranslationDto) {
+		Subject subject = subjectService.findById(addSubjectTranslationDto.getSubjectId());
+		Locale locale = localeService.findById(addSubjectTranslationDto.getLocaleId());
 		
 		subjectTranslationService.save(new SubjectTranslation(
 				new SubjectTranslationId(subject, locale),
-				addSubjectTranslationDTO.getTitle()
+				addSubjectTranslationDto.getTitle()
 		));
 		
 		return new ApiSuccess(new Date(), "You successfully added translation!");
