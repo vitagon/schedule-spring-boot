@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/VitaliyGoncharov/schedule-spring-boot.svg?branch=master)](https://travis-ci.org/VitaliyGoncharov/schedule-spring-boot)
+[![codecov](https://codecov.io/gh/VitaliyGoncharov/schedule-spring-boot/branch/master/graph/badge.svg)](https://codecov.io/gh/VitaliyGoncharov/schedule-spring-boot)
+
 # schedule-spring-boot
 
 In this project I used:
@@ -5,7 +8,7 @@ In this project I used:
 - spring data jpa
 - spring security
 - thymeleaf
-- h2 database
+- postgres database
 - lombok
 
 ## Description
