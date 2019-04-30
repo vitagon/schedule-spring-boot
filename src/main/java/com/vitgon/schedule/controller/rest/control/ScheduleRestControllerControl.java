@@ -43,9 +43,9 @@ public class ScheduleRestControllerControl {
 	 */
 	@DeleteMapping(params = {"id"})
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess delete(@RequestParam("id") Integer id) {
-		if (id == null) {
-			throw new IllegalArgumentException("id can not be null!");
+	public ApiSuccess deleteSchedule(@RequestParam("id") int id) {
+		if (id < 1) {
+			throw new IllegalArgumentException("id can not be less than 0!");
 		}
 		scheduleService.deleteById(id);
 		return new ApiSuccess(new Date(), "Record was successfully deleted!");
@@ -61,7 +61,7 @@ public class ScheduleRestControllerControl {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
 				 produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ScheduleResponseDto create(
+	public ScheduleResponseDto createSchedule(
 			@FromDTO(EditScheduleDto.class) Schedule scheduleTransient,
 			HttpServletRequest request) {
 		Locale locale = localeConverterService.getClientLocale(request);
@@ -95,7 +95,7 @@ public class ScheduleRestControllerControl {
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
 				produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public ScheduleResponseDto update(
+	public ScheduleResponseDto updateSchedule(
 			@FromDTO(EditScheduleDto.class) Schedule scheduleTransient,
 			HttpServletRequest request) {
 		Locale locale = localeConverterService.getClientLocale(request);
@@ -118,6 +118,4 @@ public class ScheduleRestControllerControl {
 		
 		return scheduleResponseService.createResponseObject(schedule, locale);
 	}
-	
-	
 }
