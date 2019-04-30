@@ -1,21 +1,28 @@
-package com.vitgon.schedule.controller.rest;
+package com.vitgon.schedule.controller.rest.control;
 
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hamcrest.text.IsEmptyString;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.vitgon.schedule.controller.rest.control.ScheduleRestControllerControl;
 import com.vitgon.schedule.dto.ScheduleResponseDto;
+import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Schedule;
@@ -31,16 +38,31 @@ public class ScheduleRestControllerTest {
 	
 	@Mock
 	private ScheduleService scheduleService;
+	
 	@Mock
 	private LocaleConverterService localeConverterService;
+	
 	@Mock
 	private ScheduleResponseService scheduleResponseService;
 	
 	@InjectMocks
-	private ScheduleRestControllerControl scheduleRestController;
+	private ScheduleRestControllerControl scheduleRestControllerControl;
 	
 	@Test
-	public void testCreateMethod() throws Exception {
+	public void deleteSchedule_Id__whenIdIsMoreThanZero_thenSuccess() {
+		ApiSuccess apiSuccess = scheduleRestControllerControl.deleteSchedule(5);
+		assertNotNull(apiSuccess);
+		assertThat(apiSuccess.getMessage(), not(IsEmptyString.isEmptyOrNullString()));
+		verify(scheduleService, times(1)).deleteById(5);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteSchedule_Id__whenIdIsLessThanZero_thenThrowException() {
+		scheduleRestControllerControl.deleteSchedule(0);
+	}
+	
+	@Test
+	public void createSchedule_Schedule_HttpServletRequest__whenScheduleDoesNotExist_thenSuccess() throws Exception {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		Locale locale = new Locale("en");
 		Schedule scheduleTransient = createScheduleTransient();
@@ -63,7 +85,7 @@ public class ScheduleRestControllerTest {
 		given(scheduleResponseService.createResponseObject(scheduleWithId, locale)).willReturn(mockResponse);
 		
 		// call method on controller
-		ScheduleResponseDto realResponse = scheduleRestController.create(scheduleTransient, request);
+		ScheduleResponseDto realResponse = scheduleRestControllerControl.createSchedule(scheduleTransient, request);
 		assertThat(realResponse, is(mockResponse));
 		
 		assertThat(realResponse.getSubjectId(), is(scheduleTransient.getSubject().getId()));
@@ -75,8 +97,18 @@ public class ScheduleRestControllerTest {
 		assertThat(realResponse.getClassroom(), is(scheduleTransient.getClassroom()));
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void createSchedule_Schedule_HttpServletRequest__whenScheduleExists_thenThrowException() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		given(localeConverterService.getClientLocale(request)).willReturn(new Locale());
+		when(scheduleService.findByGroupAndDayNumAndWeekAndLessonNum(
+				any(Group.class), anyInt(), anyString(), anyInt())
+		).thenReturn(new Schedule());
+		scheduleRestControllerControl.createSchedule(new Schedule(), request);
+	}
+	
 	@Test
-	public void testEditMethod() throws Exception {
+	public void updateSchedule_Schedule_HttpServletRequest__whenScheduleExists_thenSuccess() throws Exception {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		Locale locale = new Locale("en");
 		Schedule oldSchedule = createScheduleTransient();
@@ -102,7 +134,7 @@ public class ScheduleRestControllerTest {
 		given(scheduleResponseService.createResponseObject(newSchedule, locale)).willReturn(mockResponse);
 		
 		// call method on controller
-		ScheduleResponseDto realResponse = scheduleRestController.update(newSchedule, request);
+		ScheduleResponseDto realResponse = scheduleRestControllerControl.updateSchedule(newSchedule, request);
 		assertThat(realResponse, is(mockResponse));
 		
 		assertThat(realResponse.getSubjectId(), is(newSchedule.getSubject().getId()));
