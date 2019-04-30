@@ -1,10 +1,11 @@
 package com.vitgon.schedule.controller.rest.control;
 
-import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -16,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.hamcrest.text.IsEmptyString;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.vitgon.schedule.dto.ScheduleResponseDto;
@@ -34,7 +35,7 @@ import com.vitgon.schedule.service.database.ScheduleService;
 import com.vitgon.schedule.util.LessonUtil;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ScheduleRestControllerTest {
+public class ScheduleRestControllerControlTest {
 	
 	@Mock
 	private ScheduleService scheduleService;
@@ -100,9 +101,8 @@ public class ScheduleRestControllerTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void createSchedule_Schedule_HttpServletRequest__whenScheduleExists_thenThrowException() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		given(localeConverterService.getClientLocale(request)).willReturn(new Locale());
 		when(scheduleService.findByGroupAndDayNumAndWeekAndLessonNum(
-				any(Group.class), anyInt(), anyString(), anyInt())
+				isNull(), anyInt(), isNull(), anyInt())
 		).thenReturn(new Schedule());
 		scheduleRestControllerControl.createSchedule(new Schedule(), request);
 	}
@@ -146,6 +146,14 @@ public class ScheduleRestControllerTest {
 		assertThat(realResponse.getLessonType(), is(not(LessonUtil.convertLessonType(oldSchedule.getLessonType()))));
 		assertThat(realResponse.getTeacherId(), is(not(oldSchedule.getUser().getId())));
 		assertThat(realResponse.getClassroom(), is(not(oldSchedule.getClassroom())));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void updateSchedule_Schedule_HttpServletRequest__whenScheduleDoesNotExist_thenThrowException() {
+		when(scheduleService.findByGroupAndDayNumAndWeekAndLessonNum(
+				isNull(), anyInt(), isNull(), anyInt()
+		)).thenReturn(null);
+		scheduleRestControllerControl.updateSchedule(new Schedule(), mock(HttpServletRequest.class));
 	}
 	
 	private static Schedule createScheduleTransient() {
