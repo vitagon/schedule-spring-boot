@@ -1,7 +1,6 @@
 package com.vitgon.schedule.validator;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -26,9 +25,9 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 	private String errorMessage;
 	
 	private ApplicationContext appContext;
-	private Service localeService;
-	private Service entityService;
-	private Service translationEntityService;
+	private Service<?, Integer> localeService;
+	private Service<?, Integer> entityService;
+	private Service<?, Object> translationEntityService;
 	
 	private UniqueField uniqueField;
 	private TranslationEntity translationEntityAnnotation;
@@ -41,17 +40,18 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 		this.appContext = appContext;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(UniqueTranslation constraintAnnotation) {
 		this.errorMessage = constraintAnnotation.message();
 		
 		this.uniqueField = constraintAnnotation.uniqueField();
 		this.entityIdFieldName = uniqueField.field();
-		this.entityService = (Service) appContext.getBean(uniqueField.service());
+		this.entityService = (Service<?, Integer>) appContext.getBean(uniqueField.service());
 		
 		com.vitgon.schedule.annotation.validation.Locale localeAnnotation = constraintAnnotation.locale();
 		this.localeIdFieldName = localeAnnotation.field();
-		this.localeService = (Service) appContext.getBean(localeAnnotation.service());
+		this.localeService = (Service<?, Integer>) appContext.getBean(localeAnnotation.service());
 		
 		translationEntityAnnotation = constraintAnnotation.translationEntity();
 		this.translationEntityService = appContext.getBean(translationEntityAnnotation.service());
@@ -65,21 +65,11 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 			   .addPropertyNode(localeIdFieldName)
 			   .addConstraintViolation();
 		
-		// get 'entity id' from DTO field
+		// get 'entity id' from Dto field
 		int entityId = ConstraintValidatorHelper.getPropertyValue(Integer.class, entityIdFieldName, object);
-
-		// get entity class from generic types of Service<Entity, ID> class
-		Class<?> entityClazz = ConstraintValidatorHelper.getGenericTypeOfSuperInterface(uniqueField.service(), BASE_SERVICE, 0);
+		checkIfEntityClazzExistsOnGenericInterface();
 		
-		if (entityClazz == null) {
-			try {
-				throw new GenericTypeNotFoundException("Generic entity was not found on super interface 'Service' !");
-			} catch (GenericTypeNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		// find entity
+		// find entity in database
 		Object entity = entityService.findById(entityId);
 		
 		// get locale id from client and get locale object from database
@@ -87,7 +77,33 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 		Locale locale = (Locale) localeService.findById(localeId);
 		
 		// check if translation for this entity with given locale exists
+		Object translationId = getTranslationId(locale, entity);
+		Object translationRecord = translationEntityService.findById(translationId);
+		
+		// if translation does not exist then it is unique, we can create this new translation
+		if (translationRecord == null) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private void checkIfEntityClazzExistsOnGenericInterface() {
+		// get entity class from generic types of Service<Entity, ID> class
+		Class<?> entityClazz = ConstraintValidatorHelper.getGenericTypeOfSuperInterface(uniqueField.service(), BASE_SERVICE, 0);
+		
+		if (entityClazz == null) {
+			try {
+				throw new GenericTypeNotFoundException("Generic entity was not found on super interface 'Service'");
+			} catch (GenericTypeNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private Object getTranslationId(Locale locale, Object entity) {
 		Class<?> translationIdClazz = ConstraintValidatorHelper.getGenericTypeOfSuperInterface(translationEntityAnnotation.service(), BASE_SERVICE, 1);
+		checkIfTranslationIdClazzExistsOnGenericInterface(translationIdClazz);
 		Object translationId = null;
 		try {
 			translationId = translationIdClazz.newInstance();
@@ -96,18 +112,26 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
+		setTranslationIdProperties(translationId, locale, entity);
+		return translationId;
+	}
+	
+	private void setTranslationIdProperties(Object translationId, Locale locale, Object entity) {
 		try {
 			PropertyUtils.setProperty(translationId, translationEntityAnnotation.localeField(), locale);
 			PropertyUtils.setProperty(translationId, translationEntityAnnotation.entityField(), entity);
 		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 			e.printStackTrace();
 		}
-		Object translationRecord = translationEntityService.findById(translationId);
-		
-		if (translationRecord == null) {
-			return true;
+	}
+	
+	private void checkIfTranslationIdClazzExistsOnGenericInterface(Class<?> translationIdClazz) {
+		if (translationIdClazz == null) {
+			try {
+				throw new GenericTypeNotFoundException("Generic ID class of translation entity was not found on super interface  'Service'");
+			} catch (GenericTypeNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		return false;
 	}
 }
