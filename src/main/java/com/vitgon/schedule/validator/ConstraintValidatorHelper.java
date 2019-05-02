@@ -47,9 +47,9 @@ public class ConstraintValidatorHelper {
     public static boolean isValid(Collection<String> propertyValues, StringComparisonMode comparisonMode) {
         boolean ignoreCase = false;
         switch (comparisonMode) {
-        case EQUAL_IGNORE_CASE:
-        case NOT_EQUAL_IGNORE_CASE:
-            ignoreCase = true;
+	        case EQUAL_IGNORE_CASE:
+	        case NOT_EQUAL_IGNORE_CASE:
+	            ignoreCase = true;
         }
 
         List<String> values = new ArrayList<String> (propertyValues.size());
@@ -71,8 +71,7 @@ public class ConstraintValidatorHelper {
 	            Set<String> allValues = new HashSet<String> (values);
 	            return allValues.size() == values.size() ? true : false;
         }
-
-        return true;
+		return true;
     }
 
     public static String resolveMessage(String[] propertyNames, StringComparisonMode comparisonMode) {
@@ -149,7 +148,7 @@ public class ConstraintValidatorHelper {
 		Type[] genericInterfaces = fromClazz.getGenericInterfaces();
 		Class<?> entityClazz = null;
 		for (Type genericInterface : genericInterfaces) {
-			Class<?> implementedInterface = ConstraintValidatorHelper.getClassFromType(genericInterface);  
+			Class<?> implementedInterface = ConstraintValidatorHelper.getClassFromType(genericInterface);
 			if (implementedInterface.getName().equals(interfaceClazz.getName())) {
 				Type[] genericTypes = ((ParameterizedType) genericInterface).getActualTypeArguments();
 				entityClazz = (Class<?>) genericTypes[sequenceNumber];
