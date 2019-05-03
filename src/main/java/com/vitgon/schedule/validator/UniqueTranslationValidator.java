@@ -58,7 +58,7 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 	}
 
 	@Override
-	public boolean isValid(Object object, ConstraintValidatorContext context) {
+	public boolean isValid(Object dtoObject, ConstraintValidatorContext context) {
 		// disable default violation and bind error with <select th:field="*{localeId}">
 		context.disableDefaultConstraintViolation();
 		context.buildConstraintViolationWithTemplate(errorMessage)
@@ -66,14 +66,14 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 			   .addConstraintViolation();
 		
 		// get 'entity id' from Dto field
-		int entityId = ConstraintValidatorHelper.getPropertyValue(Integer.class, entityIdFieldName, object);
+		int entityId = ConstraintValidatorHelper.getPropertyValue(Integer.class, entityIdFieldName, dtoObject);
 		checkIfEntityClazzExistsOnGenericInterface();
 		
 		// find entity in database
 		Object entity = entityService.findById(entityId);
 		
 		// get locale id from client and get locale object from database
-		int localeId = ConstraintValidatorHelper.getPropertyValue(Integer.class, localeIdFieldName, object);
+		int localeId = ConstraintValidatorHelper.getPropertyValue(Integer.class, localeIdFieldName, dtoObject);
 		Locale locale = (Locale) localeService.findById(localeId);
 		
 		// check if translation for this entity with given locale exists
