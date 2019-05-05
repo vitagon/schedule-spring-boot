@@ -10,20 +10,21 @@ import com.vitgon.schedule.annotation.validation.EnumMatch;
 
 public class EnumValidator implements ConstraintValidator<EnumMatch, String> {
 	
-	private List<String> valueList = new ArrayList<>();
+	private List<String> enumElementsList = new ArrayList<>();
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void initialize(EnumMatch constraintAnnotation) {
 		Class<? extends Enum> enumClazz = constraintAnnotation.enumClazz();
 		Enum[] enumConstants = enumClazz.getEnumConstants();
 		for (Enum enumConstant : enumConstants) {
-			valueList.add(enumConstant.toString().toUpperCase());
+			enumElementsList.add(enumConstant.toString().toUpperCase());
 		}
 	}
 
 	@Override
-	public boolean isValid(String degreeType, ConstraintValidatorContext context) {
-		if (valueList.contains(degreeType)) {
+	public boolean isValid(String enumElement, ConstraintValidatorContext context) {
+		if (enumElementsList.contains(enumElement)) {
 			return true;
 		}
 		return false;
