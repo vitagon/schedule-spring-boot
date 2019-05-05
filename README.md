@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/VitaliyGoncharov/schedule-spring-boot.svg?branch=master)](https://travis-ci.org/VitaliyGoncharov/schedule-spring-boot)
-[![codecov](https://codecov.io/gh/VitaliyGoncharov/schedule-spring-boot/branch/master/graph/badge.svg)](https://codecov.io/gh/VitaliyGoncharov/schedule-spring-boot)
+[![Build Status](https://travis-ci.org/vit-gon/schedule-spring-boot.svg?branch=master)](https://travis-ci.org/vit-gon/schedule-spring-boot)
+[![codecov](https://codecov.io/gh/vit-gon/schedule-spring-boot/branch/master/graph/badge.svg)](https://codecov.io/gh/vit-gon/schedule-spring-boot)
 
 # schedule-spring-boot
 
