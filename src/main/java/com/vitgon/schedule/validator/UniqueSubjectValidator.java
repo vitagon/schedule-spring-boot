@@ -7,13 +7,12 @@ import com.vitgon.schedule.annotation.validation.UniqueSubject;
 import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.service.database.SubjectService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class UniqueSubjectValidator implements ConstraintValidator<UniqueSubject, String> {
 	
 	private SubjectService subjectService;
-	
-	public UniqueSubjectValidator(SubjectService subjectService) {
-		this.subjectService = subjectService;
-	}
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
