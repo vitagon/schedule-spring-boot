@@ -10,7 +10,7 @@ spring:
     generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
       # Just use columns names from @Column(name="") AS THEY ARE 
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
@@ -30,7 +30,7 @@ spring:
       force: true
       charset: UTF-8
   flyway:
-    enabled: false
+    enabled: true
 #logging:
   #pattern:
     #console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'

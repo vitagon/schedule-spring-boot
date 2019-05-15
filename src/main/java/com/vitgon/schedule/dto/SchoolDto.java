@@ -13,6 +13,7 @@ public class SchoolDto {
 	
 	private int id;
 	private String name;
+	private String translation;
 	private String url;
 	private List<MajorDto> majors;
 	

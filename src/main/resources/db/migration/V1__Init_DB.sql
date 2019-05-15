@@ -101,7 +101,7 @@ create table users (
 	key_firstname varchar(255),
 	key_lastname varchar(255),
 	key_middlename varchar(255),
-	birth date not null,
+	birth date,
 	active boolean not null,
 	provider_id varchar(255) not null,
 	primary key (id)

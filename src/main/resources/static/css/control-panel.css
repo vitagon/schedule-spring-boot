@@ -99,7 +99,8 @@ body {
 	border-bottom: 1px solid #2f3b50;
 }
 
-#admin-panel_tabs > li > a.active.show {
+#admin-panel_tabs > li > a[aria-expanded=true],
+#admin-panel_tabs > li > a.active {
 	background-color: #2c384e;
 }
 
