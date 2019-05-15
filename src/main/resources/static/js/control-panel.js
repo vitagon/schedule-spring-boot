@@ -1,3 +1,6 @@
+import {SchoolsTab} from '/js/control/schools-tab.js';
+
+
 const $schoolSelect = $("#choose-schedule-school__select");
 const $majorSelect  = $("#choose-schedule-major__select");
 const $courseSelect = $("#choose-schedule-course__select");
@@ -5,93 +8,18 @@ const $groupSelect  = $("#choose-schedule-group__select");
 
 const $editScheduleContent = $("#edit-schedule-content");
 
-
-$('#sidebar-toggle').click(function(e) {
-	$('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
-	$('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
-	e.stopPropagation();
+let schoolTab = new SchoolsTab();
+document.querySelector("#schools-list_locale").addEventListener("change", function (event) {
+	schoolTab.getSchoolsList(event);
+});
+document.querySelector("#add-school_btn").addEventListener("click", function (event) {
+	schoolTab.addSchool(event);
+});
+document.querySelector("#remove-school_btn").addEventListener("click", function(event) {
+	schoolTab.removeSchool(event);
 });
 
-$('#admin-panel_tabs a').on('click', function(e) {
-  e.preventDefault();
-  let $target = $(e.target);
-  
-  // if link is a parent link, we should just show submenu and hide others tab's submenus
-  if ($target.hasClass('submenu_parent-link')) {
-	  let submenuIsOpened = $target.hasClass('active');
-	  
-	  $('.nav-item_lvl-0').not(".opened").find('.submenu_parent-link').removeClass(['active','show']);
-	  $('.nav-item_lvl-0').find('.side-menu-tab_submenu').collapse('hide');
-	  
-	  // if we click link of another submenu that is not opened
-	  if (!submenuIsOpened) {
-		  $target.addClass(['show', 'active']);
-	  }
-	  
-	  $target.siblings('ul').collapse('toggle');
-	  return;
-  }
-  
-  // hide all tab's content
-  $('#admin-panel_tabs-content .tab-pane').removeClass(['show','active']);
-  
-  // if target is a link of sublist we should not remove .active.show from parent link
-  if ($target.closest('.side-menu-tab_submenu').length) {
-	  
-	  let rootLinks = $('.nav-item_lvl-0');
-	  for (rootLink of rootLinks) {
-		  let rootLink_submenu = $(rootLink).find('.side-menu-tab_submenu');
-		  let target_submenu = $target.closest('.side-menu-tab_submenu'); 
-		  
-		  if (rootLink_submenu != null && rootLink_submenu[0] != target_submenu[0]) {
-			  $(rootLink_submenu).collapse('hide');
-			  $(rootLink).removeClass('opened');
-			  $(rootLink).find('a').removeClass(['show','active']);
-		  }
-		  
-		  if (rootLink_submenu != null && rootLink_submenu[0] == target_submenu[0]) {
-			  $(target_submenu).find('a').removeClass(['show','active']);
-		  }
-		  
-		  if (rootLink_submenu == null) {
-			  $(rootLink).removeClass('opened');
-		  }
-	  }
-	  
-	  $target.closest('.nav-item_lvl-0').addClass('opened');
-  } else {
-	  // collapse all sidemenu submenu-s 
-	  $('#admin-panel_tabs .side-menu-tab_submenu').collapse('hide');
-	  // deactivate all active tabs
-	  $('#admin-panel_tabs a').removeClass('show');
-	  $('#admin-panel_tabs a').removeClass('active');
-  }
-  
-  // mark tab and show tab content
-  let href = $target[0].hash;
-  $(href).addClass('show');
-  $(href).addClass('active');
-  $target.addClass('show');
-  $target.addClass('active');
-  
-  // if it is mobile device, then hide side menu (after user had chosen tab)
-  if ($(window).width() < 768) {
-	  $('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
-	  $('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
-  }
-});
 
-$(document).click(function(event) {
-	
-	// when user clicks on 'content' on mobile devices, then hide sidemenu if it is opened
-	if (!$(event.target).closest("#admin-panel_tabs-wrap").length &&
-			$(window).width() < 768 &&
-			$('#admin-panel_tabs-wrap').hasClass('side-menu-toggled') &&
-			$('#admin-panel_tabs-content').hasClass('side-menu-toggled')) {
-		$('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
-		$('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
-	}
-})
 
 $schoolSelect.on('change', function() {
 	// if user choose default value (option[value=0])
@@ -412,145 +340,9 @@ function removeSubject(e) {
 	});
 }
 
-function showValidationErrors(errors, $form) {
-	$form.find('.validation-message').remove();
-	$.each(errors, function (fieldName, fieldErrors) {
-		let $field = $form.find('[name=' + fieldName + ']');
-		
-		if ($field != null) {
-			let $fieldWrap = $field.closest('div');
-			$.each(fieldErrors, function (index, fieldError) {
-				$fieldWrap.append('<div class="validation-message" style="color: red">' +
-								  fieldError +
-								  '</div>');
-			});
-		}
-	});
-}
 
-function getSchoolsList(e) {
-	let localeId = e.target.value;
-	
-	$.ajax({
-		type: 'GET',
-		url: '/api/control/schools/view',
-		data: {localeId: localeId},
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'html',
-		success: function(response) {
-			$('.schools-list_content').html(response);
-		},
-		error: function(jqXHR, exception) {
-			let msg = getErrorMessage(jqXHR, exception);
-			alert(msg);
-		}
-	});
-}
 
-function addSchool(e) {
-	e.preventDefault();
-	
-	let $form = $(e.target.closest('form'));
-	let schoolName = $form.find('input[name=schoolName]').val();
-	
-	let obj = {schoolName: schoolName};
-	
-	$.ajax({
-		type: 'POST',
-		url: $form.attr('action'),
-		data: JSON.stringify(obj),
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'json',
-		success: function (response) {
-			$form.find('.validation-message').remove();
-			$form.find('input[name=schoolName]').val('');
-			
-			$.snackbar({
-				content: response.message,
-				timeout: 5000
-			});
-		},
-		error: function (jqXHR, exception) {
-			let msg = getErrorMessage(jqXHR, exception);
-			if (jqXHR.status == 400) {
-				let errors = jqXHR.responseJSON.details;
-				showValidationErrors(errors, $form);
-			} else {
-				alert(msg);
-			}
-		}
-		
-	});
-}
 
-function editSchool(e) {
-	e.preventDefault();
-	
-	let $form = $(e.target.closest('form'));
-	let obj = {
-		schoolId: $form.find('select[name=schoolId]').val(),
-		newSchoolName: $form.find('input[name=newSchoolName]').val()
-	}
-	
-	$.ajax({
-		type: 'PUT',
-		url: $form.attr('action'),
-		data: JSON.stringify(obj),
-		contentType: 'application/json; charset=utf-8',
-		dataType: 'json',
-		success: function(response) {
-			$form.find('.validation-message').remove();
-			$form.find('select[name=schoolId]').val(0);
-			$form.find('input[name=newSchoolName]').val('');
-			
-			$.snackbar({
-				content: response.message,
-				timeout: 5000
-			});
-		},
-		error: function(jqXHR, exception) {
-			let msg = getErrorMessage(jqXHR, exception);
-			if (jqXHR.status == 400) {
-				let errors = jqXHR.responseJSON.details;
-				showValidationErrors(errors, $form);
-			} else {
-				alert(msg);
-			}
-		}
-	});
-}
-
-function removeSchool(e) {
-	e.preventDefault();
-	
-	let $form = $(e.target.closest('form'));
-	let obj = {id: $form.find('select[name=schoolId]').val()};
-	
-	$.ajax({
-		type: 'DELETE',
-		url: $form.attr('action'),
-		data: obj,
-		dataType: 'json',
-		success: function(response) {
-			$form.find('.validation-message').remove();
-			$form.find('select[name=schoolId]').val(0);
-			
-			$.snackbar({
-				content: response.message,
-				timeout: 5000
-			});
-		},
-		error: function(jqXHR, exception) {
-			let msg = getErrorMessage(jqXHR, exception);
-			if (jqXHR.status == 400) {
-				let errors = jqXHR.responseJSON.details;
-				showValidationErrors(errors, $form);
-			} else {
-				alert(msg);
-			}
-		}
-	});
-}
 
 function getMajorsList(e) {
 	let localeId = e.target.value;

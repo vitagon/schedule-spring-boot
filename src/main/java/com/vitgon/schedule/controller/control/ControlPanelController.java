@@ -22,21 +22,22 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/control")
 public class ControlPanelController {
 	
-	private LocaleConverterService localeConverterService;
-	private ControlPanelAttributesService controlPanelAttributesService;
+//	private LocaleConverterService localeConverterService;
+//	private ControlPanelAttributesService controlPanelAttributesService;
 
 	@GetMapping
-	public ModelAndView showControlPanel(HttpServletRequest request, ModelMap modelMap) {
-		ModelAndView modelAndView = new ModelAndView();
-		Locale locale = localeConverterService.getClientLocale(request);
-		controlPanelAttributesService.setDataAttributes(modelMap, locale);
-		
-		modelAndView.addObject(new AddSubjectDto());
-		modelAndView.addObject(new AddSubjectTranslationDto());
-		modelAndView.addObject(new AddTeacherTranslationDto());
-		modelAndView.addObject("activeTab", "main");
-		
-		modelAndView.setViewName("control/control-panel");
-		return modelAndView;
+	public String showControlPanel(HttpServletRequest request) {
+//		ModelAndView modelAndView = new ModelAndView();
+//		Locale locale = localeConverterService.getClientLocale(request);
+//		controlPanelAttributesService.setDataAttributes(modelMap, locale);
+//		
+//		modelAndView.addObject(new AddSubjectDto());
+//		modelAndView.addObject(new AddSubjectTranslationDto());
+//		modelAndView.addObject(new AddTeacherTranslationDto());
+//		modelAndView.addObject("activeTab", "main");
+//		
+//		modelAndView.setViewName("control/control-panel");
+//		return modelAndView;
+		return "forward:/admin-panel.html";
 	}
 }

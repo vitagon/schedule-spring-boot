@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.dto.AddSchoolDto;
 import com.vitgon.schedule.dto.EditSchoolDto;
+import com.vitgon.schedule.dto.SchoolDto;
 import com.vitgon.schedule.dto.SchoolDtoControl;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
@@ -47,11 +48,21 @@ public class SchoolRestControllerControl {
 	private LocaleService localeService;
 	private MessageService messageService;
 	
+	private SchoolDto convertToDto(School school) {
+		SchoolDto schoolDto = new SchoolDto();
+		schoolDto.setId(school.getId());
+		schoolDto.setName(school.getName());
+		return schoolDto;
+	}
+	
 	@PostMapping("/school")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addSchool(@RequestBody @Valid AddSchoolDto addSchoolDTO) {
-		schoolService.save(new School(addSchoolDTO.getSchoolName().toLowerCase(), StringUtil.applyUnderlyingStyle(addSchoolDTO.getSchoolName())));
-		return new ApiSuccess(new Date(), "You successfully added school!");
+	public SchoolDto addSchool(@RequestBody @Valid AddSchoolDto addSchoolDTO) {
+		School school = new School(
+				addSchoolDTO.getSchoolName().toLowerCase(),
+				StringUtil.applyUnderlyingStyle(addSchoolDTO.getSchoolName()));
+		school = schoolService.save(school);
+		return convertToDto(school);
 	}
 	
 	@PutMapping("/school")
@@ -81,8 +92,8 @@ public class SchoolRestControllerControl {
 		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed school!"));
 	}
 
-	@GetMapping("/schools/view")
-	public ModelAndView getSchoolsView(@RequestParam("localeId") int localeId) {
+	@GetMapping("/schools")
+	public List<SchoolDtoControl> getSchoolsView(@RequestParam("localeId") int localeId) {
 		if (localeId < 0) {
 			throw new IllegalArgumentException("Locale id must be equal OR greater than 0!");
 		}
@@ -100,7 +111,7 @@ public class SchoolRestControllerControl {
 			schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList(locale);
 		}
 		
-		model.addObject("schoolDtoList", schoolDtoControlList);
-		return model;
+//		model.addObject("schoolDtoList", schoolDtoControlList);
+		return schoolDtoControlList;
 	}
 }
