@@ -1,6 +1,6 @@
 import {serverBus} from '/vue/admin-panel/admin-panel.js';
-import {getErrorMessage, showValidationErrors} from '/vue/util/error-msg-builder.js';
-import {clearValidationMessages} from '/vue/util/validation.js';
+import {getErrorMessage} from '/vue/util/error-msg-builder.js';
+import {clearValidationMessages, showValidationErrors} from '/vue/util/validation.js';
 
 Vue.component('edit-major', {
 	data: function () {

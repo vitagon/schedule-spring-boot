@@ -1,5 +1,6 @@
 import {serverBus} from '/vue/admin-panel/admin-panel.js';
-import {getErrorMessage, showValidationErrors} from '/vue/util/error-msg-builder.js';
+import {getErrorMessage} from '/vue/util/error-msg-builder.js';
+import {showValidationErrors} from '/vue/util/validation.js';
 
 Vue.component('edit-school', {
 	data: function () {
