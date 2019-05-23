@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.dto.AddMajorDto;
 import com.vitgon.schedule.dto.EditMajorDto;
+import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Major;
-import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.MajorDtoConverterService;
 import com.vitgon.schedule.service.MessageService;
 import com.vitgon.schedule.service.database.MajorService;
@@ -44,10 +43,10 @@ public class MajorRestControllerControl {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addMajor(@RequestBody @Valid AddMajorDto addMajorDto) {
+	public MajorDto addMajor(@RequestBody @Valid AddMajorDto addMajorDto) {
 		Major major = majorDtoConverterService.convertToEntity(addMajorDto);
-		majorService.save(major);
-		return new ApiSuccess(new Date(), "You successfully added major!");
+		major = majorService.save(major);
+		return majorDtoConverterService.convertToDto(major);
 	}
 	
 	@PutMapping
