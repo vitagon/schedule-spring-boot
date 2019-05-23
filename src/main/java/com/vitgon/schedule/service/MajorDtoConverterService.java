@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.vitgon.schedule.dto.AddMajorDto;
 import com.vitgon.schedule.dto.DegreeEnum;
 import com.vitgon.schedule.dto.EditMajorDto;
+import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.SchoolService;
@@ -23,8 +24,8 @@ public class MajorDtoConverterService {
 		
 		Major major = new Major();
 		major.setSchool(school);
-		major.setName(addMajorDto.getName().toLowerCase());
-		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getName()));
+		major.setName(addMajorDto.getTitle().toLowerCase());
+		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getTitle()));
 		major.setDuration(addMajorDto.getDuration());
 		major.setDegree(DegreeEnum.valueOf(addMajorDto.getDegree()));
 		return major;
@@ -36,5 +37,14 @@ public class MajorDtoConverterService {
 		major.setDuration(editMajorDto.getDuration());
 		major.setDegree(DegreeEnum.valueOf(editMajorDto.getDegree()));
 		return major;
+	}
+	
+	public MajorDto convertToDto(Major major) {
+		MajorDto majorDto = new MajorDto();
+		majorDto.setId(major.getId());
+		majorDto.setName(major.getName());
+		majorDto.setTranslation(null);
+		majorDto.setUrl(major.getUrl());
+		return majorDto;
 	}
 }

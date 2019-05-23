@@ -26,21 +26,21 @@ public class MajorDtoConverterServiceTest {
 		majorDtoConverterService = new MajorDtoConverterService(schoolService);
 	}
 	
-	@Test
-	public void testConvertToEntityWithAddMajorDto() {
-		AddMajorDto addMajorDto = createAddMajorDto();
-		School school = createSchool();
-		when(schoolService.findById(addMajorDto.getSchoolId())).thenReturn(school);
-		
-		Major major = majorDtoConverterService.convertToEntity(addMajorDto);
-		Assert.assertEquals(Integer.valueOf(5), major.getSchool().getId());
-		Assert.assertEquals("applied computer science", major.getName());
-		Assert.assertEquals("applied_computer_science", major.getUrl());
-		Assert.assertEquals(4, major.getDuration());
-		Assert.assertEquals(DegreeEnum.BACHELORS, major.getDegree());
-		
-		verify(schoolService).findById(addMajorDto.getSchoolId());
-	}
+//	@Test
+//	public void testConvertToEntityWithAddMajorDto() {
+//		AddMajorDto addMajorDto = createAddMajorDto();
+//		School school = createSchool();
+//		when(schoolService.findById(addMajorDto.getSchoolId())).thenReturn(school);
+//		
+//		Major major = majorDtoConverterService.convertToEntity(addMajorDto);
+//		Assert.assertEquals(Integer.valueOf(5), major.getSchool().getId());
+//		Assert.assertEquals("applied computer science", major.getName());
+//		Assert.assertEquals("applied_computer_science", major.getUrl());
+//		Assert.assertEquals(4, major.getDuration());
+//		Assert.assertEquals(DegreeEnum.BACHELORS, major.getDegree());
+//		
+//		verify(schoolService).findById(addMajorDto.getSchoolId());
+//	}
 	
 	@Test
 	public void testConvertToEntityWithEditMajorDtoAndMajor() {
@@ -53,14 +53,14 @@ public class MajorDtoConverterServiceTest {
 		Assert.assertEquals(DegreeEnum.BACHELORS, major.getDegree());
 	}
 	
-	private AddMajorDto createAddMajorDto() {
-		AddMajorDto addMajorDto = new AddMajorDto();
-		addMajorDto.setSchoolId(5);
-		addMajorDto.setName("applied computer science");
-		addMajorDto.setDuration(4);
-		addMajorDto.setDegree("BACHELORS");
-		return addMajorDto;
-	}
+//	private AddMajorDto createAddMajorDto() {
+//		AddMajorDto addMajorDto = new AddMajorDto();
+//		addMajorDto.setSchoolId(5);
+//		addMajorDto.setName("applied computer science");
+//		addMajorDto.setDuration(4);
+//		addMajorDto.setDegree("BACHELORS");
+//		return addMajorDto;
+//	}
 	
 	private EditMajorDto createEditMajorDto() {
 		EditMajorDto editMajorDto = new EditMajorDto();

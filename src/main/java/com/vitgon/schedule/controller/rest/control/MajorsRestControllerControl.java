@@ -17,19 +17,17 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/control/majors/view")
-public class MajorsViewRestControllerControl {
+@RequestMapping("/api/control/majors")
+public class MajorsRestControllerControl {
 	
 	private MajorConverterService majorConverterService;
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ModelAndView getSchoolsView(@RequestParam("localeId") int localeId) {
+	public List<MajorDtoControl> getMajors(@RequestParam("localeId") int localeId) {
 		if (localeId < 0) {
 			throw new IllegalArgumentException("Locale id must be equal or greater than 0!");
 		}
-		
-		ModelAndView model = new ModelAndView("control/majors-list :: majors-list");
 		List<MajorDtoControl> majorDtoControlList = null;
 		
 		if (localeId == 0) {
@@ -38,7 +36,6 @@ public class MajorsViewRestControllerControl {
 			majorDtoControlList = majorConverterService.convertToMajorDtoControlList(localeId);
 		}
 		
-		model.addObject("majorDtoList", majorDtoControlList);
-		return model;
+		return majorDtoControlList;
 	}
 }

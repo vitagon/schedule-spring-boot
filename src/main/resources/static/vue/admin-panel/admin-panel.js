@@ -4,6 +4,11 @@ import {} from '/vue/admin-panel/schools-tab/add-school.js';
 import {} from '/vue/admin-panel/schools-tab/edit-school.js';
 import {} from '/vue/admin-panel/schools-tab/remove-school.js';
 
+import {} from '/vue/admin-panel/majors-tab/majors-list.js';
+import {} from '/vue/admin-panel/majors-tab/add-major.js';
+import {} from '/vue/admin-panel/majors-tab/edit-major.js';
+import {} from '/vue/admin-panel/majors-tab/remove-major.js';
+
 export const serverBus = new Vue();
 
 new Vue({

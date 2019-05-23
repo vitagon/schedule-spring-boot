@@ -48,6 +48,7 @@ Vue.component('schools-list', {
 			
 			getLocalesRequest.done(function (response) {
 				_this.locales = response;
+				serverBus.$emit('fetchedLocales', response);
 			});
 			
 			getLocalesRequest.fail(function (jqXHR, exception) {

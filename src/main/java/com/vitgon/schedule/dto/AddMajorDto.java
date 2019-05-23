@@ -26,7 +26,7 @@ public class AddMajorDto {
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
-	private String name;
+	private String title;
 	
 	@Min(value = 1, message = "{NotEmpty.default}")
 	@Max(value = 10, message = "{Max.default}")

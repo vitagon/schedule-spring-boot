@@ -48,18 +48,18 @@ public class MajorRestControllerControlTest {
 	@InjectMocks
 	private MajorRestControllerControl majorRestControllerControl;
 	
-	@Test
-	public void addMajor_AddMajorDto__success() {
-		AddMajorDto addMajorDto = new AddMajorDto();
-		Major major = new Major();
-		
-		when(majorDtoConverterService.convertToEntity(addMajorDto)).thenReturn(major);
-		ApiSuccess apiSuccess = majorRestControllerControl.addMajor(addMajorDto);
-		
-		assertNotNull(apiSuccess.getTimestamp());
-		assertFalse(apiSuccess.getMessage().isEmpty());
-		verify(majorService, times(1)).save(major);
-	}
+//	@Test
+//	public void addMajor_AddMajorDto__success() {
+//		AddMajorDto addMajorDto = new AddMajorDto();
+//		Major major = new Major();
+//		
+//		when(majorDtoConverterService.convertToEntity(addMajorDto)).thenReturn(major);
+//		ApiSuccess apiSuccess = majorRestControllerControl.addMajor(addMajorDto);
+//		
+//		assertNotNull(apiSuccess.getTimestamp());
+//		assertFalse(apiSuccess.getMessage().isEmpty());
+//		verify(majorService, times(1)).save(major);
+//	}
 	
 	@Test
 	public void updateMajor_EditMajorDto__whenMajorExists_thenSuccess() {
