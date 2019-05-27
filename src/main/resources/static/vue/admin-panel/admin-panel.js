@@ -1,4 +1,5 @@
 import {} from '/vue/admin-panel/main-tab.js';
+
 import {} from '/vue/admin-panel/schools-tab/schools-list.js';
 import {} from '/vue/admin-panel/schools-tab/add-school.js';
 import {} from '/vue/admin-panel/schools-tab/edit-school.js';
@@ -8,6 +9,11 @@ import {} from '/vue/admin-panel/majors-tab/majors-list.js';
 import {} from '/vue/admin-panel/majors-tab/add-major.js';
 import {} from '/vue/admin-panel/majors-tab/edit-major.js';
 import {} from '/vue/admin-panel/majors-tab/remove-major.js';
+
+import {} from '/vue/admin-panel/groups-tab/groups-list.js';
+import {} from '/vue/admin-panel/groups-tab/add-group.js';
+import {} from '/vue/admin-panel/groups-tab/edit-group.js';
+import {} from '/vue/admin-panel/groups-tab/remove-group.js';
 
 export const serverBus = new Vue();
 
@@ -30,7 +36,7 @@ $('#admin-panel_tabs a').on('click', function(e) {
   let $target = $(e.target);
   
   /*
-   * 1. Когда нажата кнопка показа/скрытия аккордиона
+   * 1. Когда нажата кнопка показа/скрытия аккордеона
    */
   if ($target.closest('li').hasClass('nav-item_lvl-0') && $target.hasClass('submenu_parent-link')) {
 	  

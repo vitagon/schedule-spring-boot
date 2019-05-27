@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.dto.AddGroupDto;
 import com.vitgon.schedule.dto.EditGroupDto;
+import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Major;
@@ -34,7 +35,7 @@ public class GroupRestControllerControl {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {
+	public GroupDto addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {
 		Major major = majorService.findById(addGroupDto.getMajorId());
 		
 		if (major == null) {
@@ -47,13 +48,27 @@ public class GroupRestControllerControl {
 		group.setSuffix(addGroupDto.getSuffix());
 		group.setCourseNum(addGroupDto.getCourseNum());
 		
-		groupService.save(group);
-		return new ApiSuccess(new Date(), "You successfully added new group!");
+		group = groupService.save(group);
+		GroupDto groupDto = convertToDto(group);
+		return groupDto;
 	}
 	
+	private GroupDto convertToDto(Group group) {
+		GroupDto groupDto = new GroupDto(group.getId(), getGroupTitle(group));
+		return groupDto;
+	}
+	
+	private String getGroupTitle(Group group) {
+		return getDegree(group).charAt(0) + String.valueOf(group.getNumber()) + group.getSuffix();
+	}
+	
+	private String getDegree(Group group) {
+		return group.getMajor().getDegree().name();
+	}
+
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess editGroup(@RequestBody @Valid EditGroupDto editGroupDto) {
+	public GroupDto editGroup(@RequestBody @Valid EditGroupDto editGroupDto) {
 		Group group = groupService.findById(editGroupDto.getId());
 		
 		if (group == null) {
@@ -61,8 +76,8 @@ public class GroupRestControllerControl {
 		}
 		
 		group.setCourseNum(editGroupDto.getCourseNum());
-		groupService.update(group);
-		return new ApiSuccess(new Date(), "You successfully edited group!");
+		group = groupService.update(group);
+		return convertToDto(group);
 	}
 	
 	@DeleteMapping
