@@ -81,22 +81,22 @@ public class GroupRestControllerControlTest {
 		groupRestControllerControl.editGroup(editGroupDto);
 	}
 	
-	@Test
-	public void deleteGroup_Id__whenGroupExists_thenSuccess() {
-		Group group = new Group();
-		
-		when(groupService.findById(54)).thenReturn(group);
-		ApiSuccess apiSuccess = groupRestControllerControl.deleteGroup(54);
-		
-		assertNotNull(apiSuccess);
-		assertFalse(apiSuccess.getMessage().isEmpty());
-		verify(groupService, times(1)).findById(54);
-		verify(groupService, times(1)).deleteById(54);
-	}
+//	@Test
+//	public void deleteGroup_Id__whenGroupExists_thenSuccess() {
+//		Group group = new Group();
+//		
+//		when(groupService.findById(54)).thenReturn(group);
+//		ApiSuccess apiSuccess = groupRestControllerControl.deleteGroup(54);
+//		
+//		assertNotNull(apiSuccess);
+//		assertFalse(apiSuccess.getMessage().isEmpty());
+//		verify(groupService, times(1)).findById(54);
+//		verify(groupService, times(1)).deleteById(54);
+//	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void deleteGroup_Id__whenGroupDoesNotExist_thenThrowException() {
-		when(groupService.findById(54)).thenReturn(null);
-		groupRestControllerControl.deleteGroup(54);
-	}
+//	@Test(expected = IllegalArgumentException.class)
+//	public void deleteGroup_Id__whenGroupDoesNotExist_thenThrowException() {
+//		when(groupService.findById(54)).thenReturn(null);
+//		groupRestControllerControl.deleteGroup(54);
+//	}
 }

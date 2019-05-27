@@ -62,11 +62,10 @@ public class MajorRestControllerControl {
 	}
 	
 	@DeleteMapping
-	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> deleteMajor(@RequestParam("id") Major major, HttpServletRequest request) {
 		if (major == null) {
 			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("majorId", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue", request)));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiError(new Date(), "Major Not Found", errors));

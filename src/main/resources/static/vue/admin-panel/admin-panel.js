@@ -15,6 +15,11 @@ import {} from '/vue/admin-panel/groups-tab/add-group.js';
 import {} from '/vue/admin-panel/groups-tab/edit-group.js';
 import {} from '/vue/admin-panel/groups-tab/remove-group.js';
 
+import {} from '/vue/admin-panel/subjects-tab/subjects-list.js';
+import {} from '/vue/admin-panel/subjects-tab/add-subject.js';
+import {} from '/vue/admin-panel/subjects-tab/edit-subject.js';
+import {} from '/vue/admin-panel/subjects-tab/remove-subject.js';
+
 export const serverBus = new Vue();
 
 new Vue({

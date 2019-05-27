@@ -1,10 +1,16 @@
 package com.vitgon.schedule.controller.rest.control;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,9 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vitgon.schedule.dto.AddGroupDto;
 import com.vitgon.schedule.dto.EditGroupDto;
 import com.vitgon.schedule.dto.GroupDto;
+import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.service.MessageService;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.MajorService;
 
@@ -32,6 +40,7 @@ public class GroupRestControllerControl {
 	
 	private GroupService groupService;
 	private MajorService majorService;
+	private MessageService messageService;
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -80,14 +89,17 @@ public class GroupRestControllerControl {
 		return convertToDto(group);
 	}
 	
-	@DeleteMapping
-	@ResponseStatus(HttpStatus.OK)
-	public ApiSuccess deleteGroup(@RequestParam("id") int id) {
+	@DeleteMapping(params = {"id"})
+	public ResponseEntity<?> deleteGroup(@RequestParam("id") int id, HttpServletRequest request) {
 		Group group = groupService.findById(id);
 		if (group == null) {
-			throw new IllegalArgumentException("Group was not found!");
+			Map<String, List<String>> errors = new HashMap<>();
+			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			return ResponseEntity
+					.status(HttpStatus.BAD_REQUEST)
+					.body(new ApiError(new Date(), "Subject Not Found", errors));
 		}
 		groupService.deleteById(id);
-		return new ApiSuccess(new Date(), "You successfully removed group!");
+		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed group!"));
 	}
 }

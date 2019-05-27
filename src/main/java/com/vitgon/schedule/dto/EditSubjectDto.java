@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 public class EditSubjectDto {
 
 	@Min(value = 1, message = "{NotEmpty.default}")
-	private int oldSubjectId;
+	private int id;
 	
 	@UniqueSubject(message = "{Duplicate.subject}")
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
-	private String newSubjectName;
+	private String name;
 }
