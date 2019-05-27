@@ -36,37 +36,37 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/control")
+@RequestMapping("/api/control/subjects")
 public class SubjectRestControllerControl {
 	
 	private SubjectRestController subjectRestController;
 	private SubjectService subjectService;
 	private MessageService messageService;
 
-	@PostMapping("/subject")
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiSuccess addSubject(@RequestBody @Valid AddSubjectDto addSubjectDto) {
-		subjectService.save(new Subject(addSubjectDto.getSubjectName().toLowerCase()));
-		return new ApiSuccess(new Date(), "You successfully added subject!");
+	public SubjectDto addSubject(@RequestBody @Valid AddSubjectDto addSubjectDto) {
+		Subject subject = subjectService.save(new Subject(addSubjectDto.getSubjectName().toLowerCase()));
+		return convertToDto(subject);
 	}
 	
-	@PutMapping("/subject")
+	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ApiSuccess updateSubject(@RequestBody @Valid EditSubjectDto editSubjectDto) {
-		Subject subject = subjectService.findById(editSubjectDto.getOldSubjectId());
+		Subject subject = subjectService.findById(editSubjectDto.getId());
 		if (subject == null) {
 			throw new IllegalArgumentException("Subject with such name doesn't exist!");
 		}
-		subject.setName(editSubjectDto.getNewSubjectName());
+		subject.setName(editSubjectDto.getName());
 		subjectService.update(subject);
 		return new ApiSuccess(new Date(), "You successfully edited subject!");
 	}
 	
-	@DeleteMapping(value = "/subject", params = {"id"})
+	@DeleteMapping(params = {"id"})
 	public ResponseEntity<?> deleteSubject(@RequestParam("id") Subject subject, HttpServletRequest request) {
 		if (subject == null) {
 			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("subjectId", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue", request)));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiError(new Date(), "Subject Not Found", errors));
@@ -75,12 +75,14 @@ public class SubjectRestControllerControl {
 		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed subject!"));
 	}
 	
-	@GetMapping("/subjects/view")
+	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ModelAndView getSubjectsWithView(@RequestParam int localeId) {
-		List<SubjectDto> subjects = subjectRestController.getSubjectDtoListByLocale(localeId);
-		ModelAndView model = new ModelAndView("control/subjects-list :: subjects-list");
-		model.addObject("subjects", subjects);
-		return model;
+	public List<SubjectDto> getSubjectsWithView(@RequestParam int localeId) {
+		return subjectRestController.getSubjectDtoListByLocale(localeId);
+	}
+	
+	private SubjectDto convertToDto(Subject subject) {
+		SubjectDto subjectDto = new SubjectDto(subject.getId(), subject.getName());
+		return subjectDto;
 	}
 }
