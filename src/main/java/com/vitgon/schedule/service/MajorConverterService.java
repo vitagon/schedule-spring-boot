@@ -2,10 +2,10 @@ package com.vitgon.schedule.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.dto.MajorDtoControl;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
@@ -44,10 +44,10 @@ public class MajorConverterService {
 	}
 	
 	public List<MajorDtoControl> convertToMajorDtoControlList(int localeId) {
-		Locale locale = localeService.findById(localeId);
-		if (locale == null) {
+		Optional<Locale> locale = localeService.findById(localeId);
+		if (!locale.isPresent()) {
 			throw new IllegalArgumentException(String.format("Locale with id=%d was not found!", localeId));
 		}
-		return convertToMajorDtoControlList(locale);
+		return convertToMajorDtoControlList(locale.get());
 	}
 }

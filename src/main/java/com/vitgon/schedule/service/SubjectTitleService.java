@@ -1,5 +1,7 @@
 package com.vitgon.schedule.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import com.vitgon.schedule.model.database.Locale;
@@ -22,12 +24,12 @@ public class SubjectTitleService {
 			return StringUtil.capitalizeFirstLetter(subject.getName());
 		}
 		
-		SubjectTranslation subjectTranslation = subjectTranslationService.findByLocaleAndSubject(locale, subject);
+		Optional<SubjectTranslation> subjectTranslation = subjectTranslationService.findByLocaleAndSubject(locale, subject);
 		
-		if (subjectTranslation == null) {
+		if (!subjectTranslation.isPresent()) {
 			return StringUtil.capitalizeFirstLetter(subject.getName());
 		} else {
-			return StringUtil.capitalizeFirstLetter(subjectTranslation.getTitle());
+			return StringUtil.capitalizeFirstLetter(subjectTranslation.get().getTranslation());
 		}
 	}
 }

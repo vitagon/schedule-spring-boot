@@ -1,5 +1,7 @@
 package com.vitgon.schedule.converter;
 
+import java.util.Optional;
+
 import org.springframework.core.convert.converter.Converter;
 
 import com.vitgon.schedule.dto.EditScheduleDto;
@@ -24,42 +26,42 @@ public class ScheduleDTO2ScheduleConverter implements Converter<EditScheduleDto,
 
     @Override
     public Schedule convert(EditScheduleDto dtoObject) {
-        Group group = groupService.findById(dtoObject.getGroupId());
-        Subject subject = subjectService.findById(dtoObject.getSubjectId());
+        Optional<Group> group = groupService.findById(dtoObject.getGroupId());
+        Optional<Subject> subject = subjectService.findById(dtoObject.getSubjectId());
 
         // For creating a schedule we need to know unique columns
         // from {@link com.vitgon.schedule.model.Schedule}
         // "group_id", "day_num", "week_type", "lesson_num"
         // and NOT_NULL field "subject_id"
         validate(
-                group,
+                group.get(),
                 dtoObject.getDayNum(),
                 dtoObject.getWeek(),
                 dtoObject.getLessonNum(),
-                subject
+                subject.get()
         );
 
 
         // if teacher (user) was specified then get him from database
         int userId = dtoObject.getUserId();
-        User user = null;
+        Optional<User> user = null;
         if (userId != 0) {
             user = userService.findById(userId);
         }
 
         Schedule editScheduleDTO = new Schedule();
-        editScheduleDTO.setGroup(group);
+        editScheduleDTO.setGroup(group.get());
         editScheduleDTO.setWeek(dtoObject.getWeek());
         editScheduleDTO.setDayNum(dtoObject.getDayNum());
         editScheduleDTO.setLessonNum(dtoObject.getLessonNum());
 
-        editScheduleDTO.setSubject(subject);
+        editScheduleDTO.setSubject(subject.get());
 
         if (LessonUtil.isValid(dtoObject.getLessonType())) {
             editScheduleDTO.setLessonType(LessonUtil.convertLessonType(dtoObject.getLessonType()));
         }
 
-        editScheduleDTO.setUser(user);
+        editScheduleDTO.setUser(user.get());
 
         if (dtoObject.getClassroom() != null && !dtoObject.getClassroom().equals("")) {
             editScheduleDTO.setClassroom(dtoObject.getClassroom());

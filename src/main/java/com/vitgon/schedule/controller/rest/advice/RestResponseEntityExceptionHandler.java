@@ -24,9 +24,9 @@ import com.vitgon.schedule.model.ApiError;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+	public final ResponseEntity<ApiError> handleAllExceptions(Exception ex, WebRequest request) {
 		ApiError apiError = new ApiError(new Date(), ex.getMessage(), request.getDescription(false));
-		return new ResponseEntity(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<ApiError>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@Override

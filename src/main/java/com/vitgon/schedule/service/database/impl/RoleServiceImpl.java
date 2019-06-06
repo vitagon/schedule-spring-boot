@@ -1,13 +1,13 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.auth.RoleDao;
-import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.model.database.auth.Role;
 import com.vitgon.schedule.service.database.RoleService;
 
@@ -29,8 +29,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Role findById(Integer id) {
-		return roleDao.findById(id).get();
+	public Optional<Role> findById(Integer id) {
+		return roleDao.findById(id);
 	}
 
 	@Override

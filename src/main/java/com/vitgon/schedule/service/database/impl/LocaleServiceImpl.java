@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.LocaleDao;
 import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.LocaleService;
 
 @Service
@@ -33,8 +33,8 @@ public class LocaleServiceImpl implements LocaleService {
 	}
 
 	@Override
-	public Locale findById(Integer id) {
-		return localeDao.findById(id).orElse(null);
+	public Optional<Locale> findById(Integer id) {
+		return localeDao.findById(id);
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 package com.vitgon.schedule.controller.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.dto.SubjectDto;
 import com.vitgon.schedule.model.database.Locale;
@@ -42,11 +42,11 @@ public class SubjectRestController {
 			return subjectMapperService.mapToSubjectDtoList(subjects);
 		}
 		
-		Locale locale = localeService.findById(localeId);
-		if (locale == null) {
+		Optional<Locale> locale = localeService.findById(localeId);
+		if (!locale.isPresent()) {
 			throw new IllegalArgumentException("Provided localeCode doesn't exist");
 		}
 		List<Subject> subjects = subjectService.findAll();
-		return subjectMapperService.mapToSubjectDtoList(subjects, locale, false);
+		return subjectMapperService.mapToSubjectDtoList(subjects, locale.get(), false);
 	}
 }

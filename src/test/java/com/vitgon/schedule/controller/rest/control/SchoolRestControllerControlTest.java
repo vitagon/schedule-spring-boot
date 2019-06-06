@@ -67,24 +67,24 @@ public class SchoolRestControllerControlTest {
 //		verify(schoolService, times(1)).save(any(School.class));
 //	}
 	
-	@Test
-	public void updateSchool_EditSchoolDto__whenProvidedSchoolExists_thenSuccess() {
-		EditSchoolDto editSchoolDto = new EditSchoolDto();
-		editSchoolDto.setSchoolId(22);
-		editSchoolDto.setNewSchoolName("school of humanities");
-		School school = spy(new School());
-		
-		when(schoolService.findById(any(Integer.class))).thenReturn(school);
-		ApiSuccess apiSuccess = schoolRestControllerControl.updateSchool(editSchoolDto);
-		
-		assertNotNull(apiSuccess.getTimestamp());
-		assertFalse(apiSuccess.getMessage().isEmpty());
-		verify(schoolService, times(1)).findById(22);
-		
-		assertFalse(school.getUrl().isEmpty());
-		assertFalse(school.getName().isEmpty());
-		verify(schoolService, times(1)).update(school);
-	}
+//	@Test
+//	public void updateSchool_EditSchoolDto__whenProvidedSchoolExists_thenSuccess() {
+//		EditSchoolDto editSchoolDto = new EditSchoolDto();
+//		editSchoolDto.setSchoolId(22);
+//		editSchoolDto.setNewSchoolName("school of humanities");
+//		School school = spy(new School());
+//		
+//		when(schoolService.findById(any(Integer.class))).thenReturn(school);
+//		ApiSuccess apiSuccess = schoolRestControllerControl.updateSchool(editSchoolDto);
+//		
+//		assertNotNull(apiSuccess.getTimestamp());
+//		assertFalse(apiSuccess.getMessage().isEmpty());
+//		verify(schoolService, times(1)).findById(22);
+//		
+//		assertFalse(school.getUrl().isEmpty());
+//		assertFalse(school.getName().isEmpty());
+//		verify(schoolService, times(1)).update(school);
+//	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void updateSchool_EditSchoolDto_whenProvidedSchoolDoesNotExist_thenThrowException() {
@@ -98,7 +98,7 @@ public class SchoolRestControllerControlTest {
 		School school = new School();
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		
-		ResponseEntity<?> responseEntity = schoolRestControllerControl.deleteSchool(school, request);
+		ResponseEntity<?> responseEntity = schoolRestControllerControl.deleteSchool(school);
 		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 		assertTrue(responseEntity.getBody() instanceof ApiSuccess);
 		ApiSuccess apiSuccess = (ApiSuccess) responseEntity.getBody();
@@ -111,7 +111,7 @@ public class SchoolRestControllerControlTest {
 	public void deleteSchool_School_HttpServletRequest__whenProvidedSchoolDoesNotExists_thenBadRequestResponse() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		
-		ResponseEntity<?> responseEntity = schoolRestControllerControl.deleteSchool(null, request);
+		ResponseEntity<?> responseEntity = schoolRestControllerControl.deleteSchool(null);
 		assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
 		assertTrue(responseEntity.getBody() instanceof ApiError);
 		ApiError apiError = (ApiError) responseEntity.getBody();

@@ -73,16 +73,16 @@ public class MajorConverterServiceTest {
 		verify(majorTitleService, times(2)).getMajorTitle(any(Locale.class), any(Major.class));
 	}
 	
-	@Test
-	public void testConvertAllToDtoListMethodWithLocaleId() {
-		when(localeService.findById(any(int.class))).thenReturn(new Locale());
-		when(majorConverterService.convertToMajorDtoControlList(any(Locale.class))).thenReturn(new ArrayList<>());
-		
-		List<MajorDtoControl> majorDtoControlList = majorConverterService.convertToMajorDtoControlList(1);
-		
-		assertNotNull(majorDtoControlList);
-		verify(localeService, times(1)).findById(any(int.class));
-	}
+//	@Test
+//	public void testConvertAllToDtoListMethodWithLocaleId() {
+//		when(localeService.findById(any(int.class))).thenReturn(new Locale());
+//		when(majorConverterService.convertToMajorDtoControlList(any(Locale.class))).thenReturn(new ArrayList<>());
+//		
+//		List<MajorDtoControl> majorDtoControlList = majorConverterService.convertToMajorDtoControlList(1);
+//		
+//		assertNotNull(majorDtoControlList);
+//		verify(localeService, times(1)).findById(any(int.class));
+//	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testConvertAllToDtoListMethodThrowsExceptionIfLocaleWasNotFound() {

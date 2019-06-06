@@ -1,8 +1,8 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +34,8 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public School findById(Integer id) {
-		return schoolDao.findById(id).orElse(null);
+	public Optional<School> findById(Integer id) {
+		return schoolDao.findById(id);
 	}
 
 	@Override

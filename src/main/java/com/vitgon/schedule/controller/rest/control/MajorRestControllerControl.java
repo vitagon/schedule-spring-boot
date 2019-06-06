@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -52,20 +53,20 @@ public class MajorRestControllerControl {
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ApiSuccess updateMajor(@RequestBody @Valid EditMajorDto editMajorDto) {
-		Major major = majorService.findById(editMajorDto.getId());
-		if (major == null) {
+		Optional<Major> majorOpt = majorService.findById(editMajorDto.getId());
+		if (!majorOpt.isPresent()) {
 			throw new IllegalArgumentException(String.format("Major with id=%d name doesn't exist!", editMajorDto.getId()));
 		}
-		major = majorDtoConverterService.convertToEntity(editMajorDto, major);
+		Major major = majorDtoConverterService.convertToEntity(editMajorDto, majorOpt.get());
 		majorService.update(major);
 		return new ApiSuccess(new Date(), "You successfully updated major!");
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<?> deleteMajor(@RequestParam("id") Major major, HttpServletRequest request) {
+	public ResponseEntity<?> deleteMajor(@RequestParam("id") Major major) {
 		if (major == null) {
 			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue")));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiError(new Date(), "Major Not Found", errors));

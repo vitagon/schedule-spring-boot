@@ -1,6 +1,7 @@
 package com.vitgon.schedule.controller.rest;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,11 +35,11 @@ public class TeacherTranslationRestController {
 	@ResponseBody
 	@PostMapping
 	public ApiSuccess addTeacherTranslation(@RequestBody @Validated(TranslationValidationSequence.class) AddTeacherTranslationDto addTeacherTranslationDTO) {
-		User user = userService.findById(addTeacherTranslationDTO.getUserId());
-		Locale locale = localeService.findById(addTeacherTranslationDTO.getLocaleId());
+		Optional<User> user = userService.findById(addTeacherTranslationDTO.getUserId());
+		Optional<Locale> locale = localeService.findById(addTeacherTranslationDTO.getLocaleId());
 		
 		userTranslationService.save(new UserTranslation(
-				new UserTranslationId(user, locale),
+				new UserTranslationId(user.get(), locale.get()),
 				addTeacherTranslationDTO.getLastname(),
 				addTeacherTranslationDTO.getFirstname(),
 				addTeacherTranslationDTO.getMiddlename()

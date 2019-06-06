@@ -66,7 +66,7 @@ create table school_translations (
 );
 
 create table subject_translations (
-	title varchar(255),
+	translation varchar(255),
 	subject_id int4 not null,
 	locale_id int4 not null,
 	primary key (locale_id, subject_id)

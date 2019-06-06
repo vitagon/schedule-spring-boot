@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public Group findById(Integer id) {
-		return groupDao.findById(id).orElse(null);
+	public Optional<Group> findById(Integer id) {
+		return groupDao.findById(id);
 	}
 
 	@Override
@@ -43,11 +44,11 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public List<Group> findAllByMajorAndCourseNum(int majorId, int courseNum) {
-		Major major = majorService.findById(majorId);
-		if (major == null || courseNum == 0) {
+		Optional<Major> major = majorService.findById(majorId);
+		if (!major.isPresent() || courseNum == 0) {
 			return null;
 		}
-		return groupDao.findAllByMajorAndCourseNum(major, courseNum);
+		return groupDao.findAllByMajorAndCourseNum(major.get(), courseNum);
 	}
 	
 	@Override

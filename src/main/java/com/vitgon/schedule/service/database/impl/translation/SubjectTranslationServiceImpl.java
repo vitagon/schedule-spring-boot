@@ -1,39 +1,27 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.translation.SubjectTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
-import com.vitgon.schedule.model.database.translation.SchoolTranslation;
 import com.vitgon.schedule.model.database.translation.SubjectTranslation;
-import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
 import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
-import com.vitgon.schedule.service.database.LocaleService;
-import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class SubjectTranslationServiceImpl implements SubjectTranslationService {
 
 	private final SubjectTranslationDao subjectTranslDao;
-	private final SubjectService subjectService;
-	private final LocaleService localeService;
-	
-	@Autowired
-	public SubjectTranslationServiceImpl(SubjectTranslationDao subjectTranslDao,
-										 SubjectService subjectService,
-										 LocaleService localeService) {
-		this.subjectTranslDao = subjectTranslDao;
-		this.subjectService = subjectService;
-		this.localeService = localeService;
-	}
 	
 	@Override
 	public SubjectTranslation save(SubjectTranslation obj) {
@@ -46,8 +34,8 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 	}
 
 	@Override
-	public SubjectTranslation findById(SubjectTranslationId id) {
-		return subjectTranslDao.findById(id).orElse(null);
+	public Optional<SubjectTranslation> findById(SubjectTranslationId id) {
+		return subjectTranslDao.findById(id);
 	}
 
 	@Override
@@ -56,21 +44,18 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 	}
 	
 	@Override
-	public SubjectTranslation findByLangCodeAndSubjectId(String langCode, int subjectId) {
-		Subject subject = subjectService.findById(subjectId);
-		Locale locale = localeService.findByCode(langCode);
-		if (subject == null || locale == null) {
-			throw new IllegalArgumentException("Locale or subject were not found!");
-		}
-		return subjectTranslDao.findBySubjectTranslationIdLocaleAndSubjectTranslationIdSubject(locale, subject);
+	public Optional<SubjectTranslation> findByLocaleCodeAndSubjectId(String localeCode, Integer subjectId) {
+		return subjectTranslDao.findByLocaleCodeAndSubjectId(localeCode, subjectId);
 	}
 	
 	@Override
-	public SubjectTranslation findByLocaleAndSubject(Locale locale, Subject subject) {
-		if (subject == null || locale == null) {
-			throw new IllegalArgumentException("Locale or subject were not found!");
-		}
-		return subjectTranslDao.findBySubjectTranslationIdLocaleAndSubjectTranslationIdSubject(locale, subject);
+	public Optional<SubjectTranslation> findByLocaleIdAndSubjectId(Integer localeId, Integer subjectId) {
+		return subjectTranslDao.findByLocaleIdAndSubjectId(localeId, subjectId);
+	}
+	
+	@Override
+	public Optional<SubjectTranslation> findByLocaleAndSubject(Locale locale, Subject subject) {
+		return subjectTranslDao.findByLocaleIdAndSubjectId(locale.getId(), subject.getId());
 	}
 	
 	/**
@@ -89,14 +74,14 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 		if (locale.getCode().equals(UrlLocaleResolver.EN)) {
 			subjectTitle = subject.getName();
 		} else {
-			SubjectTranslation translation = findByLocaleAndSubject(locale, subject);
-			if (translation == null) {
+			Optional<SubjectTranslation> translation = findByLocaleAndSubject(locale, subject);
+			if (!translation.isPresent()) {
 				if (substituteNull)
 					subjectTitle = subject.getName();
 				else
 					return null;
 			} else {
-				subjectTitle = translation.getTitle();
+				subjectTitle = translation.get().getTranslation();
 			}
 		}
 		
@@ -104,8 +89,8 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 	}
 
 	@Override
-	public SubjectTranslation findByTitle(String title) {
-		return subjectTranslDao.findByTitle(title);
+	public SubjectTranslation findByTitle(String translation) {
+		return subjectTranslDao.findByTranslation(translation);
 	}
 	
 	@Override
@@ -116,5 +101,15 @@ public class SubjectTranslationServiceImpl implements SubjectTranslationService 
 	@Override
 	public void deleteById(SubjectTranslationId id) {
 		subjectTranslDao.deleteById(id);
+	}
+
+	@Override
+	public void save(Integer subjectId, Integer localeId, String title) {
+		subjectTranslDao.save(subjectId, localeId, title);
+	}
+
+	@Override
+	public void deleteBySubjectIdAndLocaleId(Integer subjectId, Integer localeId) {
+		subjectTranslDao.deleteBySubjectIdAndLocaleId(subjectId, localeId);
 	}
 }

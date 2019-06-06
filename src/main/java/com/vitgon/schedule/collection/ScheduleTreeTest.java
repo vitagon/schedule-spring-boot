@@ -1,11 +1,15 @@
 package com.vitgon.schedule.collection;
 
+import org.junit.Test;
+
 import com.vitgon.schedule.dto.ScheduleDto;
 import com.vitgon.schedule.dto.TeacherDto;
 import com.vitgon.schedule.util.ScheduleUtil;
 
 public class ScheduleTreeTest {
-	public static void main(String... args) {
+	
+	@Test
+	public void testScheduleTree() {
 		ScheduleTree scheduleTree = new ScheduleTree();
 		
 		ScheduleDto schedule1 = new ScheduleDto();

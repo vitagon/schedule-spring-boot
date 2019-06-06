@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -68,10 +69,11 @@ public class SchoolRestControllerControl {
 	@PutMapping("/school")
 	@ResponseStatus(HttpStatus.OK)
 	public ApiSuccess updateSchool(@RequestBody @Valid EditSchoolDto editSchoolDto) {
-		School school = schoolService.findById(editSchoolDto.getSchoolId());
-		if (school == null) {
+		Optional<School> schoolOpt = schoolService.findById(editSchoolDto.getSchoolId());
+		if (!schoolOpt.isPresent()) {
 			throw new IllegalArgumentException(String.format("School with id=%d name doesn't exist!", editSchoolDto.getSchoolId()));
 		}
+		School school = schoolOpt.get();
 		school.setName(editSchoolDto.getNewSchoolName().toLowerCase());
 		school.setUrl(StringUtil.applyUnderlyingStyle(editSchoolDto.getNewSchoolName()));
 		schoolService.update(school);
@@ -80,10 +82,10 @@ public class SchoolRestControllerControl {
 	
 	@DeleteMapping("/school")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> deleteSchool(@RequestParam("id") School school, HttpServletRequest request) {
+	public ResponseEntity<?> deleteSchool(@RequestParam("id") School school) {
 		if (school == null) {
 			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("schoolId", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			errors.put("schoolId", Arrays.asList(messageService.getMessage("chooseValue")));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiError(new Date(), "School Not Found", errors));
@@ -104,14 +106,13 @@ public class SchoolRestControllerControl {
 		if (localeId == 0) {
 			schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList();
 		} else {
-			Locale locale = localeService.findById(localeId);
-			if (locale == null) {
+			Optional<Locale> locale = localeService.findById(localeId);
+			if (!locale.isPresent()) {
 				throw new IllegalArgumentException(String.format("Locale with id=%d was not found!", localeId));
 			}
-			schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList(locale);
+			schoolDtoControlList = schoolConverterService.convertToSchoolDtoControlList(locale.get());
 		}
 		
-//		model.addObject("schoolDtoList", schoolDtoControlList);
 		return schoolDtoControlList;
 	}
 }

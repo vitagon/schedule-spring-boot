@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -45,14 +46,14 @@ public class GroupRestControllerControl {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public GroupDto addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {
-		Major major = majorService.findById(addGroupDto.getMajorId());
+		Optional<Major> major = majorService.findById(addGroupDto.getMajorId());
 		
 		if (major == null) {
 			throw new IllegalArgumentException("Major was not found!");
 		}
 		
 		Group group = new Group();
-		group.setMajor(major);
+		group.setMajor(major.get());
 		group.setNumber(addGroupDto.getNumber());
 		group.setSuffix(addGroupDto.getSuffix());
 		group.setCourseNum(addGroupDto.getCourseNum());
@@ -78,23 +79,23 @@ public class GroupRestControllerControl {
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
 	public GroupDto editGroup(@RequestBody @Valid EditGroupDto editGroupDto) {
-		Group group = groupService.findById(editGroupDto.getId());
+		Optional<Group> groupOpt = groupService.findById(editGroupDto.getId());
 		
-		if (group == null) {
+		if (!groupOpt.isPresent()) {
 			throw new IllegalArgumentException("Group was not found!");
 		}
-		
+		Group group = groupOpt.get();
 		group.setCourseNum(editGroupDto.getCourseNum());
 		group = groupService.update(group);
 		return convertToDto(group);
 	}
 	
 	@DeleteMapping(params = {"id"})
-	public ResponseEntity<?> deleteGroup(@RequestParam("id") int id, HttpServletRequest request) {
-		Group group = groupService.findById(id);
-		if (group == null) {
+	public ResponseEntity<?> deleteGroup(@RequestParam("id") int id) {
+		Optional<Group> group = groupService.findById(id);
+		if (!group.isPresent()) {
 			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue")));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiError(new Date(), "Subject Not Found", errors));

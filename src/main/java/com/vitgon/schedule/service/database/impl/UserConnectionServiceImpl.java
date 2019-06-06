@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -31,8 +32,8 @@ public class UserConnectionServiceImpl implements UserConnectionService {
 	}
 
 	@Override
-	public UserConnection findById(UserConnectionId id) {
-		return userConnectionDao.findById(id).orElse(null);
+	public Optional<UserConnection> findById(UserConnectionId id) {
+		return userConnectionDao.findById(id);
 	}
 
 	@Override

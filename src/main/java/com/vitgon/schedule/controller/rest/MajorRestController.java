@@ -2,6 +2,7 @@ package com.vitgon.schedule.controller.rest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,9 +32,9 @@ public class MajorRestController {
 	@GetMapping("/api/school/{schoolId}/majors")
 	public Map<Integer, String> getMajors(HttpServletRequest request, @PathVariable("schoolId") int schoolId) {
 		Locale locale = localeConverterService.getClientLocale(request);
-		School school = schoolService.findById(schoolId);
+		Optional<School> school = schoolService.findById(schoolId);
 		Map<Integer, String> majors = new HashMap<>();
-		for (Major major : school.getMajors()) {
+		for (Major major : school.get().getMajors()) {
 			majors.put(major.getId(), majorTitleService.getMajorTitle(locale, major));
 		}
 		return majors;
@@ -41,10 +42,10 @@ public class MajorRestController {
 	
 	@GetMapping("/api/major/{majorId}/course-number")
 	public int getCourseNumbers(@PathVariable("majorId") int majorId) {
-		Major major = majorService.findById(majorId);
-		if (major == null) {
+		Optional<Major> major = majorService.findById(majorId);
+		if (!major.isPresent()) {
 			return 0;
 		}
-		return major.getDuration();
+		return major.get().getDuration();
 	}
 }

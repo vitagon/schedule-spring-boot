@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public Schedule findById(Integer id) {
-		return scheduleDao.findById(id).orElse(null);
+	public Optional<Schedule> findById(Integer id) {
+		return scheduleDao.findById(id);
 	}
 
 	@Override
