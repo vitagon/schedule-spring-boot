@@ -16,18 +16,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "subject_translations")
 @Table(name = "subject_translations")
 public class SubjectTranslation {
 	
 	@EmbeddedId
 	private SubjectTranslationId subjectTranslationId;
 	
-	@Column(name = "title")
-	private String title;
+	@Column(name = "translation")
+	private String translation;
 
-	public SubjectTranslation(Subject subject, Locale locale, String title) {
+	public SubjectTranslation(Subject subject, Locale locale, String translation) {
 		this.subjectTranslationId = new SubjectTranslationId(subject, locale);
-		this.title = title;
+		this.translation = translation;
 	}
 }

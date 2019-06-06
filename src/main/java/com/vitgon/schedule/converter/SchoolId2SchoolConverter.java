@@ -1,5 +1,7 @@
 package com.vitgon.schedule.converter;
 
+import java.util.Optional;
+
 import org.springframework.core.convert.converter.Converter;
 
 import com.vitgon.schedule.model.database.School;
@@ -17,7 +19,7 @@ public class SchoolId2SchoolConverter implements Converter<Integer, School> {
 		if (schoolId == 0 || schoolId < 0) {
 			throw new IllegalArgumentException("School id must be equal or greater than 0!");
 		}
-		School school = schoolService.findById(schoolId);
-		return school;
+		Optional<School> school = schoolService.findById(schoolId);
+		return school.get();
 	}
 }

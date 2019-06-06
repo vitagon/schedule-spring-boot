@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class MajorTranslationServiceImpl implements MajorTranslationService {
 	}
 
 	@Override
-	public MajorTranslation findById(MajorTranslationId id) {
-		return majorTranslDao.findById(id).get();
+	public Optional<MajorTranslation> findById(MajorTranslationId id) {
+		return majorTranslDao.findById(id);
 	}
 
 	@Override

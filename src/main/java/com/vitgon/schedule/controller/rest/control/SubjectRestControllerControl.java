@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.vitgon.schedule.controller.rest.SubjectRestController;
 import com.vitgon.schedule.dto.AddSubjectDto;
@@ -53,20 +53,21 @@ public class SubjectRestControllerControl {
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ApiSuccess updateSubject(@RequestBody @Valid EditSubjectDto editSubjectDto) {
-		Subject subject = subjectService.findById(editSubjectDto.getId());
-		if (subject == null) {
+		Optional<Subject> subjectOpt = subjectService.findById(editSubjectDto.getId());
+		if (!subjectOpt.isPresent()) {
 			throw new IllegalArgumentException("Subject with such name doesn't exist!");
 		}
+		Subject subject = subjectOpt.get();
 		subject.setName(editSubjectDto.getName());
 		subjectService.update(subject);
 		return new ApiSuccess(new Date(), "You successfully edited subject!");
 	}
 	
 	@DeleteMapping(params = {"id"})
-	public ResponseEntity<?> deleteSubject(@RequestParam("id") Subject subject, HttpServletRequest request) {
+	public ResponseEntity<?> deleteSubject(@RequestParam("id") Subject subject) {
 		if (subject == null) {
 			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue", request)));
+			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue")));
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiError(new Date(), "Subject Not Found", errors));

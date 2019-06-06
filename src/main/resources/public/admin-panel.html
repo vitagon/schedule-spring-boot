@@ -188,9 +188,25 @@
 							</ul>
 						</li>
 						<li class="nav-item_lvl-0">
-							<a href="#add-subject-translation-tab-content"
-							   class="nav-link"
-							   id="add-subject-translation-tab">Add subject translation</a>
+							<a href="#" class="nav-link submenu_parent-link" aria-expanded="false">Subject translation</a>
+							 
+							<ul class="collapse side-menu-tab_submenu">
+								<li>
+									<a href="#add-subject-translation-tab-content"
+									   class="nav-link"
+									   id="add-subject-translation-tab">Add</a>
+								</li>
+								<li>
+									<a href="#edit-subject-translation-tab-content"
+									   class="nav-link"
+									   id="edit-subject-translation-tab">Edit</a>
+								</li>
+								<li>
+									<a href="#remove-subject-translation-tab-content"
+									   class="nav-link"
+									   id="remove-subject-translation-tab">Remove</a>
+								</li>
+							</ul>
 						</li>
 						<li class="nav-item_lvl-0">
 							<a href="#add-teacher-translation-tab-content"
@@ -352,7 +368,23 @@
 						 role="tabpanel"
 						 aria-labelledby="add-subject-translation-tab">
 					
-						<th:block th:replace="control/add-subject-translation :: add-subject-translation-tab-content"></th:block>
+						<add-subject-translation></add-subject-translation>
+					</div>
+					
+					<div class="tab-pane fade"
+						 id="edit-subject-translation-tab-content"
+						 role="tabpanel"
+						 aria-labelledby="edit-subject-translation-tab">
+					
+						<edit-subject-translation></edit-subject-translation>
+					</div>
+					
+					<div class="tab-pane fade"
+						 id="remove-subject-translation-tab-content"
+						 role="tabpanel"
+						 aria-labelledby="remove-subject-translation-tab">
+					
+						<remove-subject-translation></remove-subject-translation>
 					</div>
 					 
 					<div class="tab-pane fade"

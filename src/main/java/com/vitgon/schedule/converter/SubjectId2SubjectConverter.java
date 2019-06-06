@@ -17,6 +17,6 @@ public class SubjectId2SubjectConverter implements Converter<Integer, Subject> {
 		if (subjectId == 0 || subjectId < 0) {
 			throw new IllegalArgumentException("Subject id must be greater than 0!");
 		}
-		return subjectService.findById(subjectId);
+		return subjectService.findById(subjectId).get();
 	}
 }

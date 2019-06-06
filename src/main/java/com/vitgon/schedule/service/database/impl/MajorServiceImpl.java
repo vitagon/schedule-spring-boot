@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class MajorServiceImpl implements MajorService {
 	}
 
 	@Override
-	public Major findById(Integer id) {
-		return majorDao.findById(id).orElse(null);
+	public Optional<Major> findById(Integer id) {
+		return majorDao.findById(id);
 	}
 
 	@Override

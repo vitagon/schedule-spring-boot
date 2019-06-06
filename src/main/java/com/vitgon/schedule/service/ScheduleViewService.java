@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,8 +30,8 @@ public class ScheduleViewService {
 	private ScheduleTreeService scheduleTreeService;
 
 	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
-		Group group = groupService.findById(groupId);
-		List<Schedule> schedulesList = scheduleService.findByGroup(group);
+		Optional<Group> group = groupService.findById(groupId);
+		List<Schedule> schedulesList = scheduleService.findByGroup(group.get());
 		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale);
 		
 		modelAndView.addObject("days", DAYS);

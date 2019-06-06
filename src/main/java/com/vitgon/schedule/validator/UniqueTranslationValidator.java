@@ -1,6 +1,7 @@
 package com.vitgon.schedule.validator;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -74,10 +75,10 @@ public class UniqueTranslationValidator implements ConstraintValidator<UniqueTra
 		
 		// get locale id from client and get locale object from database
 		int localeId = ConstraintValidatorHelper.getPropertyValue(Integer.class, localeIdFieldName, dtoObject);
-		Locale locale = (Locale) localeService.findById(localeId);
+		Optional<Locale> locale = (Optional<Locale>) localeService.findById(localeId);
 		
 		// check if translation for this entity with given locale exists
-		Object translationId = getTranslationId(locale, entity);
+		Object translationId = getTranslationId(locale.get(), entity);
 		Object translationRecord = translationEntityService.findById(translationId);
 		
 		// if translation does not exist then it is unique, we can create this new translation

@@ -1,5 +1,7 @@
 package com.vitgon.schedule.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dto.AddMajorDto;
@@ -20,10 +22,10 @@ public class MajorDtoConverterService {
 	private SchoolService schoolService;
 
 	public Major convertToEntity(AddMajorDto addMajorDto) {
-		School school = schoolService.findById(addMajorDto.getSchoolId());
+		Optional<School> school = schoolService.findById(addMajorDto.getSchoolId());
 		
 		Major major = new Major();
-		major.setSchool(school);
+		major.setSchool(school.get());
 		major.setName(addMajorDto.getTitle().toLowerCase());
 		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getTitle()));
 		major.setDuration(addMajorDto.getDuration());

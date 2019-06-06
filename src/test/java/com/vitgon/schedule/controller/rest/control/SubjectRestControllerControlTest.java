@@ -91,7 +91,7 @@ public class SubjectRestControllerControlTest {
 	public void deleteSubject_Subject_HttpServletRequest__whenSubjectExists_thenOKStatus() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		Subject subjectForDeletion = new Subject(); 
-		ResponseEntity<?> responseEntity = subjectRestControllerControl.deleteSubject(subjectForDeletion, request);
+		ResponseEntity<?> responseEntity = subjectRestControllerControl.deleteSubject(subjectForDeletion);
 		
 		assertTrue(responseEntity.getBody() instanceof ApiSuccess);
 		ApiSuccess apiSuccess = (ApiSuccess) responseEntity.getBody();
@@ -103,7 +103,7 @@ public class SubjectRestControllerControlTest {
 	@Test
 	public void deleteSubject_Subject_HttpServletRequest__whenSubjectDoesNotExist_thenBadRequestStatus() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		ResponseEntity<?> responseEntity = subjectRestControllerControl.deleteSubject(null, request);
+		ResponseEntity<?> responseEntity = subjectRestControllerControl.deleteSubject(null);
 		
 		assertTrue(responseEntity.getBody() instanceof ApiError);
 		ApiError apiError = (ApiError) responseEntity.getBody();

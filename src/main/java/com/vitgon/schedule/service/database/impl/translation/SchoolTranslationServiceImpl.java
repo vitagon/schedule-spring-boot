@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
-import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
-import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
 import com.vitgon.schedule.service.database.translation.SchoolTranslationService;
 
@@ -37,8 +36,8 @@ public class SchoolTranslationServiceImpl implements SchoolTranslationService {
 	}
 
 	@Override
-	public SchoolTranslation findById(SchoolTranslationId id) {
-		return schoolTranslDao.findById(id).get();
+	public Optional<SchoolTranslation> findById(SchoolTranslationId id) {
+		return schoolTranslDao.findById(id);
 	}
 
 	@Override

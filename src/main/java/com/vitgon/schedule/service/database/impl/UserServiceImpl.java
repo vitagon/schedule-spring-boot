@@ -1,6 +1,7 @@
 package com.vitgon.schedule.service.database.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,8 +46,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findById(Integer id) {
-		return userDao.findById(id).get();
+	public Optional<User> findById(Integer id) {
+		return userDao.findById(id);
 	}
 
 	@Override
@@ -76,16 +77,16 @@ public class UserServiceImpl implements UserService {
 		// find by provider and provider user id
 		UserConnection userConnection = userConnectionService.findByProviderIdAndProviderUserId(
 				key.getProviderId(), key.getProviderUserId());
-		User user = null;
+		Optional<User> userOpt = null;
 		if (userConnection != null) {
-			user = findById(Integer.parseInt(userConnection.getUserId()));
+			userOpt = findById(Integer.parseInt(userConnection.getUserId()));
 			
-			if (user != null) {
-				return user;
+			if (userOpt.isPresent()) {
+				return userOpt.get();
 			}
 		}
 		
-		user = new User();
+		User user = new User();
 		UserProfile userProfile = connection.fetchUserProfile();
 		
 		String randomPasswod = UUID.randomUUID().toString().substring(0, 6);

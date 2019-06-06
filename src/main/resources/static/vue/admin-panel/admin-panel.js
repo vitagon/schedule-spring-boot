@@ -20,6 +20,10 @@ import {} from '/vue/admin-panel/subjects-tab/add-subject.js';
 import {} from '/vue/admin-panel/subjects-tab/edit-subject.js';
 import {} from '/vue/admin-panel/subjects-tab/remove-subject.js';
 
+import {} from '/vue/admin-panel/subject-translations-tab/add-subject-translation.js';
+import {} from '/vue/admin-panel/subject-translations-tab/edit-subject-translation.js';
+import {} from '/vue/admin-panel/subject-translations-tab/remove-subject-translation.js';
+
 export const serverBus = new Vue();
 
 new Vue({
