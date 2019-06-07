@@ -11,12 +11,12 @@ import javax.validation.Payload;
 
 import com.vitgon.schedule.validator.SubjectExistsValidator;
 
-@Target(ElementType.FIELD)
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = SubjectExistsValidator.class)
 @Documented
 public @interface SubjectExists {
-	String message() default "{subject.notExists}";
+	String message() default "{subject.notFound}";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

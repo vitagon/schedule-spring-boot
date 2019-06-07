@@ -209,9 +209,30 @@
 							</ul>
 						</li>
 						<li class="nav-item_lvl-0">
-							<a href="#add-teacher-translation-tab-content"
-							   class="nav-link"
-							   id="add-teacher-translation-tab">Add teacher translation</a>
+							<a href="#" class="nav-link submenu_parent-link" aria-expanded="false">Teacher translation</a>
+							   
+						   	<ul class="collapse side-menu-tab_submenu">
+						   		<li>
+						   			<a href="#teacher-translations-list-tab-content"
+						   			   class="nav-link"
+						   			   id="teacher-translations-list-tab">List</a>
+						   		</li>
+						   		<li>
+						   			<a href="#add-teacher-translation-tab-content"
+						   			   class="nav-link"
+						   			   id="add-teacher-translation-tab">Add</a>
+						   		</li>
+						   		<li>
+						   			<a href="#edit-teacher-translation-tab-content"
+						   			   class="nav-link"
+						   			   id="edit-teacher-translation-tab">Edit</a>
+						   		</li>
+						   		<li>
+						   			<a href="#remove-teacher-translation-tab-content"
+						   			   class="nav-link"
+						   			   id="remove-teacher-translation-tab">Remove</a>
+						   		</li>
+						   	</ul>
 						</li>
 						<li class="nav-item_lvl-0">
 							<a href="#v-pills-edit-schedule" class="nav-link" id="v-pills-edit-schedule-tab">
@@ -388,11 +409,35 @@
 					</div>
 					 
 					<div class="tab-pane fade"
+						 id="teacher-translations-list-tab-content"
+						 role="tab"
+						 aria-labelledby="#teacher-translations-list-tab">
+						  
+						  <teacher-translations-list></teacher-translations-list>
+					</div>
+					
+					<div class="tab-pane fade"
 						 id="add-teacher-translation-tab-content"
 						 role="tab"
 						 aria-labelledby="add-teacher-translation-tab">
 						  
-						  <th:block th:replace="control/add-teacher-translation :: add-teacher-translation-tab-content"></th:block>
+						  <p>add-teacher-translation-tab-content</p>
+					</div>
+					
+					<div class="tab-pane fade"
+						 id="edit-teacher-translation-tab-content"
+						 role="tab"
+						 aria-labelledby="edit-teacher-translation-tab">
+						  
+						  <p>edit-teacher-translation-tab-content</p>
+					</div>
+					
+					<div class="tab-pane fade"
+						 id="remove-teacher-translation-tab-content"
+						 role="tab"
+						 aria-labelledby="remove-teacher-translation-tab">
+						  
+						  <p>remove-teacher-translation-tab-content</p>
 					</div>
 					
 					<div class="tab-pane fade"

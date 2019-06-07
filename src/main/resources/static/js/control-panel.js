@@ -172,11 +172,6 @@ function addTeacherTranslation(e) {
 	});
 }
 
-
-function addSubjectTranslation(e) {
-	
-}
-
 function getFormData($form){
     let unindexed_array = $form.serializeArray();
     let indexed_array = {};
@@ -186,33 +181,4 @@ function getFormData($form){
     });
 
     return indexed_array;
-}
-
-function clearValidationMessages($form) {
-	$form.find('.validation-message').remove();
-}
-
-function clearForm($form) {
-	$form.find('select').val(0);
-	$form.find('input').val('');
-}
-
-function getErrorMessage(jqXHR, exception) {
-	let msg = '';
-	if (jqXHR.status === 0) {
-        msg = 'Not connect.\n Verify Network.';
-    } else if (jqXHR.status == 404) {
-        msg = 'Requested page not found. [404]';
-    } else if (jqXHR.status == 500) {
-        msg = 'Internal Server Error [500].';
-    } else if (exception === 'parsererror') {
-        msg = 'Requested JSON parse failed.';
-    } else if (exception === 'timeout') {
-        msg = 'Time out error.';
-    } else if (exception === 'abort') {
-        msg = 'Ajax request aborted.';
-    } else {
-        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-    }
-	return msg;
 }
