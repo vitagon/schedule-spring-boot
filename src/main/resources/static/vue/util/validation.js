@@ -4,14 +4,14 @@ export function clearValidationMessages($form) {
 
 export function showValidationErrors(errors, $form) {
 	$form.find('.validation-message').remove();
-	$.each(errors, function (fieldName, fieldErrors) {
-		let $field = $form.find('[name=' + fieldName + ']');
+	$.each(errors, function (index, validationError) {
+		let $field = $form.find('[name=' + validationError.fieldName + ']');
 		
 		if ($field != null) {
 			let $fieldWrap = $field.closest('div');
-			$.each(fieldErrors, function (index, fieldError) {
+			$.each(validationError.messages, function (index, errorMessage) {
 				$fieldWrap.append('<div class="validation-message" style="color: red">' +
-								  fieldError +
+									errorMessage +
 								  '</div>');
 			});
 		}

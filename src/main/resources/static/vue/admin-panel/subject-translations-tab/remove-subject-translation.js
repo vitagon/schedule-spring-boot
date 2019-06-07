@@ -39,7 +39,8 @@ Vue.component('remove-subject-translation', {
 			$.ajax({
 				type: 'DELETE',
 				url: url,
-				contentType: 'application/json; charset=utf-8'
+				data: _this.form,
+				contentType: 'application/json; charset=utf-8',
 			}).done(function (response) {
 				clearValidationMessages($form);
 				_this.form = {

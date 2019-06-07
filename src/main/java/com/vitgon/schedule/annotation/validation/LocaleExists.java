@@ -11,12 +11,12 @@ import javax.validation.Payload;
 
 import com.vitgon.schedule.validator.LocaleExistsValidator;
 
-@Target(ElementType.FIELD)
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = LocaleExistsValidator.class)
 @Documented
 public @interface LocaleExists {
-	String message() default "{locale.notExists}";
+	String message() default "{locale.notFound}";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

@@ -61,7 +61,7 @@ Vue.component('edit-subject-translation', {
 			let _this = this;
 			let $form = $(e.target.closest('form'));
 			let url = `/api/translations/subjects/${this.form.subjectId}/locales/${this.form.localeId}`;
-			let objToSend = {translation: this.form.translation};
+			let objToSend = this.form;
 			
 			$.ajax({
 				type: 'PUT',
