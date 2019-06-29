@@ -3,24 +3,25 @@ package com.vitgon.schedule.service.database.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.SubjectDao;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.projection.SubjectProjection;
+import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.database.SubjectService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 @Transactional
 public class SubjectServiceImpl implements SubjectService {
 	
 	private final SubjectDao subjectDao;
-	
-	@Autowired
-	public SubjectServiceImpl(SubjectDao subjectDao) {
-		this.subjectDao = subjectDao;
-	}
+	private LocaleConverterService localeConverterService;
 	
 	@Override
 	public Subject save(Subject obj) {
@@ -55,5 +56,16 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public void deleteById(Integer id) {
 		subjectDao.deleteById(id);
+	}
+
+	@Override
+	public List<SubjectProjection> findAllByBrowserDefaultLocale() {
+		Locale locale = localeConverterService.getClientLocale();
+		return findAllByLocaleId(locale.getId());
+	}
+
+	@Override
+	public List<SubjectProjection> findAllByLocaleId(Integer localeId) {
+		return subjectDao.findAllByLocaleId(localeId);
 	}
 }

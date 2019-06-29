@@ -2,6 +2,7 @@ package com.vitgon.schedule.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.database.Major;
-import com.vitgon.schedule.service.GroupMapperService;
+import com.vitgon.schedule.service.GroupDtoService;
 import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
@@ -22,12 +23,12 @@ import lombok.AllArgsConstructor;
 public class MajorViewController {
 	
 	private MajorService majorService;
-	private GroupMapperService groupMapperService;
+	private GroupDtoService groupMapperService;
 	
 	@RequestMapping("/school/{school}/major/{major}")
 	public String showMajorGroups(@PathVariable("major") String majorUrl, HttpServletRequest request, Model model) {
-		Major major = majorService.findByUrl(majorUrl);
-		Map<Integer, List<GroupDto>> groupsMap = groupMapperService.convertToGroupDtoMap(major.getGroups());
+		Optional<Major> major = majorService.findByUrl(majorUrl);
+		Map<Integer, List<GroupDto>> groupsMap = groupMapperService.convertToGroupDtoMap(major.get().getGroups());
 		
 		model.addAttribute("groupsMap", groupsMap);
 		return "major-groups";

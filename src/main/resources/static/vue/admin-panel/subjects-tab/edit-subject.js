@@ -34,7 +34,7 @@ Vue.component('edit-subject', {
 			
 			$.ajax({
 				type: 'PUT',
-				url: $form.attr('action'),
+				url: `/api/control/subjects/${_this.editSubjectForm.id}`,
 				data: JSON.stringify(objToSend),
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json'
@@ -63,7 +63,7 @@ Vue.component('edit-subject', {
 		}
 	},
 	template: `
-		<form action="/api/control/subjects" method="PUT">
+		<form action="#" method="PUT">
 			<div class="form-group">
 				<label for="edit-subject_subject-select">{{messages.subject}}</label>
 				<select class="form-control" id="edit-subject_subject-select" name="id"

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.vitgon.schedule.dao.auth.UserDao;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.model.database.auth.UserConnection;
+import com.vitgon.schedule.projection.UserProjection;
 import com.vitgon.schedule.service.database.UserConnectionService;
 import com.vitgon.schedule.service.database.UserService;
 
@@ -132,5 +135,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByEmailAndProviderId(String email, String providerId) {
 		return userDao.findByEmailAndProviderId(email, providerId);
+	}
+
+	@Override
+	public Page<UserProjection> getAllUsersByLocaleIdAndRoleJoiningWithTranslation(
+			Integer localeId, String role, Pageable pageable) {
+		return userDao.getAllUsersByLocaleIdAndRoleJoiningWithTranslation(localeId, role, pageable);
 	}
 }

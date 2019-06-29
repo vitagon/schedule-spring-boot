@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import javax.validation.ConstraintValidatorContext;
 
 import org.junit.Test;
@@ -37,7 +39,7 @@ public class UniqueMajorValidatorTest {
 	@Test
 	public void isValid_MajorName_ConstraintValidatorContext__whenMajorIsFound_thenReturnFalse() {
 		ConstraintValidatorContext context = mock(ConstraintValidatorContext.class);
-		when(majorService.findByName("banking")).thenReturn(new Major());
+		when(majorService.findByName("banking")).thenReturn(Optional.of(new Major()));
 		
 		boolean isValid = uniqueMajorValidator.isValid("banking", context);
 		assertFalse(isValid);

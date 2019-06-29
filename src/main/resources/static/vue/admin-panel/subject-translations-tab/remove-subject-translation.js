@@ -67,7 +67,7 @@ Vue.component('remove-subject-translation', {
 		<form action="/api/translations/subjects/{subjectId}/locales/{localeId}" method="DELETE">
 			<div class="form-group">
 				<label for="subject">{{messages.subject}}</label>
-				<select class="form-control" id="subject" name="subjectId" v-model="form.subjectId">
+				<select class="form-control" name="subjectId" v-model="form.subjectId">
 					<option value="0" selected>{{messages.choose}}</option>
 					<option v-for="subject of subjects" v-bind:value="subject.id">{{subject.name}}</option>
 				</select>
@@ -75,7 +75,7 @@ Vue.component('remove-subject-translation', {
 	
 			<div class="form-group">
 				<label for="locale">{{messages.locale}}</label>
-				<select class="form-control" id="locale" name="localeId" v-model="form.localeId">
+				<select class="form-control" name="localeId" v-model="form.localeId">
 					<option value="0" selected>{{messages.choose}}</option>
 					<option v-for="locale of locales" v-bind:value="locale.id">{{locale.code}}</option>
 				</select>

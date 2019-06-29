@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS major_translations RENAME title TO translation;

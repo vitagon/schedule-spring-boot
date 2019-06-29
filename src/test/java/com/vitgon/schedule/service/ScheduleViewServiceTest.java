@@ -1,24 +1,5 @@
 package com.vitgon.schedule.service;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.vitgon.schedule.collection.ScheduleTree;
-import com.vitgon.schedule.model.database.Group;
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.ScheduleService;
 
@@ -27,16 +8,16 @@ public class ScheduleViewServiceTest {
 	
 	private ScheduleService scheduleService;
 	private GroupService groupService;
-	private ScheduleTreeService scheduleTreeService;
+	private ScheduleDtoService scheduleTreeService;
 	private ScheduleViewService scheduleViewService;
 
-	@Before
-	public void init() {
-		scheduleService = mock(ScheduleService.class);
-		groupService = mock(GroupService.class);
-		scheduleTreeService = mock(ScheduleTreeService.class);
-		scheduleViewService = new ScheduleViewService(scheduleService, groupService, scheduleTreeService);
-	}
+//	@Before
+//	public void init() {
+//		scheduleService = mock(ScheduleService.class);
+//		groupService = mock(GroupService.class);
+//		scheduleTreeService = mock(ScheduleTreeService.class);
+//		scheduleViewService = new ScheduleViewService(scheduleService, groupService, scheduleTreeService);
+//	}
 	
 //	@Test
 //	public void testSetScheduleViewVarsMethod() throws Exception {

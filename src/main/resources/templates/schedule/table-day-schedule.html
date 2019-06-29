@@ -60,7 +60,8 @@
 					<td scope="col"
 						class="teacher"
 						th:with="teacher=${curSchedule != null ? curSchedule['teacher'] : null}"
-						th:text="${teacher != null} ? ${teacher['name']} : #{notStated}"
+						th:text="${teacher != null} ? ${teacher['lastname'] + ' ' + teacher['firstname'] + 
+									' ' + teacher['middlename']} : #{notStated}"
 						th:data-id="${teacher != null ? teacher['id'] : 0}">
 						Teacher
 					</td>

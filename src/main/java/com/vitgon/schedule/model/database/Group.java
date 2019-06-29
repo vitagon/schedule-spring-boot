@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vitgon.schedule.model.database.translation.GroupTranslation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,13 +39,13 @@ import lombok.ToString;
 public class Group extends BaseModel<Integer> {
 	
 	@Column(name = "number", nullable = false)
-	private int number;
+	private Integer number;
 	
 	@Column(name = "suffix", nullable = false)
 	private String suffix;
 	
 	@Column(name = "course_num", nullable = false)
-	private int courseNum;
+	private Integer courseNum;
 	
 	@JsonIgnore
 	@ManyToOne(optional = false)
@@ -53,6 +54,9 @@ public class Group extends BaseModel<Integer> {
 	
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Schedule> schedules = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	private List<GroupTranslation> groupTranslations = new ArrayList<>();
 
 	public Group(int courseNum, Major major) {
 		this.courseNum = courseNum;

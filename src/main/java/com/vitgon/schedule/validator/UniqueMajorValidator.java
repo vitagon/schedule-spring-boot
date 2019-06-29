@@ -1,5 +1,7 @@
 package com.vitgon.schedule.validator;
 
+import java.util.Optional;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -16,8 +18,8 @@ public class UniqueMajorValidator implements ConstraintValidator<UniqueMajor, St
 	
 	@Override
 	public boolean isValid(String majorName, ConstraintValidatorContext context) {
-		Major major = majorService.findByName(majorName);
-		if (major == null) {
+		Optional<Major> major = majorService.findByName(majorName);
+		if (!major.isPresent()) {
 			return true;
 		}
 		return false;

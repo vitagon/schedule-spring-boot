@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vitgon.schedule.annotation.validation.LocaleExists;
 import com.vitgon.schedule.annotation.validation.SubjectExists;
+import com.vitgon.schedule.controller.rest.advice.FieldValidationException;
 import com.vitgon.schedule.controller.rest.advice.Violation;
 import com.vitgon.schedule.dto.SubjectTranslationDto;
 import com.vitgon.schedule.model.ApiError;
@@ -37,16 +38,15 @@ import lombok.AllArgsConstructor;
 public class SubjectTranslationRestController {
 
 	private SubjectTranslationService subjectTranslationService;
-	private MessageService messageService;
 
 	@GetMapping("/subjects/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> getSubjectTranslation(@PathVariable("subjectId") @SubjectExists Integer subjectId,
-												   @PathVariable("localeId") @LocaleExists Integer localeId) {
+												   @PathVariable("localeId") @LocaleExists Integer localeId) throws FieldValidationException {
 		
 		Optional<SubjectTranslation> subjectTranslation = subjectTranslationService.findByLocaleIdAndSubjectId(localeId,
 				subjectId);
 		if (!subjectTranslation.isPresent()) {
-			return ResponseEntity.badRequest().body(createApiError("localeId", "translation.notFound"));
+			throw new FieldValidationException("localeId", "translation.notFound");
 		}
 		SubjectTranslationDto subjectTranslationDto = new SubjectTranslationDto(
 				subjectId,
@@ -56,22 +56,21 @@ public class SubjectTranslationRestController {
 	}
 
 	@PostMapping("/subjects/{subjectId}/locales/{localeId}")
-	public ResponseEntity<?> addSubjectTranslation(@RequestBody @Validated SubjectTranslationDto subjectTranslationDto) {
+	public ResponseEntity<?> addSubjectTranslation(@RequestBody @Validated SubjectTranslationDto subjectTranslationDto) throws FieldValidationException {
 		Optional<SubjectTranslation> subjectTranslation = subjectTranslationService
 				.findByLocaleIdAndSubjectId(subjectTranslationDto.getLocaleId(), subjectTranslationDto.getSubjectId());
 		if (!subjectTranslation.isPresent()) {
 			subjectTranslationService.save(subjectTranslationDto.getSubjectId(), subjectTranslationDto.getLocaleId(),
 					subjectTranslationDto.getTranslation());
 		} else {
-			ApiError apiError = createApiError("translation", "Duplicate.translation");
-			return new ResponseEntity<ApiError>(apiError, HttpStatus.BAD_REQUEST);
+			throw new FieldValidationException("translation", "Duplicate.translation");
 		}
 
 		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully added translation!"));
 	}
 
 	@PutMapping("/subjects/{subjectId}/locales/{localeId}")
-	public ResponseEntity<?> editSubjectTranslation(@RequestBody @Validated SubjectTranslationDto subjectTranslationDto) {
+	public ResponseEntity<?> editSubjectTranslation(@RequestBody @Validated SubjectTranslationDto subjectTranslationDto) throws FieldValidationException {
 
 		Optional<SubjectTranslation> subjectTranslationOpt = subjectTranslationService
 				.findByLocaleIdAndSubjectId(
@@ -86,12 +85,12 @@ public class SubjectTranslationRestController {
 			return ResponseEntity.ok().body(null);
 		}
 
-		return ResponseEntity.badRequest().body(createApiError("localeId", "translation.notFound"));
+		throw new FieldValidationException("localeId", "translation.notFound");
 	}
 
 	@DeleteMapping("/subjects/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> removeSubjectTranslation(@PathVariable("subjectId") @SubjectExists Integer subjectId,
-													  @PathVariable("localeId") @LocaleExists Integer localeId) {
+													  @PathVariable("localeId") @LocaleExists Integer localeId) throws FieldValidationException {
 		Optional<SubjectTranslation> subjectTranslationOpt = subjectTranslationService
 				.findByLocaleIdAndSubjectId(localeId, subjectId);
 
@@ -99,13 +98,7 @@ public class SubjectTranslationRestController {
 			subjectTranslationService.deleteBySubjectIdAndLocaleId(subjectId, localeId);
 			return ResponseEntity.ok().body(null);
 		}
-
-		return ResponseEntity.badRequest().body(createApiError("localeId", "translation.notFound"));
-	}
-
-	private ApiError createApiError(String propertyName, String i18nCode) {
-		List<Violation> violations = new ArrayList<>();
-		violations.add(new Violation(propertyName, Arrays.asList(messageService.getMessage(i18nCode))));
-		return new ApiError(new Date(), "Validation Failed", violations);
+		
+		throw new FieldValidationException("localeId", "translation.notFound");
 	}
 }

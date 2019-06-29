@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,17 +24,19 @@ public class EditScheduleDto implements Serializable {
 	@Pattern(regexp = "^up|down$")
 	private String week;
 	
-	@Min(value = 1, message = "{NotNull.default}")
-	private int dayNum;
+	@NotNull(message = "{NotNull.default}")
+	private Days day;
 	
 	@Min(value = 1, message = "{NotNull.default}")
 	private int lessonNum;
 	
-	@Min(value = 1, message = "{NotNull.default}")
-	private int subjectId;
 	
-	@Pattern(regexp = "^lecture|practice|0$")
-	private String lessonType;
+	
+	@Min(value = 1, message = "{NotNull.default}")
+	private Integer subjectId;
+	
+	@PositiveOrZero
+	private Integer lessonTypeId;
 	
 	@PositiveOrZero
 	private int userId;

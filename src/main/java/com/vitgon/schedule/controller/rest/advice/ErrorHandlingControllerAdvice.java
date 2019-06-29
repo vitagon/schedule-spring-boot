@@ -10,18 +10,27 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.vitgon.schedule.model.ApiError;
+import com.vitgon.schedule.service.MessageService;
 
-@ControllerAdvice("com.vitgon.schedule.controller.rest")
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@RestController
+@ControllerAdvice
 public class ErrorHandlingControllerAdvice {
+	
+	private MessageService messageService;
 	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -77,6 +86,44 @@ public class ErrorHandlingControllerAdvice {
 						Arrays.asList(constraintViolation.getMessage()));
 			} else {
 				violation.getMessages().add(constraintViolation.getMessage());
+			}
+		}
+		return new ApiError(new Date(), "Validation Failed", violations);
+	}
+	
+	@ExceptionHandler(FieldValidationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	ApiError onFieldValidationException(FieldValidationException e) {
+		String i18nCode = e.getI18nCode();
+		String fieldName = e.getFieldName();
+		List<Violation> violations = new ArrayList<>();
+		violations.add(new Violation(fieldName, Arrays.asList(messageService.getMessage(i18nCode))));
+		return new ApiError(new Date(), "Validation Failed", violations);
+	}
+	
+	@ExceptionHandler(BindException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	ApiError onBindException(BindException e) {
+		List<Violation> violations = new ArrayList<>();
+		
+		for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+			Violation fieldViolation = null;
+			// check if violation for this field was created before
+			for (Violation violation : violations) {
+				if (violation.getFieldName().equals(fieldError.getField())) {
+					fieldViolation = violation;
+					break;
+				}
+			}
+			
+			// if field violation was created before, then add extra error message,
+			// otherwise create field violation
+			if (fieldViolation != null) {
+				fieldViolation.getMessages().add(fieldError.getDefaultMessage());
+			} else {
+				violations.add(new Violation(fieldError.getField(), Arrays.asList(fieldError.getDefaultMessage())));
 			}
 		}
 		return new ApiError(new Date(), "Validation Failed", violations);

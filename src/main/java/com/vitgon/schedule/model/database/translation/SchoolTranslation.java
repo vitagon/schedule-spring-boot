@@ -38,12 +38,12 @@ public class SchoolTranslation {
 	@JoinColumn(name = "locale_id")
 	private Locale locale;
 	
-	@Column(name = "title")
-	private String title;
+	@Column(name = "translation")
+	private String translation;
 	
-	public SchoolTranslation(School school, Locale locale, String title) {
+	public SchoolTranslation(School school, Locale locale, String translation) {
 		this.school = school;
 		this.locale = locale;
-		this.title = title;
+		this.translation = translation;
 	}
 }

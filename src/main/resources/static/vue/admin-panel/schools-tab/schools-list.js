@@ -57,10 +57,16 @@ Vue.component('schools-list', {
 		},
 		getSchools: function () {
 			let _this = this;
+			let objToSend = null;
+			
+			if (_this.localeId != 0) {
+				objToSend = {localeId: _this.localeId};
+			}
+			
 			let getSchoolsRequest = $.ajax({
 				type: 'GET',
 				url: '/api/control/schools',
-				data: {localeId: _this.localeId},
+				data: objToSend,
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json'
 			});
