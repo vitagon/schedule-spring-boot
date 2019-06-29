@@ -8,9 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.GroupDao;
 import com.vitgon.schedule.model.database.Group;
-import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.projection.GroupProjection;
+import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.database.GroupService;
-import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
 
@@ -20,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class GroupServiceImpl implements GroupService {
 	
 	private final GroupDao groupDao;
-	private MajorService majorService;
+	private LocaleConverterService localeConverterService;
 
 	@Override
 	public Group save(Group obj) {
@@ -43,12 +44,9 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<Group> findAllByMajorAndCourseNum(int majorId, int courseNum) {
-		Optional<Major> major = majorService.findById(majorId);
-		if (!major.isPresent() || courseNum == 0) {
-			return null;
-		}
-		return groupDao.findAllByMajorAndCourseNum(major.get(), courseNum);
+	public List<GroupProjection> findAllByMajorIdAndCourseNum(Integer majorId, Integer courseNum) {
+		Locale locale = localeConverterService.getClientLocale();
+		return groupDao.findAllByMajorIdAndCourseNum(majorId, courseNum, locale.getId());
 	}
 	
 	@Override

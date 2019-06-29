@@ -8,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vitgon.schedule.dao.MajorDao;
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
+import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
+import com.vitgon.schedule.projection.MajorProjection;
+import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +24,7 @@ public class MajorServiceImpl implements MajorService {
 	
 	private MajorDao majorDao;
 	private MajorTranslationDao majorTranslDao;
+	private LocaleConverterService localeConverterService;
 
 	@Override
 	public Major save(Major obj) {
@@ -43,13 +47,13 @@ public class MajorServiceImpl implements MajorService {
 	}
 
 	@Override
-	public Major findByTitle(String title) {
-		MajorTranslation majorTransl = majorTranslDao.findByTitle(title);
+	public Major findByTranslation(String translation) {
+		MajorTranslation majorTransl = majorTranslDao.findByTranslation(translation);
 		return majorTransl.getMajor();
 	}
 	
 	@Override
-	public Major findByUrl(String url) {
+	public Optional<Major> findByUrl(String url) {
 		return majorDao.findByUrl(url);
 	}
 	
@@ -64,7 +68,23 @@ public class MajorServiceImpl implements MajorService {
 	}
 
 	@Override
-	public Major findByName(String name) {
+	public Optional<Major> findByName(String name) {
 		return majorDao.findByName(name);
+	}
+
+	@Override
+	public List<MajorProjection> findBySchoolIdAndLocaleId(Integer schoolId, Integer localeId) {
+		return majorDao.getAllBySchoolIdAndLocaleId(schoolId, localeId);
+	}
+
+	@Override
+	public List<MajorProjection> findBySchoolIdAndBrowserDefaultLanguage(Integer schoolId) {
+		Locale locale = localeConverterService.getClientLocale();
+		return findBySchoolIdAndLocaleId(schoolId, locale.getId());
+	}
+	
+	@Override
+	public List<MajorProjection> getAllLeftJoiningOnLocaleId(Integer localeId) {
+		return majorDao.getAllLeftJoiningOnLocaleId(localeId);
 	}
 }

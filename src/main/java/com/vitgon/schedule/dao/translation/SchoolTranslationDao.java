@@ -10,6 +10,6 @@ import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
 
 @Repository
 public interface SchoolTranslationDao extends JpaRepository<SchoolTranslation, SchoolTranslationId> {
-	SchoolTranslation findByTitle(String title);
+	SchoolTranslation findByTranslation(String translation);
 	SchoolTranslation findByLocaleAndSchool(Locale locale, School school);
 }

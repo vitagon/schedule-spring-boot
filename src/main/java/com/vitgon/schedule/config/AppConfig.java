@@ -15,13 +15,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vitgon.schedule.converter.ScheduleDTO2ScheduleConverter;
 import com.vitgon.schedule.converter.SchoolId2SchoolConverter;
+import com.vitgon.schedule.converter.StringToDaysEnumConverter;
+import com.vitgon.schedule.converter.StringToDegreeEnumConverter;
 import com.vitgon.schedule.converter.SubjectId2SubjectConverter;
 import com.vitgon.schedule.formatter.DateFormatter;
 import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
@@ -95,7 +94,8 @@ public class AppConfig implements WebMvcConfigurer {
 		registry.addFormatter(new DateFormatter());
 		registry.addConverter(new SubjectId2SubjectConverter(subjectService()));
 		registry.addConverter(new SchoolId2SchoolConverter(schoolService()));
-		registry.addConverter(new ScheduleDTO2ScheduleConverter(groupService(), subjectService(), userService()));
+		registry.addConverter(new StringToDegreeEnumConverter());
+		registry.addConverter(new StringToDaysEnumConverter());
 	}
 
 	@Override

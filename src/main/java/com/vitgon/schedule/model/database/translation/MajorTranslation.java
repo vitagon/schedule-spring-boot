@@ -38,6 +38,6 @@ public class MajorTranslation {
 	@JoinColumn(name = "locale_id")
 	private Locale locale;
 	
-	@Column(name = "title")
-	private String title;
+	@Column(name = "translation")
+	private String translation;
 }

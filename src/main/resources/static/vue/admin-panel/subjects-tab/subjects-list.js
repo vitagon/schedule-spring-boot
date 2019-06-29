@@ -38,12 +38,18 @@ Vue.component('subjects-list', {
 	methods: {
 		getSubjects: function (e) {
 			let _this = this;
-			let localeId = _this.localeId;
+			let dataToSend = null;
+			let url;
+			
+			if (_this.localeId != 0) {
+				url = `/api/control/subjects/locale-id/${_this.localeId}`;
+			} else {
+				url = '/api/control/subjects';
+			}
 			
 			$.ajax({
 				type: 'GET',
-				url: '/api/control/subjects',
-				data: {localeId: localeId},
+				url: url,
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json'
 			}).done(function (response) {

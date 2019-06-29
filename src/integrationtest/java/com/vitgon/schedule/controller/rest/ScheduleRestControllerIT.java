@@ -97,36 +97,38 @@ public class ScheduleRestControllerIT {
 	}
 	
 	private static String createScheduleDTOForScheduleCreation() throws JsonProcessingException {
-		EditScheduleDto scheduleDTO = new EditScheduleDto();
-		
-		scheduleDTO.setGroupId(1);
-		scheduleDTO.setWeek("up");
-		scheduleDTO.setDayNum(1);
-		scheduleDTO.setLessonNum(1);
-		
-		scheduleDTO.setSubjectId(4);
-		scheduleDTO.setLessonType("lecture");
-		scheduleDTO.setUserId(1);
-		scheduleDTO.setClassroom("L2391");
-		
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(scheduleDTO);
+//		EditScheduleDto scheduleDTO = new EditScheduleDto();
+//		
+//		scheduleDTO.setGroupId(1);
+//		scheduleDTO.setWeek("up");
+//		scheduleDTO.setDayNum(1);
+//		scheduleDTO.setLessonNum(1);
+//		
+//		scheduleDTO.setSubjectId(4);
+//		scheduleDTO.setLessonType("lecture");
+//		scheduleDTO.setUserId(1);
+//		scheduleDTO.setClassroom("L2391");
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		return mapper.writeValueAsString(scheduleDTO);
+		return null;
 	}
 	
 	private static String createScheduleDTOForScheduleEdit() throws JsonProcessingException {
-		EditScheduleDto scheduleDTO = new EditScheduleDto();
-		
-		scheduleDTO.setGroupId(1);
-		scheduleDTO.setWeek("up");
-		scheduleDTO.setDayNum(1);
-		scheduleDTO.setLessonNum(1);
-		
-		scheduleDTO.setSubjectId(4);
-		scheduleDTO.setLessonType("practice");
-		scheduleDTO.setUserId(1);
-		scheduleDTO.setClassroom("P2251");
-		
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(scheduleDTO);
+//		EditScheduleDto scheduleDTO = new EditScheduleDto();
+//		
+//		scheduleDTO.setGroupId(1);
+//		scheduleDTO.setWeek("up");
+//		scheduleDTO.setDayNum(1);
+//		scheduleDTO.setLessonNum(1);
+//		
+//		scheduleDTO.setSubjectId(4);
+//		scheduleDTO.setLessonType("practice");
+//		scheduleDTO.setUserId(1);
+//		scheduleDTO.setClassroom("P2251");
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		return mapper.writeValueAsString(scheduleDTO);
+		return null;
 	}
 }

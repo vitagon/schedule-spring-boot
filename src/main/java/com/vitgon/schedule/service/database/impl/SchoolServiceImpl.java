@@ -11,6 +11,8 @@ import com.vitgon.schedule.dao.translation.SchoolTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.model.database.translation.SchoolTranslation;
+import com.vitgon.schedule.projection.SchoolProjection;
+import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class SchoolServiceImpl implements SchoolService {
 	
 	private final SchoolDao schoolDao;
 	private final SchoolTranslationDao schoolTranslDao;
+	private LocaleConverterService localeConverterService;
 	
 	@Override
 	public School save(School obj) {
@@ -44,8 +47,8 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public School findByTitle(String title) {
-		SchoolTranslation schoolTransl = schoolTranslDao.findByTitle(title);
+	public School findByTranslation(String translation) {
+		SchoolTranslation schoolTransl = schoolTranslDao.findByTranslation(translation);
 		return schoolTransl.getSchool();
 	}
 
@@ -67,5 +70,16 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public School findByName(String name) {
 		return schoolDao.findByName(name);
+	}
+
+	@Override
+	public List<SchoolProjection> getAllJoiningWithMajors() {
+		Locale locale = localeConverterService.getClientLocale();
+		return schoolDao.getAllJoiningWithMajors(locale.getId());
+	}
+
+	@Override
+	public List<SchoolProjection> getAllJoiningWithMajors(Integer localeId) {
+		return schoolDao.getAllJoiningWithMajors(localeId);
 	}
 }

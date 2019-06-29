@@ -1,0 +1,1 @@
+ALTER TABLE IF EXISTS school_translations RENAME title TO translation;

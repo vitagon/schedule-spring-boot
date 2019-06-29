@@ -38,12 +38,16 @@ Vue.component('majors-list', {
 	methods: {
 		getMajors: function () {
 			let _this = this;
-			let dataToSend = {localeId: _this.localeId};
+			let url, parameters;
+			if (_this.localeId != 0) {
+				url = `/api/control/majors/locale-id/${_this.localeId}`;
+			} else {
+				url = '/api/control/majors';
+			}
 			
 			$.ajax({
 				type: 'GET',
-				url: '/api/control/majors',
-				data: dataToSend,
+				url: url,
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
 			}).done(function (response) {

@@ -12,6 +12,7 @@ import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.model.database.translation.UserTranslation;
 import com.vitgon.schedule.model.database.translation.pk.UserTranslationId;
+import com.vitgon.schedule.projection.UserProjection;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
 
 @Service
@@ -58,5 +59,15 @@ public class UserTranslationServiceImpl implements UserTranslationService {
 	@Override
 	public void deleteById(UserTranslationId id) {
 		userTranslDao.deleteById(id);
+	}
+
+	@Override
+	public Optional<UserTranslation> findByLocaleIdAndUserId(Integer localeId, Integer userId) {
+		return userTranslDao.findByLocaleIdAndUserId(localeId, userId);
+	}
+
+	@Override
+	public UserProjection getUserTranslationProjectionByLocaleIdAndUserId(Integer localeId, Integer userId) {
+		return userTranslDao.getUserTranslationProjectionByLocaleIdAndUserId(localeId, userId);
 	}
 }

@@ -1,5 +1,8 @@
 package com.vitgon.schedule.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.vitgon.schedule.view.Views;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubjectDto {
-	private int id;
-	private String name;
-	private String translation;
 	
-	public SubjectDto(int id, String name) {
-		this.id = id;
-		this.name = name;
-		this.translation = null;
-	}
+	@JsonView(Views.Public.class)
+	private Integer id;
+	
+	@JsonView(Views.Public.class)
+	private String name;
+	
+	@JsonView(Views.AdminPanel.class)
+	private String translation;
 }

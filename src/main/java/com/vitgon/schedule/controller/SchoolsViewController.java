@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.vitgon.schedule.dto.SchoolDto;
 import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.School;
-import com.vitgon.schedule.resolver.UrlLocaleResolver;
+import com.vitgon.schedule.projection.SchoolProjection;
 import com.vitgon.schedule.service.LocaleConverterService;
-import com.vitgon.schedule.service.SchoolConverterService;
+import com.vitgon.schedule.service.SchoolDtoService;
 import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
@@ -22,16 +21,13 @@ import lombok.AllArgsConstructor;
 @Controller
 public class SchoolsViewController {
 	
-	private SchoolConverterService schoolMapperService;
+	private SchoolDtoService schoolDtoService;
 	private SchoolService schoolService;
-	private LocaleConverterService localeConverterService;
 	
 	@RequestMapping("/schools")
-	public String showSchoolsPage(HttpServletRequest request, Model model) {
-		Locale locale = localeConverterService.getClientLocale(request);
-		List<School> schools = schoolService.findAll();
-		
-		List<SchoolDto> schoolDtoList = schoolMapperService.convertToSchoolDtoList(schools, locale);
+	public String showSchoolsPage(Model model) {
+		List<SchoolProjection> schools = schoolService.getAllJoiningWithMajors();
+		List<SchoolDto> schoolDtoList = schoolDtoService.getSchoolDtoListForPublic(schools);
 		model.addAttribute("schools", schoolDtoList);
 		return "schools";
 	}

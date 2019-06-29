@@ -24,6 +24,13 @@ import {} from '/vue/admin-panel/subject-translations-tab/add-subject-translatio
 import {} from '/vue/admin-panel/subject-translations-tab/edit-subject-translation.js';
 import {} from '/vue/admin-panel/subject-translations-tab/remove-subject-translation.js';
 
+import {} from '/vue/admin-panel/user-translations-tab/user-translations-list.js';
+import {} from '/vue/admin-panel/user-translations-tab/add-user-translation.js';
+import {} from '/vue/admin-panel/user-translations-tab/edit-user-translation.js';
+import {} from '/vue/admin-panel/user-translations-tab/remove-user-translation.js';
+
+import {} from '/vue/admin-panel/edit-schedule-tab/edit-schedule.js';
+
 export const serverBus = new Vue();
 
 new Vue({

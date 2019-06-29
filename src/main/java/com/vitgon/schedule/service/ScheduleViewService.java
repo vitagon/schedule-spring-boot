@@ -4,16 +4,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.collection.ScheduleTree;
-import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.Schedule;
-import com.vitgon.schedule.service.database.GroupService;
+import com.vitgon.schedule.projection.ScheduleProjection;
 import com.vitgon.schedule.service.database.ScheduleService;
 
 import lombok.AllArgsConstructor;
@@ -26,17 +22,14 @@ public class ScheduleViewService {
 	private static final List<String> DAYS = getDaysList();
 	
 	private ScheduleService scheduleService;
-	private GroupService groupService;
-	private ScheduleTreeService scheduleTreeService;
 
 	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
-		Optional<Group> group = groupService.findById(groupId);
-		List<Schedule> schedulesList = scheduleService.findByGroup(group.get());
-		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale);
+		List<ScheduleProjection> schedulesList = scheduleService.findByGroupId(groupId);
+//		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale);
 		
 		modelAndView.addObject("days", DAYS);
 		modelAndView.addObject("bells", BELLS);
-		modelAndView.addObject("schedules", schedules);
+		modelAndView.addObject("schedules", null);
 		modelAndView.addObject("groupId", groupId);
 	}
 	

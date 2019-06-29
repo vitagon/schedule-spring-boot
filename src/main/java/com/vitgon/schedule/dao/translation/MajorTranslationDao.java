@@ -10,6 +10,6 @@ import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 
 @Repository
 public interface MajorTranslationDao extends JpaRepository<MajorTranslation, MajorTranslationId> {
-	MajorTranslation findByTitle(String title);
+	MajorTranslation findByTranslation(String translation);
 	MajorTranslation findByLocaleAndMajor(Locale locale, Major major);
 }

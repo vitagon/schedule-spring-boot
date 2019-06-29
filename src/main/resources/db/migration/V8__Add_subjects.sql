@@ -1,15 +1,17 @@
-INSERT INTO subjects (id, name) VALUES (18, 'enterprise cost management');
-INSERT INTO subjects (id, name) VALUES (19, 'pricing');
-INSERT INTO subjects (id, name) VALUES (20, 'enterprise planning');
-INSERT INTO subjects (id, name) VALUES (21, 'information security');
-INSERT INTO subjects (id, name) VALUES (22, 'economic security');
-INSERT INTO subjects (id, name) VALUES (23, 'criminal process');
+INSERT INTO subjects (id, name) VALUES 
+	(18, 'enterprise cost management'),
+	(19, 'pricing'),
+	(20, 'enterprise planning'),
+	(21, 'information security'),
+	(22, 'economic security'),
+	(23, 'criminal process');
 
 ALTER SEQUENCE hibernate_sequence RESTART WITH 24;
 
-INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES (18, 2, 'управление затратами на предприятии');
-INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES (19, 2, 'ценообразование');
-INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES (20, 2, 'планирование на предприятии');
-INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES (21, 2, 'информационная безопасность');
-INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES (22, 2, 'экономическая безопасность');
-INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES (23, 2, 'уголовный процесс');
+INSERT INTO subject_translations (subject_id, locale_id, translation) VALUES
+	(18, 2, 'управление затратами на предприятии'),
+	(19, 2, 'ценообразование'),
+	(20, 2, 'планирование на предприятии'),
+	(21, 2, 'информационная безопасность'),
+	(22, 2, 'экономическая безопасность'),
+	(23, 2, 'уголовный процесс');
