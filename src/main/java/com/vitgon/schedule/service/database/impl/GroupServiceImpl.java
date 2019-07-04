@@ -44,7 +44,7 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public List<GroupProjection> findAllByMajorIdAndCourseNum(Integer majorId, Integer courseNum) {
+	public List<GroupProjection> getAllByMajorIdAndCourseNum(Integer majorId, Integer courseNum) {
 		Locale locale = localeConverterService.getClientLocale();
 		return groupDao.findAllByMajorIdAndCourseNum(majorId, courseNum, locale.getId());
 	}
@@ -57,5 +57,15 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void deleteById(Integer id) {
 		groupDao.deleteById(id);
+	}
+
+	@Override
+	public List<GroupProjection> getAllByMajorUrlAndLocaleId(String url, Integer localeId) {
+		return groupDao.getAllByMajorUrlAndLocaleId(url, localeId);
+	}
+
+	@Override
+	public List<GroupProjection> getAllByLocaleId(Integer localeId) {
+		return groupDao.getAllByLocaleId(localeId);
 	}
 }

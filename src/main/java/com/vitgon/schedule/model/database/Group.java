@@ -1,7 +1,9 @@
 package com.vitgon.schedule.model.database;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,16 +19,16 @@ import com.vitgon.schedule.model.database.translation.GroupTranslation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Builder
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@RequiredArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ToString(of = {"number","suffix","courseNum"})
 @Entity
 @Table(
@@ -56,7 +58,7 @@ public class Group extends BaseModel<Integer> {
 	private List<Schedule> schedules = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
-	private List<GroupTranslation> groupTranslations = new ArrayList<>();
+	private Set<GroupTranslation> groupTranslations = new HashSet<>();
 
 	public Group(int courseNum, Major major) {
 		this.courseNum = courseNum;

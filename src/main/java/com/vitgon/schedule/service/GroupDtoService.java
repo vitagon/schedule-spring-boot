@@ -12,41 +12,54 @@ import java.util.Map.Entry;
 
 import org.springframework.stereotype.Service;
 
+import com.vitgon.schedule.converter.DegreeEnumToStringConverter;
 import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.projection.GroupProjection;
 import com.vitgon.schedule.service.database.GroupService;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Service
 public class GroupDtoService {
 	
 	private GroupService groupService;
+	private DegreeEnumToStringConverter degreeEnumToStringConverter;
+	private LocaleConverterService localeConverterService;
 
-	public String getGroupTitle(Group group) {
-		return getDegree(group).charAt(0) + String.valueOf(group.getNumber()) + group.getSuffix();
+	public String getGroupTitle(GroupProjection group) {
+		return degreeEnumToStringConverter.convert(group.getDegree()).charAt(0) +
+				String.valueOf(group.getNumber()) +
+				group.getSuffix_translation();
 	}
 	
 	public String getDegree(Group group) {
 		return group.getMajor().getDegree().name();
 	}
 	
-	public List<GroupDto> convertToGroupDtoList() {
+	public List<GroupDto> getGroupDtoList() {
+		Locale locale = localeConverterService.getClientLocale();
 		List<GroupDto> groupDtoList = new ArrayList<>();
-		List<Group> groups = groupService.findAll();
-		for (Group group : groups) {
+		List<GroupProjection> groups = groupService.getAllByLocaleId(locale.getId());
+		for (GroupProjection group : groups) {
 			groupDtoList.add(new GroupDto(group.getId(), getGroupTitle(group)));
 		}
 		return groupDtoList;
 	}
+	
+	public Map<Integer, List<GroupDto>> getGroupDtoMap(String url) {
+		Locale locale = localeConverterService.getClientLocale();
+		return getGroupDtoMap(url, locale.getId());
+	}
 
-	public Map<Integer, List<GroupDto>> convertToGroupDtoMap(List<Group> groups) {
+	public Map<Integer, List<GroupDto>> getGroupDtoMap(String url, Integer localeId) {
 		Map<Integer, List<GroupDto>> groupsMap = new HashMap<>();
+		List<GroupProjection> groups = groupService.getAllByMajorUrlAndLocaleId(url, localeId);
 
-		for (Group group : groups) {
-			int courseNum = group.getCourseNum();
+		for (GroupProjection group : groups) {
+			int courseNum = group.getCourse_num();
 
 			if (!groupsMap.containsKey(courseNum)) {
 				groupsMap.put(courseNum, new ArrayList<>());

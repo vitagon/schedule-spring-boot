@@ -12,7 +12,7 @@ import com.vitgon.schedule.projection.MajorProjection;
 
 @Repository
 public interface MajorDao extends JpaRepository<Major, Integer> {
-	Optional<Major> findByUrl(String url);
+	
 	Optional<Major> findByName(String name);
 	
 	@Query(value =
@@ -36,4 +36,6 @@ public interface MajorDao extends JpaRepository<Major, Integer> {
 			+ 	"(select * from major_translations where locale_id = ?1) mt ON m.id = mt.major_id ",
 			nativeQuery = true)
 	List<MajorProjection> getAllLeftJoiningOnLocaleId(Integer localeId);
+
+	Optional<Major> findByUrl(String url);
 }
