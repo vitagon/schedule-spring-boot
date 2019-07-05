@@ -26,38 +26,13 @@ import com.vitgon.schedule.formatter.DateFormatter;
 import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
 import com.vitgon.schedule.resolver.FromDTOMapper;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
-import com.vitgon.schedule.service.database.GroupService;
-import com.vitgon.schedule.service.database.SchoolService;
-import com.vitgon.schedule.service.database.SubjectService;
-import com.vitgon.schedule.service.database.UserService;
 
 @Configuration
 @ComponentScan(basePackages = { "com.vitgon.schedule" })
 public class AppConfig implements WebMvcConfigurer {
 	
-	
-	private ApplicationContext applicationContext;
-	
 	@Autowired
-	public AppConfig(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
-	}
-	
-	public SchoolService schoolService() {
-		return this.applicationContext.getBean(SchoolService.class);
-	}
-	
-	public GroupService groupService() {
-		return this.applicationContext.getBean(GroupService.class);
-	}
-	
-	public SubjectService subjectService() {
-		return this.applicationContext.getBean(SubjectService.class);
-	}
-	
-	public UserService userService() {
-		return this.applicationContext.getBean(UserService.class);
-	}
+	private ApplicationContext applicationContext;
 	
 	@Bean(name = "localeResolver")
 	public LocaleResolver getLocaleResolver() {
@@ -92,8 +67,8 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatter(new DateFormatter());
-		registry.addConverter(new SubjectId2SubjectConverter(subjectService()));
-		registry.addConverter(new SchoolId2SchoolConverter(schoolService()));
+		registry.addConverter(new SubjectId2SubjectConverter());
+		registry.addConverter(new SchoolId2SchoolConverter());
 		registry.addConverter(new StringToDegreeEnumConverter());
 		registry.addConverter(new StringToDaysEnumConverter());
 	}
@@ -102,6 +77,6 @@ public class AppConfig implements WebMvcConfigurer {
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 		WebMvcConfigurer.super.addArgumentResolvers(resolvers);
 		ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().applicationContext(applicationContext).build();
-		resolvers.add(new FromDTOMapper(objectMapper, applicationContext));
+		resolvers.add(new FromDTOMapper(objectMapper));
 	}
 }

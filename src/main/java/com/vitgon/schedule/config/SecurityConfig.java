@@ -3,7 +3,6 @@ package com.vitgon.schedule.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -46,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
-//				.antMatchers("/control/**").hasAnyAuthority("MANAGER", "ADMIN")
+				.antMatchers("/control/**").hasAnyAuthority("MANAGER", "ADMIN")
 				.antMatchers("/").permitAll()
 				.and()
 				.csrf().disable()

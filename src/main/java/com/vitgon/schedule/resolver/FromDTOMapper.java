@@ -5,12 +5,13 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Collections;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -21,13 +22,14 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vitgon.schedule.annotation.FromDTO;
 
+@Component
 public class FromDTOMapper extends RequestResponseBodyMethodProcessor {
 
+	@Autowired
 	private ConversionService conversionService;
 
-	public FromDTOMapper(ObjectMapper objectMapper, ApplicationContext applicationContext) {
+	public FromDTOMapper(ObjectMapper objectMapper) {
 		super(Collections.singletonList(new MappingJackson2HttpMessageConverter(objectMapper)));
-		this.conversionService = applicationContext.getBean(ConversionService.class);
 	}
 
 	@Override

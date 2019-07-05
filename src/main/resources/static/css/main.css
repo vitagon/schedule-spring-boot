@@ -35,3 +35,14 @@ body {
 	cursor: pointer;
 	text-decoration: none;
 }
+
+.btn-facebook {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.fa-facebook-square {
+	font-size: 1.7em;
+	color: #385499;
+	margin-right: .4em;
+}

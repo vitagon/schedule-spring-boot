@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.vitgon.schedule.dto.ScheduleResponseDto;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Schedule;
@@ -173,17 +172,17 @@ public class ScheduleRestControllerAdminPanelTest {
 		return schedule;
 	}
 	
-	private static ScheduleResponseDto createScheduleResponse(Schedule schedule) {
-		ScheduleResponseDto response = new ScheduleResponseDto();
-		response.setId(schedule.getId());
-		response.setSubjectId(schedule.getSubject().getId());
-		response.setDayNum(schedule.getDayNum());
-		response.setWeek(schedule.getWeek());
-		response.setLessonNum(schedule.getLessonNum());
-		
-		response.setTeacherId(schedule.getUser().getId());
-		response.setLessonType(LessonUtil.convertLessonType(schedule.getLessonType()));
-		response.setClassroom(schedule.getClassroom());
-		return response;
-	}
+//	private static ScheduleResponseDto createScheduleResponse(Schedule schedule) {
+//		ScheduleResponseDto response = new ScheduleResponseDto();
+//		response.setId(schedule.getId());
+//		response.setSubjectId(schedule.getSubject().getId());
+//		response.setDayNum(schedule.getDayNum());
+//		response.setWeek(schedule.getWeek());
+//		response.setLessonNum(schedule.getLessonNum());
+//		
+//		response.setTeacherId(schedule.getUser().getId());
+//		response.setLessonType(LessonUtil.convertLessonType(schedule.getLessonType()));
+//		response.setClassroom(schedule.getClassroom());
+//		return response;
+//	}
 }
