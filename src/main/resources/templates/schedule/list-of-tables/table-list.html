@@ -20,11 +20,11 @@
 		
 		<div class="tab-content">
 			<div class="tab-pane fade show active" id="up-week" role="tabpanel" aria-labelledby="up-week-tab">
-				<div th:insert="schedule/table-day-schedule :: target" th:with="week=${'up'}"></div>
+				<div th:insert="schedule/list-of-tables/week-schedule :: target" th:with="weekSchedule=${schedules.up}"></div>
 			</div>
 			
 			<div class="tab-pane fade" id="down-week" role="tabpanel" aria-labelledby="down-week-tab">
-				<div th:insert="schedule/table-day-schedule :: target" th:with="week=${'down'}"></div>
+				<div th:insert="schedule/list-of-tables/week-schedule :: target" th:with="weekSchedule=${schedules.down}"></div>
 			</div>
 		</div>
 	</div>

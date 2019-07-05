@@ -1,0 +1,34 @@
+<!doctype html>
+<html
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>Document</title>
+</head>
+<body>
+	<th:block th:target="first-lesson-down-schedule">
+		<!-- This cell for lesson type of the first lesson of the day (WEEK_DOWN) -->
+		<td th:text="${curSchedule.lessonTypeName != null} ? ${curSchedule.lessonTypeName} : #{notStated}"
+			th:data-lesson-type-id="${curSchedule.lessonTypeId != null} ? ${curSchedule.lessonTypeId} : ${0}">
+			Lesson type
+		</td>
+		
+		<td th:text="${curSchedule.subjectName != null} ? ${curSchedule.subjectName} : #{noLesson}">
+			Subject title of first lesson of the day of 'down' week
+		</td>
+		
+		<!-- This cell for teacher name of the first lesson of the day (WEEK_DOWN) -->
+		<td th:text="${curSchedule.teacherName != null} ? ${curSchedule.teacherName} : #{notStated}"
+			th:data-id="${curSchedule.teacherId != null ? curSchedule.teacherId : 0}">
+			Teacher name
+		</td>
+		
+		<!-- This cell for classroom of the first lesson of the day (WEEK_DOWN) -->
+		<td th:text="${curSchedule.classroom != null} ? ${curSchedule.classroom} : #{notStated}">
+			Classroom
+		</td>
+	</th:block>
+</body>
+</html>

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vitgon.schedule.dto.ScheduleDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.projection.ScheduleProjection;
 import com.vitgon.schedule.service.database.ScheduleService;
@@ -21,15 +22,14 @@ public class ScheduleViewService {
 	private static final Map<Integer, String> BELLS = getBellsMap();
 	private static final List<String> DAYS = getDaysList();
 	
-	private ScheduleService scheduleService;
+	private ScheduleDtoService scheduleDtoService;
 
-	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, int groupId) {
-		List<ScheduleProjection> schedulesList = scheduleService.findByGroupId(groupId);
-//		ScheduleTree schedules = scheduleTreeService.getScheduleTree(schedulesList, locale);
+	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, Integer groupId) {
+		ScheduleDto schedules = scheduleDtoService.getScheduleDtoByGroupId(groupId);
 		
 		modelAndView.addObject("days", DAYS);
 		modelAndView.addObject("bells", BELLS);
-		modelAndView.addObject("schedules", null);
+		modelAndView.addObject("schedules", schedules);
 		modelAndView.addObject("groupId", groupId);
 	}
 	

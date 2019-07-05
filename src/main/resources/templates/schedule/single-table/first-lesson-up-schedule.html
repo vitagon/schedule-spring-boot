@@ -1,0 +1,44 @@
+<!doctype html>
+<html
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>Document</title>
+</head>
+<body>
+	<th:block th:fragment="first-lesson-up-schedule">
+		<!-- Day title -->
+		<td th:rowspan="${bells.size()*2}" th:text="#{__${day}__}"></td>
+		
+		<!-- Bell (ex.: 8.30-10.00) and number of lesson (ex.: 1) -->
+		<td rowspan="2">
+			<div th:text="${bells[1]}" align="center"></div>
+			<div align="center">1</div>
+		</td>
+		
+		<!-- This cell for lesson type of the first lesson of the day (WEEK_UP) -->
+		<td th:text="${curSchedule.lessonTypeName != null} ? ${curSchedule.lessonTypeName} : #{notStated}"
+			th:data-lesson-type-id="${curSchedule.lessonTypeId != null} ? ${curSchedule.lessonTypeId} : ${0}">
+			Lesson type
+		</td>
+		
+		<!-- Subject title of the first lesson of the day -->
+		<td th:text="${curSchedule.subjectName != null} ? ${curSchedule.subjectName} : #{noLesson}">
+			Subject title of first lesson of 'up' week
+		</td>
+		
+		<!-- This cell for teacher name of the first lesson of the day (WEEK_UP) -->
+		<td th:text="${curSchedule.teacherName != null} ? ${curSchedule.teacherName} : #{notStated}"
+			th:data-id="${curSchedule.teacherId != null ? curSchedule.teacherId : 0}">
+			Teacher name
+		</td>
+		
+		<!-- This cell for classroom of the first lesson of the day (WEEK_UP) -->
+		<td th:text="${curSchedule.classroom != null} ? ${curSchedule.classroom} : #{notStated}">
+			Classroom
+		</td>
+	</th:block>
+</body>
+</html>

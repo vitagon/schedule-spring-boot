@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<th:block th:fragment="day-table" class="table table-sm table-responsive">
+		<!-- I can't iterate lessons in this row, so I get scheduleDTO directly from ScheduleTree -->
+		<tr th:insert="schedule/single-table/first-lesson-up-schedule"
+			th:with="curSchedule=${schedules.up.__${day}__.get(0)},day=${day}"></tr>
+		
+		<!-- I can't iterate lessons in this row, so I get scheduleDTO directly from ScheduleTree -->
+		<tr th:insert="schedule/single-table/first-lesson-down-schedule"
+			th:with="curSchedule=${schedules.down.__${day}__.get(0)},day=${day}"></tr>
+		
+		
+		<!-- Here we display subjects titles from 2nd lesson to 7th lesson -->
+		<th:block th:each="lessonNum: ${#numbers.sequence(2, __${bells.size()}__)}">
+		  	
+			<tr th:insert="schedule/single-table/from-second-lesson-up-schedule"
+				th:with="curSchedule=${schedules.down.__${day}__.get(__${lessonNum-1}__)},lessonNum=${lessonNum}">
+			</tr>
+			
+			<tr th:insert="schedule/single-table/from-second-lesson-down-schedule"
+				th:with="curSchedule=${schedules.up.__${day}__.get(__${lessonNum-1}__)},lessonNum=${lessonNum}">
+			</tr>
+		</th:block>
+	</th:block>
+</body>
+</html>

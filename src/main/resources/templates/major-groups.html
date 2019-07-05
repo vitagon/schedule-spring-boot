@@ -14,7 +14,7 @@
 				<h3 th:text="${groupMap.key} +' '+ #{courseTitle}"></h3>
 				<ul class="nav">
 					<li class="nav-item" th:each="group: ${groupMap.value}">
-						<a href="№" th:href="@{/__${group.id}__/schedule}" th:text="${group.name}"></a>
+						<a href="#" th:href="@{/schedule/group-id/__${group.id}__}" th:text="${group.name}"></a>
 					</li>
 				</ul>
 				<br>

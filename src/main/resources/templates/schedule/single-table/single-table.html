@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<table th:fragment="target" class="table table-sm table-responsive">
+		<tbody class="table-bordered schedule-single-table-tbody">
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='monday'"></th:block>
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='tuesday'"></th:block>
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='wednesday'"></th:block>
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='thursday'"></th:block>
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='friday'"></th:block>
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='saturday'"></th:block>
+			<th:block th:insert="schedule/single-table/day-table" th:with="day='sunday'"></th:block>
+		</tbody>
+	</table>
+</body>
+</html>

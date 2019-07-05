@@ -1,0 +1,21 @@
+<!doctype html>
+<html
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>Document</title>
+</head>
+<body>
+	<div class="table-responsive" th:fragment="target">
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.monday},day='monday'"></div>
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.tuesday},day='tuesday'"></div>
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.wednesday},day='wednesday'"></div>
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.thursday},day='thursday'"></div>
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.friday},day='friday'"></div>
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.saturday},day='saturday'"></div>
+		<div th:insert="schedule/list-of-tables/table-day-schedule" th:with="lessonScheduleList=${weekSchedule.sunday},day='sunday'"></div>
+	</div>
+</body>
+</html>

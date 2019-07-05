@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>	
+	<table th:fragment="target" class="table table-condensed table-sm table-striped" style="margin-top: 2em">
+		<thead>
+			<tr>
+				<th scope="col" colspan="7" th:text="#{__${day}__}"></th>
+			</tr>
+			<tr>
+				<th scope="col" style="width: 5%">#</th>
+				<th scope="col" style="width: 15%">[[#{time}]]</th>
+				<th scope="col" style="width: 20%">[[#{title}]]</th>
+				<th scope="col" style="width: 15%">[[#{type}]]</th>
+				<th scope="col" style="width: 20%">[[#{teacher}]]</th>
+				<th scope="col" style="width: 10%">[[#{classroom}]]</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="curSchedule, itr : ${lessonScheduleList}">
+				<td scope="col" class="lesson-num" th:text="${curSchedule.lessonNum}" style="width: 10%">Lesson number</td>
+				<td scope="col" th:text="${curSchedule.time}">Time</td>
+				
+				<!-- Subject title -->
+				<td scope="col"
+					class="subject"
+					th:data-id="${curSchedule.subjectId != null ? curSchedule.subjectId : 0}"
+					th:text="${curSchedule.subjectName != null} ? ${curSchedule.subjectName} : #{noLesson}">
+					Subject
+				</td>
+				
+				<!-- Lesson type -->
+				<td scope="col"
+					class="lesson-type"
+					th:text="${curSchedule.lessonTypeName != null} ? ${curSchedule.lessonTypeName} : #{notStated}"
+					th:data-lesson-type-id="${curSchedule.lessonTypeId != null} ? ${curSchedule.lessonTypeId} : ${0}">
+					Lesson type
+				</td>
+				
+				<!-- Teacher -->
+				<td scope="col"
+					class="teacher"
+					th:text="${curSchedule.teacherName != null} ? ${curSchedule.teacherName} : #{notStated}"
+					th:data-id="${curSchedule.teacherId != null ? curSchedule.teacherId : 0}">
+					Teacher
+				</td>
+				
+				<!-- Classroom -->
+				<td scope="col"
+					class="classroom"
+					th:text="${curSchedule.classroom != null} ? ${curSchedule.classroom} : #{notStated}">
+					Classroom
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
