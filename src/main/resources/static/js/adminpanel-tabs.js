@@ -1,44 +1,14 @@
-import {} from '/vue/admin-panel/main-tab.js';
-
-import {} from '/vue/admin-panel/schools-tab/schools-list.js';
-import {} from '/vue/admin-panel/schools-tab/add-school.js';
-import {} from '/vue/admin-panel/schools-tab/edit-school.js';
-import {} from '/vue/admin-panel/schools-tab/remove-school.js';
-
-import {} from '/vue/admin-panel/majors-tab/majors-list.js';
-import {} from '/vue/admin-panel/majors-tab/add-major.js';
-import {} from '/vue/admin-panel/majors-tab/edit-major.js';
-import {} from '/vue/admin-panel/majors-tab/remove-major.js';
-
-import {} from '/vue/admin-panel/groups-tab/groups-list.js';
-import {} from '/vue/admin-panel/groups-tab/add-group.js';
-import {} from '/vue/admin-panel/groups-tab/edit-group.js';
-import {} from '/vue/admin-panel/groups-tab/remove-group.js';
-
-import {} from '/vue/admin-panel/subjects-tab/subjects-list.js';
-import {} from '/vue/admin-panel/subjects-tab/add-subject.js';
-import {} from '/vue/admin-panel/subjects-tab/edit-subject.js';
-import {} from '/vue/admin-panel/subjects-tab/remove-subject.js';
-
-import {} from '/vue/admin-panel/subject-translations-tab/add-subject-translation.js';
-import {} from '/vue/admin-panel/subject-translations-tab/edit-subject-translation.js';
-import {} from '/vue/admin-panel/subject-translations-tab/remove-subject-translation.js';
-
-import {} from '/vue/admin-panel/user-translations-tab/user-translations-list.js';
-import {} from '/vue/admin-panel/user-translations-tab/add-user-translation.js';
-import {} from '/vue/admin-panel/user-translations-tab/edit-user-translation.js';
-import {} from '/vue/admin-panel/user-translations-tab/remove-user-translation.js';
-
-import {} from '/vue/admin-panel/edit-schedule-tab/edit-schedule.js';
-
-export const serverBus = new Vue();
-
-new Vue({
-	el: '#main-container',
-	data: {
+$(document).click(function(event) {
+	
+	// when user clicks on 'content' on mobile devices, then hide sidemenu if it is opened
+	if (!$(event.target).closest("#admin-panel_tabs-wrap").length &&
+			$(window).width() < 768 &&
+			$('#admin-panel_tabs-wrap').hasClass('side-menu-toggled') &&
+			$('#admin-panel_tabs-content').hasClass('side-menu-toggled')) {
+		$('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
+		$('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
 	}
 });
-
 
 // jQuery script for sidebar
 $('#sidebar-toggle').click(function(e) {
@@ -120,15 +90,3 @@ $('#admin-panel_tabs a').on('click', function(e) {
 	  $('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
   }
 });
-
-$(document).click(function(event) {
-	
-	// when user clicks on 'content' on mobile devices, then hide sidemenu if it is opened
-	if (!$(event.target).closest("#admin-panel_tabs-wrap").length &&
-			$(window).width() < 768 &&
-			$('#admin-panel_tabs-wrap').hasClass('side-menu-toggled') &&
-			$('#admin-panel_tabs-content').hasClass('side-menu-toggled')) {
-		$('#admin-panel_tabs-wrap').toggleClass('side-menu-toggled');
-		$('#admin-panel_tabs-content').toggleClass('side-menu-toggled');
-	}
-})

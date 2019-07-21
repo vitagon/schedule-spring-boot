@@ -6,3 +6,4 @@
 .project
 mvnw.cmd
 mvnw
+node_modules

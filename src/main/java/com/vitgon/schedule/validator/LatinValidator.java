@@ -5,7 +5,10 @@ import javax.validation.ConstraintValidatorContext;
 
 import com.vitgon.schedule.annotation.validation.Latin;
 
-public class LatinValidator implements ConstraintValidator<Latin, String>{
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class LatinValidator implements ConstraintValidator<Latin, String> {
 	
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+	
+	<!-- Material Design for Bootstrap fonts and icons -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+	
+	<link rel="stylesheet" href="/css/fontawesome/css/all.min.css" />
+	<!-- <link rel="stylesheet" href="/css/bootstrap-material-design.min.css" />  -->
+	<link rel="stylesheet" href="/css/gijgo.min.css" />
+	<link rel="stylesheet" href="/css/main.css" />
+	<!--  <link rel="stylesheet" href="/css/control-panel.css" /> -->
+	<title>Document</title>
+</head>
+<body>
+	<div class="container-fluid" id="main-container"></div>
+	
+	<!-- SnackbarJS plugin -->
+	<!-- <script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script> -->
+	
+	<script th:src="${1 == 1} ? ${'http://localhost:3000/adminpanel.js'} : ${'/js/adminpanel-tabs.js'}"></script>
+	<!-- <script src="/js/adminpanel-tabs.js"></script> -->
+</body>
+</html>

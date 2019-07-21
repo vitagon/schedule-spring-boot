@@ -3,6 +3,9 @@ package com.vitgon.schedule.config;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -10,12 +13,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vitgon.schedule.converter.SchoolId2SchoolConverter;
@@ -33,6 +41,20 @@ public class AppConfig implements WebMvcConfigurer {
 	
 	@Autowired
 	private ApplicationContext applicationContext;
+	
+	@Bean
+	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerCustomizer() {
+		return container -> {
+			container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/control"));
+		};
+	}
+	
+	@Bean
+    public ViewResolver viewResolver() {
+        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
+        viewResolver.setViewClass(InternalResourceView.class);
+        return viewResolver;
+    }
 	
 	@Bean(name = "localeResolver")
 	public LocaleResolver getLocaleResolver() {
@@ -78,5 +100,11 @@ public class AppConfig implements WebMvcConfigurer {
 		WebMvcConfigurer.super.addArgumentResolvers(resolvers);
 		ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().applicationContext(applicationContext).build();
 		resolvers.add(new FromDTOMapper(objectMapper));
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+		WebMvcConfigurer.super.addResourceHandlers(registry);
 	}
 }

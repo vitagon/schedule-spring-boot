@@ -26,7 +26,6 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
-	private PasswordEncoder passwordEncoder;
 	private UserConnectionService userConnectionService;
 	private HibernateSequenceService hibernateSequenceService;
 	private PasswordEncoder encoder;
@@ -38,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User save(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(encoder.encode(user.getPassword()));
 		user.setActive(true);
 		return userDao.save(user);
 	}
@@ -102,7 +101,7 @@ public class UserServiceImpl implements UserService {
 		user.setKeyLastname(userProfile.getLastName());
 		user.setActive(true);
 		user.setProviderId(key.getProviderId());
-		user = save(user);
+		user = userDao.save(user);
 		
 		// update username
 		user.setUsername(generateUsername(user.getId()));

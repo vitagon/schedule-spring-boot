@@ -67,7 +67,8 @@ public class ErrorHandlingControllerAdvice {
 			if (fieldViolation != null) {
 				fieldViolation.getMessages().add(fieldError.getDefaultMessage());
 			} else {
-				violations.add(new Violation(fieldError.getField(), Arrays.asList(fieldError.getDefaultMessage())));
+				// important to create mutable array: new ArrayList<>(Arrays.asList(...))
+				violations.add(new Violation(fieldError.getField(), new ArrayList<>(Arrays.asList(fieldError.getDefaultMessage()))));
 			}
 		}
 		return new ApiError(new Date(), "Validation Failed", violations);
