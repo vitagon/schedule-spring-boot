@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     entry: [
-    	path.join(__dirname, 'src', 'main', 'resources', 'vue', 'main.js'),
+    	path.join(__dirname, 'src', 'main', 'resources', 'vue', 'main.ts'),
 	],
     output: {
         filename: 'adminpanel.js',
@@ -31,6 +31,14 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: "ts-loader",
+                options: {
+                    appendTsSuffixTo: [/\.vue$/]
+                }
+            },
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -66,9 +74,13 @@ module.exports = {
         new VueLoaderPlugin()
     ],
     resolve: {
+        alias: {
+          "@": path.resolve(__dirname, 'src/main/resources/vue/')
+        },
         modules: [
             path.join(__dirname, 'src', 'main', 'resources', 'vue'),
             path.join(__dirname, 'node_modules')
-        ]
+        ],
+        extensions: ['.js', '.ts', '.vue', '.json']
     }
 }

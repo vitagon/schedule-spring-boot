@@ -9,21 +9,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import Toolbar from 'components/Toolbar.vue'
 import Navbar from 'components/Navbar.vue'
+import Component from 'vue-class-component'
 
-export default {
-    name: "App",
-    components: {Toolbar, Navbar},
-    props: {
-      source: String
-    },
-    data() {
-        return {
-        }
-    },
-    methods: {
+@Component({
+  components: {Toolbar, Navbar}
+})
+export default class App extends Vue {
+
+    created() {
+      this.$store.dispatch('getLocales');
     }
 }
 </script>

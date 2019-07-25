@@ -3,7 +3,11 @@
     <b-form-select v-model="selectedLocale"
                    :options="locales"
                    size="sm" class="mt-3"
-                   @change="getSchools"></b-form-select>
+                   @change="getSchools">
+        <template slot="first">
+          <option :value="null" disabled>-- Choose locale --</option>
+        </template>             
+      </b-form-select>
 
     <b-table responsive striped hover small :items="schools" :fields="fields">
       <template slot="controls" slot-scope="row">
@@ -15,71 +19,63 @@
   </div>
 </template>
 
-<script>
-import EventBus from 'EventBus.js'
-import axios from 'axios'
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import EventBus from '@/EventBus';
+import axios from 'axios';
+import { mapState } from 'vuex';
+import SchoolService from '@/services/SchoolService';
 
-export default {
-  props: {},
+@Component({
+  computed: {
+    ...mapState({
+      schools: (state:any) => state.schoolsStore.schools,
+      locales: (state:any) => state.localesStore.localesForSelect
+    })
+  }
+})
+export default class SchoolsList extends Vue {
+  public selectedLocale: any;
+  public fields: any;
+
+  constructor() {
+    super();
+    this.selectedLocale = null;
+    this.fields = {
+      id: {
+        label: '#',
+        sortable: true
+      },
+      name: {
+        label: 'Name',
+        sortable: true
+      },
+      translation: {
+        key: 'translation',
+        label: 'Translation',
+        sortable: true
+      },
+      controls: {
+        key: 'controls',
+        label: 'Controls',
+        sortable: false,
+        tdClass: 'school-controls'
+      },
+    }
+  }
+
   created() {
-    let _this = this;
-
-    EventBus.$on('gotLocales', function (locales) {
-        _this.localesResp = locales;
-        _this.locales = _this.localesResp.map(function (locale) {
-            return {value: locale.id, text: locale.code};
-        });
-        _this.locales.unshift({value: null, text: 'Choose locale'})
-    });
-
-    axios.get('https://localhost:8081/api/control/schools')
-      .then(response => {
-          this.schools = response.data
-      })
-  },
-  data() {
-    return {
-      schools: [],
-      locales: [],
-      localesResp: [],
-      selectedLocale: null,
-      fields: {
-        id: {
-          label: '#',
-          sortable: true
-        },
-        name: {
-          label: 'Name',
-          sortable: true
-        },
-        translation: {
-          key: 'translation',
-          label: 'Translation',
-          sortable: true
-        },
-        controls: {
-          key: 'controls',
-          label: 'Controls',
-          sortable: false,
-          tdClass: 'school-controls'
-        },
-      }
-    }
-  },
-  methods: {
-    emit(event, row) {
-      EventBus.$emit(event, row.item)
-    },
-    getSchools() {
-      let _this = this;
-      axios.get('https://localhost:8081/api/control/schools', {
-        params: {
-          localeId: _this.selectedLocale
-        }
-      }).then(response => {
-        this.schools = response.data
-      });
-    }
+    this.$store.dispatch('getSchools');
+  }
+  
+  emit(event, row) {
+    EventBus.$emit(event, row.item);
+  }
+  
+  async getSchools() {
+    let data = await SchoolService.getAllSchoolsByLocale(this.selectedLocale);
+    this.$store.commit('setSchools', data);
   }
 }
 </script>

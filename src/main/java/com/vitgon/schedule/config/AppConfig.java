@@ -11,10 +11,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -35,6 +38,7 @@ import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
 import com.vitgon.schedule.resolver.FromDTOMapper;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 
+
 @Configuration
 @ComponentScan(basePackages = { "com.vitgon.schedule" })
 public class AppConfig implements WebMvcConfigurer {
@@ -47,6 +51,11 @@ public class AppConfig implements WebMvcConfigurer {
 		return container -> {
 			container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/control"));
 		};
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean

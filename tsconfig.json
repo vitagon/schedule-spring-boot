@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/main/resources/vue/*"]
+    }
+  },
+  "include": [
+    "src/main/resources/vue/**/*.ts",
+    "src/main/resources/vue/**/*.js",
+    "src/main/resources/vue/**/*.tsx",
+    "src/main/resources/vue/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
