@@ -14,42 +14,53 @@
   </nav>
 </template>
 
-<script>
-import EventBus from '../EventBus'
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import EventBus from '@/EventBus'
 
-export default {
+
+@Component
+export default class Navbar extends Vue {
+
+  public isOpened: boolean;
+  public items: Array<{title: string, icon: string, link: string}>;
+
+  constructor() {
+    super();
+    this.isOpened = false;
+    this.items = [
+      {title: 'Home', icon: 'fa-home', link: '/control'},
+      {title: 'Schools', icon: 'fa-university', link: '/control/schools'},
+      {title: 'Majors', icon: 'fa-graduation-cap', link: '/control/majors'},
+      {title: 'Groups', icon: 'fa-user-graduate', link: '/control/groups'},
+      {title: 'Schedule', icon: 'fa-calendar-alt', link: '/control/schedule'},
+    ];
+  }
+
   created() {
     let _this = this;
     EventBus.$on('toggle-navbar', function () {
       _this.isOpened = !_this.isOpened;
     });
+    
+    let body: HTMLBodyElement | null = document.querySelector('body');
+    if (body) {
+      body.addEventListener('click', this.hideOnClickOutsideNavbar)
+    }
+  }
 
-    document.querySelector('body').addEventListener('click', this.hideOnClickOutsideNavbar)
-  },
-  data: function () {
-    return {
-      isOpened: false,
-      items: [
-        {title: 'Home', icon: 'fa-home', link: '/control'},
-        {title: 'Schools', icon: 'fa-university', link: '/control/schools'},
-        {title: 'Majors', icon: 'fa-graduation-cap', link: '/control/majors'},
-        {title: 'Groups', icon: 'fa-user-graduate', link: '/control/groups'},
-        {title: 'Schedule', icon: 'fa-calendar-alt', link: '/control/schedule'},
-      ]
+  hideOnClickOutsideNavbar(e) {
+    let clickedWithinNavbar = e.target.closest('#c-navbar') != null;
+    let clickedOnNavToggle = e.target.closest('#navbar-toggle') != null;
+    
+    if (!clickedWithinNavbar && !clickedOnNavToggle && this.isOpened) {
+      this.isOpened = false;
     }
-  },
-  methods: {
-    hideOnClickOutsideNavbar: function(e) {
-      let clickedWithinNavbar = e.target.closest('#c-navbar') != null;
-      let clickedOnNavToggle = e.target.closest('#navbar-toggle') != null;
-      
-      if (!clickedWithinNavbar && !clickedOnNavToggle && this.isOpened) {
-        this.isOpened = false;
-      }
-    },
-    hide: function () {
-      EventBus.$emit('toggle-navbar');
-    }
+  }
+
+  hide() {
+    EventBus.$emit('toggle-navbar');
   }
 }
 </script>

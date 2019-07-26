@@ -26,18 +26,19 @@
 	</div>
 </template>
 
-<script>
-import EventBus from '../EventBus'
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import EventBus from '@/EventBus'
 
-export default {
-	methods: {
-		toggleNavbar() {
-			EventBus.$emit('toggle-navbar')
-		}
+@Component
+export default class Toolbar extends Vue {
+	
+	toggleNavbar() {
+		EventBus.$emit('toggle-navbar')
 	}
 }
 </script>
-
 
 <style lang="scss" scoped>
 	.toolbar {
