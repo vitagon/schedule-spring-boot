@@ -11,11 +11,11 @@
 
     <b-table responsive striped hover small :items="schools" :fields="fields">
       <template slot="controls" slot-scope="row">
-        <b-button squared variant="primary" @click="emit('open-edit-school', row)">Edit</b-button>
+        <b-button squared variant="primary" @click="showEditSchoolForm(row)">Edit</b-button>
         <b-button squared variant="danger">Remove</b-button>
       </template>
     </b-table>
-    <b-button block variant="success">Add</b-button>
+    <b-button block variant="success" @click="showAddSchoolForm()">Add</b-button>
   </div>
 </template>
 
@@ -69,8 +69,16 @@ export default class SchoolsList extends Vue {
     this.$store.dispatch('getSchools');
   }
   
-  emit(event, row) {
-    EventBus.$emit(event, row.item);
+  showEditSchoolForm(row) {
+    EventBus.$emit('hide-add-school-form');
+    EventBus.$emit('show-edit-school-form', row.item);
+    EventBus.$emit('show-edit-school-translation-form', row.item);
+  }
+
+  showAddSchoolForm() {
+    EventBus.$emit('show-add-school-form');
+    EventBus.$emit('hide-edit-school-form');
+    EventBus.$emit('hide-edit-school-translation-form');
   }
   
   async getSchools() {

@@ -7,3 +7,10 @@ export function clearForm(form: any) {
     }
   }
 }
+
+export function showValidationErrors(form: any, details: any) {
+  for (let detail of details) {
+    form[detail.fieldName].validationMsgs = detail.messages;
+    form[detail.fieldName].isValid = false;
+  }
+}

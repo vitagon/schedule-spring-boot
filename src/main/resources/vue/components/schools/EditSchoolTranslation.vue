@@ -35,9 +35,13 @@ export default {
     },
     created() {
       let _this = this;
-      EventBus.$on('open-edit-school', function (item) {
+      EventBus.$on('show-edit-school-translation-form', function (item) {
         _this.isOpened = true;
         _this.name = item.name;
+      });
+
+      EventBus.$on('hide-edit-school-translation-form', function () {
+        _this.isOpened = false;
       });
 
       EventBus.$on('gotLocales', function (locales) {

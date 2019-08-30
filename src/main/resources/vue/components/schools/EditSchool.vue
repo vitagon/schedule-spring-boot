@@ -1,16 +1,16 @@
 <template>
-    <div v-if="isOpened" class="mt-5">
-        <h5>Edit school</h5>
-        <hr />
-        <b-form  @submit.stop.prevent>
-            <label for="name">Name</label>
-            <b-input v-model="form.newSchoolName.value" :state="form.newSchoolName.isValid" id="name"></b-input>
-            <b-form-invalid-feedback :state="form.newSchoolName.isValid">
-              <div v-for="validationMsg in form.newSchoolName.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
-            </b-form-invalid-feedback>
+  <div v-if="isOpened" class="mt-5">
+    <h5>Edit school</h5>
+    <hr />
+    <b-form  @submit.stop.prevent>
+        <label for="name">Name</label>
+        <b-input v-model="form.newSchoolName.value" :state="form.newSchoolName.isValid" id="name"></b-input>
+        <b-form-invalid-feedback :state="form.newSchoolName.isValid">
+          <div v-for="validationMsg in form.newSchoolName.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
+        </b-form-invalid-feedback>
 
-            <b-button class="mt-3" variant="outline-warning" @click="editSchool">Edit</b-button>
-        </b-form>
+        <b-button class="mt-3" variant="outline-warning" @click="editSchool">Edit</b-button>
+    </b-form>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ import EventBus from '@/EventBus'
 import FormField from '@/form/FormField'
 import Component from 'vue-class-component'
 import School from '@/models/School'
-import { clearForm } from '@/util/FormUtil'
+import {showValidationErrors, clearForm} from '@/util/FormUtil'
 
 @Component
 export default class EditSchool extends Vue {
@@ -40,12 +40,16 @@ export default class EditSchool extends Vue {
 
     created() {
       let _this = this;
-      EventBus.$on('open-edit-school', function (item: School) {
+      EventBus.$on('show-edit-school-form', function (item: School) {
         _this.isOpened = true;
         _this.curSchool = item;
         
         _this.clearForm();
         _this.form.newSchoolName.value = item.name;
+      });
+
+      EventBus.$on('hide-edit-school-form', function () {
+        _this.isOpened = false;
       });
     }
 
@@ -66,7 +70,7 @@ export default class EditSchool extends Vue {
           'Content-Type': 'application/json;charset=UTF-8'
         }
       })
-      .then((response) => {
+      .then(response => {
         this.$bvToast.toast(`School was edited successfully!`, {
           title: 'Notification',
           autoHideDelay: 5000,
@@ -76,13 +80,9 @@ export default class EditSchool extends Vue {
 
         this.$store.commit('updateSchoolName', objToSend);
       })
-      .catch((error) => {
+      .catch(error => {
         let data = error.response.data;
-        for (let detail of data.details) {
-          this.form[detail.fieldName].validationMsgs = detail.messages;
-          this.form[detail.fieldName].isValid = false;
-        }
-        
+        showValidationErrors(this.form, data.details);
       })
     }
 }

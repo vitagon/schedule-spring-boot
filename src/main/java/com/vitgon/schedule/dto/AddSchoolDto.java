@@ -17,5 +17,5 @@ public class AddSchoolDto {
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
-	private String schoolName;
+	private String name;
 }

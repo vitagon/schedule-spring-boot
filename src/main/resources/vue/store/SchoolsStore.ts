@@ -9,6 +9,12 @@ const mutations = {
   setSchools(state: any, schools: Array<School>) {
     state.schools = schools;
   },
+  addSchool(state: any, school: School) {
+    state.schools = [
+      ...state.schools,
+      school
+    ]
+  },
   updateSchoolName(state: any, updateSchoolDto: any) {
     let updatedIndex = state.schools.findIndex((x: any) => x.id == updateSchoolDto.schoolId);
     let school = state.schools[updatedIndex];

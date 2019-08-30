@@ -57,10 +57,10 @@ public class SchoolRestControllerAdminPanel {
 	
 	@PostMapping("/school")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SchoolDto addSchool(@RequestBody @Valid AddSchoolDto addSchoolDTO) {
+	public SchoolDto addSchool(@RequestBody @Valid AddSchoolDto addSchoolDto) {
 		School school = new School(
-				addSchoolDTO.getSchoolName().toLowerCase(),
-				StringUtil.applyUnderlyingStyle(addSchoolDTO.getSchoolName()));
+				addSchoolDto.getName().toLowerCase(),
+				StringUtil.applyUnderlyingStyle(addSchoolDto.getName()));
 		school = schoolService.save(school);
 		return convertToDto(school);
 	}
