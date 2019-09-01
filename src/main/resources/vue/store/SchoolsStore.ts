@@ -15,6 +15,13 @@ const mutations = {
       school
     ]
   },
+  removeSchool(state: any, schoolId: number) {
+    let removedIndex = state.schools.findIndex((x: any) => x.id == schoolId);
+    state.schools = [
+      ...state.schools.slice(0, removedIndex),
+      ...state.schools.slice(removedIndex + 1)
+    ]
+  },
   updateSchoolName(state: any, updateSchoolDto: any) {
     let updatedIndex = state.schools.findIndex((x: any) => x.id == updateSchoolDto.schoolId);
     let school = state.schools[updatedIndex];
@@ -33,6 +40,10 @@ const actions = {
       let data = await SchoolService.getAllSchools();
       commit('setSchools', data);
       return data;
+    },
+    async removeSchool({ commit }, id) {
+      await SchoolService.removeSchool(id);
+      commit('removeSchool', id);
     }
 }
 

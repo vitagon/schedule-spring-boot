@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpened" class="mt-5">
+  <div v-if="isOpened" class="mt-5 mb-4">
     <h5>Add school</h5>
     <hr />
     <b-form  @submit.stop.prevent>
@@ -22,6 +22,7 @@ import EventBus from '@/EventBus'
 import FormField from '@/form/FormField'
 import School from '@/models/School'
 import {showValidationErrors, clearForm} from '@/util/FormUtil'
+import SchoolService from '@/services/SchoolService';
 
 
 @Component
@@ -49,24 +50,19 @@ export default class AddSchool extends Vue {
   }
 
   addSchool() {
-    axios({
-      method: 'POST',
-      url: '/api/control/school',
-      data: { name: this.form.name.value}
-    })
-    .then(response => {
-      this.$store.commit('addSchool', response.data)
-      clearForm(this.form)
-      this.$bvToast.toast(`School was added successfully!`, {
-        title: 'Notification',
-        autoHideDelay: 5000,
-        appendToast: false
-      });
-    })
-    .catch(error => {
-      let data = error.response.data;
-      showValidationErrors(this.form, data.details);
-    })
+    SchoolService.addSchool(this.form.name.value)
+      .then((response: any) => {
+        this.$store.commit('addSchool', response)
+        clearForm(this.form)
+        this.$bvToast.toast(`School was added successfully!`, {
+          title: 'Notification',
+          autoHideDelay: 5000,
+          appendToast: false
+        });
+      })
+      .catch(error => {
+        showValidationErrors(this.form, error.details);
+      })
   }
 }
 </script>

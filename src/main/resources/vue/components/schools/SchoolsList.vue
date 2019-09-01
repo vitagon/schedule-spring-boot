@@ -12,10 +12,10 @@
     <b-table responsive striped hover small :items="schools" :fields="fields">
       <template slot="controls" slot-scope="row">
         <b-button squared variant="primary" @click="showEditSchoolForm(row)">Edit</b-button>
-        <b-button squared variant="danger">Remove</b-button>
+        <b-button squared variant="danger" @click="showRemoveSchoolModal(row)">Remove</b-button>
       </template>
     </b-table>
-    <b-button block variant="success" @click="showAddSchoolForm()">Add</b-button>
+    <b-button block variant="success" @click="showAddSchoolForm()" class="mb-5">Add</b-button>
   </div>
 </template>
 
@@ -73,6 +73,10 @@ export default class SchoolsList extends Vue {
     EventBus.$emit('hide-add-school-form');
     EventBus.$emit('show-edit-school-form', row.item);
     EventBus.$emit('show-edit-school-translation-form', row.item);
+  }
+
+  showRemoveSchoolModal(row) {
+    EventBus.$emit('show-remove-school-modal', row.item);
   }
 
   showAddSchoolForm() {

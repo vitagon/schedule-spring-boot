@@ -25,6 +25,28 @@ class SchoolService {
         }).then(response => res(response.data));
     });
   }
+
+  addSchool(name: string) {
+    return new Promise((res, rej) => {
+      axios({
+        method: 'POST',
+        url: '/api/control/school',
+        data: { name: name}
+      })
+      .then(response => res(response.data))
+      .catch(error => rej(error.response.data));
+    });
+  }
+
+  removeSchool(id: number) {
+    return new Promise((res, rej) => {
+      axios.delete('/api/control/school', {
+        params: {
+          id: id
+        }
+      }).then(response => res());
+    });
+  }
 }
 
 export default SchoolService.instance;

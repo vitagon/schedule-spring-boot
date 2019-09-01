@@ -26,7 +26,7 @@ public interface SchoolDao extends JpaRepository<School, Integer> {
 			+ 	"m.id AS major_id, m.name AS major_name, m.url AS major_url, mt.translation AS major_translation " +
 			"FROM "
 			+	"schools s " +
-			"JOIN "
+			"LEFT JOIN "
 			+	"(select * from school_translations where locale_id = ?1) st ON s.id = st.school_id " +
 			"LEFT JOIN "
 			+	"majors m ON s.id = m.school_id " +
