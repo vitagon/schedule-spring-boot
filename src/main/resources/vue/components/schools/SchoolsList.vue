@@ -1,13 +1,14 @@
 <template>
   <div>
-    <b-form-select v-model="selectedLocale"
-                   :options="locales"
-                   size="sm" class="mt-3"
-                   @change="getSchools">
+    <b-form-select
+      v-model="selectedLocale"
+      :options="locales"
+      size="sm" class="mt-3"
+      @change="getSchools">
         <template slot="first">
           <option :value="null" disabled>-- Choose locale --</option>
         </template>             
-      </b-form-select>
+    </b-form-select>
 
     <b-table responsive striped hover small :items="schools" :fields="fields">
       <template slot="controls" slot-scope="row">

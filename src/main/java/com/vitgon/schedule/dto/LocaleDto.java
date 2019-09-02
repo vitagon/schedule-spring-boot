@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class LocaleDto {
 	private int id;
 	private String code;
+	private boolean active;
 }

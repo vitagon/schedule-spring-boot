@@ -16,11 +16,13 @@ public class LocaleDtoServiceTest {
 	
 	private LocaleService localeService;
 	private LocaleDtoService localeMapperService;
+	private LocaleConverterService localeConverterService;
 
 	@Before
 	public void init() {
 		localeService = Mockito.mock(LocaleService.class);
-		localeMapperService = new LocaleDtoService(localeService);
+		localeConverterService = Mockito.mock(LocaleConverterService.class);
+		localeMapperService = new LocaleDtoService(localeService, localeConverterService);
 	}
 	
 //	@PrepareForTest({LocaleUtil.class})
@@ -48,6 +50,6 @@ public class LocaleDtoServiceTest {
 //	}
 	
 	private List<LocaleDto> localeDtoList() {
-		return Arrays.asList(new LocaleDto(1, "en"));
+		return Arrays.asList(new LocaleDto(1, "en", false));
 	}
 }
