@@ -36,7 +36,15 @@ import { mapState } from 'vuex'
 @Component({
   computed: {
     ...mapState({
-      locales: (state: any) => state.localesStore.localesForSelect
+      locales: function(state: any) {
+        let localesForSelect = state.localesStore.localesForSelect;
+        for (let locale of localesForSelect) {
+          if (locale.active) {
+            this.selectedLocale = locale.value;
+          }
+        }
+        return localesForSelect;
+      }
     })
   }
 })

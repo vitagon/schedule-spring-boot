@@ -59,4 +59,9 @@ public class SchoolTranslationServiceImpl implements SchoolTranslationService {
 	public SchoolTranslation findByLocaleAndSchool(Locale locale, School school) {
 		return schoolTranslDao.findByLocaleAndSchool(locale, school);
 	}
+
+	@Override
+	public Optional<SchoolTranslation> findByLocaleIdAndSchoolId(Integer localeId, Integer schoolId) {
+		return schoolTranslDao.findByLocaleIdAndSchoolId(localeId, schoolId);
+	}
 }

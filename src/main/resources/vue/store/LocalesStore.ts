@@ -12,7 +12,7 @@ const mutations = {
   },
   setLocalesForSelect(state: any, locales: Array<Locale>) {
     state.localesForSelect = locales.map(function (locale) {
-      return {value: locale.id, text: locale.code};
+      return {value: locale.id, text: locale.code, active: locale.active};
     });
   }
 }

@@ -32,7 +32,15 @@ import SchoolService from '@/services/SchoolService';
   computed: {
     ...mapState({
       schools: (state:any) => state.schoolsStore.schools,
-      locales: (state:any) => state.localesStore.localesForSelect
+      locales: function(state:any) {
+        let localesForSelect = state.localesStore.localesForSelect;
+        for (let locale of localesForSelect) {
+          if (locale.active) {
+            this.selectedLocale = locale.value;
+          }
+        }
+        return localesForSelect;
+      }
     })
   }
 })
