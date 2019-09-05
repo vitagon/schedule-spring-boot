@@ -49,7 +49,7 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public School findByTranslation(String translation) {
 		SchoolTranslation schoolTransl = schoolTranslDao.findByTranslation(translation);
-		return schoolTransl.getSchool();
+		return schoolTransl.getSchoolTranslationId().getSchool();
 	}
 
 	@Override

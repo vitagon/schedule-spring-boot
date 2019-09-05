@@ -76,6 +76,13 @@ export default class SchoolsList extends Vue {
 
   created() {
     this.$store.dispatch('getSchools');
+    let _this = this;
+
+    EventBus.$on('school-translation-was-changed', function (schoolTranslation) {
+      if (schoolTranslation.localeId == _this.selectedLocale) {
+        _this.$store.commit('updateSchoolTranslation', schoolTranslation);
+      }
+    });
   }
   
   showEditSchoolForm(row) {

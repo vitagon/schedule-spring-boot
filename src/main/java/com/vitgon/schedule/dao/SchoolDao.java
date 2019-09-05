@@ -14,7 +14,7 @@ import com.vitgon.schedule.projection.SchoolProjection;
 @Repository
 public interface SchoolDao extends JpaRepository<School, Integer> {
 	
-	@Query("SELECT s from School s INNER JOIN s.translations st WHERE st.locale = :locale")
+	@Query("SELECT s from School s INNER JOIN s.translations st WHERE st.schoolTranslationId.locale = :locale")
 	List<School> findAllByLocale(@Param("locale") Locale locale);
 	
 	School findByName(String name);

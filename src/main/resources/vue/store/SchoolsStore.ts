@@ -32,6 +32,17 @@ const mutations = {
       school,
       ...state.schools.slice(updatedIndex + 1)
     ]
+  },
+  updateSchoolTranslation(state: any, schoolTranslation: any) {
+    let updatedIndex = state.schools.findIndex((x: any) => x.id == schoolTranslation.schoolId);
+    let school = state.schools[updatedIndex];
+    school.translation = schoolTranslation.translation;
+
+    state.schools = [
+      ...state.schools.slice(0, updatedIndex),
+      school,
+      ...state.schools.slice(updatedIndex + 1)
+    ]
   }
 }
 

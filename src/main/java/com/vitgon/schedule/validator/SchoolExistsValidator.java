@@ -5,10 +5,16 @@ import java.util.Optional;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.stereotype.Component;
+
 import com.vitgon.schedule.annotation.validation.SchoolExists;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.SchoolService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@Component
 public class SchoolExistsValidator implements ConstraintValidator<SchoolExists, Integer> {
 	
 	private SchoolService schoolService;

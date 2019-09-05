@@ -46,7 +46,7 @@ public class School extends BaseModel<Integer> {
 	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
 	private List<Major> majors = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "schoolTranslationId.school", fetch = FetchType.LAZY)
 	private List<SchoolTranslation> translations = new ArrayList<>();
 	
 	public School(String url) {

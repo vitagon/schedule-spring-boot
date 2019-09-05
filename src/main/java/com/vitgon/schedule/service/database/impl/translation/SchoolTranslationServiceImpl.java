@@ -56,12 +56,17 @@ public class SchoolTranslationServiceImpl implements SchoolTranslationService {
 	}
 
 	@Override
-	public SchoolTranslation findByLocaleAndSchool(Locale locale, School school) {
-		return schoolTranslDao.findByLocaleAndSchool(locale, school);
+	public Optional<SchoolTranslation> findByLocaleIdAndSchoolId(Integer localeId, Integer schoolId) {
+		return schoolTranslDao.findByLocaleIdAndSchoolId(localeId, schoolId);
 	}
 
 	@Override
-	public Optional<SchoolTranslation> findByLocaleIdAndSchoolId(Integer localeId, Integer schoolId) {
-		return schoolTranslDao.findByLocaleIdAndSchoolId(localeId, schoolId);
+	public SchoolTranslation save(Integer schoolId, Integer localeId, String translation) {
+		return schoolTranslDao.save(schoolId, localeId, translation);
+	}
+
+	@Override
+	public void deleteBySchoolIdAndLocaleId(Integer schoolId, Integer localeId) {
+		schoolTranslDao.deleteBySchoolIdAndLocaleId(schoolId, localeId);
 	}
 }

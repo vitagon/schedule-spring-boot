@@ -20,9 +20,9 @@
         </b-form-invalid-feedback>
 
         <b-button-group size="md" class="mt-3">
-          <b-button variant="success" :disabled="addBtn.disabled">Add</b-button>
-          <b-button variant="primary" :disabled="editBtn.disabled">Edit</b-button>
-          <b-button variant="danger" :disabled="removeBtn.disabled">Remove</b-button>
+          <b-button variant="success" :disabled="addBtn.disabled" @click="addTranslation">Add</b-button>
+          <b-button variant="primary" :disabled="editBtn.disabled" @click="editTranslation">Edit</b-button>
+          <b-button variant="danger" :disabled="removeBtn.disabled" @click="removeTranslation">Remove</b-button>
         </b-button-group>
     </b-form>
   </div>
@@ -118,6 +118,26 @@ export default class EditSchoolTranslation extends Vue {
         }
       });
   }
+
+  addTranslation() {}
+
+  editTranslation() {
+    let schoolTranslation = {
+      schoolId: this.selectedSchool.id,
+      localeId: this.selectedLocale,
+      translation: this.form.translation.value
+    }
+    SchoolTranslationService.editTranslation(
+      this.selectedSchool.id,
+      this.selectedLocale,
+      this.form.translation.value
+    )
+    .then(response => {
+      EventBus.$emit('school-translation-was-changed', schoolTranslation);
+    }).catch(error => alert(error))
+  }
+
+  removeTranslation() {}
 }
 </script>
 
