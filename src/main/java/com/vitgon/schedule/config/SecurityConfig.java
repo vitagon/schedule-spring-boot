@@ -15,6 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import com.vitgon.schedule.handler.CustomAccessDeniedHandler;
+import com.vitgon.schedule.handler.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -51,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/")
 				.usernameParameter("email")
 				.passwordParameter("password")
+				.successHandler(new CustomAuthenticationSuccessHandler())
 			.and()
 			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

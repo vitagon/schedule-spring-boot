@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>This is just welcome message!</h1>
+		<h1 class="text-center mt-5">Welcome to Admin Panel!</h1>
 	</div>
 </template>
 
