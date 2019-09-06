@@ -61,7 +61,7 @@ public class SchoolTranslationServiceImpl implements SchoolTranslationService {
 	}
 
 	@Override
-	public SchoolTranslation save(Integer schoolId, Integer localeId, String translation) {
+	public Integer save(Integer schoolId, Integer localeId, String translation) {
 		return schoolTranslDao.save(schoolId, localeId, translation);
 	}
 

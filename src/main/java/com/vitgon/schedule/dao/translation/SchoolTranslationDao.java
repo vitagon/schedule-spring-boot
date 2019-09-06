@@ -31,7 +31,7 @@ public interface SchoolTranslationDao extends JpaRepository<SchoolTranslation, S
 				"VALUES "
 				+	"(:schoolId, :localeId, :translation)",
 			nativeQuery = true)
-	SchoolTranslation save(
+	Integer save(
 			@Param("schoolId") Integer schoolId,
 			@Param("localeId") Integer localeId,
 			@Param("translation") String translation

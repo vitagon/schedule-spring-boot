@@ -8,6 +8,15 @@ export function clearForm(form: any) {
   }
 }
 
+export function clearValidationMsgs(form: any) {
+  for (let prop in form) {
+    if (form.hasOwnProperty(prop)) {
+      form[prop].isValid = null;
+      form[prop].validationMsgs = [];
+    }
+  }
+}
+
 export function showValidationErrors(form: any, details: any) {
   for (let detail of details) {
     form[detail.fieldName].validationMsgs = detail.messages;

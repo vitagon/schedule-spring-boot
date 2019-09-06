@@ -37,6 +37,7 @@ import FormField from '@/form/FormField'
 import Component from 'vue-class-component'
 import { mapState } from 'vuex'
 import SchoolTranslationService from '@/services/SchoolTranslationService'
+import {showValidationErrors, clearValidationMsgs} from '@/util/FormUtil'
 
 @Component({
   computed: {
@@ -86,6 +87,12 @@ export default class EditSchoolTranslation extends Vue {
     EventBus.$on('hide-edit-school-translation-form', function () {
       _this.isOpened = false;
     });
+
+    EventBus.$on('school-translation-was-removed', function (schoolTranslation) {
+      _this.addBtn.disabled = false;
+      _this.editBtn.disabled = true;
+      _this.removeBtn.disabled = true;
+    });
   }
 
   setDefaultLocale(localesForSelect) {
@@ -119,7 +126,36 @@ export default class EditSchoolTranslation extends Vue {
       });
   }
 
-  addTranslation() {}
+  addTranslation() {
+    let schoolTranslation = {
+      schoolId: this.selectedSchool.id,
+      localeId: this.selectedLocale,
+      translation: this.form.translation.value
+    }
+    SchoolTranslationService.addTranslation(
+      this.selectedSchool.id,
+      this.selectedLocale,
+      this.form.translation.value
+    )
+    .then(response => {
+      EventBus.$emit('school-translation-was-changed', schoolTranslation);
+      this.$bvToast.toast(`School translation was added successfully!`, {
+        title: 'Notification',
+        autoHideDelay: 5000,
+        appendToast: false
+      });
+      clearValidationMsgs(this.form);
+
+      this.addBtn.disabled = true;
+      this.editBtn.disabled = false;
+      this.removeBtn.disabled = false;
+    }).catch(error => {
+        if (error.status == 400) {
+          let data = error.data;
+          showValidationErrors(this.form, data.details);
+        }
+    })
+  }
 
   editTranslation() {
     let schoolTranslation = {
@@ -134,10 +170,23 @@ export default class EditSchoolTranslation extends Vue {
     )
     .then(response => {
       EventBus.$emit('school-translation-was-changed', schoolTranslation);
-    }).catch(error => alert(error))
+      this.$bvToast.toast(`School translation was edited successfully!`, {
+        title: 'Notification',
+        autoHideDelay: 5000,
+        appendToast: false
+      });
+      clearValidationMsgs(this.form);
+    }).catch(error => {
+        if (error.status == 400) {
+          let data = error.data;
+          showValidationErrors(this.form, data.details);
+        }
+    })
   }
 
-  removeTranslation() {}
+  removeTranslation() {
+    EventBus.$emit('show-remove-school-translation-modal', this.selectedSchool, this.selectedLocale);
+  }
 }
 </script>
 

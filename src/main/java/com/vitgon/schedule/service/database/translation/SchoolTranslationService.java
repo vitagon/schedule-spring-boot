@@ -10,6 +10,6 @@ import com.vitgon.schedule.service.database.base.Service;
 
 public interface SchoolTranslationService extends Service<SchoolTranslation, SchoolTranslationId> {
 	Optional<SchoolTranslation> findByLocaleIdAndSchoolId(Integer localeId, Integer schoolId);
-	SchoolTranslation save(Integer schoolId, Integer localeId, String translation);
+	Integer save(Integer schoolId, Integer localeId, String translation);
 	void deleteBySchoolIdAndLocaleId(Integer schoolId, Integer localeId);
 }
