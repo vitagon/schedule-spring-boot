@@ -11,7 +11,7 @@
         <th scope="col" style="width: 15%">Type</th>
         <th scope="col" style="width: 20%">Teacher</th>
         <th scope="col" style="width: 10%">Classroom</th>
-        <th scope="col" colspan="2" style="min-width: 100px">Controls</th>
+        <th scope="col" colspan="2" style="min-width: 102px">Controls</th>
       </tr>
     </thead>
     <tbody>

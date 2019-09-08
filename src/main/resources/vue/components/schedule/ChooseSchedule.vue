@@ -3,7 +3,9 @@
     <form action="#" method="POST">
       <div class="form-group">
         <label for="choose-schedule-school__select">School</label>
-        <select id="choose-schedule-school__select" class="form-control"
+        <select
+            id="choose-schedule-school__select"
+            class="form-control"
             v-model="chooseScheduleForm.schoolId"
             v-on:change="getMajors">
           <option value="0" selected>Choose...</option>

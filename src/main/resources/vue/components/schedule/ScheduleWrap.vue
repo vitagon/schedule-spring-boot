@@ -1,16 +1,7 @@
 <template>
   <div id="edit-schedule-content">
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" id="up-week-tab" data-toggle="tab" href="#up-week" role="tab" aria-controls="up-week" aria-selected="true">Up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="down-week-tab" data-toggle="tab" href="#down-week" role="tab" aria-controls="down-week" aria-selected="false">Down</a>
-      </li>
-    </ul>
-			
-    <div class="tab-content">
-      <div class="tab-pane fade show active" id="up-week" role="tabpanel" aria-labelledby="up-week-tab">
+    <b-tabs content-class="mt-3" fill>
+      <b-tab title="Up" active>
         <div class="table-responsive">
           <day-schedule-table v-for="(weekSchedule, propertyName) of schedule.up"
                     :key="propertyName" :daySchedules="weekSchedule"
@@ -19,9 +10,9 @@
                     :groupId="schedule.groupId">
           </day-schedule-table>
         </div>
-      </div>
-				
-      <div class="tab-pane fade" id="down-week" role="tabpanel" aria-labelledby="down-week-tab">
+      </b-tab>
+
+      <b-tab title="Down">
         <div class="table-responsive">
           <day-schedule-table v-for="(weekSchedule, propertyName) of schedule.down"
                     :key="propertyName" :daySchedules="weekSchedule"
@@ -30,8 +21,8 @@
                     :groupId="schedule.groupId">
           </day-schedule-table>
         </div>
-      </div>
-    </div>
+      </b-tab>
+    </b-tabs>
 			
     <!-- <edit-schedule-modal></edit-schedule-modal> -->
     <!-- <remove-schedule-modal></remove-schedule-modal> -->
