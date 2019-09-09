@@ -24,7 +24,7 @@
       </b-tab>
     </b-tabs>
 			
-    <!-- <edit-schedule-modal></edit-schedule-modal> -->
+    <edit-schedule-modal></edit-schedule-modal>
     <!-- <remove-schedule-modal></remove-schedule-modal> -->
   </div>
 </template>
@@ -35,9 +35,10 @@ import Component from 'vue-class-component'
 import ScheduleService from '@/services/ScheduleService'
 import EventBus from '../../EventBus'
 import DayScheduleTable from '@/components/schedule/DayScheduleTable.vue'
+import EditScheduleModal from '@/components/schedule/EditScheduleModal.vue'
 
 @Component({
-  components: {DayScheduleTable}
+  components: {DayScheduleTable, EditScheduleModal}
 })
 export default class ScheduleWrap extends Vue {
   private schedule = {};

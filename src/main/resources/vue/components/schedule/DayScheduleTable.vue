@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import EventBus from '../../EventBus';
+import EventBus from '@/EventBus';
 
 @Component
 export default class DayScheduleTable extends Vue {
