@@ -2,14 +2,17 @@ package com.vitgon.schedule.controller.rest.adminpanel;
 
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,11 +30,17 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/schedule")
-@AllArgsConstructor
 public class ScheduleRestControllerAdminPanel {
 	
 	private ScheduleService scheduleService;
 	private ScheduleDtoService scheduleDtoService;
+	
+	@Autowired
+	public ScheduleRestControllerAdminPanel(ScheduleService scheduleService, ScheduleDtoService scheduleDtoService) {
+		super();
+		this.scheduleService = scheduleService;
+		this.scheduleDtoService = scheduleDtoService;
+	}
 	
 	@DeleteMapping("/{scheduleId}")
 	@ResponseStatus(HttpStatus.OK)
@@ -42,7 +51,7 @@ public class ScheduleRestControllerAdminPanel {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public LessonSchedule createSchedule(EditScheduleDto editScheduleDto) {
+	public LessonSchedule createSchedule(@RequestBody @Valid EditScheduleDto editScheduleDto) {
 		
 		ScheduleProjection scheduleProjection = scheduleService.findByGroupIdAndDayNumAndWeekAndLessonNum(
 				editScheduleDto.getGroupId(),
@@ -64,7 +73,7 @@ public class ScheduleRestControllerAdminPanel {
 	
 	@PutMapping("/{scheduleId}")
 	@ResponseStatus(HttpStatus.OK)
-	public LessonSchedule updateSchedule(EditScheduleDto editScheduleDto) {
+	public LessonSchedule updateSchedule(@RequestBody @Valid EditScheduleDto editScheduleDto) {
 		ScheduleProjection scheduleProjection = scheduleService.findByGroupIdAndDayNumAndWeekAndLessonNum(
 				editScheduleDto.getGroupId(),
 				editScheduleDto.getDay().getDayNum(),

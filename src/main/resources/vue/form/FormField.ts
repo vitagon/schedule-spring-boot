@@ -3,7 +3,6 @@ export default class FormField {
   public isValid: boolean;
   public validationMsgs: Array<any>;
 
-  constructor();
   constructor(_obj?: any) {
     this.value = _obj && _obj.value || '';
     this.isValid = _obj && _obj.isValid || null;

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dto.EditScheduleDto;
@@ -22,9 +23,7 @@ import com.vitgon.schedule.service.database.ScheduleService;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
 
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class ScheduleDtoService {
 	
@@ -34,6 +33,19 @@ public class ScheduleDtoService {
 	private SubjectService subjectService;
 	private UserService userService;
 	private LocaleConverterService localeConverterService;
+	
+	@Autowired
+	public ScheduleDtoService(ScheduleService scheduleService, UserDtoService userDtoService,
+							  GroupService groupService, SubjectService subjectService,
+							  UserService userService, LocaleConverterService localeConverterService) {
+		super();
+		this.scheduleService = scheduleService;
+		this.userDtoService = userDtoService;
+		this.groupService = groupService;
+		this.subjectService = subjectService;
+		this.userService = userService;
+		this.localeConverterService = localeConverterService;
+	}
 	
 	public ScheduleDto getScheduleDtoByGroupId(Integer groupId) {
 		List<ScheduleProjection> schedules = scheduleService.findByGroupId(groupId);

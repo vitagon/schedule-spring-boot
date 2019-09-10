@@ -33,15 +33,20 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import ScheduleService from '@/services/ScheduleService'
-import EventBus from '../../EventBus'
+import EventBus from '@/EventBus'
 import DayScheduleTable from '@/components/schedule/DayScheduleTable.vue'
 import EditScheduleModal from '@/components/schedule/EditScheduleModal.vue'
+import { mapState } from 'vuex';
 
 @Component({
-  components: {DayScheduleTable, EditScheduleModal}
+  components: {DayScheduleTable, EditScheduleModal},
+  computed: {
+    ...mapState({
+      schedule: (state: any) => state.scheduleStore.schedule
+    })
+  }
 })
 export default class ScheduleWrap extends Vue {
-  private schedule = {};
 
   created() {
     let _this = this;
@@ -49,25 +54,15 @@ export default class ScheduleWrap extends Vue {
 			_this.getSchedule(groupId);
 		});
 		
-		EventBus.$on('updatedLessonSchedule', function(week, dayName, lessonNum, schedule) {
-			let lessonList =  _this.schedule[week][dayName];
-			let lessonScheduleIndex = lessonList.findIndex(x => x.lessonNum == lessonNum);
-			Vue.set(lessonList, lessonScheduleIndex, schedule);
-		});
-		
-		EventBus.$on('removedLessonSchedule', function(week, dayName, lessonNum, schedule) {
-			let lessonList =  _this.schedule[week][dayName];
-			let lessonScheduleIndex = lessonList.findIndex(x => x.lessonNum == lessonNum);
-			Vue.set(lessonList, lessonScheduleIndex, schedule);
-		});
+		// EventBus.$on('removedLessonSchedule', function(week, dayName, lessonNum, schedule) {
+		// 	let lessonList =  _this.schedule[week][dayName];
+		// 	let lessonScheduleIndex = lessonList.findIndex(x => x.lessonNum == lessonNum);
+		// 	Vue.set(lessonList, lessonScheduleIndex, schedule);
+		// });
   }
 
   getSchedule(groupId) {
-    ScheduleService.getSchedule(groupId)
-      .then((response: any) => {
-        this.schedule = response.data;
-      })
-      .catch(error => alert(error.data))
+    this.$store.dispatch('getSchedule', groupId);
   }
 }
 </script>

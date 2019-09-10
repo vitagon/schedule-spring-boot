@@ -12,7 +12,7 @@ class ScheduleService {
   getSchedule(groupId) {
     return new Promise((res, rej) => {
       axios.get(`/api/schedule/group-id/${groupId}`)
-        .then(response => res(response))
+        .then(response => res(response.data))
         .catch(error => rej(error.response));
     });
   }

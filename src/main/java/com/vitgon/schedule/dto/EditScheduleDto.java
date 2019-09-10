@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.vitgon.schedule.serialize.StringToDaysEnumDeserializer;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +28,7 @@ public class EditScheduleDto implements Serializable {
 	private String week;
 	
 	@NotNull(message = "{NotNull.default}")
+	@JsonDeserialize(using = StringToDaysEnumDeserializer.class)
 	private Days day;
 	
 	@Min(value = 1, message = "{NotNull.default}")

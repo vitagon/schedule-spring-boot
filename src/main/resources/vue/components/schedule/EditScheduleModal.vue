@@ -4,16 +4,11 @@
     ref="edit-schedule-modal"
     title="Submit Your Name"
     @ok="saveScheduleChanges">
-    <form>
-      <input type="text" class="form-control" id="modal-group-id" style="display: none">
-      <input type="text" class="form-control" id="modal-schedule-id" style="display: none">
-      <input type="text" class="form-control" id="modal-week" style="display: none">
-      <input type="text" class="form-control" id="modal-day-num" style="display: none">
-      
+    <b-form @submit.stop.prevent>
       <div class="form-group">
         <label for="modal-lesson-num">Lesson number:</label>
-        <select class="custom-select" id="modal-lesson-num" disabled v-model="modal.lessonNum">
-          <option selected>Choose...</option>
+        <select class="custom-select" id="modal-lesson-num" disabled v-model="form.lessonNum.value">
+          <option selected>-- Please select an option --</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -25,41 +20,48 @@
       </div>
       <div class="form-group">
         <label for="modal-subject">Subject title:</label>
-        <select class="custom-select" id="modal-subject" v-model="modal.subjectId">
-          <option value="0" selected>Choose...</option>
-          <option
-            v-for="subject of subjects"
-            v-bind:value="subject.id"
-            v-bind:key="subject.id">
-            {{subject.translation}}
-          </option>
-        </select>
+        <b-form-select
+          class="custom-select"
+          id="modal-subject"
+          v-model="form.subjectId.value"
+          :state="form.subjectId.isValid"
+          :options="subjects"
+          >
+          <template v-slot:first>
+            <option :value="0" selected>-- Please select an option --</option>
+          </template>
+        </b-form-select>
+        <b-form-invalid-feedback :state="form.subjectId.isValid">
+          <div v-for="validationMsg in form.subjectId.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
+        </b-form-invalid-feedback>
       </div>
       <div class="form-group">
         <label for="modal-lesson-type">Lesson type:</label>
-        <select class="custom-select" id="modal-lesson-type" v-model="modal.lessonTypeId">
-          <option value="0" selected>Choose...</option>
+        <select class="custom-select" id="modal-lesson-type" v-model="form.lessonTypeId.value">
+          <option value="0" selected>-- Please select an option --</option>
           <option value="49">Lecture</option>
           <option value="50">Practice</option>
         </select>
       </div>
       <div class="form-group">
         <label for="modal-teacher">Teacher:</label>
-        <select class="custom-select" id="modal-teacher" v-model="modal.teacherId">
-          <option value="0" selected>Choose...</option>
-          <option
-            v-for="teacher of teachers"
-            v-bind:value="teacher.id"
-            v-bind:key="teacher.id">
-            {{teacher.fullName}}
-          </option>
-        </select>
+        <b-form-select
+          class="custom-select"
+          id="modal-teacher"
+          v-model="form.teacherId.value"
+          :state="form.teacherId.isValid"
+          :options="teachers"
+          >
+          <template v-slot:first>
+            <option :value="0" selected>-- Please select an option --</option>
+          </template>
+        </b-form-select>
       </div>
       <div class="form-group">
         <label for="message-text">Classroom:</label>
-        <input type="text" class="form-control" id="modal-classroom" v-model="modal.classroom">
+        <input type="text" class="form-control" id="modal-classroom" v-model="form.classroom.value">
       </div>
-    </form>
+    </b-form>
   </b-modal>
 </template>
 
@@ -68,87 +70,100 @@ import Vue from 'vue'
 import Component from 'vue-class-component';
 import EventBus from '@/EventBus';
 import { mapState } from 'vuex';
-import ScheduleService from '../../services/ScheduleService';
-import UserService from '../../services/UserService';
+import ScheduleService from '@/services/ScheduleService';
+import UserService from '@/services/UserService';
+import FormField from '@/form/FormField';
+import { showValidationErrors, clearValidationMsgs } from '@/util/FormUtil';
 
 @Component({
   computed: {
     ...mapState({
-      subjects: (state:any) => state.subjectsStore.subjects
+      subjects: (state: any) => {
+        return state.subjectsStore.subjects.map(function (subject) {
+          return {value: subject.id, text: subject.translation};
+        });
+      },
+      teachers: (state: any) => {
+        return state.teachersStore.teachers.map(function(teacher) {
+          return {value: teacher.id, text: teacher.fullName};
+        });
+      }
     })
   }
 })
 export default class EditScheduleModal extends Vue {
-  private teachers = [];
-  private modal = {
-    lessonNum: 0,
-    subjectId: 0,
-    lessonTypeId: 0,
-    teacherId: 0,
-    classroom: ''
+  public form = {
+    lessonNum: new FormField(),
+    subjectId: new FormField(),
+    lessonTypeId: new FormField(),
+    teacherId: new FormField(),
+    classroom: new FormField()
   };
   private groupId = 0;
   private week = '';
   private dayName = '';
   private schedule: any = {};
 
-  created() {
+  mounted() {
+    
     let _this: any = this;
     this.$store.dispatch('getSubjects');
-		this.getTeachers();
+    this.$store.dispatch('getTeachers');
 		EventBus.$on('showEditScheduleModal', function (groupId, week, dayName, schedule) {
+      clearValidationMsgs(_this.form);
 			_this.groupId = groupId;
 			_this.week = week;
 			_this.dayName = dayName;
 			_this.schedule = schedule;
 			
 			if (schedule.teacherId != null) {
-				_this.modal.teacherId = schedule.teacherId;
+				_this.form.teacherId.value = schedule.teacherId;
 			} else {
-        _this.modal.teacherId = 0;
+        _this.form.teacherId.value = 0;
       }
 
 			if (schedule.lessonTypeId != null) {
-				_this.modal.lessonTypeId = schedule.lessonTypeId;
+				_this.form.lessonTypeId.value = schedule.lessonTypeId;
 			} else {
-        _this.modal.lessonTypeId = 0;
+        _this.form.lessonTypeId.value = 0;
       }
       
 			if (schedule.subjectId != null) {
-				_this.modal.subjectId = schedule.subjectId;
+				_this.form.subjectId.value = schedule.subjectId;
       } else {
-        _this.modal.subjectId = 0;
+        _this.form.subjectId.value = 0;
       }
 
 			if (schedule.lessonNum != null) {
-				_this.modal.lessonNum = schedule.lessonNum;
+				_this.form.lessonNum.value = schedule.lessonNum;
 			} else {
-        _this.modal.lessonNum = 0;
+        _this.form.lessonNum.value = 0;
       }
 
 			if (schedule.classroom != null) {
-				_this.modal.classroom = schedule.classroom;
+				_this.form.classroom.value = schedule.classroom;
       } else {
-        _this.modal.classroom = '';
+        _this.form.classroom.value = '';
       }
       
       _this.$refs['edit-schedule-modal'].show();
 		});
   }
   
-  saveScheduleChanges() {
+  saveScheduleChanges(modalOkEvent) {
+    modalOkEvent.preventDefault();
     let _this = this;
     let method, url;
     let objToSend = {
       groupId: _this.groupId,
       week: _this.week,
       day: _this.dayName,
-      lessonNum: _this.modal.lessonNum,
+      lessonNum: _this.form.lessonNum.value,
       
-      subjectId: _this.modal.subjectId,
-      lessonTypeId: _this.modal.lessonTypeId,
-      userId: _this.modal.teacherId,
-      classroom: _this.modal.classroom
+      subjectId: _this.form.subjectId.value,
+      lessonTypeId: _this.form.lessonTypeId.value,
+      userId: _this.form.teacherId.value,
+      classroom: _this.form.classroom.value
     }
     
     if (_this.schedule.id == null) {
@@ -162,34 +177,32 @@ export default class EditScheduleModal extends Vue {
     ScheduleService.addSchedule(objToSend)
       .then((response: any) => {
         let schedule = response.data;
-        EventBus.$emit('updatedLessonSchedule',
-            _this.week,
-            _this.dayName,
-            _this.modal.lessonNum,
-            schedule);
+        _this.$store.commit('addLesson', {
+          week: _this.week,
+          dayName: _this.dayName,
+          lesson: schedule
+        });
         _this.$refs['edit-schedule-modal'].hide();
-      }).catch(error => console.error(error.data));
+      }).catch(error => {
+        console.error(error.data);
+        showValidationErrors(this.form, error.data.details);
+      });
   }
   updateSchedule(objToSend) {
     let _this: any = this;
     ScheduleService.updateSchedule(this.schedule.id, objToSend)
       .then((response: any) => {
         let schedule = response.data;
-        EventBus.$emit('updatedLessonSchedule',
-            _this.week,
-            _this.dayName,
-            _this.modal.lessonNum,
-            schedule);
+        _this.$store.commit('addLesson', {
+          week: _this.week,
+          dayName: _this.dayName,
+          lesson: schedule
+        });
         _this.$refs['edit-schedule-modal'].hide();
-      }).catch(error => console.error(error.data));
-  }
-  getTeachers() {
-    let _this = this;
-    UserService.getUsersByRole('teacher')
-      .then((response: any) => {
-        let teachers = response.data;
-        _this.teachers = teachers;
-      }).catch(error => console.error(error.data));
+      }).catch(error => {
+        console.error(error.data);
+        showValidationErrors(this.form, error.data.details);
+      });
   }
 }
 </script>

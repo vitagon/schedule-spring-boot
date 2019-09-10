@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="schedule of schedules" :key="schedule.id">
+      <tr v-for="schedule of daySchedules" :key="schedule.id">
         <td scope="col" class="lesson-num" style="width: 10%">{{schedule.lessonNum}}</td>
         <td scope="col">{{schedule.time}}</td>
         
@@ -56,12 +56,6 @@ export default class DayScheduleTable extends Vue {
   @Prop(String) dayName: String | undefined;
   @Prop(String) week: String | undefined;
   @Prop(Number) groupId: Number | undefined;
-
-  private schedules;
-
-  created() {
-    this.schedules = this.daySchedules;
-  }
 
   showEditScheduleModal (schedule) {
     let _this = this;

@@ -30,7 +30,7 @@ public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
 			+	"(select * from subject_translations where locale_id = ?2) st ON s.subject_id = st.subject_id " +
 			"JOIN "
 			+	"lessons_time ltime ON s.lesson_num = ltime.lesson_num " +
-			"JOIN "
+			"LEFT JOIN "
 			+	"lesson_types ltypes ON s.lesson_type = ltypes.id " +
 			"WHERE "
 			+	" s.group_id = ?1",
@@ -52,7 +52,7 @@ public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
 			+	"(select * from subject_translations where locale_id = ?2) st ON s.subject_id = st.subject_id " +
 			"JOIN "
 			+	"lessons_time ltime ON s.lesson_num = ltime.lesson_num " +
-			"JOIN "
+			"LEFT JOIN "
 			+	"lesson_types ltypes ON s.lesson_type = ltypes.id " +
 			"WHERE "
 			+	" s.group_id = ?1 AND s.day_num = ?2 AND "
@@ -75,7 +75,7 @@ public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
 			+	"(select * from subject_translations where locale_id = ?2) st ON s.subject_id = st.subject_id " +
 			"JOIN "
 			+	"lessons_time ltime ON s.lesson_num = ltime.lesson_num " +
-			"JOIN "
+			"LEFT JOIN "
 			+	"lesson_types ltypes ON s.lesson_type = ltypes.id " +
 			"WHERE "
 			+	" s.id = ?1",
