@@ -2,8 +2,7 @@
   <b-modal
     id="edit-schedule-modal"
     ref="edit-schedule-modal"
-    title="Submit Your Name"
-    @ok="saveScheduleChanges">
+    title="Lesson form">
     <b-form @submit.stop.prevent>
       <div class="form-group">
         <label for="modal-lesson-num">Lesson number:</label>
@@ -62,6 +61,18 @@
         <input type="text" class="form-control" id="modal-classroom" v-model="form.classroom.value">
       </div>
     </b-form>
+    <template v-slot:modal-footer>
+      <div class="w-100">
+        <b-button
+          variant="primary"
+          size="md"
+          class="float-right"
+          @click="saveScheduleChanges"
+        >
+          Save changes
+        </b-button>
+      </div>
+    </template>
   </b-modal>
 </template>
 
@@ -105,7 +116,6 @@ export default class EditScheduleModal extends Vue {
   private schedule: any = {};
 
   mounted() {
-    
     let _this: any = this;
     this.$store.dispatch('getSubjects');
     this.$store.dispatch('getTeachers');
