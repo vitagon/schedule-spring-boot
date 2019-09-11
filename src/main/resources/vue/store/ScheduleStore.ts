@@ -15,35 +15,13 @@ const mutations = {
     let lessonIndex = lessonList.findIndex(x => x.lessonNum == lessonWithPath.lesson.lessonNum);
     Vue.set(state.schedule[lessonWithPath.week][lessonWithPath.dayName], lessonIndex, lessonWithPath.lesson);
   },
-  // removeLesson(state: any, schoolId: number) {
-  //   let removedIndex = state.schedule.findIndex((x: any) => x.id == schoolId);
-  //   state.schools = [
-  //     ...state.schools.slice(0, removedIndex),
-  //     ...state.schools.slice(removedIndex + 1)
-  //   ]
-  // }
-  // updateSchoolName(state: any, updateSchoolDto: any) {
-  //   let updatedIndex = state.schools.findIndex((x: any) => x.id == updateSchoolDto.schoolId);
-  //   let school = state.schools[updatedIndex];
-  //   school.name = updateSchoolDto.newSchoolName;
-
-  //   state.schools = [
-  //     ...state.schools.slice(0, updatedIndex),
-  //     school,
-  //     ...state.schools.slice(updatedIndex + 1)
-  //   ]
-  // },
-  // updateSchoolTranslation(state: any, schoolTranslation: any) {
-  //   let updatedIndex = state.schools.findIndex((x: any) => x.id == schoolTranslation.schoolId);
-  //   let school = state.schools[updatedIndex];
-  //   school.translation = schoolTranslation.translation;
-
-  //   state.schools = [
-  //     ...state.schools.slice(0, updatedIndex),
-  //     school,
-  //     ...state.schools.slice(updatedIndex + 1)
-  //   ]
-  // }
+  removeLesson(state: any, lessonPath: {week: string, dayName: string, lesson: Lesson}) {
+    let lessonList =  state.schedule[lessonPath.week][lessonPath.dayName];
+    let lessonIndex = lessonList.findIndex(x => x.lessonNum == lessonPath.lesson.lessonNum);
+    let lesson = new Lesson();
+    lesson.lessonNum = lessonPath.lesson.lessonNum;
+    Vue.set(state.schedule[lessonPath.week][lessonPath.dayName], lessonIndex, lesson);
+  }
 }
 
 const actions = {
@@ -54,7 +32,13 @@ const actions = {
     } catch (e) { console.error(e) }
     
     commit('setSchedule', schedule);
-    return schedule;
+  },
+  async removeLesson({ commit }, lessonWithPath: {week: string, dayName: string, lesson: Lesson}) {
+    try {
+      await ScheduleService.removeLesson(lessonWithPath.lesson.id);
+    } catch (e) { console.error(e) }
+
+    commit('removeLesson', lessonWithPath);
   }
 }
 

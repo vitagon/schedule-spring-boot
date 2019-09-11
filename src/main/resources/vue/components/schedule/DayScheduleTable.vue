@@ -37,7 +37,8 @@
             <i class="fas fa-edit"></i>
           </button>
           <button type="button" class="btn btn-danger remove-schedule-btn"
-              v-on:click="showRemoveScheduleModal(schedule)">
+              v-on:click="showRemoveScheduleModal(schedule)"
+              :disabled="schedule.id == null ? true : false">
             <i class="far fa-trash-alt"></i>
           </button>
         </td>

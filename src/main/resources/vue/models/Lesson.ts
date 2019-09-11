@@ -1,26 +1,26 @@
 export default class Lesson {
-  id: Number;
+  id;
 
-  lessonNum: Number;
-  time: string;
-  subjectId: Number;
-  subjectName: string;
-  lessonTypeId: Number;
-  lessonTypeName: string;
-  teacherId: Number;
-  teacherName: string;
-  classroom: string;
+  lessonNum;
+  time;
+  subjectId;
+  subjectName;
+  lessonTypeId;
+  lessonTypeName;
+  teacherId;
+  teacherName;
+  classroom;
 
   constructor() {
-    this.id = 0;
-    this.lessonNum = 0;
-    this.time = '';
-    this.subjectId = 0;
-    this.subjectName = '';
-    this.lessonTypeId = 0;
-    this.lessonTypeName = '';
-    this.teacherId = 0;
-    this.teacherName = '';
-    this.classroom = '';
+    this.id = null;
+    this.lessonNum = null;
+    this.time = null;
+    this.subjectId = null;
+    this.subjectName = null;
+    this.lessonTypeId = null;
+    this.lessonTypeName = null;
+    this.teacherId = null;
+    this.teacherName = null;
+    this.classroom = null;
   }
 }

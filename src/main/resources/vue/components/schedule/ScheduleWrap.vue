@@ -25,7 +25,7 @@
     </b-tabs>
 			
     <edit-schedule-modal></edit-schedule-modal>
-    <!-- <remove-schedule-modal></remove-schedule-modal> -->
+    <remove-schedule-modal></remove-schedule-modal>
   </div>
 </template>
 
@@ -36,10 +36,11 @@ import ScheduleService from '@/services/ScheduleService'
 import EventBus from '@/EventBus'
 import DayScheduleTable from '@/components/schedule/DayScheduleTable.vue'
 import EditScheduleModal from '@/components/schedule/EditScheduleModal.vue'
+import RemoveScheduleModal from '@/components/schedule/RemoveScheduleModal.vue'
 import { mapState } from 'vuex';
 
 @Component({
-  components: {DayScheduleTable, EditScheduleModal},
+  components: {DayScheduleTable, EditScheduleModal, RemoveScheduleModal},
   computed: {
     ...mapState({
       schedule: (state: any) => state.scheduleStore.schedule
@@ -53,12 +54,6 @@ export default class ScheduleWrap extends Vue {
 		EventBus.$on('fetchSchedule', function(groupId) {
 			_this.getSchedule(groupId);
 		});
-		
-		// EventBus.$on('removedLessonSchedule', function(week, dayName, lessonNum, schedule) {
-		// 	let lessonList =  _this.schedule[week][dayName];
-		// 	let lessonScheduleIndex = lessonList.findIndex(x => x.lessonNum == lessonNum);
-		// 	Vue.set(lessonList, lessonScheduleIndex, schedule);
-		// });
   }
 
   getSchedule(groupId) {

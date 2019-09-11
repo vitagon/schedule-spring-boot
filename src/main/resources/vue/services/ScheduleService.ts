@@ -32,6 +32,14 @@ class ScheduleService {
         .catch(error => rej(error.response));
     });
   }
+
+  removeLesson(scheduleId) {
+    return new Promise((res, rej) => {
+      axios.delete(`/api/schedule/${scheduleId}`)
+        .then(response => res(response))
+        .catch(error => rej(error.response));
+    });
+  }
 }
 
 export default ScheduleService.instance;
