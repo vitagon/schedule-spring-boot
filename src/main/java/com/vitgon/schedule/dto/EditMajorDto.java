@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import com.vitgon.schedule.annotation.validation.EnumMatch;
 import com.vitgon.schedule.annotation.validation.Latin;
+import com.vitgon.schedule.annotation.validation.SchoolExists;
 import com.vitgon.schedule.annotation.validation.UniqueMajor;
 
 import lombok.AllArgsConstructor;
@@ -21,18 +22,20 @@ public class EditMajorDto {
 
 	@Min(value = 1, message = "{NotEmpty.default}")
 	protected int id;
-	
-	@UniqueMajor(message = "{Duplicate.major}")
+
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
 	protected String name;
-	
+
 	@Min(value = 1, message = "{NotEmpty.default}")
-	@Max(value = 10, message = "{Max.default}")
+	@Max(value = 6, message = "{Max.default}")
 	protected int duration;
 	
 	@NotNull(message = "{NotNull.default}")
 	@EnumMatch(enumClazz = DegreeEnum.class, message = "{Degree.noMatch}")
 	protected String degree;
+
+	@SchoolExists
+	protected Integer schoolId;
 }

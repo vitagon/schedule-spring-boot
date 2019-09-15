@@ -17,22 +17,28 @@ public interface MajorDao extends JpaRepository<Major, Integer> {
 	
 	@Query(value =
 			"SELECT "
-			+	"m.id, m.name, m.url, m.duration, m.degree, mt.translation " +
+			+	"m.id, m.name, m.url, m.duration, m.degree, mt.translation, "
+			+	"s.id AS schoolId, s.name AS schoolName " +
 			"FROM "
 			+ 	"majors m " +
 			"JOIN "
-			+ 	"major_translations mt ON m.id = mt.major_id " +
+			+	"schools s ON s.id = m.school_id " +
+			"LEFT JOIN "
+			+ 	"(select * from major_translations where locale_id = ?2) mt ON m.id = mt.major_id " +
 			"WHERE "
-			+	"m.school_id = ?1 AND mt.locale_id = ?2",
+			+	"m.school_id = ?1",
 			nativeQuery = true)
 	List<MajorProjection> getAllBySchoolIdAndLocaleId(Integer schoolId, Integer localeId);
 	
 	@Query(value =
 			"SELECT "
-			+	"m.id, m.name, m.url, m.duration, m.degree, mt.translation " +
+			+	"m.id, m.name, m.url, m.duration, m.degree, mt.translation, "
+			+	"s.id AS schoolId, s.name AS schoolName " +
 			"FROM "
 			+ 	"majors m " +
 			"JOIN "
+			+	"schools s ON s.id = m.school_id " +
+			"LEFT JOIN "
 			+ 	"(select * from major_translations where locale_id = ?1) mt ON m.id = mt.major_id ",
 			nativeQuery = true)
 	List<MajorProjection> getAllLeftJoiningOnLocaleId(Integer localeId);

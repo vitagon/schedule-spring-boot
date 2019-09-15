@@ -45,6 +45,9 @@ public class MajorDtoService {
 		major.setUrl(StringUtil.applyUnderlyingStyle(editMajorDto.getName()));
 		major.setDuration(editMajorDto.getDuration());
 		major.setDegree(DegreeEnum.valueOf(editMajorDto.getDegree()));
+
+		School school = schoolService.findById(editMajorDto.getSchoolId()).get();
+		major.setSchool(school);
 		return major;
 	}
 	
@@ -65,6 +68,10 @@ public class MajorDtoService {
 			majorDto.setId(major.getId());
 			majorDto.setName(major.getName());
 			majorDto.setTranslation(major.getTranslation());
+			majorDto.setDuration(major.getDuration());
+			majorDto.setDegree(major.getDegree());
+			majorDto.setSchoolId(major.getSchoolId());
+			majorDto.setSchoolName(major.getSchoolName());
 			majorDtoListAdminPanel.add(majorDto);
 		}
 		return majorDtoListAdminPanel;
@@ -79,6 +86,10 @@ public class MajorDtoService {
 			majorDto.setId(major.getId());
 			majorDto.setName(major.getName());
 			majorDto.setTranslation(major.getTranslation());
+			majorDto.setDuration(major.getDuration());
+			majorDto.setDegree(major.getDegree());
+			majorDto.setSchoolId(major.getSchoolId());
+			majorDto.setSchoolName(major.getSchoolName());
 			majorDtoListAdminPanel.add(majorDto);
 		}
 		return majorDtoListAdminPanel;

@@ -9,4 +9,6 @@ public interface MajorProjection {
 	Integer getDuration();
 	DegreeEnum getDegree();
 	String getTranslation();
+	Integer getSchoolId();
+	String getSchoolName();
 }

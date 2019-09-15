@@ -81,14 +81,12 @@ public class MajorRestControllerAdminPanel {
 	}
 	
 	@GetMapping("/locale-id/{localeId}")
-	@JsonView(Views.AdminPanel.class)
 	@ResponseStatus(HttpStatus.OK)
 	public List<MajorDto> getMajors(@PathVariable("localeId") @LocaleExists Integer localeId) {
 		return majorDtoService.getAllByLocaleIdForAdminPanel(localeId);
 	}
 
 	@GetMapping
-	@JsonView(Views.AdminPanel.class)
 	@ResponseStatus(HttpStatus.OK)
 	public List<MajorDto> getMajors() {
 		return majorDtoService.getAllByLocaleIdForAdminPanel();

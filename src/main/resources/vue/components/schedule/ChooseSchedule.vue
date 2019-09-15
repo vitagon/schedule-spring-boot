@@ -93,7 +93,7 @@ export default class ChooseSchedule extends Vue {
   }
   
   getMajors() {
-    MajorService.getMajors(this.chooseScheduleForm.schoolId)
+    MajorService.getAllBySchoolId(this.chooseScheduleForm.schoolId)
       .then((response: any) => {
         this.majors = response.data;
       })

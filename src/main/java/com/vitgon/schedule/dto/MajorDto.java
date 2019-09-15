@@ -11,16 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MajorDto {
-	
-	@JsonView(Views.Public.class)
 	private Integer id;
-	
-	@JsonView(Views.Public.class)
 	private String name;
-	
-	@JsonView(Views.Public.class)
 	private String url;
-	
-	@JsonView(Views.AdminPanel.class)
+	private DegreeEnum degree;
+	private Integer duration;
 	private String translation;
+	private Integer schoolId;
+	private String schoolName;
 }
