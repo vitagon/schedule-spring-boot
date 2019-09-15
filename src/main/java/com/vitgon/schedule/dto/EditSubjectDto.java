@@ -10,9 +10,17 @@ import com.vitgon.schedule.annotation.validation.UniqueSubject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+
 public class EditSubjectDto {
+
+	public EditSubjectDto() {
+	}
+
+	public EditSubjectDto(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	@Min(value = 1, message = "{NotEmpty.default}")
 	private int id;
@@ -22,4 +30,20 @@ public class EditSubjectDto {
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
 	private String name;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

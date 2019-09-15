@@ -2,7 +2,7 @@ package com.vitgon.schedule.controller.rest.advice;
 
 import lombok.Getter;
 
-@Getter
+
 public class FieldValidationException extends Exception {
 	
 	private String fieldName;
@@ -18,5 +18,13 @@ public class FieldValidationException extends Exception {
 
 	public FieldValidationException(Throwable cause) {
 		super(cause);
+	}
+
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	public String getI18nCode() {
+		return i18nCode;
 	}
 }

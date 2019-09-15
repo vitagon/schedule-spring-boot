@@ -25,13 +25,17 @@ import com.vitgon.schedule.service.MessageService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 @RestController
 @ControllerAdvice
 public class ErrorHandlingControllerAdvice {
 	
 	private MessageService messageService;
-	
+
+	public ErrorHandlingControllerAdvice(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody

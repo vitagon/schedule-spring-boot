@@ -38,7 +38,6 @@ import com.vitgon.schedule.view.Views;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/control/majors")
 public class MajorRestControllerAdminPanel {
@@ -46,7 +45,13 @@ public class MajorRestControllerAdminPanel {
 	private MajorService majorService;
 	private MessageService messageService;
 	private MajorDtoService majorDtoService;
-	
+
+	public MajorRestControllerAdminPanel(MajorService majorService, MessageService messageService, MajorDtoService majorDtoService) {
+		this.majorService = majorService;
+		this.messageService = messageService;
+		this.majorDtoService = majorDtoService;
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public MajorDto addMajor(@RequestBody @Valid AddMajorDto addMajorDto) {

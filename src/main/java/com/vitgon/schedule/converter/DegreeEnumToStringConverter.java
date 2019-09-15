@@ -13,10 +13,12 @@ import com.vitgon.schedule.service.MessageService;
 public class DegreeEnumToStringConverter extends StdConverter<DegreeEnum, String> {
 	
 	private final static Logger log = LoggerFactory.getLogger(DegreeEnumToStringConverter.class);
-
-	@Autowired
 	private MessageService messageService;
-	
+
+	public DegreeEnumToStringConverter(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
 	@Override
 	public String convert(DegreeEnum source) {
 		log.info(source.name().toLowerCase());

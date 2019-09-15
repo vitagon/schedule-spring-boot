@@ -16,12 +16,15 @@ import com.vitgon.schedule.model.database.auth.User;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class UserSearchRestController {
 	
 	private UserDao userDao;
+
+	public UserSearchRestController(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	@Transactional
 	@GetMapping("/users/search")

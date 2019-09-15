@@ -38,7 +38,6 @@ import com.vitgon.schedule.view.Views;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/control")
 public class SchoolRestControllerAdminPanel {
@@ -47,7 +46,14 @@ public class SchoolRestControllerAdminPanel {
 	private SchoolDtoService schoolDtoService;
 	private MessageService messageService;
 	private LocaleExistsValidator localeExistsValidator;
-	
+
+	public SchoolRestControllerAdminPanel(SchoolService schoolService, SchoolDtoService schoolDtoService, MessageService messageService, LocaleExistsValidator localeExistsValidator) {
+		this.schoolService = schoolService;
+		this.schoolDtoService = schoolDtoService;
+		this.messageService = messageService;
+		this.localeExistsValidator = localeExistsValidator;
+	}
+
 	private SchoolDto convertToDto(School school) {
 		SchoolDto schoolDto = new SchoolDto();
 		schoolDto.setId(school.getId());

@@ -14,9 +14,13 @@ import com.vitgon.schedule.service.database.RoleService;
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleService {
-	
-	@Autowired
+
 	private RoleDao roleDao;
+
+	@Autowired
+	public RoleServiceImpl(RoleDao roleDao) {
+		this.roleDao = roleDao;
+	}
 
 	@Override
 	public Role save(Role obj) {

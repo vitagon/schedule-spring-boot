@@ -26,13 +26,16 @@ import com.vitgon.schedule.service.database.translation.SchoolTranslationService
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/translations")
 public class SchoolTranslationRestController {
 	
 	private SchoolTranslationService schoolTranslationService;
-	
+
+	public SchoolTranslationRestController(SchoolTranslationService schoolTranslationService) {
+		this.schoolTranslationService = schoolTranslationService;
+	}
+
 	@GetMapping("/schools/{schoolId}/locales/{localeId}")
 	public ResponseEntity<?> getSchoolTranslation(@PathVariable("schoolId") @SchoolExists Integer schoolId,
 												  @PathVariable("localeId") @LocaleExists Integer localeId) throws FieldValidationException {

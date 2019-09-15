@@ -17,7 +17,6 @@ import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 @Transactional
 public class MajorServiceImpl implements MajorService {
@@ -25,6 +24,12 @@ public class MajorServiceImpl implements MajorService {
 	private MajorDao majorDao;
 	private MajorTranslationDao majorTranslDao;
 	private LocaleConverterService localeConverterService;
+
+	public MajorServiceImpl(MajorDao majorDao, MajorTranslationDao majorTranslDao, LocaleConverterService localeConverterService) {
+		this.majorDao = majorDao;
+		this.majorTranslDao = majorTranslDao;
+		this.localeConverterService = localeConverterService;
+	}
 
 	@Override
 	public Major save(Major obj) {

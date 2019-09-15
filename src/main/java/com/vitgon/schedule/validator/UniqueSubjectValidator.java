@@ -9,7 +9,6 @@ import com.vitgon.schedule.service.database.SubjectService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class UniqueSubjectValidator implements ConstraintValidator<UniqueSubject, String> {
 	
 	private SubjectService subjectService;

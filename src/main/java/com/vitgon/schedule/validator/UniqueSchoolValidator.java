@@ -9,10 +9,13 @@ import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class UniqueSchoolValidator implements ConstraintValidator<UniqueSchool, String>{
 	
 	private SchoolService schoolService;
+
+	public UniqueSchoolValidator(SchoolService schoolService) {
+		this.schoolService = schoolService;
+	}
 
 	@Override
 	public boolean isValid(String schoolName, ConstraintValidatorContext context) {

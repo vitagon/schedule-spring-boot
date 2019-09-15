@@ -11,12 +11,16 @@ import com.vitgon.schedule.service.ScheduleViewService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Controller
 public class ScheduleViewController {
 	
 	private LocaleConverterService localeConverterService;
 	private ScheduleViewService scheduleViewService;
+
+	public ScheduleViewController(LocaleConverterService localeConverterService, ScheduleViewService scheduleViewService) {
+		this.localeConverterService = localeConverterService;
+		this.scheduleViewService = scheduleViewService;
+	}
 
 	@GetMapping("/schedule/group-id/{groupId}")
 	public ModelAndView showScheduleInSingleTable(@PathVariable("groupId") Integer groupId) {

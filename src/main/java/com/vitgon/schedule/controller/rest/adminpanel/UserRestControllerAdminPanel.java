@@ -16,13 +16,16 @@ import com.vitgon.schedule.service.UserDtoService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/admin-panel/translations")
 public class UserRestControllerAdminPanel {
 
 	private UserDtoService userDtoService;
-	
+
+	public UserRestControllerAdminPanel(UserDtoService userDtoService) {
+		this.userDtoService = userDtoService;
+	}
+
 	@GetMapping("/users/role/{role}")
 	public List<UserDtoAdminPanel> getAllByRole(
 			@PathVariable String role,

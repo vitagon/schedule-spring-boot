@@ -15,13 +15,16 @@ import com.vitgon.schedule.view.Views;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class SubjectRestController {
 	
 	private SubjectDtoService subjectDtoService;
-	
+
+	public SubjectRestController(SubjectDtoService subjectDtoService) {
+		this.subjectDtoService = subjectDtoService;
+	}
+
 	@GetMapping("/subjects")
 	public List<SubjectDto> getSubjectsByLocale() {
 		return subjectDtoService.getSubjectDtoList();

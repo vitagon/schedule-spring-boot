@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class HibernateSequenceService {
-	
-	@Autowired
+
 	private EntityManager entityManager;
-	
+
+	@Autowired
+	public HibernateSequenceService(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
 	public Integer getNextVal() {
 		Query query = entityManager.createNativeQuery("select nextval('hibernate_sequence')");
 		Number nextValNumber = (Number) query.getSingleResult();

@@ -21,13 +21,18 @@ import com.vitgon.schedule.service.database.GroupService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class GroupDtoService {
 	
 	private GroupService groupService;
 	private DegreeEnumToStringConverter degreeEnumToStringConverter;
 	private LocaleConverterService localeConverterService;
+
+	public GroupDtoService(GroupService groupService, DegreeEnumToStringConverter degreeEnumToStringConverter, LocaleConverterService localeConverterService) {
+		this.groupService = groupService;
+		this.degreeEnumToStringConverter = degreeEnumToStringConverter;
+		this.localeConverterService = localeConverterService;
+	}
 
 	public String getGroupTitle(GroupProjection group) {
 		return degreeEnumToStringConverter.convert(group.getDegree()).charAt(0) +

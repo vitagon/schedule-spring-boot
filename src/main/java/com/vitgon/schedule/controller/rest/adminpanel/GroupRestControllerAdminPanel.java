@@ -34,7 +34,7 @@ import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 @RestController
 @RequestMapping("/api/control/group")
 public class GroupRestControllerAdminPanel {
@@ -42,7 +42,13 @@ public class GroupRestControllerAdminPanel {
 	private GroupService groupService;
 	private MajorService majorService;
 	private MessageService messageService;
-	
+
+	public GroupRestControllerAdminPanel(GroupService groupService, MajorService majorService, MessageService messageService) {
+		this.groupService = groupService;
+		this.majorService = majorService;
+		this.messageService = messageService;
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public GroupDto addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {

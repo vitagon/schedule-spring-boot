@@ -13,12 +13,15 @@ import com.vitgon.schedule.service.GroupDtoService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Controller
 public class GroupsViewController {
 	
 	private GroupDtoService groupDtoService;
-	
+
+	public GroupsViewController(GroupDtoService groupDtoService) {
+		this.groupDtoService = groupDtoService;
+	}
+
 	@RequestMapping("/school/{school}/major/{major}")
 	public String showMajorGroups(@PathVariable("major") String majorUrl, Model model) {
 		Map<Integer, List<GroupDto>> groupsMap = groupDtoService.getGroupDtoMap(majorUrl);

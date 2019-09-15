@@ -7,9 +7,11 @@ import com.vitgon.schedule.annotation.validation.Latin;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class LatinValidator implements ConstraintValidator<Latin, String> {
-	
+
+	public LatinValidator() {
+	}
+
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		if (value.matches("[A-Za-z -]*")) {

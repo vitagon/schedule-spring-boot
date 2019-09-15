@@ -17,7 +17,7 @@ import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 @Service
 @Transactional
 public class SchoolServiceImpl implements SchoolService {
@@ -25,7 +25,13 @@ public class SchoolServiceImpl implements SchoolService {
 	private final SchoolDao schoolDao;
 	private final SchoolTranslationDao schoolTranslDao;
 	private LocaleConverterService localeConverterService;
-	
+
+	public SchoolServiceImpl(SchoolDao schoolDao, SchoolTranslationDao schoolTranslDao, LocaleConverterService localeConverterService) {
+		this.schoolDao = schoolDao;
+		this.schoolTranslDao = schoolTranslDao;
+		this.localeConverterService = localeConverterService;
+	}
+
 	@Override
 	public School save(School obj) {
 		return schoolDao.save(obj);

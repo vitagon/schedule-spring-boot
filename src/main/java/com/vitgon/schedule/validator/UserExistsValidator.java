@@ -13,12 +13,15 @@ import com.vitgon.schedule.service.database.UserService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Component
 public class UserExistsValidator implements ConstraintValidator<UserExists, Integer> {
 
 	private UserService userService;
-	
+
+	public UserExistsValidator(UserService userService) {
+		this.userService = userService;
+	}
+
 	@Override
 	public boolean isValid(Integer id, ConstraintValidatorContext context) {
 		Optional<User> userOpt = userService.findById(id);

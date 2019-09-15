@@ -19,12 +19,14 @@ import com.vitgon.schedule.util.MessageUtil;
 
 @Controller
 public class RegistrationController {
-	
-	@Autowired
+
 	private UserService userService;
-	
-	@Autowired
 	private HttpServletRequest request;
+
+	public RegistrationController(UserService userService, HttpServletRequest request) {
+		this.userService = userService;
+		this.request = request;
+	}
 
 	@GetMapping("/register")
 	public ModelAndView register() {

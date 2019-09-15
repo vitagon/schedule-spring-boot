@@ -20,13 +20,18 @@ import com.vitgon.schedule.util.StringUtil;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class MajorDtoService {
 	
 	private SchoolService schoolService;
 	private MajorService majorService;
-	private LocaleConverterService localeConverterService; 
+	private LocaleConverterService localeConverterService;
+
+	public MajorDtoService(SchoolService schoolService, MajorService majorService, LocaleConverterService localeConverterService) {
+		this.schoolService = schoolService;
+		this.majorService = majorService;
+		this.localeConverterService = localeConverterService;
+	}
 
 	public Major convertToEntity(AddMajorDto addMajorDto) {
 		Optional<School> school = schoolService.findById(addMajorDto.getSchoolId());

@@ -16,39 +16,15 @@ import com.vitgon.schedule.service.database.UserService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class UserDtoService {
 	
 	private UserService userService;
 	private LocaleConverterService localeConverterService;
-	
-	public List<UserDto> getTeachersDto() {
-		return getUserDtoListByRole("teacher", PageRequest.of(0, 1000));
-	}
-	
-	public UserDto getUserDtoFromScheduleProjection(ScheduleProjection schedule) {
-		UserDto userDto = new UserDto();
-		userDto.setId(schedule.getUser_id());
-		userDto.setFirstname(schedule.getFirstname());
-		userDto.setLastname(schedule.getLastname());
-		userDto.setMiddlename(schedule.getMiddlename());
-		userDto.setFullName(makeupFullname(schedule.getLastname(), schedule.getFirstname(), schedule.getMiddlename()));
-		return userDto;
-	}
 
-	public List<UserDto> getUserDtoList(List<UserProjection> users) {
-		return users.stream()
-			.map(user -> {
-				UserDto userDto = new UserDto();
-				userDto.setId(user.getId());
-				userDto.setFirstname(user.getFirstname());
-				userDto.setLastname(user.getLastname());
-				userDto.setMiddlename(user.getMiddlename());
-				userDto.setFullName(makeupFullname(user.getLastname(), user.getFirstname(), user.getMiddlename()));
-				return userDto;
-			})
-			.collect(Collectors.toList());
+	public UserDtoService(UserService userService, LocaleConverterService localeConverterService) {
+		this.userService = userService;
+		this.localeConverterService = localeConverterService;
 	}
 	
 	public List<UserDto> getUserDtoListByRole(String role, Pageable pageable) {

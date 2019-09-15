@@ -14,12 +14,15 @@ import com.vitgon.schedule.service.database.UserConnectionService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Transactional
 @Service
 public class UserConnectionServiceImpl implements UserConnectionService {
 	
 	private UserConnectionDao userConnectionDao;
+
+	public UserConnectionServiceImpl(UserConnectionDao userConnectionDao) {
+		this.userConnectionDao = userConnectionDao;
+	}
 
 	@Override
 	public UserConnection save(UserConnection obj) {

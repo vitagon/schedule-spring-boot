@@ -19,9 +19,9 @@ import com.vitgon.schedule.service.database.translation.UserTranslationService;
 @Transactional
 public class UserTranslationServiceImpl implements UserTranslationService {
 
-	@Autowired
 	private final UserTranslationDao userTranslDao;
-	
+
+	@Autowired
 	public UserTranslationServiceImpl(UserTranslationDao userTranslDao) {
 		this.userTranslDao = userTranslDao;
 	}

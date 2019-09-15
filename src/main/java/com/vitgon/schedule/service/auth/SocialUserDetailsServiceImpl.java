@@ -11,11 +11,14 @@ import com.vitgon.schedule.service.database.UserService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class SocialUserDetailsServiceImpl implements SocialUserDetailsService {
 	
 	private UserService userService;
+
+	public SocialUserDetailsServiceImpl(UserService userService) {
+		this.userService = userService;
+	}
 
 	@Override
 	public SocialUserDetails loadUserByUserId(String username) throws UsernameNotFoundException {

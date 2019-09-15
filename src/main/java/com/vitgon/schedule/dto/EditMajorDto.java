@@ -15,10 +15,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class EditMajorDto {
+
+	public EditMajorDto() {
+	}
+
+	public EditMajorDto(int id, String name, int duration, String degree, Integer schoolId) {
+		this.id = id;
+		this.name = name;
+		this.duration = duration;
+		this.degree = degree;
+		this.schoolId = schoolId;
+	}
 
 	@Min(value = 1, message = "{NotEmpty.default}")
 	protected int id;
@@ -38,4 +47,44 @@ public class EditMajorDto {
 
 	@SchoolExists
 	protected Integer schoolId;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
+	public Integer getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(Integer schoolId) {
+		this.schoolId = schoolId;
+	}
 }

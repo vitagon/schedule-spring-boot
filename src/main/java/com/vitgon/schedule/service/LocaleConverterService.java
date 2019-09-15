@@ -13,12 +13,15 @@ import com.vitgon.schedule.service.database.LocaleService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class LocaleConverterService {
 	
 	private LocaleService localeService;
-	
+
+	public LocaleConverterService(LocaleService localeService) {
+		this.localeService = localeService;
+	}
+
 	public Locale getClientLocale(HttpServletRequest request) {
 		java.util.Locale loc = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		return localeService.findByCode(loc.getLanguage());

@@ -18,9 +18,9 @@ import com.vitgon.schedule.service.database.translation.MajorTranslationService;
 @Transactional
 public class MajorTranslationServiceImpl implements MajorTranslationService {
 
-	@Autowired
 	private final MajorTranslationDao majorTranslDao;
-	
+
+	@Autowired
 	public MajorTranslationServiceImpl(MajorTranslationDao majorTranslDao) {
 		this.majorTranslDao = majorTranslDao;
 	}

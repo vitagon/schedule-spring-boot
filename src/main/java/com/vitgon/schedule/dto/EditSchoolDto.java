@@ -11,11 +11,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class EditSchoolDto {
-	
+
+	public EditSchoolDto() {
+	}
+
+	public EditSchoolDto(int schoolId, String newSchoolName) {
+		this.schoolId = schoolId;
+		this.newSchoolName = newSchoolName;
+	}
+
 	@Min(value = 1, message = "{NotEmpty.default}")
 	private int schoolId;
 	
@@ -24,4 +30,20 @@ public class EditSchoolDto {
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
 	private String newSchoolName;
+
+	public int getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(int schoolId) {
+		this.schoolId = schoolId;
+	}
+
+	public String getNewSchoolName() {
+		return newSchoolName;
+	}
+
+	public void setNewSchoolName(String newSchoolName) {
+		this.newSchoolName = newSchoolName;
+	}
 }

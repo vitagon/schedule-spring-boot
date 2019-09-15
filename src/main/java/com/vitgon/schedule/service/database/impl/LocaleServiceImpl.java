@@ -15,9 +15,9 @@ import com.vitgon.schedule.service.database.LocaleService;
 @Transactional
 public class LocaleServiceImpl implements LocaleService {
 
-	@Autowired
 	private final LocaleDao localeDao;
-	
+
+	@Autowired
 	public LocaleServiceImpl(LocaleDao localeDao) {
 		this.localeDao = localeDao;
 	}

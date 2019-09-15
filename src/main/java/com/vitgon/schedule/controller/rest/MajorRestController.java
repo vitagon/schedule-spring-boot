@@ -15,11 +15,14 @@ import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 public class MajorRestController {
 	
 	private MajorService majorService;
+
+	public MajorRestController(MajorService majorService) {
+		this.majorService = majorService;
+	}
 
 	@GetMapping("/api/majors/school-id/{schoolId}")
 	public List<MajorProjection> getMajors(@PathVariable("schoolId") int schoolId) {

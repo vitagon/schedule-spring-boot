@@ -18,7 +18,6 @@ import com.vitgon.schedule.exception.GenericTypeNotFoundException;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.database.base.Service;
 
-
 @Component
 public class UniqueTranslationValidator implements ConstraintValidator<UniqueTranslation, Object> {
 	

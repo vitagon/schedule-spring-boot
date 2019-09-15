@@ -13,11 +13,14 @@ import com.vitgon.schedule.service.database.SubjectService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Component
 public class SubjectExistsValidator implements ConstraintValidator<SubjectExists, Integer> {
 	
 	private SubjectService subjectService;
+
+	public SubjectExistsValidator(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
 
 	@Override
 	public boolean isValid(Integer id, ConstraintValidatorContext context) {

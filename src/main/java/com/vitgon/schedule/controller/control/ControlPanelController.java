@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Controller
 @RequestMapping("/control")
 public class ControlPanelController {
+
+	public ControlPanelController() {
+	}
 
 	@GetMapping
 	public String showControlPanel() {

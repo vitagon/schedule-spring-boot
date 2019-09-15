@@ -9,10 +9,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class SchoolTranslationDto {
+
+	public SchoolTranslationDto(Integer schoolId, Integer localeId, String translation) {
+		super();
+		this.schoolId = schoolId;
+		this.localeId = localeId;
+		this.translation = translation;
+	}
 
 	@SchoolExists
 	private Integer schoolId;
@@ -22,4 +27,28 @@ public class SchoolTranslationDto {
 	
 	@Size(min = 3, max = 50, message = "{Size.default}")
 	private String translation;
+
+	public Integer getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(Integer schoolId) {
+		this.schoolId = schoolId;
+	}
+
+	public Integer getLocaleId() {
+		return localeId;
+	}
+
+	public void setLocaleId(Integer localeId) {
+		this.localeId = localeId;
+	}
+
+	public String getTranslation() {
+		return translation;
+	}
+
+	public void setTranslation(String translation) {
+		this.translation = translation;
+	}
 }

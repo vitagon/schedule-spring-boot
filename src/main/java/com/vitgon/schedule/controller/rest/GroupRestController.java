@@ -20,13 +20,17 @@ import com.vitgon.schedule.service.database.GroupService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/groups")
 public class GroupRestController {
 	
 	private GroupService groupService;
 	private GroupDtoService groupDtoService;
+
+	public GroupRestController(GroupService groupService, GroupDtoService groupDtoService) {
+		this.groupService = groupService;
+		this.groupDtoService = groupDtoService;
+	}
 
 	@GetMapping("/major-id/{majorId}/course-num/{courseNum}")
 	public List<GroupProjection> getGroups(@PathVariable("majorId") Integer majorId,

@@ -23,7 +23,6 @@ import com.vitgon.schedule.service.database.ScheduleService;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
 
-
 @Service
 public class ScheduleDtoService {
 	

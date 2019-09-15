@@ -11,12 +11,16 @@ import com.vitgon.schedule.service.database.LocaleService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class LocaleDtoService {
 	
 	private LocaleService localeService;
 	private LocaleConverterService localeConverterService;
+
+	public LocaleDtoService(LocaleService localeService, LocaleConverterService localeConverterService) {
+		this.localeService = localeService;
+		this.localeConverterService = localeConverterService;
+	}
 
 	public List<LocaleDto> getLocaleDtoList() {
 		Locale clientLocale = localeConverterService.getClientLocale();

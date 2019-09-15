@@ -7,9 +7,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class HibernateSequence {
 	private Integer nextval;
+
+	public HibernateSequence(Integer nextval) {
+		super();
+		this.nextval = nextval;
+	}
+
+	public Integer getNextval() {
+		return nextval;
+	}
+
+	public void setNextval(Integer nextval) {
+		this.nextval = nextval;
+	}
 }

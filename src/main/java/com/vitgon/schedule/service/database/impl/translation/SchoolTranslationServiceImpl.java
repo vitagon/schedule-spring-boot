@@ -18,9 +18,9 @@ import com.vitgon.schedule.service.database.translation.SchoolTranslationService
 @Transactional
 public class SchoolTranslationServiceImpl implements SchoolTranslationService {
 
-	@Autowired
 	private final SchoolTranslationDao schoolTranslDao;
-	
+
+	@Autowired
 	public SchoolTranslationServiceImpl(SchoolTranslationDao schoolTranslRep) {
 		this.schoolTranslDao = schoolTranslRep;
 	}

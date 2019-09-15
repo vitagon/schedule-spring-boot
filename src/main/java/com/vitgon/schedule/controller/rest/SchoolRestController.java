@@ -13,13 +13,17 @@ import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class SchoolRestController {
 	
 	private SchoolService schoolService;
 	private LocaleService localeService;
+
+	public SchoolRestController(SchoolService schoolService, LocaleService localeService) {
+		this.schoolService = schoolService;
+		this.localeService = localeService;
+	}
 
 	@GetMapping("/schools")
 	public List<School> getSchools() {

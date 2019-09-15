@@ -41,7 +41,6 @@ import com.vitgon.schedule.validator.LocaleExistsValidator;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/translations")
 public class UserRestController {
@@ -50,7 +49,14 @@ public class UserRestController {
 	private UserService userService;
 	private UserDtoService userDtoService;
 	private LocaleService localeService;
-	
+
+	public UserRestController(UserTranslationService userTranslationService, UserService userService, UserDtoService userDtoService, LocaleService localeService) {
+		this.userTranslationService = userTranslationService;
+		this.userService = userService;
+		this.userDtoService = userDtoService;
+		this.localeService = localeService;
+	}
+
 	@GetMapping("/users/role/{role}")
 	public List<UserDto> getAllByRole(
 			@PathVariable String role,

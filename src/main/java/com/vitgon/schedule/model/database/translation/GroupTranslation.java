@@ -17,9 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "group_translations")
 @IdClass(value = GroupTranslationId.class)
@@ -38,4 +36,76 @@ public class GroupTranslation {
 	
 	@Column(name = "suffix_translation", nullable = false)
 	public String suffixTranslation;
+
+	public GroupTranslation() {
+		super();
+	}
+
+	public GroupTranslation(Group group, Locale locale, String suffixTranslation) {
+		super();
+		this.group = group;
+		this.locale = locale;
+		this.suffixTranslation = suffixTranslation;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
+	public String getSuffixTranslation() {
+		return suffixTranslation;
+	}
+
+	public void setSuffixTranslation(String suffixTranslation) {
+		this.suffixTranslation = suffixTranslation;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
+		result = prime * result + ((suffixTranslation == null) ? 0 : suffixTranslation.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupTranslation other = (GroupTranslation) obj;
+		if (group == null) {
+			if (other.group != null)
+				return false;
+		} else if (!group.equals(other.group))
+			return false;
+		if (locale == null) {
+			if (other.locale != null)
+				return false;
+		} else if (!locale.equals(other.locale))
+			return false;
+		if (suffixTranslation == null) {
+			if (other.suffixTranslation != null)
+				return false;
+		} else if (!suffixTranslation.equals(other.suffixTranslation))
+			return false;
+		return true;
+	}
 }

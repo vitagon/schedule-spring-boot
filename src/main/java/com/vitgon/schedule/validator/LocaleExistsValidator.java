@@ -13,11 +13,14 @@ import com.vitgon.schedule.service.database.LocaleService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Component
 public class LocaleExistsValidator implements ConstraintValidator<LocaleExists, Integer> {
 	
 	private LocaleService localeService;
+
+	public LocaleExistsValidator(LocaleService localeService) {
+		this.localeService = localeService;
+	}
 
 	@Override
 	public boolean isValid(Integer id, ConstraintValidatorContext context) {

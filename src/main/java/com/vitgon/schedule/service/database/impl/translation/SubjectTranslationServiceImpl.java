@@ -16,13 +16,16 @@ import com.vitgon.schedule.service.database.translation.SubjectTranslationServic
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 @Transactional
 public class SubjectTranslationServiceImpl implements SubjectTranslationService {
 
 	private final SubjectTranslationDao subjectTranslDao;
-	
+
+	public SubjectTranslationServiceImpl(SubjectTranslationDao subjectTranslDao) {
+		this.subjectTranslDao = subjectTranslDao;
+	}
+
 	@Override
 	public SubjectTranslation save(SubjectTranslation obj) {
 		return subjectTranslDao.save(obj);

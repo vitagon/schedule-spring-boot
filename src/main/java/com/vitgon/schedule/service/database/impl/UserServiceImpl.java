@@ -21,7 +21,6 @@ import com.vitgon.schedule.service.database.UserService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
@@ -29,7 +28,14 @@ public class UserServiceImpl implements UserService {
 	private UserConnectionService userConnectionService;
 	private HibernateSequenceService hibernateSequenceService;
 	private PasswordEncoder encoder;
-	
+
+	public UserServiceImpl(UserDao userDao, UserConnectionService userConnectionService, HibernateSequenceService hibernateSequenceService, PasswordEncoder encoder) {
+		this.userDao = userDao;
+		this.userConnectionService = userConnectionService;
+		this.hibernateSequenceService = hibernateSequenceService;
+		this.encoder = encoder;
+	}
+
 	@Override
 	public List<User> findByEmail(String email) {
 		return userDao.findByEmail(email);

@@ -11,12 +11,15 @@ import com.vitgon.schedule.service.database.UserService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	private UserService userService;
-	
+
+	public UserDetailsServiceImpl(UserService userService) {
+		this.userService = userService;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String emailOrUsername) throws UsernameNotFoundException {
 		User user = userService.findByEmailAndProviderId(emailOrUsername, "local");

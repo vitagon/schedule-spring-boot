@@ -11,11 +11,14 @@ import com.vitgon.schedule.service.database.MajorService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class UniqueMajorValidator implements ConstraintValidator<UniqueMajor, String> {
 
 	private MajorService majorService;
-	
+
+	public UniqueMajorValidator(MajorService majorService) {
+		this.majorService = majorService;
+	}
+
 	@Override
 	public boolean isValid(String majorName, ConstraintValidatorContext context) {
 		Optional<Major> major = majorService.findByName(majorName);

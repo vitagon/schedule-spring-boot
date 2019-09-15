@@ -15,13 +15,17 @@ import com.vitgon.schedule.service.database.GroupService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 @Transactional
 public class GroupServiceImpl implements GroupService {
 	
 	private final GroupDao groupDao;
 	private LocaleConverterService localeConverterService;
+
+	public GroupServiceImpl(GroupDao groupDao, LocaleConverterService localeConverterService) {
+		this.groupDao = groupDao;
+		this.localeConverterService = localeConverterService;
+	}
 
 	@Override
 	public Group save(Group obj) {

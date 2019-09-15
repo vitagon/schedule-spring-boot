@@ -15,14 +15,19 @@ import com.vitgon.schedule.service.database.SubjectService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 @Service
 @Transactional
 public class SubjectServiceImpl implements SubjectService {
 	
 	private final SubjectDao subjectDao;
 	private LocaleConverterService localeConverterService;
-	
+
+	public SubjectServiceImpl(SubjectDao subjectDao, LocaleConverterService localeConverterService) {
+		this.subjectDao = subjectDao;
+		this.localeConverterService = localeConverterService;
+	}
+
 	@Override
 	public Subject save(Subject obj) {
 		return subjectDao.save(obj);

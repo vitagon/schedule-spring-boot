@@ -11,11 +11,14 @@ import com.vitgon.schedule.service.database.SubjectService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Component
 public class SubjectDtoService {
 	
 	private SubjectService subjectService;
+
+	public SubjectDtoService(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
 
 	public List<SubjectDto> getSubjectDtoList() {
 		List<SubjectProjection> subjects = subjectService.findAllByBrowserDefaultLocale();

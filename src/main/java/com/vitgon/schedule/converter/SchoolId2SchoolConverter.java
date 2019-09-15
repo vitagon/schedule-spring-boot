@@ -11,12 +11,18 @@ import com.vitgon.schedule.service.database.SchoolService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class SchoolId2SchoolConverter implements Converter<Integer, School> {
 
-	@Autowired
 	private SchoolService schoolService;
+
+	public SchoolId2SchoolConverter() {
+	}
+
+	@Autowired
+	public SchoolId2SchoolConverter(SchoolService schoolService) {
+		this.schoolService = schoolService;
+	}
 
 	@Override
 	public School convert(Integer schoolId) {

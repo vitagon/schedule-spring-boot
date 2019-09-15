@@ -1,43 +1,29 @@
 package com.vitgon.schedule.controller.rest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.vitgon.schedule.annotation.validation.LocaleExists;
 import com.vitgon.schedule.annotation.validation.SubjectExists;
 import com.vitgon.schedule.controller.rest.advice.FieldValidationException;
-import com.vitgon.schedule.controller.rest.advice.Violation;
 import com.vitgon.schedule.dto.SubjectTranslationDto;
-import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.translation.SubjectTranslation;
-import com.vitgon.schedule.service.MessageService;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-import lombok.AllArgsConstructor;
+import java.util.Date;
+import java.util.Optional;
 
-@AllArgsConstructor
 @RestController
 @Validated
 @RequestMapping("/api/translations")
 public class SubjectTranslationRestController {
 
 	private SubjectTranslationService subjectTranslationService;
+
+	public SubjectTranslationRestController(SubjectTranslationService subjectTranslationService) {
+		this.subjectTranslationService = subjectTranslationService;
+	}
 
 	@GetMapping("/subjects/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> getSubjectTranslation(@PathVariable("subjectId") @SubjectExists Integer subjectId,

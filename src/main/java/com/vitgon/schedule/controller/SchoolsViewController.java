@@ -17,13 +17,17 @@ import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Controller
 public class SchoolsViewController {
 	
 	private SchoolDtoService schoolDtoService;
 	private SchoolService schoolService;
-	
+
+	public SchoolsViewController(SchoolDtoService schoolDtoService, SchoolService schoolService) {
+		this.schoolDtoService = schoolDtoService;
+		this.schoolService = schoolService;
+	}
+
 	@RequestMapping("/schools")
 	public String showSchoolsPage(Model model) {
 		List<SchoolProjection> schools = schoolService.getAllJoiningWithMajors();

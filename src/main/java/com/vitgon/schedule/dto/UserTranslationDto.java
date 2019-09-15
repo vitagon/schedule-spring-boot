@@ -12,9 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class UserTranslationDto {
 	
 	@UserExists(groups = {Default.class, OnCheck.class, OnDelete.class})
@@ -31,4 +29,44 @@ public class UserTranslationDto {
 	
 	@Size(min = 3, max = 50, message = "{Size.default}")
 	private String middlename;
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getLocaleId() {
+		return localeId;
+	}
+
+	public void setLocaleId(Integer localeId) {
+		this.localeId = localeId;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getMiddlename() {
+		return middlename;
+	}
+
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
+	}
 }

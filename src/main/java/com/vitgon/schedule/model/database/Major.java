@@ -29,10 +29,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-@Data
-@RequiredArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@ToString(of = {"url", "duration", "school"})
+
 @Entity
 @Table(
 		name = "majors",
@@ -66,4 +63,119 @@ public class Major extends BaseModel<Integer> {
 	
 	@OneToMany(mappedBy = "major", fetch = FetchType.LAZY)
 	private List<MajorTranslation> translations = new ArrayList<>();
+	
+	public Major() {
+		super();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
+
+	public DegreeEnum getDegree() {
+		return degree;
+	}
+
+	public void setDegree(DegreeEnum degree) {
+		this.degree = degree;
+	}
+
+	public Set<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Set<Group> groups) {
+		this.groups = groups;
+	}
+
+	public List<MajorTranslation> getTranslations() {
+		return translations;
+	}
+
+	public void setTranslations(List<MajorTranslation> translations) {
+		this.translations = translations;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((degree == null) ? 0 : degree.hashCode());
+		result = prime * result + duration;
+		result = prime * result + ((groups == null) ? 0 : groups.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((school == null) ? 0 : school.hashCode());
+		result = prime * result + ((translations == null) ? 0 : translations.hashCode());
+		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Major other = (Major) obj;
+		if (degree != other.degree)
+			return false;
+		if (duration != other.duration)
+			return false;
+		if (groups == null) {
+			if (other.groups != null)
+				return false;
+		} else if (!groups.equals(other.groups))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (school == null) {
+			if (other.school != null)
+				return false;
+		} else if (!school.equals(other.school))
+			return false;
+		if (translations == null) {
+			if (other.translations != null)
+				return false;
+		} else if (!translations.equals(other.translations))
+			return false;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
+			return false;
+		return true;
+	}
 }

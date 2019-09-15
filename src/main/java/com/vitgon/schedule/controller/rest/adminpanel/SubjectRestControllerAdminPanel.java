@@ -37,7 +37,7 @@ import com.vitgon.schedule.view.Views;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+
 @RestController
 @RequestMapping("/api/control/subjects")
 public class SubjectRestControllerAdminPanel {
@@ -45,6 +45,12 @@ public class SubjectRestControllerAdminPanel {
 	private SubjectDtoService subjectDtoService;
 	private SubjectService subjectService;
 	private MessageService messageService;
+
+	public SubjectRestControllerAdminPanel(SubjectDtoService subjectDtoService, SubjectService subjectService, MessageService messageService) {
+		this.subjectDtoService = subjectDtoService;
+		this.subjectService = subjectService;
+		this.messageService = messageService;
+	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

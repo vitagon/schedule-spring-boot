@@ -10,13 +10,18 @@ import com.vitgon.schedule.service.database.SubjectService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Component
 public class SubjectId2SubjectConverter implements Converter<Integer, Subject> {
-	
-	@Autowired
+
 	private SubjectService subjectService;
+
+	public SubjectId2SubjectConverter() {
+	}
+
+	@Autowired
+	public SubjectId2SubjectConverter(SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
 
 	@Override
 	public Subject convert(Integer subjectId) {

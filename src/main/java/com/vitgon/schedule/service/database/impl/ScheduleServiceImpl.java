@@ -15,14 +15,18 @@ import com.vitgon.schedule.service.database.ScheduleService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 @Transactional
 public class ScheduleServiceImpl implements ScheduleService {
 	
 	private final ScheduleDao scheduleDao;
 	private LocaleConverterService localeConverterService;
-	
+
+	public ScheduleServiceImpl(ScheduleDao scheduleDao, LocaleConverterService localeConverterService) {
+		this.scheduleDao = scheduleDao;
+		this.localeConverterService = localeConverterService;
+	}
+
 	@Override
 	public Schedule save(Schedule obj) {
 		return scheduleDao.save(obj);

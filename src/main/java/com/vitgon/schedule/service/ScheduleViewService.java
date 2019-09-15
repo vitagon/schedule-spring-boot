@@ -15,7 +15,6 @@ import com.vitgon.schedule.service.database.ScheduleService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class ScheduleViewService {
 	
@@ -23,6 +22,10 @@ public class ScheduleViewService {
 	private static final List<String> DAYS = getDaysList();
 	
 	private ScheduleDtoService scheduleDtoService;
+
+	public ScheduleViewService(ScheduleDtoService scheduleDtoService) {
+		this.scheduleDtoService = scheduleDtoService;
+	}
 
 	public void setScheduleViewVars(Locale locale, ModelAndView modelAndView, Integer groupId) {
 		ScheduleDto schedules = scheduleDtoService.getScheduleDtoByGroupId(groupId);

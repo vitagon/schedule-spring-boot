@@ -15,7 +15,6 @@ import com.vitgon.schedule.service.database.LocaleService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api")
 public class LocaleRestController {
@@ -23,7 +22,12 @@ public class LocaleRestController {
 	
 	private LocaleService localeService;
 	private LocaleDtoService localeMapperService;
-	
+
+	public LocaleRestController(LocaleService localeService, LocaleDtoService localeMapperService) {
+		this.localeService = localeService;
+		this.localeMapperService = localeMapperService;
+	}
+
 	@GetMapping("/create")
 	public void createEvent() {
 		

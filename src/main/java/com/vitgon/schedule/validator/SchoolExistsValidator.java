@@ -13,11 +13,14 @@ import com.vitgon.schedule.service.database.SchoolService;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Component
 public class SchoolExistsValidator implements ConstraintValidator<SchoolExists, Integer> {
 	
 	private SchoolService schoolService;
+
+	public SchoolExistsValidator(SchoolService schoolService) {
+		this.schoolService = schoolService;
+	}
 
 	@Override
 	public boolean isValid(Integer value, ConstraintValidatorContext context) {
