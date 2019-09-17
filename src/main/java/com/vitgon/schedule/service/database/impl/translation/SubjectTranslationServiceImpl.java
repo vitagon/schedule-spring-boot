@@ -1,11 +1,5 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.vitgon.schedule.dao.translation.SubjectTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
@@ -13,8 +7,11 @@ import com.vitgon.schedule.model.database.translation.SubjectTranslation;
 import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import com.vitgon.schedule.service.database.translation.SubjectTranslationService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional

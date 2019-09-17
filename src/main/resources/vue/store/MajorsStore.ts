@@ -35,29 +35,18 @@ const mutations = {
       major,
       ...state.majors.slice(updatedIndex + 1)
     ]
+  },
+  updateMajorTranslation(state: any, majorTranslation: any) {
+    let updatedIndex = state.majors.findIndex((x: any) => x.id == majorTranslation.majorId);
+    let major = state.majors[updatedIndex];
+    major.translation = majorTranslation.translation;
+
+    state.majors = [
+      ...state.majors.slice(0, updatedIndex),
+      major,
+      ...state.majors.slice(updatedIndex + 1)
+    ]
   }
-  // updateMajorName(state: any, updateMajorDto: any) {
-  //   let updatedIndex = state.schools.findIndex((x: any) => x.id == updateMajorDto.schoolId);
-  //   let major = state.majors[updatedIndex];
-  //   major.name = updateMajorDto.newSchoolName;
-
-  //   state.majors = [
-  //     ...state.majors.slice(0, updatedIndex),
-  //     major,
-  //     ...state.majors.slice(updatedIndex + 1)
-  //   ]
-  // },
-  // updateMajorTranslation(state: any, majorTranslation: any) {
-  //   let updatedIndex = state.majors.findIndex((x: any) => x.id == majorTranslation.schoolId);
-  //   let major = state.majors[updatedIndex];
-  //   major.translation = majorTranslation.translation;
-
-  //   state.majors = [
-  //     ...state.majors.slice(0, updatedIndex),
-  //     major,
-  //     ...state.majors.slice(updatedIndex + 1)
-  //   ]
-  // }
 }
 
 const actions = {

@@ -1,15 +1,11 @@
 package com.vitgon.schedule.converter;
 
-import java.util.Optional;
-
+import com.vitgon.schedule.model.database.School;
+import com.vitgon.schedule.service.database.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
-import com.vitgon.schedule.model.database.School;
-import com.vitgon.schedule.service.database.SchoolService;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import java.util.Optional;
 
 
 public class SchoolId2SchoolConverter implements Converter<Integer, School> {

@@ -1,12 +1,5 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.vitgon.schedule.dao.translation.UserTranslationDao;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.auth.User;
@@ -14,6 +7,12 @@ import com.vitgon.schedule.model.database.translation.UserTranslation;
 import com.vitgon.schedule.model.database.translation.pk.UserTranslationId;
 import com.vitgon.schedule.projection.UserProjection;
 import com.vitgon.schedule.service.database.translation.UserTranslationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional

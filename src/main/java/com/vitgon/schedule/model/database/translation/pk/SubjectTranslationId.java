@@ -1,18 +1,13 @@
 package com.vitgon.schedule.model.database.translation.pk;
 
-import java.io.Serializable;
-
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
 @Embeddable

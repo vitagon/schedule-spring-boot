@@ -1,9 +1,11 @@
 package com.vitgon.schedule.service.database.impl;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+import com.vitgon.schedule.dao.auth.UserDao;
+import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.model.database.auth.UserConnection;
+import com.vitgon.schedule.projection.UserProjection;
+import com.vitgon.schedule.service.database.UserConnectionService;
+import com.vitgon.schedule.service.database.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,14 +14,9 @@ import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dao.auth.UserDao;
-import com.vitgon.schedule.model.database.auth.User;
-import com.vitgon.schedule.model.database.auth.UserConnection;
-import com.vitgon.schedule.projection.UserProjection;
-import com.vitgon.schedule.service.database.UserConnectionService;
-import com.vitgon.schedule.service.database.UserService;
-
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

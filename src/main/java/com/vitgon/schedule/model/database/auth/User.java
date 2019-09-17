@@ -1,30 +1,16 @@
 package com.vitgon.schedule.model.database.auth;
 
+import com.vitgon.schedule.model.database.BaseModel;
+import com.vitgon.schedule.model.database.translation.UserTranslation;
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
-
-import com.vitgon.schedule.model.database.BaseModel;
-import com.vitgon.schedule.model.database.translation.UserTranslation;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
 @Entity

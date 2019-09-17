@@ -1,10 +1,9 @@
 package com.vitgon.schedule.service.auth;
 
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionSignUp;
-
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionSignUp;
 
 public class ConnectionSignUpImpl implements ConnectionSignUp {
 	

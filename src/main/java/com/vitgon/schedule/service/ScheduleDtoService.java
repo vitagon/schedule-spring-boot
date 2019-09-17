@@ -1,13 +1,5 @@
 package com.vitgon.schedule.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.vitgon.schedule.dto.EditScheduleDto;
 import com.vitgon.schedule.dto.ScheduleDto;
 import com.vitgon.schedule.dto.ScheduleDto.WeekSchedule;
@@ -22,6 +14,13 @@ import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.ScheduleService;
 import com.vitgon.schedule.service.database.SubjectService;
 import com.vitgon.schedule.service.database.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScheduleDtoService {

@@ -1,5 +1,7 @@
 package com.vitgon.schedule.config;
 
+import com.vitgon.schedule.handler.CustomAccessDeniedHandler;
+import com.vitgon.schedule.handler.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.social.security.SpringSocialConfigurer;
-
-import com.vitgon.schedule.handler.CustomAccessDeniedHandler;
-import com.vitgon.schedule.handler.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
-				.antMatchers("/control/**").hasAnyAuthority("MANAGER", "ADMIN")
+//				.antMatchers("/control/**").hasAnyAuthority("MANAGER", "ADMIN")
 				.antMatchers("/").permitAll()
 				.and()
 				.csrf().disable()

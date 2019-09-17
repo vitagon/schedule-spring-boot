@@ -1,19 +1,14 @@
 package com.vitgon.schedule.service;
 
+import com.vitgon.schedule.dto.ScheduleDto;
+import com.vitgon.schedule.model.database.Locale;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.vitgon.schedule.dto.ScheduleDto;
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.projection.ScheduleProjection;
-import com.vitgon.schedule.service.database.ScheduleService;
-
-import lombok.AllArgsConstructor;
 
 @Service
 public class ScheduleViewService {

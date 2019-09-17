@@ -1,18 +1,14 @@
 package com.vitgon.schedule.service.database.impl;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
-
 import com.vitgon.schedule.dao.auth.UserConnectionDao;
 import com.vitgon.schedule.model.database.auth.UserConnection;
 import com.vitgon.schedule.model.database.auth.pk.UserConnectionId;
 import com.vitgon.schedule.service.database.UserConnectionService;
+import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service

@@ -1,19 +1,14 @@
 package com.vitgon.schedule.controller.rest;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.projection.MajorProjection;
+import com.vitgon.schedule.service.database.MajorService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.model.database.Major;
-import com.vitgon.schedule.projection.MajorProjection;
-import com.vitgon.schedule.service.database.MajorService;
-
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MajorRestController {

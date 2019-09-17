@@ -1,15 +1,12 @@
 package com.vitgon.schedule.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
-
 import com.vitgon.schedule.dto.LocaleDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.database.LocaleService;
+import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LocaleDtoService {

@@ -2,13 +2,6 @@ package com.vitgon.schedule.model.database.auth.pk;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 
 public class UserConnectionId implements Serializable {
 

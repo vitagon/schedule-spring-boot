@@ -1,13 +1,11 @@
 package com.vitgon.schedule.converter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.databind.util.StdConverter;
 import com.vitgon.schedule.dto.DegreeEnum;
 import com.vitgon.schedule.service.MessageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 @Component
 public class DegreeEnumToStringConverter extends StdConverter<DegreeEnum, String> {

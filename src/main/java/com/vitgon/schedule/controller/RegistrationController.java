@@ -1,21 +1,17 @@
 package com.vitgon.schedule.controller;
 
-import java.util.Locale;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.service.database.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitgon.schedule.model.database.auth.User;
-import com.vitgon.schedule.service.database.UserService;
-import com.vitgon.schedule.util.MessageUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.Locale;
+import java.util.UUID;
 
 @Controller
 public class RegistrationController {

@@ -1,19 +1,16 @@
 package com.vitgon.schedule.service.database.impl;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.vitgon.schedule.dao.ScheduleDao;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Schedule;
 import com.vitgon.schedule.projection.ScheduleProjection;
 import com.vitgon.schedule.service.LocaleConverterService;
 import com.vitgon.schedule.service.database.ScheduleService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional

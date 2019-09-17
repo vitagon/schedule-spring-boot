@@ -1,11 +1,11 @@
 package com.vitgon.schedule.formatter;
 
+import org.springframework.format.Formatter;
+
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import org.springframework.format.Formatter;
 
 public class DateFormatter implements Formatter<Date> {
 

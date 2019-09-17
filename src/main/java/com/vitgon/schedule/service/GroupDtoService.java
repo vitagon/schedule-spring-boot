@@ -1,25 +1,15 @@
 package com.vitgon.schedule.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.springframework.stereotype.Service;
-
 import com.vitgon.schedule.converter.DegreeEnumToStringConverter;
 import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.projection.GroupProjection;
 import com.vitgon.schedule.service.database.GroupService;
+import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Service
 public class GroupDtoService {

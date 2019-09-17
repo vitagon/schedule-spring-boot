@@ -1,14 +1,13 @@
 package com.vitgon.schedule.dao;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.projection.MajorProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.vitgon.schedule.model.database.Major;
-import com.vitgon.schedule.projection.MajorProjection;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MajorDao extends JpaRepository<Major, Integer> {

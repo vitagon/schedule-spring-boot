@@ -1,39 +1,20 @@
 package com.vitgon.schedule.model.database.translation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import javax.persistence.*;
+import java.util.Objects;
 
 
-@Entity
+@Entity(name = "major_translations")
 @Table(name = "major_translations")
-@IdClass(MajorTranslationId.class)
 public class MajorTranslation {
 	
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "major_id")
-	@JsonBackReference
-	private Major major;
-	
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "locale_id")
-	private Locale locale;
+	@EmbeddedId
+	private MajorTranslationId majorTranslationId;
 	
 	@Column(name = "translation")
 	private String translation;
@@ -44,25 +25,16 @@ public class MajorTranslation {
 
 	public MajorTranslation(Major major, Locale locale, String translation) {
 		super();
-		this.major = major;
-		this.locale = locale;
+		this.majorTranslationId = new MajorTranslationId(major, locale);
 		this.translation = translation;
 	}
 
-	public Major getMajor() {
-		return major;
+	public MajorTranslationId getMajorTranslationId() {
+		return majorTranslationId;
 	}
 
-	public void setMajor(Major major) {
-		this.major = major;
-	}
-
-	public Locale getLocale() {
-		return locale;
-	}
-
-	public void setLocale(Locale locale) {
-		this.locale = locale;
+	public void setMajorTranslationId(MajorTranslationId majorTranslationId) {
+		this.majorTranslationId = majorTranslationId;
 	}
 
 	public String getTranslation() {
@@ -74,39 +46,16 @@ public class MajorTranslation {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
-		result = prime * result + ((major == null) ? 0 : major.hashCode());
-		result = prime * result + ((translation == null) ? 0 : translation.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		MajorTranslation that = (MajorTranslation) o;
+		return Objects.equals(majorTranslationId, that.majorTranslationId) &&
+				Objects.equals(translation, that.translation);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MajorTranslation other = (MajorTranslation) obj;
-		if (locale == null) {
-			if (other.locale != null)
-				return false;
-		} else if (!locale.equals(other.locale))
-			return false;
-		if (major == null) {
-			if (other.major != null)
-				return false;
-		} else if (!major.equals(other.major))
-			return false;
-		if (translation == null) {
-			if (other.translation != null)
-				return false;
-		} else if (!translation.equals(other.translation))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(majorTranslationId, translation);
 	}
 }

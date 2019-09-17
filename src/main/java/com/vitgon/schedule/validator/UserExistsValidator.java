@@ -1,17 +1,13 @@
 package com.vitgon.schedule.validator;
 
-import java.util.Optional;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
-import org.springframework.stereotype.Component;
-
 import com.vitgon.schedule.annotation.validation.UserExists;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
+import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.Optional;
 
 @Component
 public class UserExistsValidator implements ConstraintValidator<UserExists, Integer> {

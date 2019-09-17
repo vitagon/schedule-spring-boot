@@ -1,20 +1,17 @@
 package com.vitgon.schedule.controller.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.vitgon.schedule.dao.auth.UserDao;
+import com.vitgon.schedule.dto.UserDto;
+import com.vitgon.schedule.model.database.auth.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.dao.auth.UserDao;
-import com.vitgon.schedule.dto.UserDto;
-import com.vitgon.schedule.model.database.auth.User;
-
-import lombok.AllArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")

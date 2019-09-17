@@ -3,9 +3,6 @@ package com.vitgon.schedule.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 public class ScheduleDto implements Serializable {
 	private static final long serialVersionUID = -3539497859405915502L;

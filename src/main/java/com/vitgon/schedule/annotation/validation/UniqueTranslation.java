@@ -1,16 +1,14 @@
 package com.vitgon.schedule.annotation.validation;
 
+import com.vitgon.schedule.service.database.LocaleService;
+import com.vitgon.schedule.validator.UniqueTranslationValidator;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import javax.validation.Constraint;
-import javax.validation.Payload;
-
-import com.vitgon.schedule.service.database.LocaleService;
-import com.vitgon.schedule.service.database.base.Service;
-import com.vitgon.schedule.validator.UniqueTranslationValidator;
 
 /**
  * This annotation for searching if translation already exists.

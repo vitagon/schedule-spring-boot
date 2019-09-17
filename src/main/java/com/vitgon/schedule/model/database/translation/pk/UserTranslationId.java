@@ -1,20 +1,14 @@
 package com.vitgon.schedule.model.database.translation.pk;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.auth.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.auth.User;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
 
 @Embeddable

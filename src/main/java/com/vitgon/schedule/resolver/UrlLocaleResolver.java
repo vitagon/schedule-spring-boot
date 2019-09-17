@@ -1,15 +1,14 @@
 package com.vitgon.schedule.resolver;
 
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.servlet.LocaleResolver;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.Set;
 
 public class UrlLocaleResolver implements LocaleResolver {
 	

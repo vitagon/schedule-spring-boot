@@ -1,18 +1,12 @@
 package com.vitgon.schedule.model.database.translation.pk;
 
-import java.io.Serializable;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
 public class SchoolTranslationId implements Serializable {

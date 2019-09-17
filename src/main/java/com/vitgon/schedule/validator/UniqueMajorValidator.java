@@ -1,15 +1,12 @@
 package com.vitgon.schedule.validator;
 
-import java.util.Optional;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
 import com.vitgon.schedule.annotation.validation.UniqueMajor;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.service.database.MajorService;
 
-import lombok.AllArgsConstructor;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.Optional;
 
 public class UniqueMajorValidator implements ConstraintValidator<UniqueMajor, String> {
 

@@ -1,14 +1,9 @@
 package com.vitgon.schedule.model.database.translation.pk;
 
-import java.io.Serializable;
-
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
 
 
 public class GroupTranslationId implements Serializable {

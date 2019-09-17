@@ -1,13 +1,11 @@
 package com.vitgon.schedule.validator;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
 import com.vitgon.schedule.annotation.validation.UniqueSchool;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.SchoolService;
 
-import lombok.AllArgsConstructor;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 public class UniqueSchoolValidator implements ConstraintValidator<UniqueSchool, String>{
 	

@@ -1,17 +1,13 @@
 package com.vitgon.schedule.validator;
 
-import java.util.Optional;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
-import org.springframework.stereotype.Component;
-
 import com.vitgon.schedule.annotation.validation.SchoolExists;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.SchoolService;
+import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.Optional;
 
 @Component
 public class SchoolExistsValidator implements ConstraintValidator<SchoolExists, Integer> {
@@ -23,8 +19,8 @@ public class SchoolExistsValidator implements ConstraintValidator<SchoolExists, 
 	}
 
 	@Override
-	public boolean isValid(Integer value, ConstraintValidatorContext context) {
-		Optional<School> schoolOpt = schoolService.findById(value);
+	public boolean isValid(Integer id, ConstraintValidatorContext context) {
+		Optional<School> schoolOpt = schoolService.findById(id);
 		if (schoolOpt.isPresent()) {
 			return true;
 		}

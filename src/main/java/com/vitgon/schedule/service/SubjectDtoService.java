@@ -1,15 +1,12 @@
 package com.vitgon.schedule.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import com.vitgon.schedule.dto.SubjectDto;
 import com.vitgon.schedule.projection.SubjectProjection;
 import com.vitgon.schedule.service.database.SubjectService;
+import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class SubjectDtoService {

@@ -1,10 +1,5 @@
 package com.vitgon.schedule.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
 public class UserDto {
 	private Integer id;
 	private String firstname;

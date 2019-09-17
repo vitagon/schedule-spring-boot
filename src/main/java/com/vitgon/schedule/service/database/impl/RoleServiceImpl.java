@@ -1,15 +1,14 @@
 package com.vitgon.schedule.service.database.impl;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.vitgon.schedule.dao.auth.RoleDao;
+import com.vitgon.schedule.model.database.auth.Role;
+import com.vitgon.schedule.service.database.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vitgon.schedule.dao.auth.RoleDao;
-import com.vitgon.schedule.model.database.auth.Role;
-import com.vitgon.schedule.service.database.RoleService;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional

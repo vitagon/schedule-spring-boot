@@ -1,14 +1,13 @@
 package com.vitgon.schedule.service.database;
 
-import java.util.List;
-
+import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.projection.UserProjection;
+import com.vitgon.schedule.service.database.base.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.social.connect.Connection;
 
-import com.vitgon.schedule.model.database.auth.User;
-import com.vitgon.schedule.projection.UserProjection;
-import com.vitgon.schedule.service.database.base.Service;
+import java.util.List;
 
 public interface UserService extends Service<User, Integer> {
 	List<User> findByEmail(String email);

@@ -1,14 +1,13 @@
 package com.vitgon.schedule.dao;
 
-import java.util.List;
-
+import com.vitgon.schedule.model.database.Group;
+import com.vitgon.schedule.model.database.Schedule;
+import com.vitgon.schedule.projection.ScheduleProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.vitgon.schedule.model.database.Group;
-import com.vitgon.schedule.model.database.Schedule;
-import com.vitgon.schedule.projection.ScheduleProjection;
+import java.util.List;
 
 @Repository
 public interface ScheduleDao extends JpaRepository<Schedule, Integer> {

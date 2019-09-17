@@ -3,10 +3,6 @@ package com.vitgon.schedule.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.vitgon.schedule.view.Views;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 public class SubjectDto {
 	

@@ -1,19 +1,16 @@
 package com.vitgon.schedule.controller.rest;
 
-import java.util.List;
-
+import com.vitgon.schedule.dto.LocaleDto;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.service.LocaleDtoService;
+import com.vitgon.schedule.service.database.LocaleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitgon.schedule.dto.LocaleDto;
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.service.LocaleDtoService;
-import com.vitgon.schedule.service.database.LocaleService;
-
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")

@@ -1,19 +1,13 @@
 package com.vitgon.schedule.model.database.translation;
 
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.model.database.School;
+import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.School;
-import com.vitgon.schedule.model.database.translation.pk.SchoolTranslationId;
-import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 
 @Entity(name = "school_translations")

@@ -1,11 +1,11 @@
 package com.vitgon.schedule.service.database;
 
-import java.util.List;
-
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.projection.SchoolProjection;
 import com.vitgon.schedule.service.database.base.Service;
+
+import java.util.List;
 
 public interface SchoolService extends Service<School, Integer> {
 	School findByTranslation(String translation);

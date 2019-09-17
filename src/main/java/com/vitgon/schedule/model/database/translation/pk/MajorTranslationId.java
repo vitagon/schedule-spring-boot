@@ -1,21 +1,25 @@
 package com.vitgon.schedule.model.database.translation.pk;
 
-import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
 public class MajorTranslationId implements Serializable {
 	
 	private static final long serialVersionUID = 4322466337734164549L;
 
+	@ManyToOne
+	@JoinColumn(name = "major_id")
+	@JsonBackReference
 	private Major major;
+
+	@ManyToOne
+	@JoinColumn(name = "locale_id")
 	private Locale locale;
 	
 	public MajorTranslationId() {

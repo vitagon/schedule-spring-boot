@@ -1,20 +1,15 @@
 package com.vitgon.schedule.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.vitgon.schedule.dto.UserDto;
+import com.vitgon.schedule.dto.UserDtoAdminPanel;
+import com.vitgon.schedule.projection.UserProjection;
+import com.vitgon.schedule.service.database.UserService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.vitgon.schedule.dto.UserDto;
-import com.vitgon.schedule.dto.UserDtoAdminPanel;
-import com.vitgon.schedule.projection.ScheduleProjection;
-import com.vitgon.schedule.projection.UserProjection;
-import com.vitgon.schedule.service.database.UserService;
-
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDtoService {

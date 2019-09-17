@@ -2,9 +2,6 @@ package com.vitgon.schedule.model;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 
 public class ApiSuccess {
 	

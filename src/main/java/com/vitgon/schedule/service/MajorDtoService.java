@@ -1,11 +1,5 @@
 package com.vitgon.schedule.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.vitgon.schedule.dto.AddMajorDto;
 import com.vitgon.schedule.dto.DegreeEnum;
 import com.vitgon.schedule.dto.EditMajorDto;
@@ -17,8 +11,11 @@ import com.vitgon.schedule.projection.MajorProjection;
 import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.service.database.SchoolService;
 import com.vitgon.schedule.util.StringUtil;
+import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MajorDtoService {

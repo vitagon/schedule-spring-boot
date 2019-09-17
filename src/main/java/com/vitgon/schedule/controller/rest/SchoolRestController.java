@@ -1,17 +1,14 @@
 package com.vitgon.schedule.controller.rest;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.School;
 import com.vitgon.schedule.service.database.LocaleService;
 import com.vitgon.schedule.service.database.SchoolService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")

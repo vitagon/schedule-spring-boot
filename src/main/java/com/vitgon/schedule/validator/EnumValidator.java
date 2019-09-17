@@ -1,12 +1,11 @@
 package com.vitgon.schedule.validator;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.vitgon.schedule.annotation.validation.EnumMatch;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
-import com.vitgon.schedule.annotation.validation.EnumMatch;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnumValidator implements ConstraintValidator<EnumMatch, String> {
 	

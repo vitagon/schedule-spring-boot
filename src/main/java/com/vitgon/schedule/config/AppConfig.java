@@ -1,7 +1,14 @@
 package com.vitgon.schedule.config;
 
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vitgon.schedule.converter.SchoolId2SchoolConverter;
+import com.vitgon.schedule.converter.StringToDaysEnumConverter;
+import com.vitgon.schedule.converter.StringToDegreeEnumConverter;
+import com.vitgon.schedule.converter.SubjectId2SubjectConverter;
+import com.vitgon.schedule.formatter.DateFormatter;
+import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
+import com.vitgon.schedule.resolver.FromDTOMapper;
+import com.vitgon.schedule.resolver.UrlLocaleResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -11,7 +18,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
@@ -28,15 +34,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vitgon.schedule.converter.SchoolId2SchoolConverter;
-import com.vitgon.schedule.converter.StringToDaysEnumConverter;
-import com.vitgon.schedule.converter.StringToDegreeEnumConverter;
-import com.vitgon.schedule.converter.SubjectId2SubjectConverter;
-import com.vitgon.schedule.formatter.DateFormatter;
-import com.vitgon.schedule.interceptor.UrlLocaleInterceptor;
-import com.vitgon.schedule.resolver.FromDTOMapper;
-import com.vitgon.schedule.resolver.UrlLocaleResolver;
+import java.util.List;
 
 
 @Configuration

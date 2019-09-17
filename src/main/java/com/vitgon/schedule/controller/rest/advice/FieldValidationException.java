@@ -1,8 +1,5 @@
 package com.vitgon.schedule.controller.rest.advice;
 
-import lombok.Getter;
-
-
 public class FieldValidationException extends Exception {
 	
 	private String fieldName;

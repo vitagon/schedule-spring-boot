@@ -1,11 +1,10 @@
 package com.vitgon.schedule.config;
 
-import javax.sql.DataSource;
-
+import com.vitgon.schedule.service.auth.ConnectionSignUpImpl;
+import com.vitgon.schedule.service.database.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.encrypt.Encryptors;
@@ -21,8 +20,7 @@ import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 
-import com.vitgon.schedule.service.auth.ConnectionSignUpImpl;
-import com.vitgon.schedule.service.database.UserService;
+import javax.sql.DataSource;
 
 
 @EnableSocial

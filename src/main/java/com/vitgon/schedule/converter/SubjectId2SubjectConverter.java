@@ -1,14 +1,10 @@
 package com.vitgon.schedule.converter;
 
+import com.vitgon.schedule.model.database.Subject;
+import com.vitgon.schedule.service.database.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import com.vitgon.schedule.model.database.Subject;
-import com.vitgon.schedule.service.database.SubjectService;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Component
 public class SubjectId2SubjectConverter implements Converter<Integer, Subject> {

@@ -107,9 +107,9 @@ export default class MajorList extends Vue {
     this.$store.dispatch('getMajors');
     let _this = this;
 
-    EventBus.$on('school-translation-was-changed', function (schoolTranslation) {
-      if (schoolTranslation.localeId == _this.selectedLocale) {
-        _this.$store.commit('updateSchoolTranslation', schoolTranslation);
+    EventBus.$on('major-translation-was-changed', function (majorTranslation) {
+      if (majorTranslation.localeId == _this.selectedLocale) {
+        _this.$store.commit('updateMajorTranslation', majorTranslation);
       }
     });
   }

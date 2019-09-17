@@ -1,10 +1,7 @@
 package com.vitgon.schedule.resolver;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Collections;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vitgon.schedule.annotation.FromDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -19,8 +16,10 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vitgon.schedule.annotation.FromDTO;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Collections;
 
 @Component
 public class FromDTOMapper extends RequestResponseBodyMethodProcessor {

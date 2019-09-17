@@ -1,22 +1,20 @@
 package com.vitgon.schedule.validator;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
-
 import com.vitgon.schedule.annotation.validation.TranslationEntity;
 import com.vitgon.schedule.annotation.validation.UniqueField;
 import com.vitgon.schedule.annotation.validation.UniqueTranslation;
 import com.vitgon.schedule.exception.GenericTypeNotFoundException;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.service.database.base.Service;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 
 @Component
 public class UniqueTranslationValidator implements ConstraintValidator<UniqueTranslation, Object> {

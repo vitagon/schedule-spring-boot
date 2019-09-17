@@ -1,13 +1,10 @@
 package com.vitgon.schedule.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
 import com.vitgon.schedule.annotation.validation.Latin;
 import com.vitgon.schedule.annotation.validation.UniqueSchool;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 public class AddSchoolDto {

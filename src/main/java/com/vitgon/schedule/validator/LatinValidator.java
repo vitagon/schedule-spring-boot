@@ -1,11 +1,9 @@
 package com.vitgon.schedule.validator;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
 import com.vitgon.schedule.annotation.validation.Latin;
 
-import lombok.AllArgsConstructor;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 public class LatinValidator implements ConstraintValidator<Latin, String> {
 

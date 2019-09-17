@@ -1,12 +1,12 @@
 package com.vitgon.schedule.service.database.translation;
 
-import java.util.Optional;
-
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Subject;
 import com.vitgon.schedule.model.database.translation.SubjectTranslation;
 import com.vitgon.schedule.model.database.translation.pk.SubjectTranslationId;
 import com.vitgon.schedule.service.database.base.Service;
+
+import java.util.Optional;
 
 public interface SubjectTranslationService extends Service<SubjectTranslation, SubjectTranslationId> {
 	Optional<SubjectTranslation> findByLocaleCodeAndSubjectId(String localeCode, Integer subjectId);

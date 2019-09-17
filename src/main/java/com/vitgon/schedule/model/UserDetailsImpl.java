@@ -1,16 +1,15 @@
 package com.vitgon.schedule.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
+import com.vitgon.schedule.model.database.auth.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.security.SocialUserDetails;
 
-import com.vitgon.schedule.model.database.auth.Role;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 
 public class UserDetailsImpl implements UserDetails, SocialUserDetails {

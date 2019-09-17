@@ -1,16 +1,12 @@
 package com.vitgon.schedule.dto;
 
-import javax.validation.constraints.Size;
-import javax.validation.groups.Default;
-
 import com.vitgon.schedule.annotation.validation.LocaleExists;
 import com.vitgon.schedule.annotation.validation.UserExists;
 import com.vitgon.schedule.group.OnCheck;
 import com.vitgon.schedule.group.OnDelete;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 
 
 public class UserTranslationDto {

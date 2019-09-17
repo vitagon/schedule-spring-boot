@@ -3,12 +3,6 @@ package com.vitgon.schedule.dto;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class EditGroupDto {
 
 	public EditGroupDto() {

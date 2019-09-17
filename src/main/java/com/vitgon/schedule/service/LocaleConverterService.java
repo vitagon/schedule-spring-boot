@@ -1,17 +1,13 @@
 package com.vitgon.schedule.service;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vitgon.schedule.model.database.Locale;
+import com.vitgon.schedule.service.database.LocaleService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.service.database.LocaleService;
-
-import lombok.AllArgsConstructor;
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class LocaleConverterService {
