@@ -18,6 +18,14 @@ class MajorService {
     });
   }
 
+  getDegrees() {
+    return new Promise((res, rej) => {
+      axios.get('/api/degrees')
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
+
   getAllBySchoolId(schoolId) {
     return new Promise((res, rej) => {
       axios.get(`/api/majors/school-id/${schoolId}`)
@@ -39,6 +47,14 @@ class MajorService {
       axios.get(`/api/major/${majorId}/max-course-number`)
         .then(response => res(response))
         .catch(error => rej(error.response));
+    });
+  }
+
+  add(majorDto: MajorDto) {
+    return new Promise((res, rej) => {
+      axios.post(`/api/control/majors`, majorDto)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response.data));
     });
   }
   

@@ -35,8 +35,8 @@ public class MajorDtoService {
 		
 		Major major = new Major();
 		major.setSchool(school.get());
-		major.setName(addMajorDto.getTitle().toLowerCase());
-		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getTitle()));
+		major.setName(addMajorDto.getName().toLowerCase());
+		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getName()));
 		major.setDuration(addMajorDto.getDuration());
 		major.setDegree(DegreeEnum.valueOf(addMajorDto.getDegree()));
 		return major;
@@ -95,5 +95,23 @@ public class MajorDtoService {
 			majorDtoListAdminPanel.add(majorDto);
 		}
 		return majorDtoListAdminPanel;
+	}
+
+	public MajorDto getMajorById(Integer majorId) {
+		Locale locale = localeConverterService.getClientLocale();
+		Optional<MajorProjection> majorProjectionOpt = majorService.getByLocaleIdAndMajorId(locale.getId(), majorId);
+		if (majorProjectionOpt.isPresent()) {
+			MajorProjection majorProj = majorProjectionOpt.get();
+			MajorDto majorDto = new MajorDto();
+			majorDto.setId(majorProj.getId());
+			majorDto.setName(majorProj.getName());
+			majorDto.setTranslation(majorProj.getTranslation());
+			majorDto.setDuration(majorProj.getDuration());
+			majorDto.setDegree(majorProj.getDegree());
+			majorDto.setSchoolId(majorProj.getSchoolId());
+			majorDto.setSchoolName(majorProj.getSchoolName());
+			return majorDto;
+		}
+		return null;
 	}
 }

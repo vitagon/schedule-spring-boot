@@ -1,6 +1,7 @@
 package com.vitgon.schedule.controller.rest.adminpanel;
 
 import com.vitgon.schedule.annotation.validation.LocaleExists;
+import com.vitgon.schedule.annotation.validation.MajorExists;
 import com.vitgon.schedule.dto.AddMajorDto;
 import com.vitgon.schedule.dto.EditMajorDto;
 import com.vitgon.schedule.dto.MajorDto;
@@ -36,7 +37,7 @@ public class MajorRestControllerAdminPanel {
 	public MajorDto addMajor(@RequestBody @Valid AddMajorDto addMajorDto) {
 		Major major = majorDtoService.convertToEntity(addMajorDto);
 		major = majorService.save(major);
-		return majorDtoService.convertToDto(major);
+		return majorDtoService.getMajorById(major.getId());
 	}
 	
 	@PutMapping
@@ -68,6 +69,11 @@ public class MajorRestControllerAdminPanel {
 	@ResponseStatus(HttpStatus.OK)
 	public List<MajorDto> getMajors(@PathVariable("localeId") @LocaleExists Integer localeId) {
 		return majorDtoService.getAllByLocaleIdForAdminPanel(localeId);
+	}
+
+	@GetMapping("{id}")
+	public MajorDto getMajor(@PathVariable("id") @MajorExists Integer majorId) {
+		return majorDtoService.getMajorById(majorId);
 	}
 
 	@GetMapping

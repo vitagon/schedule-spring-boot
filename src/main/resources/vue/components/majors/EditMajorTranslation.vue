@@ -92,6 +92,8 @@ export default class EditMajorTranslation extends Vue {
       _this.addBtn.disabled = false;
       _this.editBtn.disabled = true;
       _this.removeBtn.disabled = true;
+      
+      _this.form.translation.value = '';
     });
   }
 

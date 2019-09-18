@@ -11,9 +11,9 @@ public class AddMajorDto {
 	public AddMajorDto() {
 	}
 
-	public AddMajorDto(@Min(value = 1, message = "{NotEmpty.default}") int schoolId, @NotEmpty(message = "{NotEmpty.default}") @Size(min = 5, max = 40, message = "{Size.default}") String title, @Min(value = 1, message = "{NotEmpty.default}") @Max(value = 10, message = "{Max.default}") int duration, @NotNull(message = "{NotNull.default}") String degree) {
+	public AddMajorDto(int schoolId, String name, int duration, String degree) {
 		this.schoolId = schoolId;
-		this.title = title;
+		this.name = name;
 		this.duration = duration;
 		this.degree = degree;
 	}
@@ -25,7 +25,7 @@ public class AddMajorDto {
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Size(min = 5, max = 40, message = "{Size.default}")
 	@Latin(message = "{Latin.default}")
-	private String title;
+	private String name;
 	
 	@Min(value = 1, message = "{NotEmpty.default}")
 	@Max(value = 10, message = "{Max.default}")
@@ -43,12 +43,12 @@ public class AddMajorDto {
 		this.schoolId = schoolId;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getDuration() {

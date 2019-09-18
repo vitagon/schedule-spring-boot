@@ -14,4 +14,6 @@ public interface MajorService extends Service<Major, Integer>{
 	List<MajorProjection> findBySchoolIdAndLocaleId(Integer schoolId, Integer localeId);
 	List<MajorProjection> findBySchoolIdAndBrowserDefaultLanguage(Integer schoolId);
 	List<MajorProjection> getAllLeftJoiningOnLocaleId(Integer localeId);
+
+    Optional<MajorProjection> getByLocaleIdAndMajorId(Integer id, Integer majorId);
 }

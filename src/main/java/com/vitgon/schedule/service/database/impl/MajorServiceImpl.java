@@ -51,7 +51,7 @@ public class MajorServiceImpl implements MajorService {
 	@Override
 	public Major findByTranslation(String translation) {
 		MajorTranslation majorTransl = majorTranslDao.findByTranslation(translation);
-		return majorTransl.getMajor();
+		return majorTransl.getMajorTranslationId().getMajor();
 	}
 	
 	@Override
@@ -88,5 +88,11 @@ public class MajorServiceImpl implements MajorService {
 	@Override
 	public List<MajorProjection> getAllLeftJoiningOnLocaleId(Integer localeId) {
 		return majorDao.getAllLeftJoiningOnLocaleId(localeId);
+	}
+
+
+	@Override
+	public Optional<MajorProjection> getByLocaleIdAndMajorId(Integer localeId, Integer majorId) {
+		return majorDao.getByLocaleIdAndMajorId(localeId, majorId);
 	}
 }

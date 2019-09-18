@@ -86,6 +86,11 @@ import { mapState } from 'vuex';
           }
         }
         return localesForSelect;
+      },
+      degrees: function(state:any) {
+        return state.majorsStore.degrees.map(function (degree) {
+          return {value: degree, text: degree};
+        });
       }
     })
   }
@@ -94,7 +99,6 @@ export default class EditMajor extends Vue {
     public form: any;
     public isOpened: boolean = false;
     public curMajor: Major;
-    public degrees: Array<string> = [];
 
     constructor() {
       super();
@@ -110,7 +114,7 @@ export default class EditMajor extends Vue {
     created() {
       let _this = this;
       _this.$store.dispatch('getSchools');
-      _this.getDegrees();
+      _this.$store.dispatch('getDegrees');
       EventBus.$on('show-edit-major-form', function (item: Major) {
         _this.isOpened = true;
         _this.curMajor = item;
@@ -155,16 +159,6 @@ export default class EditMajor extends Vue {
           let data = error.response.data;
           showValidationErrors(this.form, data.details);
         })
-    }
-
-    getDegrees() {
-      axios.get('/api/degrees')
-        .then(response => {
-          this.degrees = response.data.map(function (degree) {
-            return {value: degree, text: degree}
-          });
-        })
-        .catch(error => console.error(error));
     }
 }
 </script>

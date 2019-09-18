@@ -2,12 +2,16 @@ import MajorService from '@/services/MajorService'
 import Major from '@/models/Major';
 
 const state = {
-  majors: []
+  majors: [],
+  degrees: []
 }
 
 const mutations = {
   setMajors(state: any, majors: Array<Major>) {
     state.majors = majors;
+  },
+  setDegrees(state: any, degrees) {
+    state.degrees = degrees;
   },
   addMajor(state: any, major: Major) {
     state.majors = [
@@ -54,6 +58,10 @@ const actions = {
       let data = await MajorService.getAll();
       commit('setMajors', data);
       return data;
+    },
+    async getDegrees({ commit }) {
+      let data = await MajorService.getDegrees();
+      commit('setDegrees', data);
     },
     async removeMajor({ commit }, id) {
       await MajorService.remove(id);

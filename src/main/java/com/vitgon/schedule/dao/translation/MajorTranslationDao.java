@@ -29,14 +29,19 @@ public interface MajorTranslationDao extends JpaRepository<MajorTranslation, Maj
 			"WHERE "
 			+ "locale_id = :localeId AND major_id = :majorId",
 			nativeQuery = true)
-    void deleteByMajorIdAndLocaleId(Integer majorId, Integer localeId);
+    void deleteByMajorIdAndLocaleId(
+			@Param("majorId") Integer majorId,
+			@Param("localeId") Integer localeId);
 
     @Modifying
     @Query(value =
 			"INSERT INTO #{#entityName} "
-			+	"(localeId, majorId, translation) " +
+			+	"(locale_id, major_id, translation) " +
 			"VALUES "
 			+	"(:localeId, :majorId, :translation)",
 			nativeQuery = true)
-    void save(Integer localeId, Integer majorId, String translation);
+    void save(
+			@Param("majorId") Integer majorId,
+			@Param("localeId") Integer localeId,
+			@Param("translation") String translation);
 }
