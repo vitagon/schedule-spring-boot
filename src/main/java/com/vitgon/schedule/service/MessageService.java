@@ -25,4 +25,8 @@ public class MessageService {
 		Locale locale = (java.util.Locale) request.getSession().getAttribute("URL_LOCALE_ATTRIBUTE_NAME");
 		return messageSource.getMessage(i18nCode, null, locale);
 	}
+	
+	public String getMessage(String i18nCode, Locale locale) {
+		return messageSource.getMessage(i18nCode, null, locale);
+	}
 }

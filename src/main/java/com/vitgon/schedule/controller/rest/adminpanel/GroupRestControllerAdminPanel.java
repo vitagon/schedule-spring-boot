@@ -1,5 +1,7 @@
 package com.vitgon.schedule.controller.rest.adminpanel;
 
+import com.vitgon.schedule.annotation.validation.LocaleExists;
+import com.vitgon.schedule.annotation.validation.MajorExists;
 import com.vitgon.schedule.dto.AddGroupDto;
 import com.vitgon.schedule.dto.EditGroupDto;
 import com.vitgon.schedule.dto.GroupDto;
@@ -7,6 +9,7 @@ import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Major;
+import com.vitgon.schedule.service.GroupDtoService;
 import com.vitgon.schedule.service.MessageService;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.MajorService;
@@ -19,17 +22,34 @@ import java.util.*;
 
 
 @RestController
-@RequestMapping("/api/control/group")
+@RequestMapping("/api/groups")
 public class GroupRestControllerAdminPanel {
 	
 	private GroupService groupService;
 	private MajorService majorService;
 	private MessageService messageService;
+	private GroupDtoService groupDtoService;
 
-	public GroupRestControllerAdminPanel(GroupService groupService, MajorService majorService, MessageService messageService) {
+	public GroupRestControllerAdminPanel(
+			GroupService groupService, MajorService majorService,
+			MessageService messageService, GroupDtoService groupDtoService) {
 		this.groupService = groupService;
 		this.majorService = majorService;
 		this.messageService = messageService;
+		this.groupDtoService = groupDtoService;
+	}
+
+	@GetMapping("/major-id/{majorId}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<GroupDto> getGroups(@PathVariable @MajorExists Integer majorId) {
+		return groupDtoService.getGroupDtoListByMajorId(majorId);
+	}
+
+	@GetMapping("/major-id/{majorId}/locale-id/{localeId}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<GroupDto> getGroups(@PathVariable @MajorExists Integer majorId,
+									@PathVariable @LocaleExists Integer localeId) {
+		return groupDtoService.getGroupDtoListByMajorIdAndLocaleId(majorId, localeId);
 	}
 
 	@PostMapping

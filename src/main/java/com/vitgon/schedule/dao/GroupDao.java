@@ -53,4 +53,19 @@ public interface GroupDao extends JpaRepository<Group, Integer> {
 			+	"majors m ON m.id = g.major_id ",
 			nativeQuery = true)
 	List<GroupProjection> getAllByLocaleId(@Param("localeId") Integer localeId);
+
+	@Query(value =
+			"SELECT "
+			+ 	"g.id, g.number, g.suffix, g.course_num, m.degree, "
+			+	"gt.suffix_translation " +
+			"FROM "
+			+	"_groups g " +
+			"JOIN "
+			+	"majors m ON m.id = g.major_id " +
+			"LEFT JOIN "
+			+	"(select * from group_translations where locale_id = :localeId) gt ON gt.group_id = g.id " +
+			"WHERE "
+			+	"g.major_id = :majorId",
+			nativeQuery = true)
+    List<GroupProjection> getAllByMajorIdAndLocaleId(@Param("majorId") Integer majorId, @Param("localeId") Integer localeId);
 }

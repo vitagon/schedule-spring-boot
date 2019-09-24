@@ -69,4 +69,9 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupProjection> getAllByLocaleId(Integer localeId) {
 		return groupDao.getAllByLocaleId(localeId);
 	}
+
+	@Override
+	public List<GroupProjection> getAllByMajorIdAndLocaleId(Integer majorId, Integer localeId) {
+		return groupDao.getAllByMajorIdAndLocaleId(majorId, localeId);
+	}
 }
