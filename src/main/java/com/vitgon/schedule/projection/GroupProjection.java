@@ -13,4 +13,6 @@ public interface GroupProjection {
 	
 	@JsonSerialize(converter = DegreeEnumToStringConverter.class)
 	DegreeEnum getDegree();
+	
+	Integer getMajor_id();
 }

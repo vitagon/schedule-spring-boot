@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Group from '@/models/Group';
 
 class GroupService {
   private static _instance = new GroupService();
@@ -28,6 +29,14 @@ class GroupService {
   getGroupsByMajorIdAndLocaleId(majorId, localeId) {
     return new Promise((res, rej) => {
       axios.get(`/api/groups/major-id/${majorId}/locale-id/${localeId}`)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
+
+  edit(group: Group) {
+    return new Promise((res, rej) => {
+      axios.put(`/api/groups/${group.id}`, group)
         .then(response => res(response.data))
         .catch(error => rej(error.response));
     });

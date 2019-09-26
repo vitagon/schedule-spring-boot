@@ -153,9 +153,9 @@ export default class GroupsList extends Vue {
   }
 
   showEditMajorForm(row) {
-    EventBus.$emit('hide-add-major-form');
-    EventBus.$emit('show-edit-major-form', row.item);
-    EventBus.$emit('show-edit-major-translation-form', row.item);
+    EventBus.$emit('hide-add-group-form');
+    EventBus.$emit('show-edit-group-form', row.item);
+    EventBus.$emit('show-edit-group-translation-form', row.item);
   }
 
   showRemoveMajorModal(row) {

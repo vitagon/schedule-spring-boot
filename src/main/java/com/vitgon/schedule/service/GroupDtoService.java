@@ -133,7 +133,26 @@ public class GroupDtoService {
 					groupDto.setSuffixTranslation(projection.getSuffix_translation());
 					groupDto.setDegree(projection.getDegree().name().toLowerCase());
 					groupDto.setDegreeTranslation(getDegreeTranslation(projection.getDegree().name().toLowerCase(), locale));
+					groupDto.setMajorId(majorId);
 					return groupDto;
 				}).collect(Collectors.toList());
+	}
+
+	public GroupDto getGroupDtoByGroupIdAndLocaleId(Integer groupId, Integer localeId) {
+		GroupProjection groupProjection = groupService.getByGroupIdAndLocaleId(groupId, localeId);
+		Locale locale = localeService.findById(localeId).get();
+		
+		GroupDto groupDto = new GroupDto();
+		groupDto.setId(groupProjection.getId());
+		groupDto.setName(getGroupName(groupProjection));
+		groupDto.setNameTranslation(getGroupNameTranslation(groupProjection, locale));
+		groupDto.setCourseNum(groupProjection.getCourse_num());
+		groupDto.setNumber(groupProjection.getNumber());
+		groupDto.setSuffix(groupProjection.getSuffix());
+		groupDto.setSuffixTranslation(groupProjection.getSuffix_translation());
+		groupDto.setDegree(groupProjection.getDegree().name().toLowerCase());
+		groupDto.setDegreeTranslation(getDegreeTranslation(groupProjection.getDegree().name().toLowerCase(), locale));
+		groupDto.setMajorId(groupProjection.getMajor_id());
+		return groupDto;
 	}
 }

@@ -1,9 +1,31 @@
 package com.vitgon.schedule.controller.rest.adminpanel;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vitgon.schedule.annotation.validation.GroupExists;
 import com.vitgon.schedule.annotation.validation.LocaleExists;
 import com.vitgon.schedule.annotation.validation.MajorExists;
 import com.vitgon.schedule.dto.AddGroupDto;
-import com.vitgon.schedule.dto.EditGroupDto;
 import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
@@ -13,12 +35,6 @@ import com.vitgon.schedule.service.GroupDtoService;
 import com.vitgon.schedule.service.MessageService;
 import com.vitgon.schedule.service.database.GroupService;
 import com.vitgon.schedule.service.database.MajorService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.*;
 
 
 @RestController
@@ -50,6 +66,13 @@ public class GroupRestControllerAdminPanel {
 	public List<GroupDto> getGroups(@PathVariable @MajorExists Integer majorId,
 									@PathVariable @LocaleExists Integer localeId) {
 		return groupDtoService.getGroupDtoListByMajorIdAndLocaleId(majorId, localeId);
+	}
+	
+	@GetMapping("/{id}/locale-id/{localeId}")
+	@ResponseStatus(HttpStatus.OK)
+	public GroupDto getGroup(@PathVariable("id") Integer groupId,
+							 @PathVariable Integer localeId) {
+		return groupDtoService.getGroupDtoByGroupIdAndLocaleId(groupId, localeId);
 	}
 
 	@PostMapping
@@ -85,18 +108,18 @@ public class GroupRestControllerAdminPanel {
 		return group.getMajor().getDegree().name();
 	}
 
-	@PutMapping
+	@PutMapping("{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public GroupDto editGroup(@RequestBody @Valid EditGroupDto editGroupDto) {
-		Optional<Group> groupOpt = groupService.findById(editGroupDto.getId());
+	public void editGroup(@PathVariable("id") @GroupExists Integer groupId,
+							  @RequestBody @Valid GroupDto groupDto) {
+		Group group = groupService.findById(groupId).get();
+		Major major = majorService.findById(groupDto.getMajorId()).get();
 		
-		if (!groupOpt.isPresent()) {
-			throw new IllegalArgumentException("Group was not found!");
-		}
-		Group group = groupOpt.get();
-		group.setCourseNum(editGroupDto.getCourseNum());
-		group = groupService.update(group);
-		return convertToDto(group);
+		group.setNumber(groupDto.getNumber());
+		group.setSuffix(groupDto.getSuffix());
+		group.setCourseNum(groupDto.getCourseNum());
+		group.setMajor(major);
+		groupService.update(group);
 	}
 	
 	@DeleteMapping(params = {"id"})

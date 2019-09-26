@@ -12,4 +12,5 @@ public interface GroupService extends Service<Group, Integer> {
 	List<GroupProjection> getAllByLocaleId(Integer localeId);
 
 	List<GroupProjection> getAllByMajorIdAndLocaleId(Integer majorId, Integer localeId);
+	GroupProjection getByGroupIdAndLocaleId(Integer groupId, Integer localeId);
 }

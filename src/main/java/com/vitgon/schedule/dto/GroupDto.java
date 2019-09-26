@@ -1,17 +1,28 @@
 package com.vitgon.schedule.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import com.vitgon.schedule.annotation.validation.MajorExists;
+
 public class GroupDto {
-	private int id;
+	private Integer id;
 	private String name;
 	private String nameTranslation;
 
 	private Integer number;
+	
+	@Min(value = 1, message = "{NotEmpty.default}")
+	@Max(value = 6, message = "{NotEmpty.default}")
 	private Integer courseNum;
 	private String suffix;
 	private String suffixTranslation;
 
 	private String degree;
 	private String degreeTranslation;
+	
+	@MajorExists
+	private Integer majorId;
 	
 	public GroupDto(int id, String name) {
 		super();
@@ -92,5 +103,13 @@ public class GroupDto {
 
 	public void setDegreeTranslation(String degreeTranslation) {
 		this.degreeTranslation = degreeTranslation;
+	}
+
+	public Integer getMajorId() {
+		return majorId;
+	}
+
+	public void setMajorId(Integer majorId) {
+		this.majorId = majorId;
 	}
 }
