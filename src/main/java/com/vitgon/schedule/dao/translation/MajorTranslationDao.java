@@ -1,7 +1,5 @@
 package com.vitgon.schedule.dao.translation;
 
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 import org.springframework.data.jpa.repository.JpaRepository;

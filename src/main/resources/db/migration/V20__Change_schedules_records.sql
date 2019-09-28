@@ -1,0 +1,1 @@
+update schedules set group_id = 78 where group_id = 17;

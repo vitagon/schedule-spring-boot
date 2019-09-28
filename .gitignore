@@ -2,6 +2,7 @@ target
 .idea
 .mvn
 .settings
+.vscode
 .classpath
 .project
 mvnw.cmd

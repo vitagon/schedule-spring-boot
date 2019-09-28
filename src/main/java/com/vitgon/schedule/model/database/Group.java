@@ -11,20 +11,11 @@ import java.util.Set;
 
 
 @Entity
-@Table(
-		name = "_groups",
-		uniqueConstraints = @UniqueConstraint(
-			columnNames = {"major_id","number","suffix"},
-			name = "UQ__groups_major_id_number"
-		)	
-)
+@Table(name = "_groups")
 public class Group extends BaseModel<Integer> {
 	
-	@Column(name = "number", nullable = false)
-	private Integer number;
-	
-	@Column(name = "suffix", nullable = false)
-	private String suffix;
+	@Column(name = "name", nullable = false)
+	private String name;
 	
 	@Column(name = "course_num", nullable = false)
 	private Integer courseNum;
@@ -46,22 +37,6 @@ public class Group extends BaseModel<Integer> {
 	public Group(int courseNum, Major major) {
 		this.courseNum = courseNum;
 		this.major = major;
-	}
-
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public String getSuffix() {
-		return suffix;
-	}
-
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
 	}
 
 	public Integer getCourseNum() {
@@ -103,9 +78,8 @@ public class Group extends BaseModel<Integer> {
 		result = prime * result + ((courseNum == null) ? 0 : courseNum.hashCode());
 		result = prime * result + ((groupTranslations == null) ? 0 : groupTranslations.hashCode());
 		result = prime * result + ((major == null) ? 0 : major.hashCode());
-		result = prime * result + ((number == null) ? 0 : number.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((schedules == null) ? 0 : schedules.hashCode());
-		result = prime * result + ((suffix == null) ? 0 : suffix.hashCode());
 		return result;
 	}
 
@@ -133,20 +107,15 @@ public class Group extends BaseModel<Integer> {
 				return false;
 		} else if (!major.equals(other.major))
 			return false;
-		if (number == null) {
-			if (other.number != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!number.equals(other.number))
+		} else if (!name.equals(other.name))
 			return false;
 		if (schedules == null) {
 			if (other.schedules != null)
 				return false;
 		} else if (!schedules.equals(other.schedules))
-			return false;
-		if (suffix == null) {
-			if (other.suffix != null)
-				return false;
-		} else if (!suffix.equals(other.suffix))
 			return false;
 		return true;
 	}

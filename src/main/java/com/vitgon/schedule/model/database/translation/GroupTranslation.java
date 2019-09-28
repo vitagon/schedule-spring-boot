@@ -24,8 +24,8 @@ public class GroupTranslation {
 	@JoinColumn(name = "locale_id")
 	public Locale locale;
 	
-	@Column(name = "suffix_translation", nullable = false)
-	public String suffixTranslation;
+	@Column(name = "translation", nullable = false)
+	public String translation;
 
 	public GroupTranslation() {
 		super();

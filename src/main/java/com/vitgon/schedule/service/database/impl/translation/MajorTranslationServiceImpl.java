@@ -1,8 +1,6 @@
 package com.vitgon.schedule.service.database.impl.translation;
 
 import com.vitgon.schedule.dao.translation.MajorTranslationDao;
-import com.vitgon.schedule.model.database.Locale;
-import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.MajorTranslation;
 import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;
 import com.vitgon.schedule.service.database.translation.MajorTranslationService;

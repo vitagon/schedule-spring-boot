@@ -8,18 +8,11 @@ import com.vitgon.schedule.annotation.validation.MajorExists;
 public class GroupDto {
 	private Integer id;
 	private String name;
-	private String nameTranslation;
-
-	private Integer number;
+	private String translation;
 	
 	@Min(value = 1, message = "{NotEmpty.default}")
 	@Max(value = 6, message = "{NotEmpty.default}")
 	private Integer courseNum;
-	private String suffix;
-	private String suffixTranslation;
-
-	private String degree;
-	private String degreeTranslation;
 	
 	@MajorExists
 	private Integer majorId;
@@ -37,7 +30,7 @@ public class GroupDto {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -48,29 +41,13 @@ public class GroupDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getNameTranslation() {
-		return nameTranslation;
+
+	public String getTranslation() {
+		return translation;
 	}
 
-	public void setNameTranslation(String nameTranslation) {
-		this.nameTranslation = nameTranslation;
-	}
-
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public String getSuffix() {
-		return suffix;
-	}
-
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
+	public void setTranslation(String translation) {
+		this.translation = translation;
 	}
 
 	public Integer getCourseNum() {
@@ -79,30 +56,6 @@ public class GroupDto {
 
 	public void setCourseNum(Integer courseNum) {
 		this.courseNum = courseNum;
-	}
-
-	public String getSuffixTranslation() {
-		return suffixTranslation;
-	}
-
-	public void setSuffixTranslation(String suffixTranslation) {
-		this.suffixTranslation = suffixTranslation;
-	}
-
-	public String getDegree() {
-		return degree;
-	}
-
-	public void setDegree(String degree) {
-		this.degree = degree;
-	}
-
-	public String getDegreeTranslation() {
-		return degreeTranslation;
-	}
-
-	public void setDegreeTranslation(String degreeTranslation) {
-		this.degreeTranslation = degreeTranslation;
 	}
 
 	public Integer getMajorId() {
