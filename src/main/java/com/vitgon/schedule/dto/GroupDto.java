@@ -2,14 +2,19 @@ package com.vitgon.schedule.dto;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.vitgon.schedule.annotation.validation.MajorExists;
 
 public class GroupDto {
 	private Integer id;
+	
+	@NotEmpty(message = "{NotEmpty.default}")
 	private String name;
 	private String translation;
 	
+	@NotNull(message = "{NotEmpty.default}")
 	@Min(value = 1, message = "{NotEmpty.default}")
 	@Max(value = 6, message = "{NotEmpty.default}")
 	private Integer courseNum;

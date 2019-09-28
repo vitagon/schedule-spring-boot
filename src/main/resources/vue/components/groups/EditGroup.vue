@@ -17,20 +17,14 @@
           <div v-for="validationMsg in form.majorId.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
         </b-form-invalid-feedback>
 
-        <label for="number">Number</label>
-        <b-input v-model="form.number.value" :state="form.number.isValid" id="number"></b-input>
-        <b-form-invalid-feedback :state="form.number.isValid">
-          <div v-for="validationMsg in form.number.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
-        </b-form-invalid-feedback>
-
-        <label for="suffix">Suffix</label>
-        <b-input v-model="form.suffix.value" id="suffix">
+        <label for="name">Name</label>
+        <b-input v-model="form.name.value" id="name">
             <template slot="first">
               <option :value="null" disabled>-- Choose --</option>
             </template>            
         </b-input>
-        <b-form-invalid-feedback :state="form.suffix.isValid">
-          <div v-for="validationMsg in form.suffix.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
+        <b-form-invalid-feedback :state="form.name.isValid">
+          <div v-for="validationMsg in form.name.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
         </b-form-invalid-feedback>
 
         <label for="course">Course</label>
@@ -60,7 +54,7 @@ import EventBus from '@/EventBus'
 import FormField from '@/form/FormField'
 import Component from 'vue-class-component'
 import Major from '@/models/Major'
-import {showValidationErrors, clearForm} from '@/util/FormUtil'
+import {showValidationErrors, clearForm, clearValidationMsgs} from '@/util/FormUtil'
 import GroupService from '@/services/GroupService'
 import MajorDto from '@/models/MajorDto'
 import Group from '@/models/Group'
@@ -86,8 +80,7 @@ export default class EditGroup extends Vue {
       super();
       this.form = {
         majorId: new FormField(),
-        number: new FormField(),
-        suffix: new FormField(),
+        name: new FormField(),
         courseNum: new FormField()
       };
       this.curGroup = new Group();
@@ -101,8 +94,7 @@ export default class EditGroup extends Vue {
         
         _this.clearForm();
         _this.form.majorId.value = item.majorId;
-        _this.form.number.value = item.number;
-        _this.form.suffix.value = item.suffix;
+        _this.form.name.value = item.name;
         _this.form.courseNum.value = item.courseNum;
       });
 
@@ -116,10 +108,10 @@ export default class EditGroup extends Vue {
     }
     
     async editGroup() {
+      clearValidationMsgs(this.form);
       let group = new Group({
         id: this.curGroup.id,
-        number: this.form.number.value,
-        suffix: this.form.suffix.value,
+        name: this.form.name.value,
         courseNum: this.form.courseNum.value,
         majorId: this.form.majorId.value
       });
@@ -127,8 +119,9 @@ export default class EditGroup extends Vue {
       try {
         await GroupService.edit(group);
       } catch (error) {
-        let data = error.response.data;
+        let data = error.data;
         showValidationErrors(this.form, data.details);
+        return;
       }
       
       this.$bvToast.toast(`Group was edited successfully!`, {

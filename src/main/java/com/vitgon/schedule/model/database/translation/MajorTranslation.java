@@ -1,6 +1,5 @@
 package com.vitgon.schedule.model.database.translation;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
 import com.vitgon.schedule.model.database.translation.pk.MajorTranslationId;

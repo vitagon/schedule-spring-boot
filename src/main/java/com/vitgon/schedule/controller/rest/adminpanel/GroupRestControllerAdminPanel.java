@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vitgon.schedule.annotation.validation.GroupExists;
 import com.vitgon.schedule.annotation.validation.LocaleExists;
 import com.vitgon.schedule.annotation.validation.MajorExists;
-import com.vitgon.schedule.dto.AddGroupDto;
 import com.vitgon.schedule.dto.GroupDto;
 import com.vitgon.schedule.model.ApiError;
 import com.vitgon.schedule.model.ApiSuccess;
@@ -83,8 +82,8 @@ public class GroupRestControllerAdminPanel {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public GroupDto addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {
-		Optional<Major> major = majorService.findById(addGroupDto.getMajorId());
+	public GroupDto addGroup(@RequestBody @Valid GroupDto groupDto) {
+		Optional<Major> major = majorService.findById(groupDto.getMajorId());
 		
 		if (major == null) {
 			throw new IllegalArgumentException("Major was not found!");
@@ -92,26 +91,17 @@ public class GroupRestControllerAdminPanel {
 		
 		Group group = new Group();
 		group.setMajor(major.get());
-		group.setNumber(addGroupDto.getNumber());
-		group.setSuffix(addGroupDto.getSuffix());
-		group.setCourseNum(addGroupDto.getCourseNum());
+		group.setName(groupDto.getName());
+		group.setCourseNum(groupDto.getCourseNum());
 		
 		group = groupService.save(group);
-		GroupDto groupDto = convertToDto(group);
+		groupDto = convertToDto(group);
 		return groupDto;
 	}
 	
 	private GroupDto convertToDto(Group group) {
-		GroupDto groupDto = new GroupDto(group.getId(), getGroupTitle(group));
+		GroupDto groupDto = new GroupDto(group.getId(), group.getName());
 		return groupDto;
-	}
-	
-	private String getGroupTitle(Group group) {
-		return getDegree(group).charAt(0) + String.valueOf(group.getNumber()) + group.getSuffix();
-	}
-	
-	private String getDegree(Group group) {
-		return group.getMajor().getDegree().name();
 	}
 
 	@PutMapping("{id}")
@@ -121,8 +111,7 @@ public class GroupRestControllerAdminPanel {
 		Group group = groupService.findById(groupId).get();
 		Major major = majorService.findById(groupDto.getMajorId()).get();
 		
-		group.setNumber(groupDto.getNumber());
-		group.setSuffix(groupDto.getSuffix());
+		group.setName(groupDto.getName());
 		group.setCourseNum(groupDto.getCourseNum());
 		group.setMajor(major);
 		groupService.update(group);

@@ -39,6 +39,14 @@ public class Group extends BaseModel<Integer> {
 		this.major = major;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Integer getCourseNum() {
 		return courseNum;
 	}

@@ -31,11 +31,11 @@ public class GroupTranslation {
 		super();
 	}
 
-	public GroupTranslation(Group group, Locale locale, String suffixTranslation) {
+	public GroupTranslation(Group group, Locale locale, String translation) {
 		super();
 		this.group = group;
 		this.locale = locale;
-		this.suffixTranslation = suffixTranslation;
+		this.translation = translation;
 	}
 
 	public Group getGroup() {
@@ -54,12 +54,12 @@ public class GroupTranslation {
 		this.locale = locale;
 	}
 
-	public String getSuffixTranslation() {
-		return suffixTranslation;
+	public String getTranslation() {
+		return translation;
 	}
 
-	public void setSuffixTranslation(String suffixTranslation) {
-		this.suffixTranslation = suffixTranslation;
+	public void setTranslation(String translation) {
+		this.translation = translation;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class GroupTranslation {
 		int result = 1;
 		result = prime * result + ((group == null) ? 0 : group.hashCode());
 		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
-		result = prime * result + ((suffixTranslation == null) ? 0 : suffixTranslation.hashCode());
+		result = prime * result + ((translation == null) ? 0 : translation.hashCode());
 		return result;
 	}
 
@@ -91,11 +91,13 @@ public class GroupTranslation {
 				return false;
 		} else if (!locale.equals(other.locale))
 			return false;
-		if (suffixTranslation == null) {
-			if (other.suffixTranslation != null)
+		if (translation == null) {
+			if (other.translation != null)
 				return false;
-		} else if (!suffixTranslation.equals(other.suffixTranslation))
+		} else if (!translation.equals(other.translation))
 			return false;
 		return true;
 	}
+
+	
 }
