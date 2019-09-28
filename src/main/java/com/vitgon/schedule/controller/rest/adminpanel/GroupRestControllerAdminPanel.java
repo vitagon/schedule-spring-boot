@@ -75,6 +75,12 @@ public class GroupRestControllerAdminPanel {
 		return groupDtoService.getGroupDtoByGroupIdAndLocaleId(groupId, localeId);
 	}
 
+	@GetMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public GroupDto getGroup(@PathVariable("id") Integer groupId) {
+		return groupDtoService.getGroupDtoByGroupId(groupId);
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public GroupDto addGroup(@RequestBody @Valid AddGroupDto addGroupDto) {

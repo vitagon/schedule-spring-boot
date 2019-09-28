@@ -34,6 +34,22 @@ class GroupService {
     });
   }
 
+  getByGroupIdAndLocaleId(groupId, localeId) {
+    return new Promise((res, rej) => {
+      axios.get(`/api/groups/${groupId}/locale-id/${localeId}`)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
+
+  getByGroupId(groupId) {
+    return new Promise((res, rej) => {
+      axios.get(`/api/groups/${groupId}`)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
+
   edit(group: Group) {
     return new Promise((res, rej) => {
       axios.put(`/api/groups/${group.id}`, group)

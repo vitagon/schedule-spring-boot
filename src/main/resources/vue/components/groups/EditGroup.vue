@@ -115,7 +115,7 @@ export default class EditGroup extends Vue {
       clearForm(this.form);
     }
     
-    editGroup() {
+    async editGroup() {
       let group = new Group({
         id: this.curGroup.id,
         number: this.form.number.value,
@@ -124,21 +124,21 @@ export default class EditGroup extends Vue {
         majorId: this.form.majorId.value
       });
 
-      GroupService.edit(group)
-        .then(group => {
-          this.$bvToast.toast(`Group was edited successfully!`, {
-            title: 'Notification',
-            autoHideDelay: 5000,
-            appendToast: false
-          });
-          this.clearForm();
+      try {
+        await GroupService.edit(group);
+      } catch (error) {
+        let data = error.response.data;
+        showValidationErrors(this.form, data.details);
+      }
+      
+      this.$bvToast.toast(`Group was edited successfully!`, {
+        title: 'Notification',
+        autoHideDelay: 5000,
+        appendToast: false
+      });
+      this.clearForm();
 
-          this.$store.commit('updateGroup', group);
-        })
-        .catch(error => {
-          let data = error.response.data;
-          showValidationErrors(this.form, data.details);
-        })
+      EventBus.$emit('group-was-updated', this.curGroup.id);
     }
 }
 </script>

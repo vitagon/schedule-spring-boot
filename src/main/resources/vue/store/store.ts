@@ -6,6 +6,7 @@ import {subjectsStore} from '@/store/SubjectsStore'
 import {scheduleStore} from '@/store/ScheduleStore'
 import {teachersStore} from '@/store/TeachersStore'
 import {majorsStore} from '@/store/MajorsStore'
+import {groupsStore} from '@/store/GroupsStore'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     subjectsStore,
     scheduleStore,
     teachersStore,
-    majorsStore
+    majorsStore,
+    groupsStore
   }
 })

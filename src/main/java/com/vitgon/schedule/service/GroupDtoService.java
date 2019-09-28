@@ -155,4 +155,9 @@ public class GroupDtoService {
 		groupDto.setMajorId(groupProjection.getMajor_id());
 		return groupDto;
 	}
+
+	public GroupDto getGroupDtoByGroupId(Integer groupId) {
+		Locale locale = localeConverterService.getClientLocale();
+		return getGroupDtoByGroupIdAndLocaleId(groupId, locale.getId());
+	}
 }

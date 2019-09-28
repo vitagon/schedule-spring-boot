@@ -52,12 +52,12 @@
 
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import { mapState } from 'vuex';
-import MajorService from '@/services/MajorService';
-import GroupService from '@/services/GroupService';
-import EventBus from '@/EventBus';
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import { mapState } from 'vuex'
+import MajorService from '@/services/MajorService'
+import GroupService from '@/services/GroupService'
+import EventBus from '@/EventBus'
 
 
 @Component({
@@ -75,6 +75,9 @@ import EventBus from '@/EventBus';
       },
       locales: function(state:any) {
         return state.localesStore.localesForSelect;
+      },
+      groups: function (state:any) {
+        return state.groupsStore.groups;
       }
     })
   }
@@ -86,7 +89,6 @@ export default class GroupsList extends Vue {
   public selectedSchool: any;
   public selectedMajor: any;
   public fields: any;
-  public groups: any = [];
 
   constructor() {
     super();
@@ -126,6 +128,16 @@ export default class GroupsList extends Vue {
     this.$store.dispatch('getMajors');
     let _this = this;
 
+    EventBus.$on('group-was-updated', async function (groupId) {
+      let updatedGroup;
+      if (_this.selectedLocale == null) {
+        updatedGroup = await GroupService.getByGroupId(groupId);
+      } else {
+        updatedGroup = await GroupService.getByGroupIdAndLocaleId(groupId, _this.selectedLocale);
+      }
+      _this.$store.commit('updateGroup', updatedGroup);
+    });
+
     EventBus.$on('major-translation-was-changed', function (majorTranslation) {
       if (majorTranslation.localeId == _this.selectedLocale) {
         _this.$store.commit('updateMajorTranslation', majorTranslation);
@@ -143,13 +155,13 @@ export default class GroupsList extends Vue {
       this.getGroupsByMajorIdAndLocaleId();
       return;
     }
-    let groupsBack = await GroupService.getGroupsByMajorId(this.selectedMajor);
-    this.groups = groupsBack;
+    let groups = await GroupService.getGroupsByMajorId(this.selectedMajor);
+    this.$store.commit('setGroups', groups);
   }
 
   async getGroupsByMajorIdAndLocaleId() {
-    let groupsBack = await GroupService.getGroupsByMajorIdAndLocaleId(this.selectedMajor, this.selectedLocale);
-    this.groups = groupsBack;
+    let groups = await GroupService.getGroupsByMajorIdAndLocaleId(this.selectedMajor, this.selectedLocale);
+    this.$store.commit('setGroups', groups);
   }
 
   showEditMajorForm(row) {
