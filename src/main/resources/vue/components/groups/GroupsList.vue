@@ -58,6 +58,7 @@ import { mapState } from 'vuex'
 import MajorService from '@/services/MajorService'
 import GroupService from '@/services/GroupService'
 import EventBus from '@/EventBus'
+import Group from '@/models/Group'
 
 
 @Component({
@@ -128,6 +129,12 @@ export default class GroupsList extends Vue {
     this.$store.dispatch('getMajors');
     let _this = this;
 
+    EventBus.$on('group-was-created', function (group: Group) {
+      if (_this.selectedMajor == group.majorId) {
+        _this.$store.commit('addGroup', group);
+      }
+    });
+
     EventBus.$on('group-was-updated', async function (groupId) {
       let updatedGroup;
       if (_this.selectedLocale == null) {
@@ -162,6 +169,10 @@ export default class GroupsList extends Vue {
   async getGroupsByMajorIdAndLocaleId() {
     let groups = await GroupService.getGroupsByMajorIdAndLocaleId(this.selectedMajor, this.selectedLocale);
     this.$store.commit('setGroups', groups);
+  }
+
+  showAddMajorForm() {
+    EventBus.$emit('show-add-group-form');
   }
 
   showEditMajorForm(row) {

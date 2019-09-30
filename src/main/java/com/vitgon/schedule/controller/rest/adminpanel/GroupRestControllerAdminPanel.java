@@ -85,10 +85,6 @@ public class GroupRestControllerAdminPanel {
 	public GroupDto addGroup(@RequestBody @Valid GroupDto groupDto) {
 		Optional<Major> major = majorService.findById(groupDto.getMajorId());
 		
-		if (major == null) {
-			throw new IllegalArgumentException("Major was not found!");
-		}
-		
 		Group group = new Group();
 		group.setMajor(major.get());
 		group.setName(groupDto.getName());
@@ -100,7 +96,11 @@ public class GroupRestControllerAdminPanel {
 	}
 	
 	private GroupDto convertToDto(Group group) {
-		GroupDto groupDto = new GroupDto(group.getId(), group.getName());
+		GroupDto groupDto = new GroupDto();
+		groupDto.setId(group.getId());
+		groupDto.setName(group.getName());
+		groupDto.setCourseNum(group.getCourseNum());
+		groupDto.setMajorId(group.getMajor().getId());
 		return groupDto;
 	}
 

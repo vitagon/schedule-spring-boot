@@ -50,6 +50,14 @@ class GroupService {
     });
   }
 
+  create(group: Group) {
+    return new Promise((res, rej) => {
+      axios.post(`/api/groups`, group)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
+
   edit(group: Group) {
     return new Promise((res, rej) => {
       axios.put(`/api/groups/${group.id}`, group)

@@ -110,7 +110,7 @@ export default class EditGroup extends Vue {
     async editGroup() {
       clearValidationMsgs(this.form);
       let group = new Group({
-        id: this.curGroup.id,
+        // id: this.curGroup.id,
         name: this.form.name.value,
         courseNum: this.form.courseNum.value,
         majorId: this.form.majorId.value
