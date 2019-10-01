@@ -1,28 +1,26 @@
 package com.vitgon.schedule.model.database.translation;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.translation.pk.GroupTranslationId;
 
-import javax.persistence.*;
 
-
-@Entity
+@Entity(name = "group_translations")
 @Table(name = "group_translations")
-@IdClass(value = GroupTranslationId.class)
 public class GroupTranslation {
 	
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "group_id")
-	@JsonBackReference
-	public Group group;
-	
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "locale_id")
-	public Locale locale;
+	@EmbeddedId
+	private GroupTranslationId groupTranslationId;
 	
 	@Column(name = "translation", nullable = false)
 	public String translation;
@@ -33,25 +31,16 @@ public class GroupTranslation {
 
 	public GroupTranslation(Group group, Locale locale, String translation) {
 		super();
-		this.group = group;
-		this.locale = locale;
+		this.groupTranslationId = new GroupTranslationId(group, locale);
 		this.translation = translation;
 	}
 
-	public Group getGroup() {
-		return group;
+	public GroupTranslationId getGroupTranslationId() {
+		return groupTranslationId;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public Locale getLocale() {
-		return locale;
-	}
-
-	public void setLocale(Locale locale) {
-		this.locale = locale;
+	public void setGroupTranslationId(GroupTranslationId groupTranslationId) {
+		this.groupTranslationId = groupTranslationId;
 	}
 
 	public String getTranslation() {
@@ -66,8 +55,7 @@ public class GroupTranslation {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
-		result = prime * result + ((locale == null) ? 0 : locale.hashCode());
+		result = prime * result + ((groupTranslationId == null) ? 0 : groupTranslationId.hashCode());
 		result = prime * result + ((translation == null) ? 0 : translation.hashCode());
 		return result;
 	}
@@ -81,15 +69,10 @@ public class GroupTranslation {
 		if (getClass() != obj.getClass())
 			return false;
 		GroupTranslation other = (GroupTranslation) obj;
-		if (group == null) {
-			if (other.group != null)
+		if (groupTranslationId == null) {
+			if (other.groupTranslationId != null)
 				return false;
-		} else if (!group.equals(other.group))
-			return false;
-		if (locale == null) {
-			if (other.locale != null)
-				return false;
-		} else if (!locale.equals(other.locale))
+		} else if (!groupTranslationId.equals(other.groupTranslationId))
 			return false;
 		if (translation == null) {
 			if (other.translation != null)

@@ -28,7 +28,7 @@ public class Group extends BaseModel<Integer> {
 	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
 	private List<Schedule> schedules = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "groupTranslationId.group", fetch = FetchType.LAZY)
 	private Set<GroupTranslation> groupTranslations = new HashSet<>();
 	
 	public Group() {

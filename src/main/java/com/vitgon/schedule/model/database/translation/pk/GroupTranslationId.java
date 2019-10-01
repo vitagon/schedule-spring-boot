@@ -1,16 +1,27 @@
 package com.vitgon.schedule.model.database.translation.pk;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vitgon.schedule.model.database.Group;
 import com.vitgon.schedule.model.database.Locale;
 
 import java.io.Serializable;
+
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 public class GroupTranslationId implements Serializable {
 
 	private static final long serialVersionUID = 7291286878906686742L;
 	
+	@ManyToOne
+	@JoinColumn(name = "group_id")
+	@JsonBackReference
 	public Group group;
+	
+	@ManyToOne
+	@JoinColumn(name = "locale_id")
 	public Locale locale;
 	
 	public GroupTranslationId() {

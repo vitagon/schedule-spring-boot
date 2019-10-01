@@ -15,7 +15,7 @@
       id="schoolSelect" class="mt-3"
       @change="getMajorsBySchoolId">
         <template slot="first">
-          <option :value="null" disabled>-- Choose school --</option>
+          <option :value="null">-- Choose school --</option>
         </template>             
     </b-form-select>
 
@@ -42,11 +42,11 @@
 
     <b-table responsive striped hover small :items="groups" :fields="fields">
       <template slot="controls" slot-scope="row">
-        <b-button squared variant="primary" @click="showEditMajorForm(row)">Edit</b-button>
-        <b-button squared variant="danger" @click="showRemoveMajorModal(row)">Remove</b-button>
+        <b-button squared variant="primary" @click="showEditGroupForm(row)">Edit</b-button>
+        <b-button squared variant="danger" @click="showRemoveGroupModal(row)">Remove</b-button>
       </template>
     </b-table>
-    <b-button block variant="success" @click="showAddMajorForm()" class="mb-5">Add</b-button>
+    <b-button block variant="success" @click="showAddGroupForm()" class="mb-5">Add</b-button>
   </div>
 </template>
 
@@ -75,7 +75,13 @@ import Group from '@/models/Group'
         })
       },
       locales: function(state:any) {
-        return state.localesStore.localesForSelect;
+        let localesForSelect = state.localesStore.localesForSelect;
+        for (let locale of localesForSelect) {
+          if (locale.active) {
+            this.selectedLocale = locale.value;
+          }
+        }
+        return localesForSelect;
       },
       groups: function (state:any) {
         return state.groupsStore.groups;
@@ -106,7 +112,7 @@ export default class GroupsList extends Vue {
         sortable: true
       },
       translation: {
-        key: 'nameTranslation',
+        key: 'translation',
         label: 'Translation',
         sortable: true
       },
@@ -145,14 +151,18 @@ export default class GroupsList extends Vue {
       _this.$store.commit('updateGroup', updatedGroup);
     });
 
-    EventBus.$on('major-translation-was-changed', function (majorTranslation) {
-      if (majorTranslation.localeId == _this.selectedLocale) {
-        _this.$store.commit('updateMajorTranslation', majorTranslation);
+    EventBus.$on('group-translation-was-changed', function (groupTranslation) {
+      if (groupTranslation.localeId == _this.selectedLocale) {
+        _this.$store.commit('updateGroupTranslation', groupTranslation);
       }
     });
   }
 
   async getMajorsBySchoolId() {
+    if (this.selectedSchool == null) {
+      this.$store.dispatch('getMajors');
+      return;
+    }
     let data = await MajorService.getAllBySchoolId(this.selectedSchool);
     this.$store.commit('setMajors', data);
   }
@@ -171,18 +181,18 @@ export default class GroupsList extends Vue {
     this.$store.commit('setGroups', groups);
   }
 
-  showAddMajorForm() {
+  showAddGroupForm() {
     EventBus.$emit('show-add-group-form');
   }
 
-  showEditMajorForm(row) {
+  showEditGroupForm(row) {
     EventBus.$emit('hide-add-group-form');
     EventBus.$emit('show-edit-group-form', row.item);
     EventBus.$emit('show-edit-group-translation-form', row.item);
   }
 
-  showRemoveMajorModal(row) {
-    EventBus.$emit('show-remove-major-modal', row.item);
+  showRemoveGroupModal(row) {
+    EventBus.$emit('show-remove-group-modal', row.item);
   }
 }
 </script>

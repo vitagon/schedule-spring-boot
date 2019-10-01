@@ -58,7 +58,7 @@ public interface GroupDao extends JpaRepository<Group, Integer> {
 	@Query(value =
 			"SELECT "
 			+ 	"g.id, g.name, g.course_num, m.degree, g.major_id, "
-			+		"gt.translation " +
+		+		"gt.translation " +
 			"FROM "
 			+		"_groups g " +
 			"JOIN "

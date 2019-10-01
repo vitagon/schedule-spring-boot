@@ -1,4 +1,4 @@
-package com.vitgon.schedule.controller.rest.adminpanel;
+package com.vitgon.schedule.controller.rest;
 
 import com.vitgon.schedule.dto.EditScheduleDto;
 import com.vitgon.schedule.dto.ScheduleDto;
@@ -18,13 +18,13 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api/schedule")
-public class ScheduleRestControllerAdminPanel {
+public class ScheduleRestController {
 	
 	private ScheduleService scheduleService;
 	private ScheduleDtoService scheduleDtoService;
 	
 	@Autowired
-	public ScheduleRestControllerAdminPanel(ScheduleService scheduleService, ScheduleDtoService scheduleDtoService) {
+	public ScheduleRestController(ScheduleService scheduleService, ScheduleDtoService scheduleDtoService) {
 		super();
 		this.scheduleService = scheduleService;
 		this.scheduleDtoService = scheduleDtoService;
