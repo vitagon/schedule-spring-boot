@@ -33,7 +33,6 @@ public class GroupTranslationRestController {
 	@GetMapping("/{groupId}/locales/{localeId}")
 	public GroupTranslationDto getGroupTranslation(@PathVariable Integer localeId,
 												   @PathVariable Integer groupId) throws FieldValidationException {
-		
 		Optional<GroupTranslation> groupTranslationOpt = groupTranslService.findByLocaleIdAndGroupId(localeId, groupId);
 		if (!groupTranslationOpt.isPresent()) {
 			throw new FieldValidationException("localeId", "translation.notFound");
@@ -48,7 +47,6 @@ public class GroupTranslationRestController {
 	
 	@PostMapping("/{groupId}/locales/{localeId}")
 	public GroupTranslationDto addGroupTranslation(@RequestBody @Valid GroupTranslationDto groupTranslationDto) throws FieldValidationException {
-		
 		Optional<GroupTranslation> groupTranslationOpt = groupTranslService.findByLocaleIdAndGroupId(
 				groupTranslationDto.getLocaleId(), groupTranslationDto.getGroupId());
 		if (!groupTranslationOpt.isPresent()) {
@@ -62,7 +60,6 @@ public class GroupTranslationRestController {
 	
 	@PutMapping("/{groupId}/locales/{localeId}")
 	public void editGroupTranslation(@RequestBody @Valid GroupTranslationDto groupTranslationDto) throws FieldValidationException {
-		
 		Optional<GroupTranslation> groupTranslationOpt = groupTranslService.findByLocaleIdAndGroupId(
 				groupTranslationDto.getLocaleId(), groupTranslationDto.getGroupId());
 		
@@ -79,7 +76,6 @@ public class GroupTranslationRestController {
 	@DeleteMapping("/{groupId}/locales/{localeId}")
 	public void deleteGroupTranslation(@PathVariable("groupId") @GroupExists Integer groupId,
             						   @PathVariable("localeId") @LocaleExists Integer localeId) throws FieldValidationException {
-		
 		Optional<GroupTranslation> groupTranslationOpt = groupTranslService.findByLocaleIdAndGroupId(localeId, groupId);
 		
 		if (groupTranslationOpt.isPresent()) {
@@ -89,5 +85,5 @@ public class GroupTranslationRestController {
 		}
 		
 		throw new FieldValidationException("localeId", "translation.notFound");
-	}	
+	}
 }

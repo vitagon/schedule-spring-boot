@@ -65,6 +65,14 @@ class GroupService {
         .catch(error => rej(error.response));
     });
   }
+
+  delete(groupId: Number) {
+    return new Promise((res, rej) => {
+      axios.delete(`/api/groups/${groupId}`)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
 }
 
 export default GroupService.instance;

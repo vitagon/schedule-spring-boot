@@ -1,4 +1,5 @@
 import Group from '@/models/Group';
+import GroupService from '@/services/GroupService'
 
 const state = {
   groups: []
@@ -46,6 +47,16 @@ const mutations = {
 }
 
 const actions = {
+  async removeGroup({commit}, groupId) {
+    try {
+      await GroupService.delete(groupId);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+    
+    commit('removeGroup', groupId);
+  }
 }
 
 const getters = { 

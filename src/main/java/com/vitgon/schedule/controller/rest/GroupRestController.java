@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +43,6 @@ public class GroupRestController {
 	
 	private GroupService groupService;
 	private MajorService majorService;
-	private MessageService messageService;
 	private GroupDtoService groupDtoService;
 
 	public GroupRestController(
@@ -52,13 +50,12 @@ public class GroupRestController {
 			MessageService messageService, GroupDtoService groupDtoService) {
 		this.groupService = groupService;
 		this.majorService = majorService;
-		this.messageService = messageService;
 		this.groupDtoService = groupDtoService;
 	}
 
 	@GetMapping("/major-id/{majorId}/course-num/{courseNum}")
-	public List<GroupProjection> getGroupsByMajorIdAndCourseNum(@PathVariable("majorId") Integer majorId,
-										   @PathVariable("courseNum") @Min(1) @Max(6) Integer courseNum) {
+	public List<GroupProjection> getGroupsByMajorIdAndCourseNum(@PathVariable("majorId") @MajorExists Integer majorId,
+										   						@PathVariable("courseNum") @Min(1) @Max(6) Integer courseNum) {
 		
 		List<GroupProjection> groups = groupService.getAllByMajorIdAndCourseNum(majorId, courseNum);
 		return groups;
@@ -66,7 +63,7 @@ public class GroupRestController {
 	
 	@GetMapping("/major-url/{majorUrl}/locale-id/{localeId}")
 	public List<GroupProjection> getGroupsByMajorUrlAndLocaleId(@PathVariable("majorUrl") String majorUrl,
-															   @PathVariable("localeId") Integer localeId) {
+															    @PathVariable("localeId") @LocaleExists Integer localeId) {
 		return groupService.getAllByMajorUrlAndLocaleId(majorUrl, localeId);
 	}
 	
@@ -85,20 +82,20 @@ public class GroupRestController {
 	@GetMapping("/major-id/{majorId}/locale-id/{localeId}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<GroupDto> getGroupsByMajorIdAndLocaleId(@PathVariable @MajorExists Integer majorId,
-									@PathVariable @LocaleExists Integer localeId) {
+														@PathVariable @LocaleExists Integer localeId) {
 		return groupDtoService.getGroupDtoListByMajorIdAndLocaleId(majorId, localeId);
 	}
 	
 	@GetMapping("/{id}/locale-id/{localeId}")
 	@ResponseStatus(HttpStatus.OK)
-	public GroupDto getGroupByGroupIdAndLocaleId(@PathVariable("id") Integer groupId,
-							 @PathVariable Integer localeId) {
+	public GroupDto getGroupByGroupIdAndLocaleId(@PathVariable("id") @GroupExists Integer groupId,
+							 					 @PathVariable @LocaleExists Integer localeId) {
 		return groupDtoService.getGroupDtoByGroupIdAndLocaleId(groupId, localeId);
 	}
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public GroupDto getGroupById(@PathVariable("id") Integer groupId) {
+	public GroupDto getGroupById(@PathVariable("id") @GroupExists Integer groupId) {
 		return groupDtoService.getGroupDtoByGroupId(groupId);
 	}
 
@@ -129,7 +126,7 @@ public class GroupRestController {
 	@PutMapping("{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void editGroup(@PathVariable("id") @GroupExists Integer groupId,
-							  @RequestBody @Valid GroupDto groupDto) {
+						  @RequestBody @Valid GroupDto groupDto) {
 		Group group = groupService.findById(groupId).get();
 		Major major = majorService.findById(groupDto.getMajorId()).get();
 		
@@ -139,16 +136,8 @@ public class GroupRestController {
 		groupService.update(group);
 	}
 	
-	@DeleteMapping(params = {"id"})
-	public ResponseEntity<?> deleteGroup(@RequestParam("id") int id) {
-		Optional<Group> group = groupService.findById(id);
-		if (!group.isPresent()) {
-			Map<String, List<String>> errors = new HashMap<>();
-			errors.put("id", Arrays.asList(messageService.getMessage("chooseValue")));
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body(new ApiError(new Date(), "Subject Not Found", errors));
-		}
+	@DeleteMapping("{id}")
+	public ResponseEntity<?> deleteGroup(@PathVariable @GroupExists Integer id) {
 		groupService.deleteById(id);
 		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully removed group!"));
 	}
