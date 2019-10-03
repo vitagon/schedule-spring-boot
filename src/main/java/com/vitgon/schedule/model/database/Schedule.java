@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Table(
 	name = "schedules",
 	uniqueConstraints = @UniqueConstraint(
-		columnNames= {"group_id", "subgroup_id", "day_num", "week_type", "lesson_num"},
-		name = "UQ_schedules_group_id_subgroup_id_day_num_week_type_lesson_num"
+		columnNames= {"group_id", "day_num", "week_type", "lesson_num"},
+		name = "UQ_schedules_group_id_day_num_week_type_lesson_num"
 	)
 )
 public class Schedule extends BaseModel<Integer> implements Cloneable {
@@ -43,9 +43,6 @@ public class Schedule extends BaseModel<Integer> implements Cloneable {
 	
 	@Column(name = "classroom", length = 6, nullable = false)
 	private String classroom;
-
-	@Column(name = "subgroup_id", nullable = true)
-	private Integer subgroupId;
 	
 	public Schedule() {
 		super();
@@ -119,14 +116,6 @@ public class Schedule extends BaseModel<Integer> implements Cloneable {
 		this.classroom = classroom;
 	}
 
-	public Integer getSubgroupId() {
-		return subgroupId;
-	}
-
-	public void setSubgroupId(Integer subgroupId) {
-		this.subgroupId = subgroupId;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,7 +125,6 @@ public class Schedule extends BaseModel<Integer> implements Cloneable {
 		result = prime * result + ((group == null) ? 0 : group.hashCode());
 		result = prime * result + lessonNum;
 		result = prime * result + lessonType;
-		result = prime * result + ((subgroupId == null) ? 0 : subgroupId.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((week == null) ? 0 : week.hashCode());
@@ -170,11 +158,6 @@ public class Schedule extends BaseModel<Integer> implements Cloneable {
 		if (lessonNum != other.lessonNum)
 			return false;
 		if (lessonType != other.lessonType)
-			return false;
-		if (subgroupId == null) {
-			if (other.subgroupId != null)
-				return false;
-		} else if (!subgroupId.equals(other.subgroupId))
 			return false;
 		if (subject == null) {
 			if (other.subject != null)

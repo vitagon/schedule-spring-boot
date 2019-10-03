@@ -77,9 +77,9 @@ public class UserSearchRestController {
 			.map(user -> {
 				UserDto userDto = new UserDto();
 				userDto.setId(user.getId());
-				userDto.setFirstname(user.getKeyFirstname());
-				userDto.setLastname(user.getKeyLastname());
-				userDto.setMiddlename(user.getKeyMiddlename());
+				userDto.setFirstname(user.getFirstname());
+				userDto.setLastname(user.getLastname());
+				userDto.setMiddlename(user.getMiddlename());
 				return userDto;
 			})
 			.collect(Collectors.toList());

@@ -100,8 +100,8 @@ public class UserServiceImpl implements UserService {
 		user.setUsername(UUID.randomUUID().toString().substring(0, 18));
 		user.setEmail(userProfile.getEmail());
 		user.setPassword("{bcrypt}"+encryptedPassword);
-		user.setKeyFirstname(userProfile.getFirstName());
-		user.setKeyLastname(userProfile.getLastName());
+		user.setFirstname(userProfile.getFirstName());
+		user.setLastname(userProfile.getLastName());
 		user.setActive(true);
 		user.setProviderId(key.getProviderId());
 		user = userDao.save(user);
@@ -140,8 +140,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<UserProjection> getAllUsersByLocaleIdAndRoleJoiningWithTranslation(
-			Integer localeId, String role, Pageable pageable) {
-		return userDao.getAllUsersByLocaleIdAndRoleJoiningWithTranslation(localeId, role, pageable);
+	public Page<User> findByRole(String role, Pageable pageable) {
+		return userDao.findByRole(role, pageable);
 	}
 }

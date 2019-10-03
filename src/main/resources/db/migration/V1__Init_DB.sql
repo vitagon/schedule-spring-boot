@@ -1,22 +1,28 @@
 create sequence hibernate_sequence start 1 increment 1;
 
 create table _groups (
-	id  serial not null,
+	id serial not null,
+  name varchar(255) not null,
 	course_num int4 not null,
-	number int4 not null,
-	suffix varchar(255) not null,
 	major_id int4 not null,
 	primary key (id)
 );
 
+create table group_translations (
+	group_id int4 not null,
+	locale_id int4 not null,
+	translation varchar(255) not null,
+	primary key (group_id, locale_id)
+);
+
 create table locales (
-	id  serial not null,
+	id serial not null,
 	code varchar(255),
 	primary key (id)
 );
 
 create table majors (
-	id  serial not null,
+	id serial not null,
 	degree int4 not null,
 	duration int4 not null,
 	name varchar(255) not null,
@@ -26,40 +32,40 @@ create table majors (
 );
 
 create table major_translations (
-	title varchar(255),
+	translation varchar(255) not null,
 	major_id int4 not null,
 	locale_id int4 not null,
 	primary key (locale_id, major_id)
 );
 
 create table roles (
-	id  serial not null,
+	id serial not null,
 	role varchar(255),
 	primary key (id)
 );
 
 create table schedules (
-	id  serial not null,
+	id serial not null,
 	classroom varchar(6),
-	day_num int4,
-	lesson_num int4,
-	lesson_type int4,
-	week_type varchar(4),
-	group_id int4,
-	subject_id int4,
+	day_num int4 not null,
+	lesson_num int4 not null,
+	lesson_type int4 not null,
+	week_type varchar(4) not null,
+	group_id int4 not null,
+	subject_id int4 not null,
 	user_id int4,
 	primary key (id)
 );
 
 create table schools (
-	id  serial not null,
+	id serial not null,
 	name varchar(255) not null,
 	url varchar(255) not null,
 	primary key (id)
 );
 
 create table school_translations (
-	title varchar(255),
+	translation varchar(255) not null,
 	school_id int4 not null,
 	locale_id int4 not null,
 	primary key (locale_id, school_id)
@@ -73,7 +79,7 @@ create table subject_translations (
 );
 
 create table subjects (
-	id  serial not null,
+	id serial not null,
 	name varchar(255),
 	primary key (id)
 );
@@ -84,23 +90,14 @@ create table user_role (
 	primary key (user_id, role_id)
 );
 
-create table user_translations (
-	firstname varchar(255),
-	lastname varchar(255),
-	middlename varchar(255),
-	user_id int4 not null,
-	locale_id int4 not null,
-	primary key (locale_id, user_id)
-);
-
 create table users (
-	id  serial not null,
+	id serial not null,
 	username varchar(255) not null,
-	email varchar(255),
+	email varchar(255) not null,
 	password varchar(255) not null,
-	key_firstname varchar(255),
-	key_lastname varchar(255),
-	key_middlename varchar(255),
+	firstname varchar(255) not null,
+	lastname varchar(255) not null,
+	middlename varchar(255),
 	birth date,
 	active boolean not null,
 	provider_id varchar(255) not null,
@@ -124,8 +121,12 @@ create table userconnection (
 
 
 alter table if exists _groups
-	add constraint UQ__groups_major_id_number
-	unique (major_id, number, suffix);
+  add constraint UQ__groups_name
+  unique(name);
+
+alter table if exists _groups
+	add constraint FK__groups_major
+	foreign key (major_id) references majors;
 
 alter table if exists majors
 	add constraint UQ_major_name_url
@@ -142,10 +143,6 @@ alter table if exists schedules
 alter table if exists schools
 	add constraint UQ_school_name_url
 	unique (name, url);
-
-alter table if exists _groups
-	add constraint FK__groups_major
-	foreign key (major_id) references majors;
 
 alter table if exists major_translations
 	add constraint FK_major_translations_major
@@ -166,6 +163,14 @@ alter table if exists schedules
 alter table if exists schedules
 	add constraint FK_schedules_users
 	foreign key (user_id) references users;
+
+alter table if exists group_translations
+	add constraint FK_group_translations_groups
+	foreign key (group_id) references _groups;
+	
+alter table if exists group_translations
+	add constraint FK_group_translations_locales
+	foreign key (locale_id) references locales;
 
 alter table if exists school_translations
 	add constraint FK_school_translations_school

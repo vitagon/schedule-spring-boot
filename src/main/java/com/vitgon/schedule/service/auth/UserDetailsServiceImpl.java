@@ -31,8 +31,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		final UserDetailsImpl userDetails = new UserDetailsImpl(
 				user.getUsername(),
 				user.getPassword(),
-				user.getKeyFirstname(),
-				user.getKeyLastname(),
+				user.getFirstname(),
+				user.getLastname(),
 				user.getRoles()
 		);
 		return userDetails;

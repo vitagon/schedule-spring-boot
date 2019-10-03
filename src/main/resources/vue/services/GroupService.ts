@@ -13,7 +13,7 @@ class GroupService {
   getGroups(majorId, courseNum) {
     return new Promise((res, rej) => {
       axios.get(`/api/groups/major-id/${majorId}/course-num/${courseNum}`)
-        .then(response => res(response))
+        .then(response => res(response.data))
         .catch(error => rej(error.response));
     });
   }

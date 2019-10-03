@@ -24,8 +24,8 @@ public class SocialUserDetailsServiceImpl implements SocialUserDetailsService {
 				user.getId().toString(),
 				user.getUsername(),
 				user.getPassword(),
-				user.getKeyFirstname(),
-				user.getKeyLastname(),
+				user.getFirstname(),
+				user.getLastname(),
 				user.getRoles());
 		return socialUserDetails;
 	}

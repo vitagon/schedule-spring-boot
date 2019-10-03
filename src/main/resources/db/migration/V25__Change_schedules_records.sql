@@ -1,1 +1,0 @@
-update schedules set subgroup_id = 84 where group_id = 78;

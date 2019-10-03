@@ -31,8 +31,8 @@ public class GroupTranslationRestController {
 	}
 
 	@GetMapping("/{groupId}/locales/{localeId}")
-	public GroupTranslationDto getGroupTranslation(@PathVariable Integer localeId,
-												   @PathVariable Integer groupId) throws FieldValidationException {
+	public GroupTranslationDto getGroupTranslation(@PathVariable @LocaleExists Integer localeId,
+												   @PathVariable @GroupExists Integer groupId) throws FieldValidationException {
 		Optional<GroupTranslation> groupTranslationOpt = groupTranslService.findByLocaleIdAndGroupId(localeId, groupId);
 		if (!groupTranslationOpt.isPresent()) {
 			throw new FieldValidationException("localeId", "translation.notFound");

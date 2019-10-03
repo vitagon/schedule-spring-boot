@@ -18,13 +18,13 @@ public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
 			"SELECT "
 			+	"s.id, s.day_num, s.week_type, s.lesson_num, s.lesson_type AS lesson_type_id, s.classroom, s.group_id, "
 			+	"st.subject_id, st.translation AS subject_name, "
-			+	"ut.user_id, ut.lastname, ut.firstname, ut.middlename, "
+			+	"u.id AS user_id, u.lastname, u.firstname, u.middlename, "
 			+	"ltime.lesson_time, "
 			+ 	"ltypes.lesson_type AS lesson_type_name " +
 			"FROM "
 			+ 	"schedules s " +
 			"LEFT JOIN "
-			+	"(select * from user_translations where locale_id = ?2) ut ON s.user_id = ut.user_id " +
+			+	"users u ON s.user_id = u.id " +
 			"LEFT JOIN "
 			+	"(select * from subject_translations where locale_id = ?2) st ON s.subject_id = st.subject_id " +
 			"JOIN "
@@ -40,13 +40,13 @@ public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
 			"SELECT "
 			+	"s.id, s.day_num, s.week_type, s.lesson_num, s.lesson_type AS lesson_type_id, s.classroom, s.group_id, "
 			+	"st.subject_id, st.translation AS subject_name, "
-			+	"ut.user_id, ut.lastname, ut.firstname, ut.middlename, "
+			+	"u.id AS user_id, u.lastname, u.firstname, u.middlename, "
 			+	"ltime.lesson_time, "
 			+ 	"ltypes.lesson_type AS lesson_type_name " +
 			"FROM "
 			+ 	"schedules s " +
 			"LEFT JOIN "
-			+	"(select * from user_translations where locale_id = ?2) ut ON s.user_id = ut.user_id " +
+			+	"users u ON s.user_id = u.id " +
 			"LEFT JOIN "
 			+	"(select * from subject_translations where locale_id = ?2) st ON s.subject_id = st.subject_id " +
 			"JOIN "
@@ -63,13 +63,13 @@ public interface ScheduleDao extends JpaRepository<Schedule, Integer> {
 			"SELECT "
 			+	"s.id, s.day_num, s.week_type, s.lesson_num, s.lesson_type AS lesson_type_id, s.classroom, s.group_id, "
 			+	"st.subject_id, st.translation AS subject_name, "
-			+	"ut.user_id, ut.lastname, ut.firstname, ut.middlename, "
+			+	"u.id AS user_id, u.lastname, u.firstname, u.middlename, "
 			+	"ltime.lesson_time, "
 			+ 	"ltypes.lesson_type AS lesson_type_name " +
 			"FROM "
 			+ 	"schedules s " +
 			"LEFT JOIN "
-			+	"(select * from user_translations where locale_id = ?2) ut ON s.user_id = ut.user_id " +
+			+	"users u ON s.user_id = u.id " +
 			"LEFT JOIN "
 			+	"(select * from subject_translations where locale_id = ?2) st ON s.subject_id = st.subject_id " +
 			"JOIN "

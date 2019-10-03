@@ -1,16 +1,22 @@
 package com.vitgon.schedule.model.database.auth;
 
-import com.vitgon.schedule.model.database.BaseModel;
-import com.vitgon.schedule.model.database.translation.UserTranslation;
-import org.hibernate.validator.constraints.Length;
+import java.sql.Date;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.vitgon.schedule.model.database.BaseModel;
 
 
 @Entity
@@ -30,14 +36,14 @@ public class User extends BaseModel<Integer> {
 	@NotEmpty(message = "{NotEmpty.default}")
 	private String password;
 	
-	@Column(name = "key_firstname")
-	private String keyFirstname;
+	@Column(name = "firstname")
+	private String firstname;
 	
-	@Column(name = "key_lastname")
-	private String keyLastname;
+	@Column(name = "lastname")
+	private String lastname;
 	
-	@Column(name = "key_middlename")
-	private String keyMiddlename;
+	@Column(name = "middlename")
+	private String middlename;
 	
 	@Column(name = "birth")
 	private Date birth;
@@ -51,9 +57,6 @@ public class User extends BaseModel<Integer> {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
-	
-	@OneToMany(mappedBy = "userTranslationId.user")
-	private List<UserTranslation> translations = new ArrayList<>();
 	
 	public User() {
 		super();
@@ -83,28 +86,28 @@ public class User extends BaseModel<Integer> {
 		this.password = password;
 	}
 
-	public String getKeyFirstname() {
-		return keyFirstname;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setKeyFirstname(String keyFirstname) {
-		this.keyFirstname = keyFirstname;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getKeyLastname() {
-		return keyLastname;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setKeyLastname(String keyLastname) {
-		this.keyLastname = keyLastname;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
-	public String getKeyMiddlename() {
-		return keyMiddlename;
+	public String getMiddlename() {
+		return middlename;
 	}
 
-	public void setKeyMiddlename(String keyMiddlename) {
-		this.keyMiddlename = keyMiddlename;
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
 	}
 
 	public Date getBirth() {
@@ -139,14 +142,6 @@ public class User extends BaseModel<Integer> {
 		this.roles = roles;
 	}
 
-	public List<UserTranslation> getTranslations() {
-		return translations;
-	}
-
-	public void setTranslations(List<UserTranslation> translations) {
-		this.translations = translations;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -154,13 +149,12 @@ public class User extends BaseModel<Integer> {
 		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((birth == null) ? 0 : birth.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((keyFirstname == null) ? 0 : keyFirstname.hashCode());
-		result = prime * result + ((keyLastname == null) ? 0 : keyLastname.hashCode());
-		result = prime * result + ((keyMiddlename == null) ? 0 : keyMiddlename.hashCode());
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((middlename == null) ? 0 : middlename.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((providerId == null) ? 0 : providerId.hashCode());
 		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
-		result = prime * result + ((translations == null) ? 0 : translations.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -186,20 +180,20 @@ public class User extends BaseModel<Integer> {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (keyFirstname == null) {
-			if (other.keyFirstname != null)
+		if (firstname == null) {
+			if (other.firstname != null)
 				return false;
-		} else if (!keyFirstname.equals(other.keyFirstname))
+		} else if (!firstname.equals(other.firstname))
 			return false;
-		if (keyLastname == null) {
-			if (other.keyLastname != null)
+		if (lastname == null) {
+			if (other.lastname != null)
 				return false;
-		} else if (!keyLastname.equals(other.keyLastname))
+		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (keyMiddlename == null) {
-			if (other.keyMiddlename != null)
+		if (middlename == null) {
+			if (other.middlename != null)
 				return false;
-		} else if (!keyMiddlename.equals(other.keyMiddlename))
+		} else if (!middlename.equals(other.middlename))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -215,11 +209,6 @@ public class User extends BaseModel<Integer> {
 			if (other.roles != null)
 				return false;
 		} else if (!roles.equals(other.roles))
-			return false;
-		if (translations == null) {
-			if (other.translations != null)
-				return false;
-		} else if (!translations.equals(other.translations))
 			return false;
 		if (username == null) {
 			if (other.username != null)

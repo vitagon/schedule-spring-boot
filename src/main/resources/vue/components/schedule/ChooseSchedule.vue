@@ -52,7 +52,7 @@
             <option
               v-for="group of groups"
               v-bind:value="group.id"
-              :key="group.id">{{group.fullname}}</option>
+              :key="group.id">{{group.name}}</option>
           </select>
         </div>	
       </div>
@@ -95,7 +95,7 @@ export default class ChooseSchedule extends Vue {
   getMajors() {
     MajorService.getAllBySchoolId(this.chooseScheduleForm.schoolId)
       .then((response: any) => {
-        this.majors = response.data;
+        this.majors = response;
       })
       .catch(error => console.error(error.data));
   }
@@ -103,7 +103,7 @@ export default class ChooseSchedule extends Vue {
   getMaxCourseNumber() {
     MajorService.getMaxCourseNumber(this.chooseScheduleForm.majorId)
       .then((response: any) => {
-        this.maxCourseNum = response.data;
+        this.maxCourseNum = response;
       })
       .catch(error => console.error(error));
   }
@@ -114,11 +114,7 @@ export default class ChooseSchedule extends Vue {
     let courseNum = _this.chooseScheduleForm.course;
     GroupService.getGroups(majorId, courseNum)
       .then((response: any) => {
-        let groups = response.data;
-        for (let group of groups) {
-          group['fullname'] = group.degree.substr(0,1).toUpperCase() + group.number + group.suffix_translation;
-        }
-        this.groups = groups;
+        this.groups = response;
       })
       .catch(error => console.log(error));
   }

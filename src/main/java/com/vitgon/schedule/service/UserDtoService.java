@@ -1,15 +1,16 @@
 package com.vitgon.schedule.service;
 
-import com.vitgon.schedule.dto.UserDto;
-import com.vitgon.schedule.dto.UserDtoAdminPanel;
-import com.vitgon.schedule.projection.UserProjection;
-import com.vitgon.schedule.service.database.UserService;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.vitgon.schedule.dto.UserDto;
+import com.vitgon.schedule.dto.UserDtoAdminPanel;
+import com.vitgon.schedule.model.database.auth.User;
+import com.vitgon.schedule.service.database.UserService;
 
 @Service
 public class UserDtoService {
@@ -23,12 +24,7 @@ public class UserDtoService {
 	}
 	
 	public List<UserDto> getUserDtoListByRole(String role, Pageable pageable) {
-		Integer localeId = localeConverterService.getClientLocale().getId();
-		return getUserDtoListByRoleAndLocaleId(localeId, role, pageable);
-	}
-	
-	public List<UserDto> getUserDtoListByRoleAndLocaleId(Integer localeId, String role, Pageable pageable) {
-		Page<UserProjection> users = userService.getAllUsersByLocaleIdAndRoleJoiningWithTranslation(localeId, role, pageable);
+		Page<User> users = userService.findByRole(role, pageable);
 		return users.stream()
 			.map(user -> {
 				UserDto userDto = new UserDto();
@@ -43,16 +39,16 @@ public class UserDtoService {
 	}
 	
 	public List<UserDtoAdminPanel> getUserDtoListByRoleAndLocaleIdForAdminPanel(Integer localeId, String role, Pageable pageable) {
-		Page<UserProjection> users = userService.getAllUsersByLocaleIdAndRoleJoiningWithTranslation(localeId, role, pageable);
+		Page<User> users = userService.findByRole(role, pageable);
 		return users.stream()
 			.map(user -> {
 				UserDtoAdminPanel userDto = new UserDtoAdminPanel();
 				userDto.setId(user.getId());
 				
-				userDto.setFirstname(user.getKey_firstname());
-				userDto.setLastname(user.getKey_lastname());
-				userDto.setMiddlename(user.getKey_middlename());
-				userDto.setFullName(makeupFullname(user.getKey_lastname(), user.getKey_firstname(), user.getKey_middlename()));
+				userDto.setFirstname(user.getFirstname());
+				userDto.setLastname(user.getLastname());
+				userDto.setMiddlename(user.getMiddlename());
+				userDto.setFullName(makeupFullname(user.getLastname(), user.getFirstname(), user.getMiddlename()));
 				
 				userDto.setFirstnameTranslation(user.getFirstname());
 				userDto.setLastnameTranslation(user.getLastname());

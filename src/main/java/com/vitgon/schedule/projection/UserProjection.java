@@ -5,8 +5,4 @@ public interface UserProjection {
 	String getFirstname();
 	String getLastname();
 	String getMiddlename();
-	
-	String getKey_firstname();
-	String getKey_lastname();
-	String getKey_middlename();
 }

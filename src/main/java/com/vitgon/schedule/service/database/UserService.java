@@ -15,5 +15,5 @@ public interface UserService extends Service<User, Integer> {
 	User findByUsername(String username);
 	List<User> findBySpecificRoles(List<String> roles);
 	User createUser(Connection<?> connection);
-	Page<UserProjection> getAllUsersByLocaleIdAndRoleJoiningWithTranslation(Integer localeId, String role, Pageable pageable);
+	Page<User> findByRole(String role, Pageable pageable);
 }
