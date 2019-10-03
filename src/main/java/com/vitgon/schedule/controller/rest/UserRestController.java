@@ -14,7 +14,7 @@ import com.vitgon.schedule.dto.UserDto;
 import com.vitgon.schedule.service.UserDtoService;
 
 @RestController
-@RequestMapping("/api/translations")
+@RequestMapping("/api/users")
 public class UserRestController {
 	
 	private UserDtoService userDtoService;
@@ -23,10 +23,15 @@ public class UserRestController {
 		this.userDtoService = userDtoService;
 	}
 
-	@GetMapping("/users/role/{role}")
+	@GetMapping("/pageable/role/{role}")
 	public List<UserDto> getAllByRole(
 			@PathVariable String role,
 			@PageableDefault(page=0, size = 10, sort = {"id"}, direction = Direction.ASC) Pageable pageable) {
 		return userDtoService.getUserDtoListByRole(role, pageable);
+	}
+	
+	@GetMapping("/role/{role}")
+	public List<UserDto> getAllByRole(@PathVariable String role) {
+		return userDtoService.getUserDtoListByRole(role);
 	}
 }

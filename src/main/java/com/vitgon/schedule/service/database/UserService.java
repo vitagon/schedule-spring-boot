@@ -16,4 +16,5 @@ public interface UserService extends Service<User, Integer> {
 	List<User> findBySpecificRoles(List<String> roles);
 	User createUser(Connection<?> connection);
 	Page<User> findByRole(String role, Pageable pageable);
+	List<User> findByRole(String role);
 }

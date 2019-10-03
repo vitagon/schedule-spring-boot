@@ -47,6 +47,17 @@ const mutations = {
 }
 
 const actions = {
+  async getGroups({commit}) {
+    let groups;
+    try {
+      groups = await GroupService.getAll();
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+    
+    commit('setGroups', groups);
+  },
   async removeGroup({commit}, groupId) {
     try {
       await GroupService.delete(groupId);

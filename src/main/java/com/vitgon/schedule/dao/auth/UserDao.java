@@ -35,4 +35,7 @@ public interface UserDao extends JpaRepository<User, Integer> {
 	
 	@Query("select u from User u inner join u.roles r where r.role = :role")
 	Page<User> findByRole(@Param("role") String role, Pageable pageable);
+	
+	@Query("select u from User u inner join u.roles r where r.role = :role")
+	List<User> findByRole(String role);
 }

@@ -13,7 +13,7 @@ const mutations = {
 const actions = {
     async getTeachers({ commit }) {
       let response: any = await UserService.getUsersByRole('teacher');
-      commit('setTeachers', response.data);
+      commit('setTeachers', response);
       return response.data;
     }
 }

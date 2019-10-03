@@ -36,11 +36,21 @@
       </div>
       <div class="form-group">
         <label for="modal-lesson-type">Lesson type:</label>
-        <select class="custom-select" id="modal-lesson-type" v-model="form.lessonTypeId.value">
-          <option value="0" selected>-- Please select an option --</option>
-          <option value="49">Lecture</option>
-          <option value="50">Practice</option>
-        </select>
+        <b-form-select
+          class="custom-select"
+          id="modal-lesson-type"
+          v-model="form.lessonTypeId.value"
+          :state="form.subjectId.isValid"
+        >
+          <template v-slot:first>
+            <option :value="0" selected>-- Please select an option --</option>
+            <option :value="32">Lecture</option>
+            <option :value="33">Practice</option>
+          </template>
+        </b-form-select>
+        <b-form-invalid-feedback :state="form.lessonTypeId.isValid">
+          <div v-for="validationMsg in form.lessonTypeId.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
+        </b-form-invalid-feedback>
       </div>
       <div class="form-group">
         <label for="modal-teacher">Teacher:</label>

@@ -43,10 +43,20 @@ public class GroupDtoService {
 	
 	public List<GroupDto> getGroupDtoList() {
 		Locale locale = localeConverterService.getClientLocale();
+		return getGroupDtoListByLocale(locale);
+	}
+	
+	public List<GroupDto> getGroupDtoListByLocale(Locale locale) {
 		List<GroupDto> groupDtoList = new ArrayList<>();
 		List<GroupProjection> groups = groupService.getAllByLocaleId(locale.getId());
-		for (GroupProjection group : groups) {
-			groupDtoList.add(new GroupDto(group.getId(), group.getTranslation()));
+		for (GroupProjection groupProjection : groups) {
+			GroupDto groupDto = new GroupDto();
+			groupDto.setId(groupProjection.getId());
+			groupDto.setName(groupProjection.getName());
+			groupDto.setTranslation(groupProjection.getTranslation());
+			groupDto.setCourseNum(groupProjection.getCourse_num());
+			groupDto.setMajorId(groupProjection.getMajor_id());
+			groupDtoList.add(groupDto);
 		}
 		return groupDtoList;
 	}

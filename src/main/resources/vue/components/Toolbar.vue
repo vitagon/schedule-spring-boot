@@ -5,12 +5,7 @@
 		</a>
 
 		<div class="collapsed-content">
-			<ul class="lang-list">
-				<li class="nav-item"><a class="nav-link lang-link" href="#" data-lang="en">EN</a></li>
-				<li class="nav-item"><a class="nav-link lang-link" href="#" data-lang="ru">RU</a></li>
-			</ul>
-			
-			<ul>
+			<ul class="ml-auto">
 				<li class="nav-item dropdown">
 						<b-dropdown size="md" variant="link" toggle-class="text-decoration-none">
 							<template slot="button-content"><i class="fas fa-user"></i><span class="sr-only">Search</span></template>

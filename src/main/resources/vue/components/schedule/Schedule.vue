@@ -1,7 +1,7 @@
 <template>
   <b-container class="pt-5">
     <choose-schedule></choose-schedule>
-    <schedule-wrap></schedule-wrap>
+    <schedule-wrap class="mt-4"></schedule-wrap>
   </b-container>
 </template>
 

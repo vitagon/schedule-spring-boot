@@ -10,6 +10,14 @@ class GroupService {
     return this._instance;
   }
 
+  getAll() {
+    return new Promise((res, rej) => {
+      axios.get(`/api/groups`)
+        .then(response => res(response.data))
+        .catch(error => rej(error.response));
+    });
+  }
+
   getGroups(majorId, courseNum) {
     return new Promise((res, rej) => {
       axios.get(`/api/groups/major-id/${majorId}/course-num/${courseNum}`)

@@ -24,7 +24,7 @@ public class UserDtoService {
 	}
 	
 	public List<UserDto> getUserDtoListByRole(String role, Pageable pageable) {
-		Page<User> users = userService.findByRole(role, pageable);
+		Page<User> users = userService.findByRole(role.toUpperCase(), pageable);
 		return users.stream()
 			.map(user -> {
 				UserDto userDto = new UserDto();
@@ -85,5 +85,20 @@ public class UserDtoService {
 	
 	public String capitalizeFirstLetter(String word) {
 		return word.substring(0,1).toUpperCase() + word.substring(1);
+	}
+
+	public List<UserDto> getUserDtoListByRole(String role) {
+		List<User> users = userService.findByRole(role.toUpperCase());
+		return users.stream()
+			.map(user -> {
+				UserDto userDto = new UserDto();
+				userDto.setId(user.getId());
+				userDto.setFirstname(user.getFirstname());
+				userDto.setLastname(user.getLastname());
+				userDto.setMiddlename(user.getMiddlename());
+				userDto.setFullName(makeupFullname(user.getLastname(), user.getFirstname(), user.getMiddlename()));
+				return userDto;
+			})
+			.collect(Collectors.toList());
 	}
 }

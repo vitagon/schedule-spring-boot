@@ -1,17 +1,20 @@
 package com.vitgon.schedule.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.vitgon.schedule.serialize.StringToDaysEnumDeserializer;
-
-import javax.validation.constraints.*;
 import java.io.Serializable;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
+
+import com.vitgon.schedule.annotation.validation.GroupExists;
+import com.vitgon.schedule.annotation.validation.SubjectExists;
 
 
 public class EditScheduleDto implements Serializable {
 	private static final long serialVersionUID = 892216499352228418L;
-
-	public EditScheduleDto() {
-	}
 
 	public EditScheduleDto(int groupId, String week, Days day, int lessonNum, Integer subjectId, Integer lessonTypeId, int userId, String classroom) {
 		this.groupId = groupId;
@@ -24,37 +27,33 @@ public class EditScheduleDto implements Serializable {
 		this.classroom = classroom;
 	}
 
-	@Min(value = 1, message = "{NotNull.default}")
-	private int groupId;
+	@GroupExists(message = "{NotNull.default}")
+	private Integer groupId;
 	
 	@NotEmpty(message = "{NotEmpty.default}")
 	@Pattern(regexp = "^up|down$")
 	private String week;
 	
 	@NotNull(message = "{NotNull.default}")
-	@JsonDeserialize(using = StringToDaysEnumDeserializer.class)
 	private Days day;
 	
 	@Min(value = 1, message = "{NotNull.default}")
+	@Max(value = 7, message = "{NotNull.default}")
 	private int lessonNum;
 	
 	
 	
-	@Min(value = 1, message = "{NotNull.default}")
+	@SubjectExists(message = "{NotNull.default}")
 	private Integer subjectId;
 	
-	@PositiveOrZero
+	@Min(value = 1, message = "{NotNull.default}")
 	private Integer lessonTypeId;
 	
 	@PositiveOrZero
-	private int userId;
+	private Integer userId;
 	
 	@Pattern(regexp = "^([A-Z]{1}[0-9]{3,4})?$")
 	private String classroom;
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
 
 	public int getGroupId() {
 		return groupId;

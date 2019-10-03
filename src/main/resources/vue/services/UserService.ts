@@ -11,8 +11,8 @@ class UserService {
 
   getUsersByRole(role) {
     return new Promise((res, rej) => {
-      axios.get(`/api/translations/users/role/${role}`)
-        .then(response => res(response))
+      axios.get(`/api/users/role/${role}`)
+        .then(response => res(response.data))
         .catch(error => rej(error.response));
     });
   }

@@ -143,4 +143,9 @@ public class UserServiceImpl implements UserService {
 	public Page<User> findByRole(String role, Pageable pageable) {
 		return userDao.findByRole(role, pageable);
 	}
+
+	@Override
+	public List<User> findByRole(String role) {
+		return userDao.findByRole(role);
+	}
 }

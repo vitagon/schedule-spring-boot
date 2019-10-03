@@ -49,7 +49,7 @@ public class ScheduleDtoService {
 		List<ScheduleProjection> schedules = scheduleService.findByGroupId(groupId);
 		
 		ScheduleDto scheduleDto = new ScheduleDto();
-		scheduleDto.setGroupId(schedules.get(0).getGroup_id());
+		scheduleDto.setGroupId(groupId);
 		
 		for (ScheduleProjection schedule : schedules) {
 			String weekType = schedule.getWeek_type();
