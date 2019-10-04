@@ -1,28 +1,23 @@
 package com.vitgon.schedule.dto;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.vitgon.schedule.view.Views;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
+import com.vitgon.schedule.annotation.validation.Latin;
+import com.vitgon.schedule.annotation.validation.UniqueSubject;
+import com.vitgon.schedule.group.OnCreate;
+import com.vitgon.schedule.group.OnUpdate;
 
 public class SubjectDto {
-	
-	public SubjectDto(Integer id, String name, String translation) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.translation = translation;
-	}
 
-	public SubjectDto() {
-	}
-
-	@JsonView(Views.Public.class)
 	private Integer id;
 	
-	@JsonView(Views.Public.class)
+	@UniqueSubject(message = "{Duplicate.subject}", groups = {OnCreate.class, OnUpdate.class})
+	@NotEmpty(message = "{NotEmpty.default}")
+	@Size(min = 5, max = 40, message = "{Size.default}")
+	@Latin(message = "{Latin.default}")
 	private String name;
 	
-	@JsonView(Views.AdminPanel.class)
 	private String translation;
 
 	public Integer getId() {

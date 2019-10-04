@@ -111,26 +111,29 @@ export default class AddMajor extends Vue {
     })
   }
 
-  addMajor() {
+  async addMajor() {
     let majorDto = new MajorDto({
       schoolId: this.form.schoolId.value,
       name: this.form.name.value,
       duration: this.form.duration.value,
       degree: this.form.degree.value
     })
-    MajorService.add(majorDto)
-      .then((response: any) => {
-        this.$store.commit('addMajor', response)
-        clearForm(this.form)
-        this.$bvToast.toast(`Major was added successfully!`, {
-          title: 'Notification',
-          autoHideDelay: 5000,
-          appendToast: false
-        });
-      })
-      .catch(error => {
-        showValidationErrors(this.form, error.details);
-      })
+
+    let major;
+    try {
+      major = await MajorService.add(majorDto);
+    } catch (error) {
+      showValidationErrors(this.form, error.details);
+      return;
+    }
+    
+    this.$store.commit('addMajor', major);
+    clearForm(this.form);
+    this.$bvToast.toast(`Major was added successfully!`, {
+      title: 'Notification',
+      autoHideDelay: 5000,
+      appendToast: false
+    });
   }
 }
 </script>

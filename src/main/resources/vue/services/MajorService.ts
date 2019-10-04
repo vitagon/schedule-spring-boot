@@ -12,9 +12,9 @@ class MajorService {
 
   getAll() {
     return new Promise((res, rej) => {
-      axios.get(`/api/control/majors`)
+      axios.get(`/api/majors`)
         .then(response => res(response.data))
-        .catch(error => rej(error.response));
+        .catch(error => rej(error.response.data));
     });
   }
 
@@ -30,15 +30,15 @@ class MajorService {
     return new Promise((res, rej) => {
       axios.get(`/api/majors/school-id/${schoolId}`)
         .then(response => res(response.data))
-        .catch(error => rej(error.response));
+        .catch(error => rej(error.response.data));
     });
   }
 
   getAllByLocaleId(localeId) {
     return new Promise((res, rej) => {
-      axios.get(`/api/control/majors/locale-id/${localeId}`)
+      axios.get(`/api/majors/locale-id/${localeId}`)
         .then(response => res(response.data))
-        .catch(error => rej(error.response));
+        .catch(error => rej(error.response.data));
     });
   }
 
@@ -46,13 +46,13 @@ class MajorService {
     return new Promise((res, rej) => {
       axios.get(`/api/major/${majorId}/max-course-number`)
         .then(response => res(response.data))
-        .catch(error => rej(error.response));
+        .catch(error => rej(error.response.data));
     });
   }
 
   add(majorDto: MajorDto) {
     return new Promise((res, rej) => {
-      axios.post(`/api/control/majors`, majorDto)
+      axios.post(`/api/majors`, majorDto)
         .then(response => res(response.data))
         .catch(error => rej(error.response.data));
     });
@@ -60,21 +60,17 @@ class MajorService {
   
   edit(majorDto: MajorDto) {
     return new Promise((res, rej) => {
-      axios.put(`/api/control/majors`, majorDto)
+      axios.put(`/api/majors/${majorDto.id}`, majorDto)
         .then(response => res(response.data))
-        .catch(error => rej(error.response));
+        .catch(error => rej(error.response.data));
     });
   }
 
   remove(majorId) {
     return new Promise((res, rej) => {
-      axios.delete(`/api/control/majors`, {
-          params: {
-            id: majorId
-          }
-        })
+      axios.delete(`/api/majors/${majorId}`)
         .then(response => res(response))
-        .catch(error => rej(error.response));
+        .catch(error => rej(error.response.data));
     });
   }
 }

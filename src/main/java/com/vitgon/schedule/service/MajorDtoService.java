@@ -1,8 +1,12 @@
 package com.vitgon.schedule.service;
 
-import com.vitgon.schedule.dto.AddMajorDto;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.vitgon.schedule.dto.DegreeEnum;
-import com.vitgon.schedule.dto.EditMajorDto;
 import com.vitgon.schedule.dto.MajorDto;
 import com.vitgon.schedule.model.database.Locale;
 import com.vitgon.schedule.model.database.Major;
@@ -11,11 +15,6 @@ import com.vitgon.schedule.projection.MajorProjection;
 import com.vitgon.schedule.service.database.MajorService;
 import com.vitgon.schedule.service.database.SchoolService;
 import com.vitgon.schedule.util.StringUtil;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MajorDtoService {
@@ -30,25 +29,25 @@ public class MajorDtoService {
 		this.localeConverterService = localeConverterService;
 	}
 
-	public Major convertToEntity(AddMajorDto addMajorDto) {
-		Optional<School> school = schoolService.findById(addMajorDto.getSchoolId());
+	public Major convertToEntity(MajorDto majorDto) {
+		Optional<School> school = schoolService.findById(majorDto.getSchoolId());
 		
 		Major major = new Major();
 		major.setSchool(school.get());
-		major.setName(addMajorDto.getName().toLowerCase());
-		major.setUrl(StringUtil.applyUnderlyingStyle(addMajorDto.getName()));
-		major.setDuration(addMajorDto.getDuration());
-		major.setDegree(DegreeEnum.valueOf(addMajorDto.getDegree()));
+		major.setName(majorDto.getName().toLowerCase());
+		major.setUrl(StringUtil.applyUnderlyingStyle(majorDto.getName()));
+		major.setDuration(majorDto.getDuration());
+		major.setDegree(DegreeEnum.valueOf(majorDto.getDegree()));
 		return major;
 	}
 	
-	public Major convertToEntity(EditMajorDto editMajorDto, Major major) {
-		major.setName(editMajorDto.getName().toLowerCase());
-		major.setUrl(StringUtil.applyUnderlyingStyle(editMajorDto.getName()));
-		major.setDuration(editMajorDto.getDuration());
-		major.setDegree(DegreeEnum.valueOf(editMajorDto.getDegree()));
+	public Major convertToEntity(MajorDto majorDto, Major major) {
+		major.setName(majorDto.getName().toLowerCase());
+		major.setUrl(StringUtil.applyUnderlyingStyle(majorDto.getName()));
+		major.setDuration(majorDto.getDuration());
+		major.setDegree(DegreeEnum.valueOf(majorDto.getDegree()));
 
-		School school = schoolService.findById(editMajorDto.getSchoolId()).get();
+		School school = schoolService.findById(majorDto.getSchoolId()).get();
 		major.setSchool(school);
 		return major;
 	}
@@ -62,7 +61,7 @@ public class MajorDtoService {
 	}
 	
 	
-	public List<MajorDto> getAllByLocaleIdForAdminPanel(Integer localeId) {
+	public List<MajorDto> getAllByLocaleId(Integer localeId) {
 		List<MajorProjection> majors = majorService.getAllLeftJoiningOnLocaleId(localeId);
 		List<MajorDto> majorDtoListAdminPanel = new ArrayList<>();
 		for (MajorProjection major : majors) {
@@ -71,7 +70,7 @@ public class MajorDtoService {
 			majorDto.setName(major.getName());
 			majorDto.setTranslation(major.getTranslation());
 			majorDto.setDuration(major.getDuration());
-			majorDto.setDegree(major.getDegree());
+			majorDto.setDegree(major.getDegree().name());
 			majorDto.setSchoolId(major.getSchoolId());
 			majorDto.setSchoolName(major.getSchoolName());
 			majorDtoListAdminPanel.add(majorDto);
@@ -79,7 +78,7 @@ public class MajorDtoService {
 		return majorDtoListAdminPanel;
 	}
 	
-	public List<MajorDto> getAllByLocaleIdForAdminPanel() {
+	public List<MajorDto> getAllByDefaultLocale() {
 		Locale locale = localeConverterService.getClientLocale();
 		List<MajorProjection> majors = majorService.getAllLeftJoiningOnLocaleId(locale.getId());
 		List<MajorDto> majorDtoListAdminPanel = new ArrayList<>();
@@ -89,7 +88,7 @@ public class MajorDtoService {
 			majorDto.setName(major.getName());
 			majorDto.setTranslation(major.getTranslation());
 			majorDto.setDuration(major.getDuration());
-			majorDto.setDegree(major.getDegree());
+			majorDto.setDegree(major.getDegree().name());
 			majorDto.setSchoolId(major.getSchoolId());
 			majorDto.setSchoolName(major.getSchoolName());
 			majorDtoListAdminPanel.add(majorDto);
@@ -97,7 +96,7 @@ public class MajorDtoService {
 		return majorDtoListAdminPanel;
 	}
 
-	public MajorDto getMajorById(Integer majorId) {
+	public MajorDto getById(Integer majorId) {
 		Locale locale = localeConverterService.getClientLocale();
 		Optional<MajorProjection> majorProjectionOpt = majorService.getByLocaleIdAndMajorId(locale.getId(), majorId);
 		if (majorProjectionOpt.isPresent()) {
@@ -107,7 +106,7 @@ public class MajorDtoService {
 			majorDto.setName(majorProj.getName());
 			majorDto.setTranslation(majorProj.getTranslation());
 			majorDto.setDuration(majorProj.getDuration());
-			majorDto.setDegree(majorProj.getDegree());
+			majorDto.setDegree(majorProj.getDegree().name());
 			majorDto.setSchoolId(majorProj.getSchoolId());
 			majorDto.setSchoolName(majorProj.getSchoolName());
 			return majorDto;

@@ -17,7 +17,7 @@ public interface SubjectDao extends JpaRepository<Subject, Integer> {
 			+	"s.id, s.name, st.translation " +
 			"FROM "
 			+	"subjects s " +
-			"JOIN "
+			"LEFT JOIN "
 			+ 	"(select * from subject_translations where locale_id = ?1) st ON s.id = st.subject_id",
 			nativeQuery = true)
 	public List<SubjectProjection> findAllByLocaleId(Integer localeId);

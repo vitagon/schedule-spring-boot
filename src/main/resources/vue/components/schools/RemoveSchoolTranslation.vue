@@ -2,7 +2,7 @@
   <div>
     <b-modal
       v-model="isOpened"
-      @ok="removeSchool"
+      @ok="removeSchoolTranslation"
     >
       Do you really want to remove translation "{{schoolTranslation}}" of "{{schoolName}}"?
     </b-modal>
@@ -36,7 +36,7 @@ export default class RemoveSchoolTranslation extends Vue {
     })
   }
 
-  removeSchool() {
+  removeSchoolTranslation() {
     let schoolTranslation = {
       schoolId: this.schoolId,
       localeId: this.localeId,

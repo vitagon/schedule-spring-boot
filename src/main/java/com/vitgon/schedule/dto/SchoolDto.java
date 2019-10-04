@@ -1,39 +1,29 @@
 package com.vitgon.schedule.dto;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.vitgon.schedule.view.Views;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import com.vitgon.schedule.annotation.validation.Latin;
+import com.vitgon.schedule.annotation.validation.UniqueSchool;
+import com.vitgon.schedule.group.OnCreate;
+import com.vitgon.schedule.group.OnUpdate;
+
 
 public class SchoolDto {
-	
-	public SchoolDto() {
-	}
 
-	public SchoolDto(int id, String name, String url, String translation, List<MajorDto> majors) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.url = url;
-		this.translation = translation;
-		this.majors = majors;
-	}
-
-	@JsonView(Views.Public.class)
-	private int id;
+	private Integer id;
 	
-	@JsonView(Views.Public.class)
+	@UniqueSchool(message = "{Duplicate.school}", groups = {OnCreate.class, OnUpdate.class})
+	@NotEmpty(message = "{NotEmpty.default}")
+	@Size(min = 5, max = 40, message = "{Size.default}")
+	@Latin(message = "{Latin.default}")
 	private String name;
 	
-	@JsonView(Views.Public.class)
 	private String url;
-	
-	@JsonView(Views.AdminPanel.class)
 	private String translation;
-	
-	@JsonView(Views.Public.class)
 	private List<MajorDto> majors = new ArrayList<>();
 
 	public int getId() {

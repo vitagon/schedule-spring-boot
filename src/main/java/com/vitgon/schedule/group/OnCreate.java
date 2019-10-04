@@ -1,5 +1,7 @@
 package com.vitgon.schedule.group;
 
-public interface OnCreate {
+import javax.validation.groups.Default;
+
+public interface OnCreate extends Default {
 
 }

@@ -1,12 +1,38 @@
 package com.vitgon.schedule.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.vitgon.schedule.annotation.validation.EnumMatch;
+import com.vitgon.schedule.annotation.validation.Latin;
+import com.vitgon.schedule.annotation.validation.SchoolExists;
+import com.vitgon.schedule.annotation.validation.UniqueMajor;
+import com.vitgon.schedule.group.OnCreate;
+import com.vitgon.schedule.group.OnUpdate;
+
 public class MajorDto {
 	private Integer id;
+	
+	@UniqueMajor(message = "{Duplicate.major}", groups = {OnCreate.class, OnUpdate.class})
+	@NotEmpty(message = "{NotEmpty.default}")
+	@Size(min = 5, max = 40, message = "{Size.default}")
+	@Latin(message = "{Latin.default}")
 	private String name;
 	private String url;
-	private DegreeEnum degree;
+	
+	@EnumMatch(enumClazz = DegreeEnum.class, message = "{Degree.noMatch}")
+	private String degree;
+	
+	@NotNull(message = "{NotEmpty.default}")
+	@Min(value = 1, message = "{NotEmpty.default}")
+	@Max(value = 6, message = "{Max.default}")
 	private Integer duration;
 	private String translation;
+	
+	@SchoolExists
 	private Integer schoolId;
 	private String schoolName;
 	
@@ -31,10 +57,10 @@ public class MajorDto {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public DegreeEnum getDegree() {
+	public String getDegree() {
 		return degree;
 	}
-	public void setDegree(DegreeEnum degree) {
+	public void setDegree(String degree) {
 		this.degree = degree;
 	}
 	public Integer getDuration() {

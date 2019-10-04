@@ -13,6 +13,7 @@
         <b-form-select
           v-model="form.duration.value"
           :options="Array.from(Array(7).keys()).map(num => { let course = num++;return {value: course, text: course}})"
+          :state="form.duration.isValid"
           size="sm"
           id="duration"
           >
@@ -28,6 +29,7 @@
         <b-form-select
           v-model="form.degree.value"
           :options="degrees"
+          :state="form.degree.isValid"
           size="sm"
           id="degree">
             <template slot="first">
@@ -135,7 +137,7 @@ export default class EditMajor extends Vue {
       clearForm(this.form);
     }
     
-    editMajor() {
+    async editMajor() {
       let majorDto = new MajorDto({
         id: this.curMajor.id,
         name: this.form.name.value,
@@ -144,21 +146,21 @@ export default class EditMajor extends Vue {
         schoolId: this.form.school.value
       });
 
-      MajorService.edit(majorDto)
-        .then(major => {
-          this.$bvToast.toast(`Major was edited successfully!`, {
-            title: 'Notification',
-            autoHideDelay: 5000,
-            appendToast: false
-          });
-          this.clearForm();
+      try {
+        await MajorService.edit(majorDto);
+      } catch (error) {
+        showValidationErrors(this.form, error.details);
+        return;
+      }
+      
+      this.$bvToast.toast(`Major was edited successfully!`, {
+        title: 'Notification',
+        autoHideDelay: 5000,
+        appendToast: false
+      });
+      this.clearForm();
 
-          this.$store.commit('updateMajor', majorDto);
-        })
-        .catch(error => {
-          let data = error.response.data;
-          showValidationErrors(this.form, data.details);
-        })
+      this.$store.commit('updateMajor', majorDto);
     }
 }
 </script>

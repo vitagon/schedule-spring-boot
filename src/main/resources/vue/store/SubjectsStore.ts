@@ -22,11 +22,10 @@ const mutations = {
       ...state.subjects.slice(removedIndex + 1)
     ]
   },
-  /* 
   updateSubjectName(state: any, updateSubjectDto: any) {
-    let updatedIndex = state.subjects.findIndex((x: any) => x.id == updateSubjectDto.subjectId);
+    let updatedIndex = state.subjects.findIndex((x: any) => x.id == updateSubjectDto.id);
     let subject = state.subjects[updatedIndex];
-    subject.name = updateSubjectDto.newSubjectName;
+    subject.name = updateSubjectDto.name;
 
     state.subjects = [
       ...state.subjects.slice(0, updatedIndex),
@@ -34,7 +33,6 @@ const mutations = {
       ...state.subjects.slice(updatedIndex + 1)
     ]
   },
-  */
   updateSubjectTranslation(state: any, subjectTranslation: any) {
     let updatedIndex = state.subjects.findIndex((x: any) => x.id == subjectTranslation.subjectId);
     let subject = state.subjects[updatedIndex];
@@ -50,9 +48,25 @@ const mutations = {
 
 const actions = {
     async getSubjects({ commit }) {
-      let data = await SubjectService.getAllSubjects();
+      let data;
+      try {
+        data = await SubjectService.getAll();
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+      
       commit('setSubjects', data);
       return data;
+    },
+    async removeSubject({commit}, id) {
+      try {
+        await SubjectService.delete(id);
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+      commit('removeSubject', id);
     }
 }
 

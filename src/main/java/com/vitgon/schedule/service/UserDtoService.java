@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vitgon.schedule.dto.UserDto;
-import com.vitgon.schedule.dto.UserDtoAdminPanel;
 import com.vitgon.schedule.model.database.auth.User;
 import com.vitgon.schedule.service.database.UserService;
 
@@ -16,11 +15,9 @@ import com.vitgon.schedule.service.database.UserService;
 public class UserDtoService {
 	
 	private UserService userService;
-	private LocaleConverterService localeConverterService;
 
-	public UserDtoService(UserService userService, LocaleConverterService localeConverterService) {
+	public UserDtoService(UserService userService) {
 		this.userService = userService;
-		this.localeConverterService = localeConverterService;
 	}
 	
 	public List<UserDto> getUserDtoListByRole(String role, Pageable pageable) {
@@ -36,32 +33,6 @@ public class UserDtoService {
 				return userDto;
 			})
 			.collect(Collectors.toList());
-	}
-	
-	public List<UserDtoAdminPanel> getUserDtoListByRoleAndLocaleIdForAdminPanel(Integer localeId, String role, Pageable pageable) {
-		Page<User> users = userService.findByRole(role, pageable);
-		return users.stream()
-			.map(user -> {
-				UserDtoAdminPanel userDto = new UserDtoAdminPanel();
-				userDto.setId(user.getId());
-				
-				userDto.setFirstname(user.getFirstname());
-				userDto.setLastname(user.getLastname());
-				userDto.setMiddlename(user.getMiddlename());
-				userDto.setFullName(makeupFullname(user.getLastname(), user.getFirstname(), user.getMiddlename()));
-				
-				userDto.setFirstnameTranslation(user.getFirstname());
-				userDto.setLastnameTranslation(user.getLastname());
-				userDto.setMiddlenameTranslation(user.getMiddlename());
-				userDto.setFullNameTranslation(makeupFullname(user.getLastname(), user.getFirstname(), user.getMiddlename()));
-				return userDto;
-			})
-			.collect(Collectors.toList());
-	}
-	
-	public List<UserDtoAdminPanel> getUserDtoListByRoleForAdminPanel(String role, Pageable pageable) {
-		Integer localeId = localeConverterService.getClientLocale().getId();
-		return getUserDtoListByRoleAndLocaleIdForAdminPanel(localeId, role, pageable);
 	}
 	
 	public String makeupFullname(String lastname, String firstname, String middlename) {

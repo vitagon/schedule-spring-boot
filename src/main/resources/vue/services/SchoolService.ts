@@ -11,27 +11,32 @@ class SchoolService {
 
   getAllSchools() {
     return new Promise((res, rej) => {
-      axios.get('/api/control/schools')
+      axios.get('/api/schools')
         .then(response => res(response.data));
     });
   }
   
   getAllSchoolsByLocale(localeId: number) {
     return new Promise((res, rej) => {
-      axios.get('/api/control/schools', {
-          params: {
-            localeId: localeId
-          }
+      axios.get(`/api/schools/locale-id/${localeId}`, {
         }).then(response => res(response.data));
     });
   }
 
   addSchool(name: string) {
     return new Promise((res, rej) => {
-      axios({
-        method: 'POST',
-        url: '/api/control/school',
-        data: { name: name}
+      axios.post(`/api/schools`, {
+        name: name
+      })
+      .then(response => res(response.data))
+      .catch(error => rej(error.response.data));
+    });
+  }
+
+  editSchool(id: Number, name: string) {
+    return new Promise((res, rej) => {
+      axios.put(`/api/schools/${id}`, {
+        name: name
       })
       .then(response => res(response.data))
       .catch(error => rej(error.response.data));
@@ -40,11 +45,9 @@ class SchoolService {
 
   removeSchool(id: number) {
     return new Promise((res, rej) => {
-      axios.delete('/api/control/school', {
-        params: {
-          id: id
-        }
-      }).then(response => res());
+      axios.delete(`/api/schools/${id}`)
+      .then(response => res())
+      .catch(error => rej(error.response.data));
     });
   }
 }

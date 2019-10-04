@@ -23,9 +23,9 @@ const mutations = {
     ]
   },
   updateSchoolName(state: any, updateSchoolDto: any) {
-    let updatedIndex = state.schools.findIndex((x: any) => x.id == updateSchoolDto.schoolId);
+    let updatedIndex = state.schools.findIndex((x: any) => x.id == updateSchoolDto.id);
     let school = state.schools[updatedIndex];
-    school.name = updateSchoolDto.newSchoolName;
+    school.name = updateSchoolDto.name;
 
     state.schools = [
       ...state.schools.slice(0, updatedIndex),

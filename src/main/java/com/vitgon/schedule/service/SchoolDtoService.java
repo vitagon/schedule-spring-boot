@@ -23,12 +23,12 @@ public class SchoolDtoService {
 		this.localeConverterService = localeConverterService;
 	}
 
-	public List<SchoolDto> getSchoolDtoListByLocaleIdForAdminPanel() {
+	public List<SchoolDto> getSchoolDtoListByDefaultLocale() {
 		Locale locale = localeConverterService.getClientLocale();
-		return getSchoolDtoListByLocaleIdForAdminPanel(locale.getId());
+		return getSchoolDtoListByLocaleId(locale.getId());
 	}
 	
-	public List<SchoolDto> getSchoolDtoListByLocaleIdForAdminPanel(Integer localeId) {
+	public List<SchoolDto> getSchoolDtoListByLocaleId(Integer localeId) {
 		
 		List<SchoolProjection> schools = schoolService.getAllJoiningWithMajors(localeId);
 		List<SchoolDto> schoolDtoList;

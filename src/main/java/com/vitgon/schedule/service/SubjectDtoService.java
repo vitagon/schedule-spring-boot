@@ -16,20 +16,8 @@ public class SubjectDtoService {
 	public SubjectDtoService(SubjectService subjectService) {
 		this.subjectService = subjectService;
 	}
-
-	public List<SubjectDto> getSubjectDtoList() {
-		List<SubjectProjection> subjects = subjectService.findAllByBrowserDefaultLocale();
-		List<SubjectDto> subjectDtoList = new ArrayList<>();
-		for (SubjectProjection subject : subjects) {
-			SubjectDto subjectDto = new SubjectDto();
-			subjectDto.setId(subject.getId());
-			subjectDto.setName(subject.getTranslation());
-			subjectDtoList.add(subjectDto);
-		}
-		return subjectDtoList;
-	}
 	
-	public List<SubjectDto> getSubjectDtoListForAdminPanel() {
+	public List<SubjectDto> getSubjectDtoList() {
 		List<SubjectProjection> subjects = subjectService.findAllByBrowserDefaultLocale();
 		List<SubjectDto> subjectDtoList = new ArrayList<>();
 		for (SubjectProjection subject : subjects) {
@@ -43,18 +31,6 @@ public class SubjectDtoService {
 	}
 	
 	public List<SubjectDto> getSubjectDtoListByLocaleId(Integer localeId) {
-		List<SubjectProjection> subjects = subjectService.findAllByLocaleId(localeId);
-		List<SubjectDto> subjectDtoList = new ArrayList<>();
-		for (SubjectProjection subject : subjects) {
-			SubjectDto subjectDto = new SubjectDto();
-			subjectDto.setId(subject.getId());
-			subjectDto.setName(subject.getTranslation());
-			subjectDtoList.add(subjectDto);
-		}
-		return subjectDtoList;
-	}
-	
-	public List<SubjectDto> getSubjectDtoListByLocaleIdForAdminPanel(Integer localeId) {
 		List<SubjectProjection> subjects = subjectService.findAllByLocaleId(localeId);
 		List<SubjectDto> subjectDtoList = new ArrayList<>();
 		for (SubjectProjection subject : subjects) {

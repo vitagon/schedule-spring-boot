@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @Validated
-@RequestMapping("/api/translations")
+@RequestMapping("/api/translations/subjects")
 public class SubjectTranslationRestController {
 
 	private SubjectTranslationService subjectTranslationService;
@@ -25,7 +25,7 @@ public class SubjectTranslationRestController {
 		this.subjectTranslationService = subjectTranslationService;
 	}
 
-	@GetMapping("/subjects/{subjectId}/locales/{localeId}")
+	@GetMapping("/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> getSubjectTranslation(@PathVariable("subjectId") @SubjectExists Integer subjectId,
 												   @PathVariable("localeId") @LocaleExists Integer localeId) throws FieldValidationException {
 		
@@ -41,7 +41,7 @@ public class SubjectTranslationRestController {
 		return ResponseEntity.ok(subjectTranslationDto);
 	}
 
-	@PostMapping("/subjects/{subjectId}/locales/{localeId}")
+	@PostMapping("/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> addSubjectTranslation(@RequestBody @Validated SubjectTranslationDto subjectTranslationDto) throws FieldValidationException {
 		Optional<SubjectTranslation> subjectTranslation = subjectTranslationService
 				.findByLocaleIdAndSubjectId(subjectTranslationDto.getLocaleId(), subjectTranslationDto.getSubjectId());
@@ -55,7 +55,7 @@ public class SubjectTranslationRestController {
 		return ResponseEntity.ok(new ApiSuccess(new Date(), "You successfully added translation!"));
 	}
 
-	@PutMapping("/subjects/{subjectId}/locales/{localeId}")
+	@PutMapping("/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> editSubjectTranslation(@RequestBody @Validated SubjectTranslationDto subjectTranslationDto) throws FieldValidationException {
 
 		Optional<SubjectTranslation> subjectTranslationOpt = subjectTranslationService
@@ -74,7 +74,7 @@ public class SubjectTranslationRestController {
 		throw new FieldValidationException("localeId", "translation.notFound");
 	}
 
-	@DeleteMapping("/subjects/{subjectId}/locales/{localeId}")
+	@DeleteMapping("/{subjectId}/locales/{localeId}")
 	public ResponseEntity<?> removeSubjectTranslation(@PathVariable("subjectId") @SubjectExists Integer subjectId,
 													  @PathVariable("localeId") @LocaleExists Integer localeId) throws FieldValidationException {
 		Optional<SubjectTranslation> subjectTranslationOpt = subjectTranslationService

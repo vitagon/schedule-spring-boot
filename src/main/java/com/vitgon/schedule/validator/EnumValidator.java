@@ -1,12 +1,16 @@
 package com.vitgon.schedule.validator;
 
-import com.vitgon.schedule.annotation.validation.EnumMatch;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import org.springframework.stereotype.Component;
+
+import com.vitgon.schedule.annotation.validation.EnumMatch;
+
+@Component
 public class EnumValidator implements ConstraintValidator<EnumMatch, String> {
 	
 	private List<String> enumElementsList = new ArrayList<>();

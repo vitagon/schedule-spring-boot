@@ -1,5 +1,7 @@
 package com.vitgon.schedule.group;
 
-public interface OnCheck {
+import javax.validation.groups.Default;
+
+public interface OnCheck extends Default {
 
 }

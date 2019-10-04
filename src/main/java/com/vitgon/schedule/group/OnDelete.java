@@ -1,5 +1,7 @@
 package com.vitgon.schedule.group;
 
-public interface OnDelete {
+import javax.validation.groups.Default;
+
+public interface OnDelete extends Default {
 
 }

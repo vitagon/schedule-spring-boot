@@ -4,9 +4,9 @@
     <hr />
     <b-form  @submit.stop.prevent>
         <label for="name">Name</label>
-        <b-input v-model="form.newSchoolName.value" :state="form.newSchoolName.isValid" id="name"></b-input>
-        <b-form-invalid-feedback :state="form.newSchoolName.isValid">
-          <div v-for="validationMsg in form.newSchoolName.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
+        <b-input v-model="form.name.value" :state="form.name.isValid" id="name"></b-input>
+        <b-form-invalid-feedback :state="form.name.isValid">
+          <div v-for="validationMsg in form.name.validationMsgs" :key="validationMsg">{{validationMsg}}</div>
         </b-form-invalid-feedback>
 
         <b-button class="mt-3" variant="outline-warning" @click="editSchool">Edit</b-button>
@@ -22,6 +22,7 @@ import EventBus from '@/EventBus'
 import FormField from '@/form/FormField'
 import Component from 'vue-class-component'
 import School from '@/models/School'
+import SchoolService from '@/services/SchoolService'
 import {showValidationErrors, clearForm} from '@/util/FormUtil'
 
 @Component
@@ -33,7 +34,7 @@ export default class EditSchool extends Vue {
     constructor() {
       super();
       this.form = {
-        newSchoolName: new FormField()
+        name: new FormField()
       };
       this.curSchool = new School();
     }
@@ -45,7 +46,7 @@ export default class EditSchool extends Vue {
         _this.curSchool = item;
         
         _this.clearForm();
-        _this.form.newSchoolName.value = item.name;
+        _this.form.name.value = item.name;
       });
 
       EventBus.$on('hide-edit-school-form', function () {
@@ -57,33 +58,21 @@ export default class EditSchool extends Vue {
       clearForm(this.form);
     }
     
-    editSchool() {
-      let objToSend = {
-        schoolId: this.curSchool.id,
-        newSchoolName: this.form.newSchoolName.value
+    async editSchool() {
+      try {
+        await SchoolService.editSchool(this.curSchool.id, this.form.name.value);
+      } catch (error) {
+        showValidationErrors(this.form, error.details);
+        return;
       }
-      axios({
-        method: 'PUT',
-        url: '/api/control/school',
-        data: objToSend,
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-      })
-      .then(response => {
-        this.$bvToast.toast(`School was edited successfully!`, {
-          title: 'Notification',
-          autoHideDelay: 5000,
-          appendToast: false
-        });
-        this.clearForm();
-
-        this.$store.commit('updateSchoolName', objToSend);
-      })
-      .catch(error => {
-        let data = error.response.data;
-        showValidationErrors(this.form, data.details);
-      })
+      
+      this.$bvToast.toast(`School was edited successfully!`, {
+        title: 'Notification',
+        autoHideDelay: 5000,
+        appendToast: false
+      });
+      this.$store.commit('updateSchoolName', {id: this.curSchool.id, name: this.form.name.value});
+      this.clearForm();      
     }
 }
 </script>

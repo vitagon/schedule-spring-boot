@@ -34,6 +34,7 @@ export default class Navbar extends Vue {
       {title: 'Schools', icon: 'fa-university', link: '/control/schools'},
       {title: 'Majors', icon: 'fa-graduation-cap', link: '/control/majors'},
       {title: 'Groups', icon: 'fa-user-graduate', link: '/control/groups'},
+      {title: 'Subjects', icon: 'fas fa-book', link: '/control/subjects'},
       {title: 'Schedule', icon: 'fa-calendar-alt', link: '/control/schedule'},
     ];
   }

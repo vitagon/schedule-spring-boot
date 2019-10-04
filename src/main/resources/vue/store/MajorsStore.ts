@@ -30,7 +30,7 @@ const mutations = {
     let updatedIndex = state.majors.findIndex((x: any) => x.id == updateMajorDto.id);
     let major = state.majors[updatedIndex];
     major.name = updateMajorDto.name;
-    major.schoolId = updateMajorDto.school;
+    major.schoolId = updateMajorDto.schoolId;
     major.degree = updateMajorDto.degree;
     major.duration = updateMajorDto.duration;
 
