@@ -37,4 +37,4 @@ password: 123123\
 </p>
 </details>
 
-<img src="https://i.imgur.com/Lx6pXa4.jpg">
+<img src="https://i.imgur.com/XuX4l7R.jpg">
