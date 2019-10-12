@@ -9,7 +9,7 @@ In this project I used:
 - spring security
 - thymeleaf
 - postgres database
-- lombok
+- vue (vuex)
 
 ## Description
 This project supports two languages, english and russian, and is primarily for students. In this project they can view their schedule in two ways: all week schedule in a single
@@ -31,4 +31,10 @@ password: 123123\
 &ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;&ast;
 
 ## DB schema
+<details><summary>Old db schema made with MySQL Workbench</summary>
+<p>
 <img src="https://i.imgur.com/0hqhRDV.png">
+</p>
+</details>
+
+<img src="https://i.imgur.com/Lx6pXa4.jpg">
