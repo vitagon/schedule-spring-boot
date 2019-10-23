@@ -44,7 +44,7 @@ class MajorService {
 
   getMaxCourseNumber(majorId) {
     return new Promise((res, rej) => {
-      axios.get(`/api/major/${majorId}/max-course-number`)
+      axios.get(`/api/majors/${majorId}/max-course-number`)
         .then(response => res(response.data))
         .catch(error => rej(error.response.data));
     });
